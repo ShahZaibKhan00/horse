@@ -1,7 +1,32 @@
 @extends('layouts.app') @section('content')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
     <style>
+        /* 🌟 Enhanced Notification Styling */
+        .tag-notification {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: #1d2139;
+            color: #1d2139;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.4s ease;
+            z-index: 99999;
+            background: #bf9855;
+            background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
+            max-width: 400px;
+        }
+
+        .tag-notification.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .top_head {
             text-align: center;
         }
@@ -187,6 +212,7 @@
         .checkbox-label {
             font-size: 12px;
             color: #333;
+            white-space: nowrap;
         }
 
         .checkbox-item {
@@ -378,7 +404,7 @@
             align-items: center;
             gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .shortcuts_tags_item {
@@ -555,63 +581,6 @@
             color: #c09957;
         }
 
-        /* .scroller {
-                        max-height: 1366px;
-                        overflow-y: auto;
-                        overflow-x: hidden;
-                    } */
-        @media only screen and (max-width: 1799px) {
-            .filter_sec {
-                padding: 10px 0px;
-            }
-
-            .gen_card_flex .horse_list_card {
-                width: 305px;
-            }
-
-            .filter_content_box {
-                width: calc(100% - 350px);
-            }
-
-            .shortcuts_tags_item {
-                height: 35px;
-                padding: 10px;
-                font-size: 11px;
-            }
-
-            .filter_side_bar {
-                padding: 10px;
-            }
-
-            .form-section {
-                padding: 12px 10px;
-            }
-
-            .checkbox-label {
-                font-size: 9px;
-            }
-
-            .countdown {
-                transform: scale(0.8);
-            }
-
-            .choose-btn {
-                font-size: 13px;
-                padding: 10px 7px;
-            }
-
-            .icon_heart {
-                font-size: 20px;
-                right: 14px;
-            }
-
-            .fs_tag {
-                font-size: 16px;
-            }
-        }
-    </style>
-
-    <style>
         .blue_stripe h2 {
             text-transform: uppercase;
         }
@@ -642,7 +611,7 @@
             width: 50%;
         }
 
-        .horse_list_card_new .custome_listing_col .info_list li {
+        horse_list_card_new .custome_listing_col .info_list li {
             margin-bottom: 5px;
             font-size: 16px;
             padding: 8px;
@@ -685,7 +654,7 @@
         }
 
         .horse_list_card_new .top_list {
-            padding: 5px 0px;
+            padding: 15px 0px;
         }
 
         .horse_list_card_new .top_list li {
@@ -707,8 +676,12 @@
         .horse_list_card_new .custome_listing_col .info_list li {
             font-size: 17.5px;
             margin: 5px 0px;
-            padding: 0px;
+            padding: 0px 3px;
             text-transform: uppercase;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
         .fs_tag {
@@ -739,7 +712,7 @@
             left: 0;
             width: 100%;
             height: 45px;
-            z-index: 999;
+            z-index: 9;
             text-align: center;
             font-size: 25px;
             font-weight: 500;
@@ -772,20 +745,54 @@
             text-transform: uppercase;
         }
 
-        .select2-selection__choice {
-            display: none !important;
-        }
-
         @media (max-width: 1799px) {
+            .filter_sec {
+                padding: 10px 0px;
+            }
+
+            .shortcuts_tags_item {
+                height: 35px;
+                padding: 10px;
+                font-size: 11px;
+            }
+
+            .form-section {
+                padding: 12px 10px;
+            }
+
+            .checkbox-label {
+                font-size: 9px;
+            }
+
+            .countdown {
+                transform: scale(0.8);
+            }
+
+            .choose-btn {
+                font-size: 13px;
+                padding: 10px 7px;
+            }
+
+            .icon_heart {
+                font-size: 20px;
+                right: 14px;
+            }
+
             .gen_card_flex {
                 max-width: 1270px;
                 padding-top: 10px;
-                gap: 16px;
+                gap: 10px;
                 justify-content: flex-start;
             }
 
-            .gen_card_flex .horse_list_card {
-                width: 285px;
+            .filter_side_bar {
+                width: 300px;
+                padding: 10px;
+            }
+
+            .filter_content_box {
+                width: calc(100% - 300px);
+                padding-left: 12px;
             }
 
             .fs_tag {
@@ -856,12 +863,21 @@
         }
 
         @media (max-width: 1400px) {
+            .breed_text {
+                font-size: 15px;
+            }
+
+            .fs_tag {
+                font-size: 12px;
+                padding: 1px 6px;
+            }
+
             .filter_side_bar {
-                width: 240px;
+                width: 270px;
             }
 
             .filter_content_box {
-                width: calc(100% - 240px);
+                width: calc(100% - 270px);
                 padding-left: 12px;
             }
 
@@ -880,7 +896,32 @@
             .checkbox-grid {
                 gap: 7px 10px;
             }
+
+            .horse_list_card.horse_list_card_new .img_box {
+                width: 100%;
+                height: 160px;
+            }
+
+            .horse_list_card_new .custome_listing_col .info_list li {
+                font-size: 11.5px;
+            }
+
+            .horse_list_card_new .blue_stripe h2 {
+                width: 185px;
+                margin: 0 auto;
+                margin-top: 3px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
         }
+
+        /* .scroller {
+       max-height: 1366px;
+       overflow-y: auto;
+       overflow-x: hidden;
+       }
+       */
     </style>
 
     <section class="inner_page_banner membershipBanner">
@@ -888,7 +929,9 @@
             <h1 class="heading_main">ALL HORSE LISTINGS</h1>
         </div>
     </section>
+    {{-- @dd($from) --}}
     <section class="filter_sec">
+        <div class="tag-notification" id="tagNotification"></div>
         <div class="container-fluid">
             <div class="filter_row">
                 <form method="GET" id="mainForm" action="{{ route('horse_listing_filter') }}">
@@ -899,7 +942,6 @@
                         </div>
                         <div class="search-form">
                             <!-- Location Section -->
-
                             <div class="form-section">
                                 <div class="section-title text-uppercase">Location</div>
                                 <div class="location-input">
@@ -908,13 +950,12 @@
                                     <span><i class="fa fa-location-arrow" aria-hidden="true"></i></span>
                                 </div>
                             </div>
-
                             <!-- Distance Range Section -->
                             <div class="form-section">
                                 <div class="section-title">Distance Range</div>
                                 <div class="distance-controls">
-                                    <input type="number" class="distance-input form-control" placeholder="MIN" />
-                                    <input type="number" class="distance-input form-control" placeholder="MAX" />
+                                    <input type="text" class="distance-input form-control thousand-separator" placeholder="MIN" />
+                                    <input type="text" class="distance-input form-control thousand-separator" placeholder="MAX" />
                                 </div>
                                 <div class="unit-label mt-3">
                                     <div class="checkbox-item justify-content-start gap-3">
@@ -923,14 +964,12 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-section">
-                                <p class="section-title">FIRST NAME, LAST NAME OR COMPANY NAME</p>
+                                <p class="section-title">HORSE NAME</p>
                                 <div class="location-input">
                                     <input type="text" class="form-control" id="nameInput" name="name" value="{{ request('name', '') }}" placeholder="TYPE NAME HERE" />
                                 </div>
                             </div>
-
                             {{-- @if (!request('type')) --}}
                             <!-- Listing Types Section -->
                             <div class="form-section">
@@ -939,9 +978,8 @@
                                     <div class="checkbox-header">INCLUDE</div>
                                     <div class="checkbox-header">EXCLUDE</div>
                                     <div class="checkbox-header">ONLY</div>
-
                                     <div class="checkbox-row">
-                                        <div class="checkbox-label">JUST LISTED ADS</div>
+                                        <div class="checkbox-label">Horses for Sale</div>
                                         <div class="checkbox-item">
                                             <input type="radio" name="listed_horses" @checked(request('listed_horses') == 'For Sale') value="For Sale" class="form-check-input" />
                                         </div>
@@ -952,9 +990,8 @@
                                             <input type="radio" name="listed_horses" @checked(request('listed_horses') == 'For Sale') value="" class="form-check-input" />
                                         </div>
                                     </div>
-
                                     <div class="checkbox-row">
-                                        <div class="checkbox-label">AUCTION ADS</div>
+                                        <div class="checkbox-label">Horses at Auction</div>
                                         <div class="checkbox-item">
                                             <input type="radio" name="auction_horses" @checked(request('auction_horses') == 'At Auction') value="At Auction" class="form-check-input" />
                                         </div>
@@ -965,9 +1002,8 @@
                                             <input type="radio" name="auction_horses" @checked(request('auction_horses') == 'At Auction') value="" class="form-check-input" />
                                         </div>
                                     </div>
-
                                     <div class="checkbox-row">
-                                        <div class="checkbox-label">SOLD HORSES</div>
+                                        <div class="checkbox-label">Sold Horses</div>
                                         <div class="checkbox-item">
                                             <input type="radio" name="sold_horses" @checked(request('sold_horses') == 'Sold') value="Sold" class="form-check-input" />
                                         </div>
@@ -978,9 +1014,8 @@
                                             <input type="radio" name="sold_horses" @checked(request('sold_horses') == 'Sold') value="" class="form-check-input" />
                                         </div>
                                     </div>
-
                                     <div class="checkbox-row">
-                                        <div class="checkbox-label">LEASE HORSES</div>
+                                        <div class="checkbox-label">Horses for Lease</div>
                                         <div class="checkbox-item">
                                             <input type="radio" name="lease_horses" @checked(request('lease_horses') == 'For Lease') value="For Lease" class="form-check-input" />
                                         </div>
@@ -991,10 +1026,21 @@
                                             <input type="radio" name="lease_horses" @checked(request('lease_horses') == 'For Lease') value="" class="form-check-input" />
                                         </div>
                                     </div>
+                                    <div class="checkbox-row">
+                                        <div class="checkbox-label">Horses At Stud</div>
+                                        <div class="checkbox-item">
+                                            <input type="radio" name="at_stud" @checked(request('at_stud') == 'At Stud') value="At Stud" class="form-check-input" />
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="radio" name="at_stud" @checked(request('at_stud') == 'not-for-stud') value="not-for-stud" class="form-check-input" />
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="radio" name="at_stud" @checked(request('at_stud') == 'For Stud') value="" class="form-check-input" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             {{-- @endif --}}
-
                             <!-- Breed Section -->
                             <div class="form-section">
                                 <div class="section-title">Breed</div>
@@ -1002,7 +1048,7 @@
                                     <!-- Selected breeds will appear here -->
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="select-field form-select breed_select" name="breed[]" id="breedSelect">
+                                    <select class="select-field form-select breed_select" name="breed" id="breedSelect">
                                         <option disabled selected>Select Breed</option>
                                         <option value="Akhal-Teke" {{ request('breed') == 'Akhal-Teke' ? 'selected' : '' }}>
                                             Akhal-Teke</option>
@@ -1054,7 +1100,7 @@
                                             Australian Brumby</option>
                                         <option value="Australian Draught Horse" {{ request('breed') == 'Australian Draught Horse' ? 'selected' : '' }}>Australian
                                             Draught Horse</option>
-                                        <option value="Australian Stock Horse"{{ request('breed') == 'Australian Stock Horse' ? 'selected' : '' }}>Australian Stock
+                                        <option value="Australian Stock Horse" {{ request('breed') == 'Australian Stock Horse' ? 'selected' : '' }}>Australian Stock
                                             Horse</option>
                                         <option value="Austrian Warmblood" {{ request('breed') == 'Austrian Warmblood' ? 'selected' : '' }}>Austrian Warmblood
                                         </option>
@@ -1208,7 +1254,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <!-- Color Section -->
                             <div class="form-section">
                                 <div class="section-title">Color</div>
@@ -1323,7 +1368,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <!-- Gender Section -->
                             <div class="form-section">
                                 <div class="section-title">Gender</div>
@@ -1353,208 +1397,205 @@
                                     </select>
                                 </div>
                             </div>
-
                             <!-- Skills/Disciplines Section -->
                             <div class="form-section">
                                 <div class="section-title">Skills/Disciplines</div>
-                                <div class="skills-tags" id="skills-tags">
+                                <div class="skills-tags d-none" id="skills-tags">
                                     <div class="skill-tag">
-
+                                        Jumping 3'6"
+                                        <button class="remove" onclick="removeTag(this)">×</button>
                                     </div>
-                                    {{-- Jumping 3'6"
-                                    <button class="remove" onclick="removeTag(this)">×</button> --}}
-                                    {{-- <div class="skill-tag">
+                                    <div class="skill-tag">
                                         Trail Riding
                                         <button class="remove" onclick="removeTag(this)">×</button>
                                     </div>
                                     <div class="skill-tag">
                                         Hunter Horse
                                         <button class="remove" onclick="removeTag(this)">×</button>
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="select-field form-select skill_select" name="rider[]" multiple="multiple" id="riderSelect">
-                                        <option></option>
-                                        <option value="Agility" {{ in_array('Agility', $rider) ? 'selected' : '' }}>Agility</option>
-                                        <option value="All Around" {{ in_array('All Around', $rider) ? 'selected' : '' }}>
+                                    <select class="select-field form-select skill_select" name="rider">
+                                        <option selected disabled>Select Skills/Disciplines</option>
+                                        <option value="Agility" {{ request('rider') == 'Agility' ? 'selected' : '' }}>Agility
+                                        </option>
+                                        <option value="All Around" {{ request('rider') == 'All Around' ? 'selected' : '' }}>
                                             All Around</option>
-                                        <option value="All-Around Show" {{ in_array('All-Around Show', $rider) ? 'selected' : '' }}>All-Around Show</option>
-                                        <option value="Beginner" {{ in_array('Beginner', $rider) ? 'selected' : '' }}>
+                                        <option value="All-Around Show" {{ request('rider') == 'All-Around Show' ? 'selected' : '' }}>All-Around Show</option>
+                                        <option value="Beginner" {{ request('rider') == 'Beginner' ? 'selected' : '' }}>
                                             Beginner</option>
-                                        <option value="Barrel Racing" {{ in_array('Barrel Racing', $rider) ? 'selected' : '' }}>Barrel Racing</option>
-                                        <option value="Barrels* Poles *Gymkhana" {{ in_array('Barrels* Poles *Gymkhana', $rider) ? 'selected' : '' }}>Barrels* Poles
+                                        <option value="Barrel Racing" {{ request('rider') == 'Barrel Racing' ? 'selected' : '' }}>Barrel Racing</option>
+                                        <option value="Barrels* Poles *Gymkhana" {{ request('rider') == 'Barrels* Poles *Gymkhana' ? 'selected' : '' }}>Barrels* Poles
                                             *Gymkhana</option>
-                                        <option value="Breakaway Roping" {{ in_array('Breakaway Roping', $rider) ? 'selected' : '' }}>Breakaway Roping</option>
-                                        <option value="Brood mare" {{ in_array('Brood mare', $rider) ? 'selected' : '' }}>
+                                        <option value="Breakaway Roping" {{ request('rider') == 'Breakaway Roping' ? 'selected' : '' }}>Breakaway Roping</option>
+                                        <option value="Brood mare" {{ request('rider') == 'Brood mare' ? 'selected' : '' }}>
                                             Brood mare</option>
-                                        <option value="Cutting Prospect" {{ in_array('Cutting Prospect', $rider) ? 'selected' : '' }}>Cutting Prospect</option>
-                                        <option value="Cutting" {{ in_array('Cutting', $rider) ? 'selected' : '' }}>Cutting
+                                        <option value="Cutting Prospect" {{ request('rider') == 'Cutting Prospect' ? 'selected' : '' }}>Cutting Prospect</option>
+                                        <option value="Cutting" {{ request('rider') == 'Cutting' ? 'selected' : '' }}>Cutting
                                         </option>
-                                        <option value="Calf Roping" {{ in_array('Calf Roping', $rider) ? 'selected' : '' }}>
+                                        <option value="Calf Roping" {{ request('rider') == 'Calf Roping' ? 'selected' : '' }}>
                                             Calf Roping</option>
-                                        <option value="Clicker Training" {{ in_array('Clicker Training', $rider) ? 'selected' : '' }}>Clicker Training</option>
-                                        <option value="Companion Only" {{ in_array('Companion Only', $rider) ? 'selected' : '' }}>Companion Only</option>
-                                        <option value="Competitive Trail Riding" {{ in_array('Competitive Trail Riding', $rider) ? 'selected' : '' }}>Competitive
+                                        <option value="Clicker Training" {{ request('rider') == 'Clicker Training' ? 'selected' : '' }}>Clicker Training</option>
+                                        <option value="Companion Only" {{ request('rider') == 'Companion Only' ? 'selected' : '' }}>Companion Only</option>
+                                        <option value="Competitive Trail Riding" {{ request('rider') == 'Competitive Trail Riding' ? 'selected' : '' }}>Competitive
                                             Trail Riding</option>
-                                        <option value="Country English Pleasure" {{ in_array('Country English Pleasure', $rider) ? 'selected' : '' }}>Country
+                                        <option value="Country English Pleasure" {{ request('rider') == 'Country English Pleasure' ? 'selected' : '' }}>Country
                                             English Pleasure</option>
-                                        <option value="Cowboy Dressage" {{ in_array('Cowboy Dressage', $rider) ? 'selected' : '' }}>Cowboy Dressage</option>
-                                        <option value="Cowboy Mounted Shooting" {{ in_array('Cowboy Mounted Shooting', $rider) ? 'selected' : '' }}>Cowboy Mounted
+                                        <option value="Cowboy Dressage" {{ request('rider') == 'Cowboy Dressage' ? 'selected' : '' }}>Cowboy Dressage</option>
+                                        <option value="Cowboy Mounted Shooting" {{ request('rider') == 'Cowboy Mounted Shooting' ? 'selected' : '' }}>Cowboy Mounted
                                             Shooting</option>
-                                        <option value="Cowboy Racing" {{ in_array('Cowboy Racing', $rider) ? 'selected' : '' }}>Cowboy Racing</option>
-                                        <option value="Cow horse" {{ in_array('Cow horse', $rider) ? 'selected' : '' }}>Cow
+                                        <option value="Cowboy Racing" {{ request('rider') == 'Cowboy Racing' ? 'selected' : '' }}>Cowboy Racing</option>
+                                        <option value="Cow horse" {{ request('rider') == 'Cow horse' ? 'selected' : '' }}>Cow
                                             horse</option>
-
-                                        <option value="Cross-Country" {{ in_array('Cross-Country', $rider) ? 'selected' : '' }}>Cross-Country</option>
-                                        <option value="Dressage" {{ in_array('Dressage', $rider) ? 'selected' : '' }}>
+                                        <option value="Cross-Country" {{ request('rider') == 'Cross-Country' ? 'selected' : '' }}>Cross-Country</option>
+                                        <option value="Dressage" {{ request('rider') == 'Dressage' ? 'selected' : '' }}>
                                             Dressage</option>
-                                        <option value="Drill Team" {{ in_array('Drill Team', $rider) ? 'selected' : '' }}>
+                                        <option value="Drill Team" {{ request('rider') == 'Drill Team' ? 'selected' : '' }}>
                                             Drill Team</option>
-                                        <option value="Driving" {{ in_array('Driving', $rider) ? 'selected' : '' }}>Driving
+                                        <option value="Driving" {{ request('rider') == 'Driving' ? 'selected' : '' }}>Driving
                                         </option>
-                                        <option value="Endurance Riding" {{ in_array('Endurance Riding', $rider) ? 'selected' : '' }}>Endurance Riding</option>
-                                        <option value="English" {{ in_array('English', $rider) ? 'selected' : '' }}>English
+                                        <option value="Endurance Riding" {{ request('rider') == 'Endurance Riding' ? 'selected' : '' }}>Endurance Riding</option>
+                                        <option value="English" {{ request('rider') == 'English' ? 'selected' : '' }}>English
                                         </option>
-                                        <option value="English Pleasure" {{ in_array('English Pleasure', $rider) ? 'selected' : '' }}>English Pleasure</option>
-                                        <option value="Equitation" {{ in_array('Equitation', $rider) ? 'selected' : '' }}>
+                                        <option value="English Pleasure" {{ request('rider') == 'English Pleasure' ? 'selected' : '' }}>English Pleasure</option>
+                                        <option value="Equitation" {{ request('rider') == 'Equitation' ? 'selected' : '' }}>
                                             Equitation</option>
-                                        <option value="Eventing" {{ in_array('Eventing', $rider) ? 'selected' : '' }}>
+                                        <option value="Eventing" {{ request('rider') == 'Eventing' ? 'selected' : '' }}>
                                             Eventing</option>
-                                        <option value="Field Trial" {{ in_array('Field Trial', $rider) ? 'selected' : '' }}>
+                                        <option value="Field Trial" {{ request('rider') == 'Field Trial' ? 'selected' : '' }}>
                                             Field Trial</option>
-                                        <option value="Foxhunter" {{ in_array('Foxhunter', $rider) ? 'selected' : '' }}>
+                                        <option value="Foxhunter" {{ request('rider') == 'Foxhunter' ? 'selected' : '' }}>
                                             Foxhunter</option>
-                                        <option value="Gun - Safe Hunting" {{ in_array('Gun - Safe Hunting', $rider) ? 'selected' : '' }}>Gun - Safe Hunting
+                                        <option value="Gun - Safe Hunting" {{ request('rider') == 'Gun - Safe Hunting' ? 'selected' : '' }}>Gun - Safe Hunting
                                         </option>
-                                        <option value="Halter" {{ in_array('Halter', $rider) ? 'selected' : '' }}>Halter
+                                        <option value="Halter" {{ request('rider') == 'Halter' ? 'selected' : '' }}>Halter
                                         </option>
-                                        <option value="Harness" {{ in_array('Harness', $rider) ? 'selected' : '' }}>Harness
+                                        <option value="Harness" {{ request('rider') == 'Harness' ? 'selected' : '' }}>Harness
                                         </option>
-                                        <option value="Harness Racing" {{ in_array('Harness Racing', $rider) ? 'selected' : '' }}>Harness Racing</option>
-                                        <option value="Horsemanship" {{ in_array('Horsemanship', $rider) ? 'selected' : '' }}>Horsemanship</option>
-                                        <option value="Hunt Seat Equitation" {{ in_array('Hunt Seat Equitation', $rider) ? 'selected' : '' }}>Hunt Seat
+                                        <option value="Harness Racing" {{ request('rider') == 'Harness Racing' ? 'selected' : '' }}>Harness Racing</option>
+                                        <option value="Horsemanship" {{ request('rider') == 'Horsemanship' ? 'selected' : '' }}>Horsemanship</option>
+                                        <option value="Hunt Seat Equitation" {{ request('rider') == 'Hunt Seat Equitation' ? 'selected' : '' }}>Hunt Seat
                                             Equitation</option>
-                                        <option value="Hunter" {{ in_array('Hunter', $rider) ? 'selected' : '' }}>Hunter
+                                        <option value="Hunter" {{ request('rider') == 'Hunter' ? 'selected' : '' }}>Hunter
                                         </option>
-                                        <option value="Hunter Pleasure" {{ in_array('Hunter Pleasure', $rider) ? 'selected' : '' }}>Hunter Pleasure</option>
-                                        <option value="Hunter Under Saddle" {{ in_array('Hunter Under Saddle', $rider) ? 'selected' : '' }}>Hunter Under Saddle
+                                        <option value="Hunter Pleasure" {{ request('rider') == 'Hunter Pleasure' ? 'selected' : '' }}>Hunter Pleasure</option>
+                                        <option value="Hunter Under Saddle" {{ request('rider') == 'Hunter Under Saddle' ? 'selected' : '' }}>Hunter Under Saddle
                                         </option>
-                                        <option value="Jumping" {{ in_array('Jumping', $rider) ? 'selected' : '' }}>Jumping
+                                        <option value="Jumping" {{ request('rider') == 'Jumping' ? 'selected' : '' }}>Jumping
                                         </option>
-                                        <option value="Lesson Horse" {{ in_array('Lesson Horse', $rider) ? 'selected' : '' }}>Lesson Horse</option>
-                                        <option value="Liberty Training" {{ in_array('Liberty Training', $rider) ? 'selected' : '' }}>Liberty Training</option>
-                                        <option value="Light Riding" {{ in_array('Light Riding', $rider) ? 'selected' : '' }}>Light Riding</option>
-                                        <option value="Longe Line" {{ in_array('Longe Line', $rider) ? 'selected' : '' }}>
+                                        <option value="Lesson Horse" {{ request('rider') == 'Lesson Horse' ? 'selected' : '' }}>Lesson Horse</option>
+                                        <option value="Liberty Training" {{ request('rider') == 'Liberty Training' ? 'selected' : '' }}>Liberty Training</option>
+                                        <option value="Light Riding" {{ request('rider') == 'Light Riding' ? 'selected' : '' }}>Light Riding</option>
+                                        <option value="Longe Line" {{ request('rider') == 'Longe Line' ? 'selected' : '' }}>
                                             Longe Line</option>
-                                        <option value="Mountain Trail" {{ in_array('Mountain Trail', $rider) ? 'selected' : '' }}>Mountain Trail</option>
-                                        <option value="Mounted Games" {{ in_array('Mounted Games', $rider) ? 'selected' : '' }}>Mounted Games</option>
-                                        <option value="Mounted Police" {{ in_array('Mounted Police', $rider) ? 'selected' : '' }}>Mounted Police</option>
-                                        <option value="Native Costume" {{ in_array('Native Costume', $rider) ? 'selected' : '' }}>Native Costume</option>
-                                        <option value="Natural Horsemanship Training" {{ in_array('Natural Horsemanship Training', $rider) ? 'selected' : '' }}>Natural
+                                        <option value="Mountain Trail" {{ request('rider') == 'Mountain Trail' ? 'selected' : '' }}>Mountain Trail</option>
+                                        <option value="Mounted Games" {{ request('rider') == 'Mounted Games' ? 'selected' : '' }}>Mounted Games</option>
+                                        <option value="Mounted Police" {{ request('rider') == 'Mounted Police' ? 'selected' : '' }}>Mounted Police</option>
+                                        <option value="Native Costume" {{ request('rider') == 'Native Costume' ? 'selected' : '' }}>Native Costume</option>
+                                        <option value="Natural Horsemanship Training" {{ request('rider') == 'Natural Horsemanship Training' ? 'selected' : '' }}>Natural
                                             Horsemanship Training</option>
-                                        <option value="Nurse Mare" {{ in_array('Nurse Mare', $rider) ? 'selected' : '' }}>
+                                        <option value="Nurse Mare" {{ request('rider') == 'Nurse Mare' ? 'selected' : '' }}>
                                             Nurse Mare</option>
-                                        <option value="Pacing Gait" {{ in_array('Pacing Gait', $rider) ? 'selected' : '' }}>
+                                        <option value="Pacing Gait" {{ request('rider') == 'Pacing Gait' ? 'selected' : '' }}>
                                             Pacing Gait</option>
-                                        <option value="Pack" {{ in_array('Pack', $rider) ? 'selected' : '' }}>Pack</option>
-                                        <option value="Parade" {{ in_array('Parade', $rider) ? 'selected' : '' }}>Parade
+                                        <option value="Pack" {{ request('rider') == 'Pack' ? 'selected' : '' }}>Pack</option>
+                                        <option value="Parade" {{ request('rider') == 'Parade' ? 'selected' : '' }}>Parade
                                         </option>
-                                        <option value="Performance" {{ in_array('Performance', $rider) ? 'selected' : '' }}>
+                                        <option value="Performance" {{ request('rider') == 'Performance' ? 'selected' : '' }}>
                                             Performance</option>
-                                        <option value="Play day" {{ in_array('Play day', $rider) ? 'selected' : '' }}>Play
+                                        <option value="Play day" {{ request('rider') == 'Play day' ? 'selected' : '' }}>Play
                                             day</option>
-                                        <option value="Pleasure Driving" {{ in_array('Pleasure Driving', $rider) ? 'selected' : '' }}>Pleasure Driving</option>
-                                        <option value="Pole Bending" {{ in_array('Pole Bending', $rider) ? 'selected' : '' }}>Pole Bending</option>
-                                        <option value="Polo" {{ in_array('Polo', $rider) ? 'selected' : '' }}>Polo</option>
-                                        <option value="Pony Club" {{ in_array('Pony Club', $rider) ? 'selected' : '' }}>Pony
+                                        <option value="Pleasure Driving" {{ request('rider') == 'Pleasure Driving' ? 'selected' : '' }}>Pleasure Driving</option>
+                                        <option value="Pole Bending" {{ request('rider') == 'Pole Bending' ? 'selected' : '' }}>Pole Bending</option>
+                                        <option value="Polo" {{ request('rider') == 'Polo' ? 'selected' : '' }}>Polo</option>
+                                        <option value="Pony Club" {{ request('rider') == 'Pony Club' ? 'selected' : '' }}>Pony
                                             Club</option>
-                                        <option value="Project" {{ in_array('Project', $rider) ? 'selected' : '' }}>Project
+                                        <option value="Project" {{ request('rider') == 'Project' ? 'selected' : '' }}>Project
                                         </option>
-                                        <option value="Racing" {{ in_array('Racing', $rider) ? 'selected' : '' }}>Racing
+                                        <option value="Racing" {{ request('rider') == 'Racing' ? 'selected' : '' }}>Racing
                                         </option>
-                                        <option value="Retired Race Horse" {{ in_array('Retired Race Horse', $rider) ? 'selected' : '' }}>Retired Race Horse
+                                        <option value="Retired Race Horse" {{ request('rider') == 'Retired Race Horse' ? 'selected' : '' }}>Retired Race Horse
                                         </option>
-                                        <option value="Racking Gait" {{ in_array('Racking Gait', $rider) ? 'selected' : '' }}>Racking Gait</option>
-                                        <option value="Ranch Conformation Class" {{ in_array('Ranch Conformation Class', $rider) ? 'selected' : '' }}>Ranch
+                                        <option value="Racking Gait" {{ request('rider') == 'Racking Gait' ? 'selected' : '' }}>Racking Gait</option>
+                                        <option value="Ranch Conformation Class" {{ request('rider') == 'Ranch Conformation Class' ? 'selected' : '' }}>Ranch
                                             Conformation Class</option>
-                                        <option value="Ranch Rail Class" {{ in_array('Ranch Rail Class', $rider) ? 'selected' : '' }}>Ranch Rail Class</option>
-                                        <option value="Ranch Riding - Ranch Pleasure" {{ in_array('Ranch Riding - Ranch Pleasure', $rider) ? 'selected' : '' }}>Ranch
+                                        <option value="Ranch Rail Class" {{ request('rider') == 'Ranch Rail Class' ? 'selected' : '' }}>Ranch Rail Class</option>
+                                        <option value="Ranch Riding - Ranch Pleasure" {{ request('rider') == 'Ranch Riding - Ranch Pleasure' ? 'selected' : '' }}>Ranch
                                             Riding - Ranch Pleasure</option>
-                                        <option value="Ranch Sorting" {{ in_array('Ranch Sorting', $rider) ? 'selected' : '' }}>Ranch Sorting</option>
-                                        <option value="Ranch Trail Class" {{ in_array('Ranch Trail Class', $rider) ? 'selected' : '' }}>Ranch Trail Class
+                                        <option value="Ranch Sorting" {{ request('rider') == 'Ranch Sorting' ? 'selected' : '' }}>Ranch Sorting</option>
+                                        <option value="Ranch Trail Class" {{ request('rider') == 'Ranch Trail Class' ? 'selected' : '' }}>Ranch Trail Class
                                         </option>
-                                        <option value="Ranch Versatility" {{ in_array('Ranch Versatility', $rider) ? 'selected' : '' }}>Ranch Versatility
+                                        <option value="Ranch Versatility" {{ request('rider') == 'Ranch Versatility' ? 'selected' : '' }}>Ranch Versatility
                                         </option>
-                                        <option value="Ranch Work" {{ in_array('Ranch Work', $rider) ? 'selected' : '' }}>
+                                        <option value="Ranch Work" {{ request('rider') == 'Ranch Work' ? 'selected' : '' }}>
                                             Ranch Work</option>
-                                        <option value="Reining" {{ in_array('Reining', $rider) ? 'selected' : '' }}>Reining
+                                        <option value="Reining" {{ request('rider') == 'Reining' ? 'selected' : '' }}>Reining
                                         </option>
-                                        <option value="Reining - Cowhorse - Cutting" {{ in_array('Reining - Cowhorse - Cutting', $rider) ? 'selected' : '' }}>Reining -
+                                        <option value="Reining - Cowhorse - Cutting" {{ request('rider') == 'Reining - Cowhorse - Cutting' ? 'selected' : '' }}>Reining -
                                             Cowhorse - Cutting</option>
-                                        <option value="Rodeo" {{ in_array('Rodeo', $rider) ? 'selected' : '' }}>Rodeo
+                                        <option value="Rodeo" {{ request('rider') == 'Rodeo' ? 'selected' : '' }}>Rodeo
                                         </option>
-                                        <option value="Rodeo Bronc" {{ in_array('Rodeo Bronc', $rider) ? 'selected' : '' }}>
+                                        <option value="Rodeo Bronc" {{ request('rider') == 'Rodeo Bronc' ? 'selected' : '' }}>
                                             Rodeo Bronc</option>
-                                        <option value="Roping" {{ in_array('Roping', $rider) ? 'selected' : '' }}>Roping
+                                        <option value="Roping" {{ request('rider') == 'Roping' ? 'selected' : '' }}>Roping
                                         </option>
-                                        <option value="Saddle Seat" {{ in_array('Saddle Seat', $rider) ? 'selected' : '' }}>
+                                        <option value="Saddle Seat" {{ request('rider') == 'Saddle Seat' ? 'selected' : '' }}>
                                             Saddle Seat</option>
-                                        <option value="School" {{ in_array('School', $rider) ? 'selected' : '' }}>School
+                                        <option value="School" {{ request('rider') == 'School' ? 'selected' : '' }}>School
                                         </option>
-                                        <option value="Schoolmaster" {{ in_array('Schoolmaster', $rider) ? 'selected' : '' }}>Schoolmaster</option>
-                                        <option value="Show Experience" {{ in_array('Show Experience', $rider) ? 'selected' : '' }}>Show Experience</option>
-                                        <option value="Show Hack" {{ in_array('Show Hack', $rider) ? 'selected' : '' }}>Show
+                                        <option value="Schoolmaster" {{ request('rider') == 'Schoolmaster' ? 'selected' : '' }}>Schoolmaster</option>
+                                        <option value="Show Experience" {{ request('rider') == 'Show Experience' ? 'selected' : '' }}>Show Experience</option>
+                                        <option value="Show Hack" {{ request('rider') == 'Show Hack' ? 'selected' : '' }}>Show
                                             Hack</option>
-                                        <option value="Show Winner" {{ in_array('Show Winner', $rider) ? 'selected' : '' }}>
+                                        <option value="Show Winner" {{ request('rider') == 'Show Winner' ? 'selected' : '' }}>
                                             Show Winner</option>
-                                        <option value="Showmanship Halter" {{ in_array('Showmanship Halter', $rider) ? 'selected' : '' }}>Showmanship Halter
+                                        <option value="Showmanship Halter" {{ request('rider') == 'Showmanship Halter' ? 'selected' : '' }}>Showmanship Halter
                                         </option>
-                                        <option value="Sidesaddle" {{ in_array('Sidesaddle', $rider) ? 'selected' : '' }}>
+                                        <option value="Sidesaddle" {{ request('rider') == 'Sidesaddle' ? 'selected' : '' }}>
                                             Sidesaddle</option>
-                                        <option value="Stallion - Stud - Breeding" {{ in_array('Stallion - Stud - Breeding', $rider) ? 'selected' : '' }}>Stallion -
+                                        <option value="Stallion - Stud - Breeding" {{ request('rider') == 'Stallion - Stud - Breeding' ? 'selected' : '' }}>Stallion -
                                             Stud - Breeding</option>
-                                        <option value="Started Under Saddle" {{ in_array('Started Under Saddle', $rider) ? 'selected' : '' }}>Started Under
+                                        <option value="Started Under Saddle" {{ request('rider') == 'Started Under Saddle' ? 'selected' : '' }}>Started Under
                                             Saddle</option>
-                                        <option value="Steer Roping" {{ in_array('Steer Roping', $rider) ? 'selected' : '' }}>Steer Roping</option>
-                                        <option value="Steer Wrestling" {{ in_array('Steer Wrestling', $rider) ? 'selected' : '' }}>Steer Wrestling</option>
-                                        <option value="Stock" {{ in_array('Stock', $rider) ? 'selected' : '' }}>Stock
+                                        <option value="Steer Roping" {{ request('rider') == 'Steer Roping' ? 'selected' : '' }}>Steer Roping</option>
+                                        <option value="Steer Wrestling" {{ request('rider') == 'Steer Wrestling' ? 'selected' : '' }}>Steer Wrestling</option>
+                                        <option value="Stock" {{ request('rider') == 'Stock' ? 'selected' : '' }}>Stock
                                         </option>
-                                        <option value="Team Driving" {{ in_array('Team Driving', $rider) ? 'selected' : '' }}>Team Driving</option>
-                                        <option value="Team Penning" {{ in_array('Team Penning', $rider) ? 'selected' : '' }}>Team Penning</option>
-                                        <option value="Team Roping" {{ in_array('Team Roping', $rider) ? 'selected' : '' }}>
+                                        <option value="Team Driving" {{ request('rider') == 'Team Driving' ? 'selected' : '' }}>Team Driving</option>
+                                        <option value="Team Penning" {{ request('rider') == 'Team Penning' ? 'selected' : '' }}>Team Penning</option>
+                                        <option value="Team Roping" {{ request('rider') == 'Team Roping' ? 'selected' : '' }}>
                                             Team Roping</option>
-                                        <option value="Team Roping - Head" {{ in_array('Team Roping - Head', $rider) ? 'selected' : '' }}>Team Roping - Head
+                                        <option value="Team Roping - Head" {{ request('rider') == 'Team Roping - Head' ? 'selected' : '' }}>Team Roping - Head
                                         </option>
-                                        <option value="Team Roping - Heel" {{ in_array('Team Roping - Heel', $rider) ? 'selected' : '' }}>Team Roping - Heel
+                                        <option value="Team Roping - Heel" {{ request('rider') == 'Team Roping - Heel' ? 'selected' : '' }}>Team Roping - Heel
                                         </option>
-                                        <option value="Team Sorting" {{ in_array('Team Sorting', $rider) ? 'selected' : '' }}>Team Sorting</option>
-                                        <option value="Therapeutic Riding" {{ in_array('Therapeutic Riding', $rider) ? 'selected' : '' }}>Therapeutic Riding
+                                        <option value="Team Sorting" {{ request('rider') == 'Team Sorting' ? 'selected' : '' }}>Team Sorting</option>
+                                        <option value="Therapeutic Riding" {{ request('rider') == 'Therapeutic Riding' ? 'selected' : '' }}>Therapeutic Riding
                                         </option>
-                                        <option value="Therapy" {{ in_array('Therapy', $rider) ? 'selected' : '' }}>Therapy
+                                        <option value="Therapy" {{ request('rider') == 'Therapy' ? 'selected' : '' }}>Therapy
                                         </option>
-                                        <option value="Trail Class Competition" {{ in_array('Trail Class Competition', $rider) ? 'selected' : '' }}>Trail Class
+                                        <option value="Trail Class Competition" {{ request('rider') == 'Trail Class Competition' ? 'selected' : '' }}>Trail Class
                                             Competition</option>
-                                        <option value="Trail Master" {{ in_array('Trail Master', $rider) ? 'selected' : '' }}>Trail Master</option>
-                                        <option value="Trail Riding" {{ in_array('Trail Riding', $rider) ? 'selected' : '' }}>Trail Riding</option>
-                                        <option value="Trick" {{ in_array('Trick', $rider) ? 'selected' : '' }}>Trick
+                                        <option value="Trail Master" {{ request('rider') == 'Trail Master' ? 'selected' : '' }}>Trail Master</option>
+                                        <option value="Trail Riding" {{ request('rider') == 'Trail Riding' ? 'selected' : '' }}>Trail Riding</option>
+                                        <option value="Trick" {{ request('rider') == 'Trick' ? 'selected' : '' }}>Trick
                                         </option>
-                                        <option value="Unicorn" {{ in_array('Unicorn', $rider) ? 'selected' : '' }}>Unicorn
+                                        <option value="Unicorn" {{ request('rider') == 'Unicorn' ? 'selected' : '' }}>Unicorn
                                         </option>
-                                        <option value="Vaulting" {{ in_array('Vaulting', $rider) ? 'selected' : '' }}>
+                                        <option value="Vaulting" {{ request('rider') == 'Vaulting' ? 'selected' : '' }}>
                                             Vaulting</option>
-                                        <option value="Western" {{ in_array('Western', $rider) ? 'selected' : '' }}>Western
+                                        <option value="Western" {{ request('rider') == 'Western' ? 'selected' : '' }}>Western
                                         </option>
-                                        <option value="Western Dressage" {{ in_array('Western Dressage', $rider) ? 'selected' : '' }}>Western Dressage</option>
-                                        <option value="Western Pleasure" {{ in_array('Western Pleasure', $rider) ? 'selected' : '' }}>Western Pleasure</option>
-                                        <option value="Western Riding" {{ in_array('Western Riding', $rider) ? 'selected' : '' }}>Western Riding</option>
-                                        <option value="Working Cattle" {{ in_array('Working Cattle', $rider) ? 'selected' : '' }}>Working Cattle</option>
-                                        <option value="Working Equitation" {{ in_array('Working Equitation', $rider) ? 'selected' : '' }}>Working Equitation
+                                        <option value="Western Dressage" {{ request('rider') == 'Western Dressage' ? 'selected' : '' }}>Western Dressage</option>
+                                        <option value="Western Pleasure" {{ request('rider') == 'Western Pleasure' ? 'selected' : '' }}>Western Pleasure</option>
+                                        <option value="Western Riding" {{ request('rider') == 'Western Riding' ? 'selected' : '' }}>Western Riding</option>
+                                        <option value="Working Cattle" {{ request('rider') == 'Working Cattle' ? 'selected' : '' }}>Working Cattle</option>
+                                        <option value="Working Equitation" {{ request('rider') == 'Working Equitation' ? 'selected' : '' }}>Working Equitation
                                         </option>
-                                        <option value="4H" {{ in_array('4H', $rider) ? 'selected' : '' }}>4H</option>
+                                        <option value="4H" {{ request('rider') == '4H' ? 'selected' : '' }}>4H</option>
                                     </select>
                                 </div>
                             </div>
-
                             <!-- Rider Level Section -->
                             <div class="form-section">
                                 <div class="section-title">Rider Level</div>
@@ -1577,25 +1618,23 @@
                                     </select>
                                 </div>
                             </div>
-
                             <!-- Height Range Section -->
                             <div class="form-section">
                                 <div class="section-title">Height Range</div>
                                 <div class="range-inputs">
-                                    <input type="text" class="range-input form-control w-100" name="height_min" value="{{ $height_min ?? '' }}" placeholder="10.2" />
+                                    <input type="text" class="range-input form-control w-100" name="height_min" value="{{ $height_min ?? '' }}" placeholder="MIN" />
                                     <span class="range-separator">TO</span>
-                                    <input type="text" class="range-input form-control w-100" name="height_max" value="{{ $height_max ?? '' }}" placeholder="21.0" />
+                                    <input type="text" class="range-input form-control w-100" name="height_max" value="{{ $height_max ?? '' }}" placeholder="MAX" />
                                     <span class="unit-label">HH</span>
                                 </div>
                             </div>
-
                             <!-- Age Range Section -->
                             <div class="form-section">
                                 <div class="section-title">Age Range(Years)</div>
                                 <div class="range-inputs">
-                                    <input type="number" class="range-input form-control w-100" name="age_min" value="{{ request('age_min') ?? '' }}" placeholder="5" />
+                                    <input type="number" class="range-input form-control w-100" name="age_min" value="{{ request('age_min') ?? '' }}" placeholder="MIN" />
                                     <span class="range-separator">TO</span>
-                                    <input type="number" class="range-input form-control w-100" name="age_max" value="{{ request('age_max') ?? '' }}" placeholder="15" />
+                                    <input type="number" class="range-input form-control w-100" name="age_max" value="{{ request('age_max') ?? '' }}" placeholder="MAX" />
                                 </div>
                                 <div class="age-options">
                                     <div class="age-option">
@@ -1608,45 +1647,64 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Price Range Section -->
                             <div class="form-section">
                                 <div class="section-title">Price Range</div>
                                 <div class="price-inputs">
                                     <span class="price-symbol">$</span>
-                                    <input type="number" name="from" value="{{ request('from') }}" class="range-input form-control w-100" placeholder="MIN" />
+                                    <input type="text" name="from" value="{{ request('from') }}" class="range-input thousand-separator form-control w-100" placeholder="MIN" />
                                     <span class="range-separator">TO</span>
-                                    <input type="number" name="to" value="{{ request('to') }}" class="range-input form-control w-100" placeholder="MAX" />
+                                    <input type="text" name="to" value="{{ request('to') }}" class="range-input thousand-separator form-control w-100" placeholder="MAX" />
                                 </div>
                             </div>
-
                             <div class="action-buttons border_btm">
                                 <button class="choose-btn" type="submit" onclick="saveSearch()">
                                     <span class="btn-icon">🔍</span>
                                     SEARCH
                                 </button>
                             </div>
-
                             <!-- Action Buttons -->
                             <div class="action-buttons">
                                 <button class="choose-btn" type="submit" onclick="saveSearch()">
                                     <span class="btn-icon">💾</span>
                                     SAVE THIS SEARCH
                                 </button>
-                                <button class="choose-btn" type="reset" onclick="resetSearch()">
+                                <a class="choose-btn text-center" href="{{ route('horse_listing_filter') }}">
                                     <span class="btn-icon">🔄</span>
                                     RESET
-                                </button>
+                                </a>
                             </div>
-
                         </div>
                     </div>
                 </form>
                 <div class="filter_content_box">
                     <div class="shortcuts_tags_flex" id="shortcutsContainer">
-
                     </div>
-
+                    <div class="filter_min_bars">
+                        <a class="reset_btn choose-btn" href="{{ route('horse_listing_filter') }}" style="font-size: 12px;"><i class="fa fa-refresh" aria-hidden="true"></i> RESET SEARCH
+                            CRITERIA</a>
+                        <div class="filter_right_flex">
+                            <p>1-24 of 494 Listing</p>
+                            <select>
+                                <option value="">1-34</option>
+                                <option value="">1-44</option>
+                                <option value="">1-54</option>
+                            </select>
+                            <!-- <select>
+                         <option value="">Price (High to Low)</option>
+                         <option value="">Price (Low to High)</option>
+                         <option value="">Price (High)</option>
+                         <option value="">Price (Low)</option>
+                      </select> -->
+                            <select id="sort" name="sort" onchange="sortProducts(this.value)">
+                                <option value="" {{ $sort == '' ? 'selected' : '' }}>Default (Newest)</option>
+                                <option value="price_desc" {{ $sort == 'price_desc' ? 'selected' : '' }}>Price (Low to High)</option>
+                                <option value="price_asc" {{ $sort == 'price_asc' ? 'selected' : '' }}>Price (High to Low)</option>
+                                <option value="price_high" {{ $sort == 'price_high' ? 'selected' : '' }}>Price (High)</option>
+                                <option value="price_low" {{ $sort == 'price_low' ? 'selected' : '' }}>Price (Low)</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="scroller">
                         <div class="gen_card_flex gy-4">
                             @forelse ($products as $product)
@@ -1654,9 +1712,9 @@
                                     <div class="blue_stripe">
                                         <p class="fs_tag">{{ $product->pro_ad_type }}</p>
                                         <ul class="top_list">
-                                            <li>Trail</li>
+                                            {{-- <li>Trail</li>
                                             <li>Dressage</li>
-                                            <li>Beginner Safe</li>
+                                            <li>Beginner Safe</li> --}}
                                         </ul>
                                     </div>
                                     <div class="blue_stripe blue_stripe_new">
@@ -1698,7 +1756,7 @@
                                             <div class="custome_listing_col">
                                                 <ul class="info_list">
                                                     <!-- <li>{{ $product->pro_breed }}</li> -->
-                                                    <li>{{ $product->pro_age_year }} Years {{ $product->pro_age_month }} Months Old</li>
+                                                    <li>{{ $product->pro_age_year }} Years {{ $product->pro_age_month }} Old</li>
                                                     <li>{{ $product->pro_height }}</li>
                                                     <li>{{ $product->pro_gender }}</li>
                                                 </ul>
@@ -1715,7 +1773,8 @@
                                         <div class="custome_listing_col w-100">
                                             <ul class="info_list">
                                                 <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
-                                                    NJ</li>
+                                                    NJ
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="blue_wrapper">
@@ -1738,156 +1797,155 @@
                                                     </button>
                                                 </form>
                                                 {{-- <label class="fvrt_btn">
-                                                <input type="checkbox" hidden />
-                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </label> --}}
+                              <input type="checkbox" hidden />
+                              Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                              </label> --}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             @empty
                             @endforelse
-
                             {{-- @forelse ($products as $product)
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                            <div class="horse_list_card">
-                                <div class="blue_stripe">
-                                    <h2>{{ $product->pro_name }}</h2>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="img_box">
-                                    <div class="swiper horse_list_card_slider h-100 w-100">
-                                        <div class="swiper-wrapper">
-                                            @php
-                                            $productImages = !empty($product->pro_imgs) ?
-                                            json_decode($product->pro_imgs) : [];
-                                            @endphp
-                                            @foreach ($productImages as $item)
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <div class="arrow_flex">
-                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left"
-                                                aria-hidden="true"></i></button>
-                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right"
-                                                aria-hidden="true"></i></button>
-                                    </div>
-                                    <p class="fs_tag">{{$product->pro_ad_type}}</p>
-                                </div>
-                                <div class="text_box">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="row">
-                                                <div class="col-12 pe-0">
-                                                    <ul class="info_list">
-                                                        <li><strong>Breed:</strong> {{ $product->pro_breed ?? ' ' }}
-                                                        </li>
-                                                        <li><strong>Born at:</strong> {{ ($product->pro_age_month ?? '')
-                                                            . ', ' . ($product->pro_age_year ?? '') }}</li>
-                                                        <li><strong>Height:</strong> {{ $product->pro_height ?? ' ' }}
-                                                        </li>
-                                                        <li><strong>Sex:</strong> {{ $product->pro_gender ?? ' ' }}</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <ul class="info_list">
-                                                        <li><strong>Color:</strong> {{ $product->pro_color ?? ' ' }}
-                                                        </li>
-                                                        <li><strong>Registered:</strong> {{
-                                                            Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
-                                                        <li><strong>Gaited:</strong> {{ $product->gaited }}</li>
-                                                        <li><strong>Location:</strong> {{ Str::title($product->pro_state
-                                                            . ', ' . $product->pro_city) }}</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="blue_wrapper">
-                                        <div class="blue_stripe mb-2">
-                                            <h3>Price: ${{ $product->pro_reg_price }}</h3>
-                                        </div>
-                                        @if ($product->pro_ad_type == 'Auction')
-                                        <div class="countdown" data-duration="9971000">
-                                            <!-- duration in ms (2h 46m 11s) -->
-                                            <div class="circle-container" data-type="days">
-                                                <svg class="progress-ring" width="68" height="68">
-                                                    <circle class="bg" r="30" cx="34" cy="34" />
-                                                    <circle class="progress" r="30" cx="34" cy="34" />
-                                                </svg>
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Days</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container" data-type="hours">
-                                                <svg class="progress-ring" width="68" height="68">
-                                                    <circle class="bg" r="30" cx="34" cy="34" />
-                                                    <circle class="progress" r="30" cx="34" cy="34" />
-                                                </svg>
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Hours</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container" data-type="minutes">
-                                                <svg class="progress-ring" width="68" height="68">
-                                                    <circle class="bg" r="30" cx="34" cy="34" />
-                                                    <circle class="progress" r="30" cx="34" cy="34" />
-                                                </svg>
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Minutes</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container" data-type="seconds">
-                                                <svg class="progress-ring" width="68" height="68">
-                                                    <circle class="bg" r="30" cx="34" cy="34" />
-                                                    <circle class="progress" r="30" cx="34" cy="34" />
-                                                </svg>
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Seconds</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endif
-
-                                        <div class="horse_list_card_btn_flex mt-3">
-                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with Seller</a>
-                                            <a href="{{ route('products_detail', $product->pro_sku) }}"
-                                                class="horse_card_btn">View Details</a>
-                                            <label class="fvrt_btn">
-                                                <input type="checkbox" hidden />
-                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                     <div class="horse_list_card">
+                        <div class="blue_stripe">
+                           <h2>{{ $product->pro_name }}</h2>
+                           <label class="heart_checkbox_wrapper d-block">
+                           <input type="checkbox" class="heartCheckbox" hidden />
+                           <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                           </label>
                         </div>
-                        @empty
-                        @endforelse --}}
+                        <div class="img_box">
+                           <div class="swiper horse_list_card_slider h-100 w-100">
+                              <div class="swiper-wrapper">
+                                 @php
+                                 $productImages = !empty($product->pro_imgs) ?
+                                 json_decode($product->pro_imgs) : [];
+                                 @endphp
+                                 @foreach ($productImages as $item)
+                                 <div class="swiper-slide">
+                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
+                                 </div>
+                                 @endforeach
+                              </div>
+                              <div class="swiper-pagination"></div>
+                           </div>
+                           <div class="arrow_flex">
+                              <button class="horse_arrow_left"><i class="fa fa-chevron-left"
+                                 aria-hidden="true"></i></button>
+                              <button class="horse_arrow_right"><i class="fa fa-chevron-right"
+                                 aria-hidden="true"></i></button>
+                           </div>
+                           <p class="fs_tag">{{$product->pro_ad_type}}</p>
+                        </div>
+                        <div class="text_box">
+                           <div class="row">
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                 <div class="row">
+                                    <div class="col-12 pe-0">
+                                       <ul class="info_list">
+                                          <li><strong>Breed:</strong> {{ $product->pro_breed ?? ' ' }}
+                                          </li>
+                                          <li><strong>Born at:</strong> {{ ($product->pro_age_month ?? '')
+                                             . ', ' . ($product->pro_age_year ?? '') }}
+                                          </li>
+                                          <li><strong>Height:</strong> {{ $product->pro_height ?? ' ' }}
+                                          </li>
+                                          <li><strong>Sex:</strong> {{ $product->pro_gender ?? ' ' }}</li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                 <div class="row">
+                                    <div class="col-12">
+                                       <ul class="info_list">
+                                          <li><strong>Color:</strong> {{ $product->pro_color ?? ' ' }}
+                                          </li>
+                                          <li><strong>Registered:</strong> {{
+                                             Str::ucfirst($product->registerd_horse ?? ' ') }}
+                                          </li>
+                                          <li><strong>Gaited:</strong> {{ $product->gaited }}</li>
+                                          <li><strong>Location:</strong> {{ Str::title($product->pro_state
+                                             . ', ' . $product->pro_city) }}
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="blue_wrapper">
+                              <div class="blue_stripe mb-2">
+                                 <h3>Price: ${{ $product->pro_reg_price }}</h3>
+                              </div>
+                              @if ($product->pro_ad_type == 'Auction')
+                              <div class="countdown" data-duration="9971000">
+                                 <!-- duration in ms (2h 46m 11s) -->
+                                 <div class="circle-container" data-type="days">
+                                    <svg class="progress-ring" width="68" height="68">
+                                       <circle class="bg" r="30" cx="34" cy="34" />
+                                       <circle class="progress" r="30" cx="34" cy="34" />
+                                    </svg>
+                                    <div class="circle-text">
+                                       <span class="value">0</span>
+                                       <small>Days</small>
+                                    </div>
+                                 </div>
+                                 <div class="circle-container" data-type="hours">
+                                    <svg class="progress-ring" width="68" height="68">
+                                       <circle class="bg" r="30" cx="34" cy="34" />
+                                       <circle class="progress" r="30" cx="34" cy="34" />
+                                    </svg>
+                                    <div class="circle-text">
+                                       <span class="value">0</span>
+                                       <small>Hours</small>
+                                    </div>
+                                 </div>
+                                 <div class="circle-container" data-type="minutes">
+                                    <svg class="progress-ring" width="68" height="68">
+                                       <circle class="bg" r="30" cx="34" cy="34" />
+                                       <circle class="progress" r="30" cx="34" cy="34" />
+                                    </svg>
+                                    <div class="circle-text">
+                                       <span class="value">0</span>
+                                       <small>Minutes</small>
+                                    </div>
+                                 </div>
+                                 <div class="circle-container" data-type="seconds">
+                                    <svg class="progress-ring" width="68" height="68">
+                                       <circle class="bg" r="30" cx="34" cy="34" />
+                                       <circle class="progress" r="30" cx="34" cy="34" />
+                                    </svg>
+                                    <div class="circle-text">
+                                       <span class="value">0</span>
+                                       <small>Seconds</small>
+                                    </div>
+                                 </div>
+                              </div>
+                              @endif
+                              <div class="horse_list_card_btn_flex mt-3">
+                                 <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                 <a href="#!" class="horse_card_btn">Chat with Seller</a>
+                                 <a href="{{ route('products_detail', $product->pro_sku) }}"
+                                    class="horse_card_btn">View Details</a>
+                                 <label class="fvrt_btn">
+                                 <input type="checkbox" hidden />
+                                 Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  @empty
+                  @endforelse --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <script>
         // Function to convert select elements to searchable dropdowns
         // function makeSelectSearchable(selectElement) {
@@ -2091,19 +2149,19 @@
                 } else {
                     // Keep the initial skills tags
                     container.innerHTML = `
-                <div class="skill-tag">
-                    Jumping 3'6"
-                    <button class="remove" onclick="removeTag(this)">×</button>
-                </div>
-                <div class="skill-tag">
-                    Trail Riding
-                    <button class="remove" onclick="removeTag(this)">×</button>
-                </div>
-                <div class="skill-tag">
-                    Hunter Horse
-                    <button class="remove" onclick="removeTag(this)">×</button>
-                </div>
-            `;
+           <div class="skill-tag">
+               Jumping 3'6"
+               <button class="remove" onclick="removeTag(this)">×</button>
+           </div>
+           <div class="skill-tag">
+               Trail Riding
+               <button class="remove" onclick="removeTag(this)">×</button>
+           </div>
+           <div class="skill-tag">
+               Hunter Horse
+               <button class="remove" onclick="removeTag(this)">×</button>
+           </div>
+       `;
                 }
             });
 
@@ -2125,9 +2183,9 @@
                     const newTag = document.createElement("div");
                     newTag.className = "skill-tag";
                     newTag.innerHTML = `
-                ${selectElement.value}
-                <button class="remove" onclick="removeTag(this)">×</button>
-            `;
+           ${selectElement.value}
+           <button class="remove" onclick="removeTag(this)">×</button>
+       `;
                     container.appendChild(newTag);
                 }
 
@@ -2185,7 +2243,6 @@
             }
         });
     </script>
-
     <script>
         const FULL_DASH_ARRAY = 2 * Math.PI * 30;
 
@@ -2239,218 +2296,535 @@
             initializeCountdown(countdown, durationMs);
         });
     </script>
-
+    {{-- <script>
+   const tagsContainer = document.querySelector(".shortcuts_tags_flex");
+   const form = document.getElementById("mainForm");
+   const notification = document.getElementById("tagNotification");
+   
+   // 🟢 Show notification for 5 seconds
+   function showNotification(message) {
+     notification.textContent = message;
+     notification.classList.add("active");
+     setTimeout(() => notification.classList.remove("active"), 3000);
+   }
+   
+   // 🟢 Create tag
+   function createTag(label, value, key, showLabel = false) {
+     if (!value || value.trim() === "" || value === "-") return;
+   
+     // Avoid duplicates (same key)
+     if ([...tagsContainer.children].some(tag => tag.dataset.key === key)) {
+       const existing = tagsContainer.querySelector(`[data-key='${key}']`);
+       existing.querySelector("p").innerText = showLabel ? `${label}: ${value}` : value;
+       showNotification(`Updated ${label} to ${value}`);
+       return;
+     }
+   
+     const tag = document.createElement("div");
+     tag.classList.add("shortcuts_tags_item");
+     tag.dataset.key = key;
+   
+     tag.innerHTML = `
+       <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
+       <a href="#!" class="remove-tag">
+         <i class="fa fa-times-circle" aria-hidden="true"></i>
+       </a>
+     `;
+   
+     tagsContainer.appendChild(tag);
+     showNotification(`Your selection (${showLabel ? `${label}: ${value}` : value}) has been added to the top.`);
+   
+   
+     // Remove tag
+     // Inside createTag, replace the remove listener with:
+     tag.querySelector(".remove-tag").addEventListener("click", () => {
+     tag.remove();
+   
+     // Clear associated inputs based on key
+     if (key === "distance") {
+         form.querySelectorAll(".distance-input").forEach(i => i.value = "");
+     } else if (key === "height") {
+         form.querySelectorAll("input[name^='height_']").forEach(i => i.value = "");
+     } else if (key === "age") {
+         form.querySelectorAll("input[name^='age_']").forEach(i => i.value = "");
+     } else if (key === "price") {
+         form.querySelectorAll("input[name='from'], input[name='to']").forEach(i => i.value = "");
+     } else if (key.startsWith("skill_") || key.startsWith("rider_")) {
+         // Handle multi-select: remove specific value from select
+         const parts = key.split('_');
+         const selectName = parts[0];
+         const value = parts.slice(1).join('_');
+         const select = form.querySelector(`select[name="${selectName}"]`);
+         if (select) {
+         const option = select.querySelector(`option[value="${value}"]`);
+         if (option) option.selected = false;
+         }
+     } else {
+         // Single input field by name
+         const input = form.querySelector(`[name="${key}"]`);
+         if (input) input.value = "";
+     }
+   
+     showNotification(`${label || key} removed`);
+     });
+   }
+   
+   // 🟡 Combine min-max values correctly
+   function getRangeValue(inputs) {
+     const min = inputs[0]?.value.trim() || "";
+     const max = inputs[1]?.value.trim() || "";
+     if (min && max) return `${min} - ${max}`;
+     if (min) return `${min}+`;
+     if (max) return `Up to ${max}`;
+     return "";
+   }
+   
+   // 🟢 Distance Range
+   const distanceInputs = form.querySelectorAll(".distance-input");
+   distanceInputs.forEach(input =>
+     input.addEventListener("blur", () => {
+       const val = getRangeValue(distanceInputs);
+       if (val) createTag("Distance Range", val, "distance", true);
+     })
+   );
+   
+   // 🟢 Height Range
+   const heightInputs = form.querySelectorAll("input[name^='height_']");
+   heightInputs.forEach(input =>
+     input.addEventListener("blur", () => {
+       const val = getRangeValue(heightInputs);
+       if (val) createTag("Height Range", val, "height", true);
+     })
+   );
+   
+   // 🟢 Age Range
+   const ageInputs = form.querySelectorAll("input[name^='age_']");
+   ageInputs.forEach(input =>
+     input.addEventListener("blur", () => {
+       const val = getRangeValue(ageInputs);
+       if (val) createTag("Age Range (Years)", val, "age", true);
+     })
+   );
+   
+   // 🟢 Price Range
+   const priceInputs = form.querySelectorAll("input[name='from'], input[name='to']");
+   priceInputs.forEach(input =>
+     input.addEventListener("blur", () => {
+       const val = getRangeValue(priceInputs);
+       if (val) createTag("Price Range ($)", val, "price", true);
+     })
+   );
+   
+   // 🟢 Normal inputs (non-range)
+   const normalInputs = form.querySelectorAll("input[type='text'], input[type='number']");
+   normalInputs.forEach(input => {
+     if (
+       input.classList.contains("distance-input") ||
+       input.name.startsWith("height_") ||
+       input.name.startsWith("age_") ||
+       input.name === "from" ||
+       input.name === "to"
+     )
+       return;
+   
+     // Tag create on blur (jab user doosri field me jaye)
+     input.addEventListener("blur", () => {
+       if (input.value.trim()) {
+         createTag(input.placeholder || input.name, input.value.trim(), input.name, false);
+       }
+     });
+   });
+   
+   // 🟢 Select fields — tag create jab doosra select start ho ya focus lose kare
+   form.querySelectorAll("select").forEach(select => {
+     select.addEventListener("change", () => {
+       const selectedText = select.options[select.selectedIndex].text;
+       if (selectedText && selectedText !== "Select") {
+         createTag(selectedText, selectedText, `${select.name}_${selectedText}`, false);
+       }
+     });
+   });
+   
+   
+     function restoreTagsFromFormData() {
+     const formData = new FormData(form);
+   
+     // Helper: safely get value(s)
+     const getVal = (name) => formData.get(name)?.trim() || null;
+     const getAll = (name) => formData.getAll(name).filter(v => v.trim() !== "");
+   
+     // --- Distance ---
+     const distMin = getVal('distance_min');
+     const distMax = getVal('distance_max');
+     if (distMin || distMax) {
+         const val = (() => {
+         if (distMin && distMax) return `${distMin} - ${distMax}`;
+         if (distMin) return `${distMin}+`;
+         if (distMax) return `Up to ${distMax}`;
+         return "";
+         })();
+         if (val) createTag("Distance Range", val, "distance", true);
+     }
+   
+     // --- Height ---
+     const hMin = getVal('height_min');
+     const hMax = getVal('height_max');
+     if (hMin || hMax) {
+         const val = (() => {
+         if (hMin && hMax) return `${hMin} - ${hMax}`;
+         if (hMin) return `${hMin}+`;
+         if (hMax) return `Up to ${hMax}`;
+         return "";
+         })();
+         if (val) createTag("Height Range", val, "height", true);
+     }
+   
+     // --- Age ---
+     const ageMin = getVal('age_min');
+     const ageMax = getVal('age_max');
+     if (ageMin || ageMax) {
+         const val = (() => {
+         if (ageMin && ageMax) return `${ageMin} - ${ageMax}`;
+         if (ageMin) return `${ageMin}+`;
+         if (ageMax) return `Up to ${ageMax}`;
+         return "";
+         })();
+         if (val) createTag("Age Range (Years)", val, "age", true);
+     }
+   
+     // --- Price ---
+     const from = getVal('from');
+     const to = getVal('to');
+     if (from || to) {
+         const val = (() => {
+         if (from && to) return `${from} - ${to}`;
+         if (from) return `${from}+`;
+         if (to) return `Up to ${to}`;
+         return "";
+         })();
+         if (val) createTag("Price Range ($)", val, "price", true);
+     }
+   
+     // --- Normal text/number inputs (non-range) ---
+     const normalFields = ['name', 'breed', 'state', 'selectedColor', 'selectedGender', 'selectedDiscipline'];
+     normalFields.forEach(name => {
+         const val = getVal(name);
+         if (val && val !== '-') {
+         // Use placeholder or name as label
+         const input = form.querySelector(`[name="${name}"]`);
+         const label = input?.placeholder || name;
+         createTag(label, val, name, false);
+         }
+     });
+   
+     // --- Select fields (multi-value possible) ---
+     // Assuming your selects use names like "skill", "rider", etc.
+     const selectFields = ['skill', 'rider'];
+     selectFields.forEach(name => {
+         const values = getAll(name);
+         values.forEach(val => {
+         if (val && val !== 'Select') {
+             const select = form.querySelector(`select[name="${name}"]`);
+             const option = select?.querySelector(`option[value="${val}"]`);
+             const text = option?.textContent || val;
+             createTag(text, text, `${name}_${val}`, false);
+         }
+         });
+     });
+   
+     // --- Radio-based filters (e.g., ad types) ---
+     const adTypes = ['listed_horses', 'auction_horses', 'sold_horses', 'lease_horses'];
+     adTypes.forEach(name => {
+         const val = getVal(name);
+         if (val) {
+         createTag(name.replace(/_/g, ' ').toUpperCase(), val, name, true);
+         }
+     });
+     }
+   
+     // 🟢 Call it on page load
+     document.addEventListener("DOMContentLoaded", () => {
+     if (form) restoreTagsFromFormData();
+     });
+   
+</script> --}}
     <script>
         const tagsContainer = document.querySelector(".shortcuts_tags_flex");
         const form = document.getElementById("mainForm");
+        const notification = document.getElementById("tagNotification");
 
-        // Function to create a tag (only value)
-        function createTag(value, sourceElement) {
-            value = value.trim();
-            if (!value) return;
+        // 🟢 Show notification for 3 seconds
+        function showNotification(message) {
+            notification.textContent = message;
+            notification.classList.add("active");
+            setTimeout(() => notification.classList.remove("active"), 3000);
+        }
 
-            // Avoid duplicate tags
-            if ([...tagsContainer.children].some(tag => tag.dataset.value === value)) return;
+        // 🟢 Create or update tag
+        function createTag(label, value, key, showLabel = false) {
+            if (!value || value.trim() === "" || value === "-") return;
+
+            // Avoid duplicates (same key)
+            if ([...tagsContainer.children].some(tag => tag.dataset.key === key)) {
+                const existing = tagsContainer.querySelector(`[data-key='${key}']`);
+                existing.querySelector("p").innerText = showLabel ? `${label}: ${value}` : value;
+                showNotification(`Updated ${label} to ${value}`);
+                return;
+            }
 
             const tag = document.createElement("div");
             tag.classList.add("shortcuts_tags_item");
-            tag.dataset.value = value;
-            tag.innerHTML = `
-                <p>${value}</p>
-                <a href="#!" class="remove-tag">
-                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                </a>
-                `;
-            tagsContainer.appendChild(tag);
+            tag.dataset.key = key;
 
-            // Remove tag on click
+            tag.innerHTML = `
+       <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
+       <a href="#!" class="remove-tag">
+         <i class="fa fa-times-circle" aria-hidden="true"></i>
+       </a>
+     `;
+
+            tagsContainer.appendChild(tag);
+            showNotification(`Your selection (${showLabel ? `${label}: ${value}` : value}) has been added to the top.`);
+
+            // Remove tag logic
             tag.querySelector(".remove-tag").addEventListener("click", () => {
                 tag.remove();
 
-                // Reset matching input/select when tag removed
-                if (sourceElement.tagName === "SELECT") {
-                    if (sourceElement.options[sourceElement.selectedIndex]?.text === value) {
-                        sourceElement.selectedIndex = 0;
+                const baseKey = key.split('_')[0];
+
+                if (key === "distance") {
+                    form.querySelectorAll(".distance-input").forEach(i => (i.value = ""));
+                } else if (key === "height") {
+                    form.querySelectorAll("input[name^='height_']").forEach(i => (i.value = ""));
+                } else if (key === "age") {
+                    form.querySelectorAll("input[name^='age_']").forEach(i => (i.value = ""));
+                } else if (key === "price") {
+                    form.querySelectorAll("input[name='from'], input[name='to']").forEach(i => (i.value = ""));
+                } else if (baseKey === "breed" || baseKey === "skill" || baseKey === "rider") {
+                    const value = key.split('_').slice(1).join('_');
+                    const selector = baseKey === "breed" ? 'select[name="breed[]"]' : `select[name="${baseKey}"]`;
+                    const select = form.querySelector(selector);
+                    if (select) {
+                        const option = select.querySelector(`option[value="${value}"]`);
+                        if (option) option.selected = false;
                     }
                 } else {
-                    // ✅ Now only clear input value when tag is removed
-                    if (sourceElement.value.trim() === value) {
-                        sourceElement.value = "";
-                    }
+                    const input = form.querySelector(`[name="${key}"]`);
+                    if (input) input.value = "";
                 }
+
+                const displayLabel = label || (baseKey.charAt(0).toUpperCase() + baseKey.slice(1));
+                showNotification(`${displayLabel} removed`);
             });
         }
 
-        // 🟢 For text inputs → create tag on Enter or blur (but don't clear input)
-        form.querySelectorAll("input[type='text'], input[type='number']").forEach(input => {
-            input.addEventListener("keydown", e => {
-                if (e.key === "Enter") {
-                    e.preventDefault();
-                    if (input.value.trim()) {
-                        createTag(input.value.trim(), input);
-                        // ❌ Don't clear input here — leave it as is
-                    }
-                }
-            });
+        // 🟡 Combine min-max values
+        function getRangeValue(inputs) {
+            const min = inputs[0]?.value.trim() || "";
+            const max = inputs[1]?.value.trim() || "";
+            if (min && max) return `${min} - ${max}`;
+            if (min) return `${min}+`;
+            if (max) return `Up to ${max}`;
+            return "";
+        }
+
+        // 🟢 Distance Range
+        const distanceInputs = form.querySelectorAll(".distance-input");
+        distanceInputs.forEach(input =>
+            input.addEventListener("blur", () => {
+                const val = getRangeValue([...distanceInputs]);
+                if (val) createTag("Distance Range", val, "distance", true);
+            })
+        );
+
+        // 🟢 Height Range
+        const heightInputs = form.querySelectorAll("input[name^='height_']");
+        heightInputs.forEach(input =>
+            input.addEventListener("blur", () => {
+                const val = getRangeValue([...heightInputs]);
+                if (val) createTag("Height Range", val, "height", true);
+            })
+        );
+
+        // 🟢 Age Range
+        const ageInputs = form.querySelectorAll("input[name^='age_']");
+        ageInputs.forEach(input =>
+            input.addEventListener("blur", () => {
+                const val = getRangeValue([...ageInputs]);
+                if (val) createTag("Age Range (Years)", val, "age", true);
+            })
+        );
+
+        // 🟢 Price Range
+        const priceInputs = form.querySelectorAll("input[name='from'], input[name='to']");
+        priceInputs.forEach(input =>
+            input.addEventListener("blur", () => {
+                const val = getRangeValue([...priceInputs]);
+                if (val) createTag("Price Range ($)", val, "price", true);
+            })
+        );
+
+        // 🟢 Normal inputs (non-range)
+        const normalInputs = form.querySelectorAll("input[type='text'], input[type='number']");
+        normalInputs.forEach(input => {
+            if (
+                input.classList.contains("distance-input") ||
+                input.name?.startsWith("height_") ||
+                input.name?.startsWith("age_") ||
+                input.name === "from" ||
+                input.name === "to"
+            ) return;
 
             input.addEventListener("blur", () => {
-                // optional: you can remove this if you only want Enter to trigger tags
                 if (input.value.trim()) {
-                    createTag(input.value.trim(), input);
-                    // ❌ Don't clear input here either
+                    const label = input.placeholder || input.name;
+                    createTag(label, input.value.trim(), input.name, false);
                 }
             });
         });
 
-        // 🟢 For selects → create tag on change
+        // 🟢 Select fields — create tag on change
         form.querySelectorAll("select").forEach(select => {
             select.addEventListener("change", () => {
-                const selectedText = select.options[select.selectedIndex].text;
-                if (selectedText && selectedText !== "Select") {
-                    createTag(selectedText, select);
-                    // ✅ Keep the selected option visible
+                const selectedOptions = Array.from(select.selectedOptions);
+                selectedOptions.forEach(option => {
+                    if (option.value && option.textContent.trim() !== "Select") {
+                        const value = option.value;
+                        const text = option.textContent.trim();
+                        const key = `${select.name.replace('[]', '')}_${value}`;
+                        createTag(text, text, key, false);
+                    }
+                });
+            });
+        });
+
+        // 🟢 Restore tags from form data on page load
+        function restoreTagsFromFormData() {
+            if (!form) return;
+
+            const formData = new FormData(form);
+
+            const getVal = (name) => formData.get(name)?.trim() || null;
+            const getAll = (name) => formData.getAll(name).filter(v => v.trim() !== "");
+
+            // Distance
+            const dMin = getVal('distance_min');
+            const dMax = getVal('distance_max');
+            if (dMin || dMax) {
+                let val = "";
+                if (dMin && dMax) val = `${dMin} - ${dMax}`;
+                else if (dMin) val = `${dMin}+`;
+                else if (dMax) val = `Up to ${dMax}`;
+                if (val) createTag("Distance Range", val, "distance", true);
+            }
+
+            // Height
+            const hMin = getVal('height_min');
+            const hMax = getVal('height_max');
+            if (hMin || hMax) {
+                let val = "";
+                if (hMin && hMax) val = `${hMin} - ${hMax}`;
+                else if (hMin) val = `${hMin}+`;
+                else if (hMax) val = `Up to ${hMax}`;
+                if (val) createTag("Height Range", val, "height", true);
+            }
+
+            // Age
+            const aMin = getVal('age_min');
+            const aMax = getVal('age_max');
+            if (aMin || aMax) {
+                let val = "";
+                if (aMin && aMax) val = `${aMin} - ${aMax}`;
+                else if (aMin) val = `${aMin}+`;
+                else if (aMax) val = `Up to ${aMax}`;
+                if (val) createTag("Age Range (Years)", val, "age", true);
+            }
+
+            // Price
+            const from = getVal('from');
+            const to = getVal('to');
+            if (from || to) {
+                let val = "";
+                if (from && to) val = `${from} - ${to}`;
+                else if (from) val = `${from}+`;
+                else if (to) val = `Up to ${to}`;
+                if (val) createTag("Price Range ($)", val, "price", true);
+            }
+
+            // Single text/number inputs
+            const singleFields = ['name', 'state', 'selectedColor', 'selectedGender', 'selectedDiscipline'];
+            singleFields.forEach(name => {
+                const val = getVal(name);
+                if (val && val !== '-') {
+                    const input = form.querySelector(`[name="${name}"]`);
+                    const label = input?.placeholder || name;
+                    createTag(label, val, name, false);
                 }
             });
+
+            // Multi-select: skill, rider, breed
+            const multiFields = ['skill', 'rider', 'breed'];
+            multiFields.forEach(fieldName => {
+                const values = getAll(fieldName);
+                values.forEach(val => {
+                    if (val && val !== 'Select') {
+                        const selector = fieldName === 'breed' ? 'select[name="breed[]"]' : `select[name="${fieldName}"]`;
+                        const select = form.querySelector(selector);
+                        const option = select?.querySelector(`option[value="${val}"]`);
+                        const text = option?.textContent?.trim() || val;
+                        createTag(text, text, `${fieldName}_${val}`, false);
+                    }
+                });
+            });
+
+            // Radio-based filters (listed_horses, etc.)
+            const radioFields = ['listed_horses', 'auction_horses', 'sold_horses', 'lease_horses'];
+            radioFields.forEach(name => {
+                const val = getVal(name);
+                if (val) {
+                    createTag(name.replace(/_/g, ' ').toUpperCase(), val, name, true);
+                }
+            });
+        }
+
+        // 🟢 Run on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            restoreTagsFromFormData();
         });
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    {{-- <script>
-        $("#riderSelect").select2({
-            tags: true,
-            placeholder: "Select Skill"
-        });
-        // $('#riderSelect').select2({
-        //     placeholder: 'Select rider skills',
-        //     width: '100%'
-        // });
-        $(document).ready(function() {
-            // Initialize Select2
-
-            // Function to refresh visible tags
-            function updateSkillTags() {
-                const selectedValues = $('#riderSelect').val() || [];
-                const tagsContainer = $('#skills-tags');
-                tagsContainer.empty(); // clear old tags
-
-                selectedValues.forEach(value => {
-                    const tagHtml = `
-                        <div class="skill-tag" data-value="${value}">
-                            ${value}
-                            <button type="button" class="remove" data-value="${value}">×</button>
-                        </div>`;
-                    tagsContainer.append(tagHtml);
-                });
-            }
-
-            // On Select2 selection change
-            $('#riderSelect').on('change', function() {
-                updateSkillTags();
-            });
-
-            // Handle tag removal
-            $('#skills-tags').on('click', '.remove', function() {
-                const valueToRemove = $(this).data('value');
-
-                // Remove it from Select2 selection
-                let selected = $('#riderSelect').val() || [];
-                selected = selected.filter(v => v !== valueToRemove);
-                $('#riderSelect').val(selected).trigger('change'); // trigger update
-            });
-
-            // Initial load (populate tags for preselected values)
-            updateSkillTags();
-        });
-    </script> --}}
-
-    {{-- <script>
-        $('#riderSelect').select2({
-            placeholder: 'Select rider skills',
-            width: '100%',
-            templateSelection: function (selectedItems) {
-                if (!selectedItems || selectedItems.length === 0) {
-                    return 'Select rider skills';
-                }
-                if (selectedItems.length === 1) {
-                    return selectedItems[0].text;
-                }
-                return selectedItems.length + ' skills selected';
-            }
-        });
-        $(document).ready(function() {
-
-            function updateSkillTags() {
-                const selectedValues = $('#riderSelect').val() || [];
-                const tagsContainer = $('#skills-tags');
-                tagsContainer.empty();
-
-                selectedValues.forEach(value => {
-                    const tagHtml = `
-                        <div class="skill-tag" data-value="${value}">
-                            ${value}
-                            <button type="button" class="remove" data-value="${value}">×</button>
-                        </div>`;
-                    tagsContainer.append(tagHtml);
-                });
-            }
-
-            $('#riderSelect').on('change', updateSkillTags);
-
-            $('#skills-tags').on('click', '.remove', function() {
-                const valueToRemove = $(this).data('value');
-                let selected = $('#riderSelect').val() || [];
-                selected = selected.filter(v => v !== valueToRemove);
-                $('#riderSelect').val(selected).trigger('change');
-            });
-
-            // On page load
-            updateSkillTags();
-        });
-
-    </script> --}}
-    <!-- Your script -->
     <script>
-        // Initialize Select2
-        $('#riderSelect').select2({
-            placeholder: 'Select rider skills',
-            width: '100%',
-            templateSelection: function(selectedItems) {
-                if (!selectedItems || selectedItems.length === 0) return 'Select rider skills';
-                if (selectedItems.length === 1) return selectedItems[0].text;
-                return selectedItems.length + ' skills selected';
+        function sortProducts(value) {
+            const url = new URL(window.location.href); // current page URL
+            if (value) {
+                url.searchParams.set('sort', value); // update ya add sort param
+            } else {
+                url.searchParams.delete('sort'); // agar default selected hai to remove
             }
-        });
-
-        // Function to update tags
-        function updateSkillTags() {
-            const selectedValues = $('#riderSelect').val() || [];
-            const tagsContainer = $('#skills-tags');
-            tagsContainer.empty(); // Clear previous tags
-
-            selectedValues.forEach(value => {
-                const tagHtml = `
-            <div class="skill-tag" data-value="${value}">
-                ${value}
-                <button type="button" class="remove" data-value="${value}">×</button>
-            </div>`;
-                tagsContainer.append(tagHtml); // Add new tag
-            });
+            window.location.href = url.toString(); // reload with updated params
         }
+    </script>
+    <script>
+        document.querySelectorAll('.thousand-separator').forEach(input => {
+            input.addEventListener('input', function(e) {
+                // cursor position store karna zaroori hai
+                const cursorPosition = e.target.selectionStart;
+                const rawValue = e.target.value.replace(/,/g, '').replace(/[^\d]/g, '');
 
-        // Bind change event
-        $('#riderSelect').on('change', updateSkillTags);
+                // agar empty hai to kuch na dikhaye
+                if (!rawValue) {
+                    e.target.value = '';
+                    return;
+                }
 
-        // Bind remove button click
-        $('#skills-tags').on('click', '.remove', function() {
-            const valueToRemove = $(this).data('value');
-            let selected = $('#riderSelect').val() || [];
-            selected = selected.filter(v => v !== valueToRemove);
-            $('#riderSelect').val(selected).trigger('change');
+                // regex se thousand separator lagana
+                const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                e.target.value = formattedValue;
+
+                // cursor ko end par le jao (simple fix)
+                e.target.setSelectionRange(formattedValue.length, formattedValue.length);
+            });
         });
-
-        // Initial tag render
-        updateSkillTags();
     </script>
 @endsection

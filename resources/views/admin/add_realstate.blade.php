@@ -1,4 +1,9 @@
-@extends('layouts.admin_app')
+@php
+    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+@endphp
+
+@extends($layout)
+
 @section('content')
     <style>
         .asterisk {
@@ -212,7 +217,7 @@
             line-height: 100px;
         }
     </style>
-    <div class="content">
+    <div class="content user_main_content p-5">
         <div class="pb-5">
             <div class="box_top">
                 <h2 class="mb-2 main_heading_dashboard">Real Estate Ad <br /> Property Information</h2>
@@ -227,13 +232,16 @@
                             <div class="row mb-2">
                                 <div class="col-6 d-flex gap-5">
                                     <div class="form-check">
-                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Sale" /> Sale</label>
+                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Sale" />
+                                            Sale</label>
                                     </div>
                                     <div class="form-check">
-                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Auction" /> Auction</label>
+                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Auction" />
+                                            Auction</label>
                                     </div>
                                     <div class="form-check">
-                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Rent" /> Rent</label>
+                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Rent" />
+                                            Rent</label>
                                     </div>
                                 </div>
                             </div>
@@ -264,58 +272,142 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    {{--
+         <div class="col-6">
+            <div class="border_box_one">
+               <h4 class="mb-3">Property Type <span class="asterisk">*</span></h4>
+               <select class="form-control gen_input gen_input" name="property_type" required>
+                  <option disabled selected>Select Property Type:</option>
+                  <option value="Home with Acreage">Home with Acreage</option>
+                  <option value="Equestrian Facility">Equestrian Facility</option>
+                  <option value="Pasture land">Pasture land</option>
+                  <option value="Raw Land">Raw Land</option>
+                  <option value="Residential">Residential</option>
+                  <option value="Comercial">Comercial</option>
+               </select>
+            </div>
+         </div>
+         <div class="col-6">
+            <div class="border_box_one">
+               <h4 class="mb-3">Property Type <span class="asterisk">*</span></h4>
+               <select class="form-control gen_input gen_input" name="property_type" required>
+                  <option disabled selected>Select Property Type:</option>
+                  <option value="Home with Acreage">Home with Acreage</option>
+                  <option value="Equestrian Facility">Equestrian Facility</option>
+                  <option value="Pasture land">Pasture land</option>
+                  <option value="Raw Land">Raw Land</option>
+                  <option value="Residential">Residential</option>
+                  <option value="Comercial">Comercial</option>
+               </select>
+            </div>
+         </div>
+         --}}
+                    <div class="col-12">
                         <div class="border_box_one">
-                            <h4 class="mb-3">Property Type <span class="asterisk">*</span></h4>
-                            <select class="form-control gen_input gen_input" name="property_type" required>
-                                <option disabled selected>Select Property Type:</option>
-                                <option value="Home with Acreage">Home with Acreage</option>
-                                <option value="Equestrian Facility">Equestrian Facility</option>
-                                <option value="Pasture land">Pasture land</option>
-                                <option value="Raw Land">Raw Land</option>
-                                <option value="Residential">Residential</option>
-                                <option value="Comercial">Comercial</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="border_box_one">
-                            <h4 class="mb-3">Location <span class="asterisk">*</span></h4>
-                            <input class="form-control gen_input" type="text" name="real_location" placeholder="Property address" required />
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 class="mb-3">Location <span class="asterisk">*</span></h4>
+                                    {{-- <input class="form-control gen_input" type="text" name="real_location" placeholder="Property address" required /> --}}
+                                    <select class="form-control gen_input mb-3" name="real_location">
+                                        <option selected disabled>Select your State</option>
+                                        <option value="alabama (AL)">Alabama (AL)</option>
+                                        <option value="alaska (AK)">Alaska (AK)</option>
+                                        <option value="arizona (AZ)">Arizona (AZ)</option>
+                                        <option value="arkansas (AR)">Arkansas (AR)</option>
+                                        <option value="california (CA)">California (CA)</option>
+                                        <option value="colorado (CO)">Colorado (CO)</option>
+                                        <option value="connecticut (CT)">Connecticut (CT)</option>
+                                        <option value="delaware (DE)">Delaware (DE)</option>
+                                        <option value="florida (FL)">Florida (FL)</option>
+                                        <option value="georgia (GA)">Georgia (GA)</option>
+                                        <option value="hawaii (HI)">Hawaii (HI)</option>
+                                        <option value="idaho (ID)">Idaho (ID)</option>
+                                        <option value="illinois (IL)">Illinois (IL)</option>
+                                        <option value="indiana (IN)">Indiana (IN)</option>
+                                        <option value="iowa (IA)">Iowa (IA)</option>
+                                        <option value="kansas (KS)">Kansas (KS)</option>
+                                        <option value="kentucky (KY)">Kentucky (KY)</option>
+                                        <option value="louisiana (LA)">Louisiana (LA)</option>
+                                        <option value="maine (ME)">Maine (ME)</option>
+                                        <option value="maryland (MD)">Maryland (MD)</option>
+                                        <option value="massachusetts (MA)">Massachusetts (MA)</option>
+                                        <option value="michigan (MI)">Michigan (MI)</option>
+                                        <option value="minnesota (MN)">Minnesota (MN)</option>
+                                        <option value="mississippi (MS)">Mississippi (MS)</option>
+                                        <option value="missouri (MO)">Missouri (MO)</option>
+                                        <option value="montana (MT)">Montana (MT)</option>
+                                        <option value="nebraska (NE)">Nebraska (NE)</option>
+                                        <option value="nevada (NV)">Nevada (NV)</option>
+                                        <option value="new hampshire (NH)">New Hampshire (NH)</option>
+                                        <option value="new jersey (NJ)">New Jersey (NJ)</option>
+                                        <option value="new mexico (NM)">New Mexico (NM)</option>
+                                        <option value="new york (NY)">New York (NY)</option>
+                                        <option value="north carolina (NC)">North Carolina (NC)</option>
+                                        <option value="north dakota (ND)">North Dakota (ND)</option>
+                                        <option value="ohio (OH)">Ohio (OH)</option>
+                                        <option value="oklahoma (OK)">Oklahoma (OK)</option>
+                                        <option value="oregon (OR)">Oregon (OR)</option>
+                                        <option value="pennsylvania (PA)">Pennsylvania (PA)</option>
+                                        <option value="rhode island (RI)">Rhode Island (RI)</option>
+                                        <option value="south carolina (SC)">South Carolina (SC)</option>
+                                        <option value="south dakota (SD)">South Dakota (SD)</option>
+                                        <option value="tennessee (TN)">Tennessee (TN)</option>
+                                        <option value="texas (TX)">Texas (TX)</option>
+                                        <option value="utah (UT)">Utah (UT)</option>
+                                        <option value="vermont (VT)">Vermont (VT)</option>
+                                        <option value="virginia (VA)">Virginia (VA)</option>
+                                        <option value="washington (WA)">Washington (WA)</option>
+                                        <option value="west virginia (WV)">West Virginia (WV)</option>
+                                        <option value="wisconsin (WI)">Wisconsin (WI)</option>
+                                        <option value="wyoming (WY)">Wyoming (WY)</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <h4 class="mb-3">
+                                        Town <span class="asterisk">*</span>
+                                        {{-- <small class="text-muted">(Attractive title to capture potential buyers)</small> --}}
+                                    </h4>
+                                    <input class="form-control gen_input mb-3" type="text" name="real_title" placeholder="Enter Town" required />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="border_box_one">
-                            <h4 class="mb-3">Basic Information:</h4>
                             <div class="row">
                                 <div class="col-6">
-                                    <h5 class="mb-2">
-                                        Title <span class="asterisk">*</span>
-                                        <small class="text-muted">(Attractive title to capture potential buyers)</small>
-                                    </h5>
-                                    <input class="form-control gen_input mb-3" type="text" name="real_title" placeholder="Enter Title" required />
+                                    <h5 class="mb-3">Property Type <span class="asterisk">*</span></h5>
+                                    <select class="form-control gen_input gen_input mb-3" name="property_type" required>
+                                        <option disabled selected>Select Property Type:</option>
+                                        <option value="Home with Acreage">Home with Acreage</option>
+                                        <option value="Equestrian Facility">Equestrian Facility</option>
+                                        <option value="Pasture land">Pasture land</option>
+                                        <option value="Raw Land">Raw Land</option>
+                                        <option value="Residential">Residential</option>
+                                        <option value="Comercial">Comercial</option>
+                                    </select>
                                 </div>
-
                                 <div class="col-6">
-                                    <h5 class="mb-2">Price [$] <span class="asterisk">*</span></h5>
+                                    <h5 class="mb-3">Price [$] <span class="asterisk">*</span></h5>
                                     <input class="form-control gen_input mb-3 thousand-separator price-input" type="text" name="real_price" placeholder="Enter Price" required />
                                 </div>
+                            </div>
+
+                            <h4 class="mb-3">Basic Information:</h4>
+                            <div class="row">
 
                                 <div class="col-6">
                                     <h5 class="mb-2">Acres <span class="asterisk">*</span></h5>
                                     <input class="form-control gen_input mb-3" type="text" name="real_acres" placeholder="Enter Acres" required />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2"># of Bedrooms</h5>
                                     <input class="form-control gen_input mb-3" type="text" name="real_bedroom" placeholder="Enter # of Bedrooms" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2"># of Bathrooms</h5>
                                     <input class="form-control gen_input mb-3" type="text" name="real_bathroom" placeholder="Enter # of Bathrooms" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2">
                                         Farm Name <small class="text-muted">(Optional)</small>
@@ -385,29 +477,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="border_box_one">
-                            <h4 class="mb-3">Stable/Barn Facilities/ Amenities:</h4>
-                            <div class="row">
-                                <div class="col-6">
-                                    <input class="form-control gen_input mb-3" type="text" name="barn_type" placeholder="Type of Barn " />
-                                </div>
-                                <div class="col-6">
-                                    <input class="form-control gen_input mb-3" type="text" name="num_stalls" placeholder="# of Stalls" />
-                                </div>
-                                <div class="col-6">
-                                    <input class="form-control gen_input" type="text" name="num_barn" placeholder="# of Barns" />
-                                </div>
-                                <div class="col-6">
-                                    <input class="form-control gen_input mb-3" type="text" name="num_sheds" placeholder="# of Run-in Sheds" />
-                                </div>
-
-                                <div class="col-6">
-                                    <input class="form-control gen_input mb-3" type="text" name="amenities" placeholder="Enter Amenities" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!---<div class="col-12">
+                <div class="border_box_one">
+                   <h4 class="mb-3">Stable/Barn Facilities/ Amenities:</h4>
+                   <div class="row">
+                      <div class="col-6">
+                         <input class="form-control gen_input mb-3" type="text" name="barn_type"
+                            placeholder="Type of Barn " />
+                      </div>
+                      <div class="col-6">
+                         <input class="form-control gen_input mb-3" type="text" name="num_stalls"
+                            placeholder="# of Stalls" />
+                      </div>
+                      <div class="col-6">
+                         <input class="form-control gen_input" type="text" name="num_barn" placeholder="# of Barns" />
+                      </div>
+                      <div class="col-6">
+                         <input class="form-control gen_input mb-3" type="text" name="num_sheds"
+                            placeholder="# of Run-in Sheds" />
+                      </div>
+                      <div class="col-6">
+                         <input class="form-control gen_input mb-3" type="text" name="amenities"
+                            placeholder="Enter Amenities" />
+                      </div>
+                   </div>
+                </div>
+             </div>--->
                     <div class="col-12">
                         <div class="border_box_one">
                             <div class="row gy-4">
@@ -611,17 +706,20 @@
                                                 </div>
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="fencing[]" value="vinyl"> Vinyl
+                                                        <input class="form-check-input" type="checkbox" name="fencing[]" value="vinyl">
+                                                        Vinyl
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="fencing[]" value="wood"> Wood
+                                                        <input class="form-check-input" type="checkbox" name="fencing[]" value="wood">
+                                                        Wood
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="fencing[]" value="metal"> Metal
+                                                        <input class="form-check-input" type="checkbox" name="fencing[]" value="metal">
+                                                        Metal
                                                     </label>
                                                 </div>
                                                 <div class="form-check other_flooring_box ms-1">
@@ -719,16 +817,18 @@
                     <div class="col-12">
                         <div class="border_box_one mb-0">
                             <h4 class="mb-2">Property Overview <span class="asterisk">*</span></h4>
-                            <h4><small class="text-muted mb-3">( This area is for describing the property ONLY. Do not enter emails, website addresses, contact information, HTML, etc. All text not
-                                    describing property will be removed.)</small></h4>
-                            <textarea class="textarea" name="property_overview" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Write property overview..."></textarea>
+                            <h4><small class="text-muted mb-3">( This area is for describing the property ONLY. Do not enter
+                                    emails, website addresses, contact information, HTML, etc. All text not
+                                    describing property will be removed.)</small>
+                            </h4>
+                            <textarea class="textarea" name="property_overview" style="width: 100%; height: 15rem;" placeholder="Write property overview..."></textarea>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="border_box_one mb-0">
                             <h4 class="mb-2">Additional Write up</h4>
                             <h4><small class="text-muted mb-3">( Please include anything additional you want to add)</small></h4>
-                            <textarea class="textarea" name="ad_write_up" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Additional Write up"></textarea>
+                            <textarea class="textarea" name="ad_write_up" style="width: 100%; height: 15rem;" placeholder="Additional Write up"></textarea>
                         </div>
                     </div>
                     <div class="col-12 pb-4">
@@ -789,14 +889,18 @@
                     <div class="col-12">
                         <div class="border_box_one">
                             <h4 class="mb-2">Documents </h4>
-                            <h4 class="mb-3"><small class="text-muted mb-3">Please upload any relevant documents you want to provide to prospective buyers. This includes surveys, disclosures, and any
-                                    other important documents. </small></h4>
+                            <h4 class="mb-3"><small class="text-muted mb-3">Please upload any relevant documents you want to
+                                    provide to prospective buyers. This includes surveys, disclosures, and
+                                    any other important documents. </small>
+                            </h4>
                             <div class="col-12">
                                 <div class="upload__box">
                                     <div class="upload__img-wrap"></div>
                                     <div class="upload__btn-box">
                                         <label class="upload__btn">
-                                            <p>Drag your file here <span class="or">OR</span> <span class="browse_option">Browse from device</span></p>
+                                            <p>Drag your file here <span class="or">OR</span> <span class="browse_option">Browse from
+                                                    device</span>
+                                            </p>
                                             <input name="property_document[]" type="file" multiple class="upload__inputfile"
                                                 accept="image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,video/*">
                                         </label>
@@ -816,7 +920,9 @@
                                     <div class="upload__img-wrap"></div>
                                     <div class="upload__btn-box">
                                         <label class="upload__btn">
-                                            <p>Drag your Image here<span class="or">OR</span> <span class="browse_option">Browse from device</span></p>
+                                            <p>Drag your Image here<span class="or">OR</span> <span class="browse_option">Browse from
+                                                    device</span>
+                                            </p>
                                             <input name="gallery_imgs[]" type="file" multiple="multiple" class="upload__inputfile" data-max_length="20">
                                         </label>
                                     </div>
@@ -837,7 +943,8 @@
                                             <input class="form-control gen_input" type="url" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
                                         </div>
                                     </div>
-                                    <p id="error_message" style="color: red; display: none;">You can only add up to 3 video URLs.</p>
+                                    <p id="error_message" style="color: red; display: none;">You can only add up to 3 video URLs.
+                                    </p>
                                 </div>
                                 <div class="col-6">
                                     <div class="upload__box">
@@ -855,7 +962,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-12 pb-4">
@@ -866,45 +972,40 @@
                                     <h5 class="mb-2">First Name <span class="asterisk">*</span></h5>
                                     <input class="form-control gen_input_one mb-3" type="text" name="first_name" placeholder="First Name" required />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2">Last Name <span class="asterisk">*</span></h5>
                                     <input class="form-control gen_input_one mb-3" type="text" name="last_name" placeholder="Last Name" required />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-3">If Agent - Brokerage Name <small class="text-muted">(Optional)</small></h5>
                                     <input class="form-control gen_input_one mb-3" type="text" name="agent_name" placeholder="If Agent - Brokerage Name" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-3">Contact Email <span class="asterisk">*</span></h5>
                                     <input class="form-control gen_input_one mb-3" type="email" name="email" placeholder="Type Email" required />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-3">Phone Number <span class="asterisk">*</span></h5>
                                     <input class="form-control gen_input_one mb-3 phone-input" type="tel" name="number" placeholder="Type Phone Number" required />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-3">Website Link <small class="text-muted">(Optional)</small></h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="website_link" placeholder="example@abcd.com" />
                                 </div>
                             </div>
-
                             <h5 class="mb-3">Upload Your Photo <small class="text-muted mb-3">(Optional) </small></h5>
                             <div class="upload__box">
                                 <div class="upload__img-wrap"></div>
                                 <div class="upload__btn-box">
                                     <label class="upload__btn">
-                                        <p>Drag your image here<span class="or">OR</span> <span class="browse_option">Browse from device</span></p>
+                                        <p>Drag your image here<span class="or">OR</span> <span class="browse_option">Browse from
+                                                device</span>
+                                        </p>
                                         <input name="per_pic[]" type="file" multiple="multiple" class="upload__inputfile">
                                     </label>
                                 </div>
                             </div>
                         </div>
-
                         <h2 class="text-white mb-3">Social Media Links</h2>
                         <div class="border_box_one">
                             <div class="row gy-3">
@@ -912,34 +1013,28 @@
                                     <h5 class="mb-2">Facebook</h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="facebook" placeholder="Paste link here" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2">Instagram</h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="insta" placeholder="Paste link here" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2">TikTok</h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="tiktok" placeholder="Paste link here" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2">LinkedIn</h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="linkedin" placeholder="Paste link here" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2">YouTube</h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="youtube" placeholder="Paste link here" />
                                 </div>
-
                                 <div class="col-6">
                                     <h5 class="mb-2">Zillow </h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="zillow" placeholder="Paste link here" />
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-6">
                         <div class="form-check">
@@ -1159,7 +1254,6 @@
             height: 37px;
         }
     </style>
-
     <script>
         $(document).ready(function() {
             $(".variant_btn input[type='checkbox']").on("change", function() {
@@ -1254,7 +1348,6 @@
             });
         }
     </script>
-
     <script>
         function toggleInput(checkboxId, inputDivId) {
             const checkbox = document.getElementById(checkboxId);
@@ -1270,7 +1363,6 @@
             }
         }
     </script>
-
     <script>
         const addBtn = document.querySelector('.add_url_btn');
         const wrapper = document.getElementById('video_inputs_wrapper');
@@ -1303,7 +1395,6 @@
             });
         });
     </script>
-
     <script>
         document.querySelectorAll('.thousand-separator').forEach(function(input) {
             input.addEventListener('input', function(e) {
@@ -1316,7 +1407,6 @@
             });
         });
     </script>
-
     <script>
         document.querySelectorAll('.price-input').forEach(function(input) {
             input.addEventListener('focus', function() {
@@ -1333,7 +1423,6 @@
             });
         });
     </script>
-
     <script>
         // Auction Bid Box Toggle
         const auctionRadioButtons = document.querySelectorAll('input[name="ad_type"]');
@@ -1355,7 +1444,6 @@
         // Initial state
         document.addEventListener("DOMContentLoaded", toggleBidBox);
     </script>
-
     <script>
         $(document).ready(function() {
             function toggleHiddenBox() {
@@ -1454,7 +1542,6 @@
             $('input[name="real_garage"]').on('change', toggleHiddenBoxNine);
         });
     </script>
-
     <script>
         function formatPhoneNumber(input) {
             let value = input.value.replace(/\D/g, "");

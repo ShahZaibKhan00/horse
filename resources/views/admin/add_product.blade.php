@@ -1,4 +1,10 @@
-@extends('layouts.admin_app')
+@php
+    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+@endphp
+
+@extends($layout)
+{{-- @extends('layouts.admin_app') --}}
+
 @section('content')
     <style>
         .asterisk {
@@ -492,7 +498,8 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            max-width: 970px;
+            max-width: 960px;
+            margin: 0 auto;
         }
 
         .custom-relative-box {
@@ -556,16 +563,8 @@
             text-align: center;
             line-height: 100px;
         }
-        .age_grp {
-            position: relative;
-        }
-        .age_grp .age_input_group {
-        position: absolute;
-            top: 0;
-            left: 0;
-        }
     </style>
-    <div class="content">
+    <div class="content user_main_content p-5">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -728,11 +727,12 @@
                 </div>
                 <div class="col-12">
                     <div class="border_box_one">
-                        <h4 class="mb-2">Horse Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h4>
+                        <h4 class="mb-2">Details<span class="asterisk">*</span> <small class="text-muted">(For Information Purpose Only)</small></h4>
                         <div class="row">
                             <div class="col-12">
                                 <input class="form-control gen_input mb-3" type="text" name="pro_address" placeholder="Enter Your Address" />
                             </div>
+                            <h4 class="mb-2">Town / City<span class="asterisk">*</span> <small class="text-muted">(For Ad Purpose Only)</small></h4>
                             <div class="col-6">
                                 <input class="form-control gen_input mb-3" type="text" name="pro_city" placeholder="Enter Town" />
                                 <!--<select class="form-control gen_input mb-3" name="pro_city">
@@ -1327,24 +1327,74 @@
                     <div class="border_box_one">
                         <h4 class="mb-3">Age <span class="asterisk">*</span></h4>
                         <div class="row">
+                            <div class="col-6 pe-2">
+                                <select class="form-control gen_input" name="pro_age_year">
+                                    <option selected disabled>Years</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                            <div class="col-6 ps-2">
+                                <select class="form-control gen_input" name="pro_age_month">
+                                    <option selected disabled>Months</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
                             <div class="col-3">
                                 <div class="age_grp">
-                                <div class="age_input_group year_input">
-                                    <input
-                                    class="form-control gen_input w-100"
-                                    type="text"
-                                    maxlength="2"
-                                    placeholder="Year"
-                                    />
-                                </div>
-                                <div class="age_input_group month_input" style="display: none;">
-                                    <input
-                                    class="form-control gen_input w-100"
-                                    type="text"
-                                    maxlength="2"
-                                    placeholder="Month"
-                                    />
-                                </div>
+                                    <div class="age_input_group year_input">
+                                        <input
+                                        class="form-control gen_input w-100"
+                                        type="text"
+                                        maxlength="2"
+                                        placeholder="Year"
+                                        />
+                                    </div>
+                                    <div class="age_input_group month_input" style="display: none;">
+                                        <input
+                                        class="form-control gen_input w-100"
+                                        type="text"
+                                        maxlength="2"
+                                        placeholder="Month"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-9">
@@ -1372,7 +1422,7 @@
                                 </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- <div class="row">
                             <div class="col-6">
@@ -1674,15 +1724,15 @@
                         <div class="col-6">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <h5 class="">Video URL:</h5>
-                                {{-- <a href="#!" class="add_url_btn">Add another video</a> --}}
+                                 <a href="#!" class="add_url_btn">Add another video</a>
                             </div>
                             <div id="video_inputs_wrapper">
                                 <div class="video_input d-flex align-items-center mb-2">
                                     <input class="form-control gen_input" type="url" name="pro_youtube" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
                                 </div>
                             </div>
-                            {{-- <p id="error_message" style="color: red; display: none;">You can only add up to 3 video
-                                    URLs.</p> --}}
+                             <p id="error_message" style="color: red; display: none;">You can only add up to 3 video
+                                    URLs.</p>
                         </div>
                         <div class="col-6">
                             <div class="upload__box">
@@ -1703,7 +1753,7 @@
 
                 </div>
             </div>
-            <div class="col-12 mb-4">
+            <!--<div class="col-12 mb-4">
                 <h2 class="mb-3 text-white">Contact Details</h2>
                 <div class="border_box_one">
                     <div class="row gy-4">
@@ -1785,7 +1835,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-12 mb-4">
                 <h2 class="text-white mb-3">Social Profiles</h2>
                 <div class="border_box_one">
@@ -1980,29 +2030,7 @@
             }
         </style>
 
-        <script>
-  const yearRadio = document.getElementById('gaited_year');
-  const monthRadio = document.getElementById('gaited_month');
-  const yearInput = document.querySelector('.year_input');
-  const monthInput = document.querySelector('.month_input');
 
-  function toggleInputs() {
-    if (yearRadio.checked) {
-      yearInput.style.display = 'block';
-      monthInput.style.display = 'none';
-    } else {
-      yearInput.style.display = 'none';
-      monthInput.style.display = 'block';
-    }
-  }
-
-  // Add listeners
-  yearRadio.addEventListener('change', toggleInputs);
-  monthRadio.addEventListener('change', toggleInputs);
-
-  // Set default
-  toggleInputs();
-</script>
 
         <script>
             jQuery(document).ready(function() {
@@ -2584,7 +2612,7 @@
             });
         </script>
 
-        <script>
+        {{-- <script>
             document.querySelectorAll('.price-input').forEach(function(input) {
                 input.addEventListener('focus', function() {
                     this.value = this.value.replace(/[^0-9]/g, ''); // remove $ and commas
@@ -2599,7 +2627,7 @@
                     }
                 });
             });
-        </script>
+        </script>--}}
         <script>
             function formatPhoneNumber(input) {
                 let value = input.value.replace(/\D/g, "");
@@ -2911,5 +2939,5 @@
         </script>
 
 
-        
+
     @endsection

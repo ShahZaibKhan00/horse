@@ -54,11 +54,11 @@ class ProductController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if($usertype == '1'){
-            return view('admin.add_product' , compact('username' , 'userprofile' , 'Logo' , 'categories' , 'Web_name' , 'name'));
-        }else{
-            return view('user.add_product' , compact('username' , 'userprofile' , 'Logo' , 'categories' , 'Web_name' , 'name'));
-        }
+        // if($usertype == '1'){
+            return view('admin.add_product' , compact('username' , 'usertype', 'userprofile' , 'Logo' , 'categories' , 'Web_name' , 'name'));
+        // }else{
+        //     return view('user.add_product' , compact('username' , 'userprofile' , 'Logo' , 'categories' , 'Web_name' , 'name'));
+        // }
     }
 
     /**
@@ -66,6 +66,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $usertype = Auth::user()->usertype;
+        $username = Auth::user()->name;
+        $userprofile = Auth::user()->Profile_img;
+        $logoquery = General::where('id', 1)->first();
+        $Logo = $logoquery->G_logo;
+        $Web_name = $logoquery->G_name;
+        $categories = Category::all();
+        // dd($request->all());
         $request->validate([
             'pro_name' => 'required',
             'pro_Fimg' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:5120',
@@ -265,9 +273,13 @@ class ProductController extends Controller
         $product->user_id = Auth::user()->id;
 
         $product->save();
-
-        return redirect("/products/$request->cate_id_name");
+        if($usertype == '1'){
+            return redirect("/products/$request->cate_id_name");
+        } else {
+            return redirect()->back();
+        }
     } catch (\Exception $e) {
+        \Log::info($e->getMessage());
         return back()->withInput()->with('error', 'Error: ' . $e->getMessage());
     }
     }
@@ -306,18 +318,18 @@ class ProductController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if($usertype == '1'){
+        // if($usertype == '1'){
             $get = Product::where('id', '=', $id)->first();
             $data = Product::where('id', '=', $id)->get();
             $addons = Addon::where('pro_sku', '=', $get->pro_sku)->get();
             // dd($get);
-            return view('admin.edit_product' , compact('username' , 'userprofile' , 'Logo' , 'categories' , 'data' , 'Web_name' , 'name', 'addons'));
-        }else{
-            $get = Product::where('id', '=', $id)->first();
-            $data = Product::where('id', '=', $id)->get();
-            $addons = Addon::where('pro_sku', '=', $get->pro_sku)->get();
-            return view('admin.edit_product' , compact('username' , 'userprofile' , 'Logo' , 'categories' , 'data' , 'Web_name' , 'name', 'addons'));
-        }
+            return view('admin.edit_product' , compact('username' , 'usertype', 'userprofile' , 'Logo' , 'categories' , 'data' , 'Web_name' , 'name', 'addons'));
+        // }else{
+        //     $get = Product::where('id', '=', $id)->first();
+        //     $data = Product::where('id', '=', $id)->get();
+        //     $addons = Addon::where('pro_sku', '=', $get->pro_sku)->get();
+        //     return view('admin.edit_product' , compact('username' , 'userprofile' , 'Logo' , 'categories' , 'data' , 'Web_name' , 'name', 'addons'));
+        // }
     }
 
     /**
@@ -325,6 +337,13 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
+        $usertype = Auth::user()->usertype;
+        $username = Auth::user()->name;
+        $userprofile = Auth::user()->Profile_img;
+        $logoquery = General::where('id', 1)->first();
+        $Logo = $logoquery->G_logo;
+        $Web_name = $logoquery->G_name;
+        $categories = Category::all();
         $id = $request->id;
         // dd(1);
         $product = Product::find($id);
@@ -452,7 +471,10 @@ class ProductController extends Controller
         $product->save();
         $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Updated Successfully.'];
         Session()->flash('alert-success', $messages);
-        return redirect("/products/$request->cate_id_name");
+        if($usertype == '1')
+            return redirect("/products/$request->cate_id_name");
+        else
+            return redirect('/horse-listing');
     }
 
     /**

@@ -198,7 +198,7 @@
 <div class="content">
     <div class="pb-6">
         <div id="lealsTable" data-list='{"valueNames":["name","email","phone","contact","company","date"],"page":10,"pagination":true}'>
-        <div class="row g-3 justify-content-between mb-4">
+        <div class="row g-3 justify-content-between mb-4 flex-nowrap">
             <div class="col-auto">
                 <h2 class="mb-2 text-white main_heading_dashboard">{{count($data)}} EQUESTRIAN REAL ESTATE</h2>
             </div>

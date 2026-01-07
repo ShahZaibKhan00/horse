@@ -1,0 +1,11 @@
+a.ADDbtn {
+    background: #004efe;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all ease-in-out 0.4s;
+}
+a.ADDbtn:hover {
+    background: #000;
+}

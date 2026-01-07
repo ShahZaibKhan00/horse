@@ -546,7 +546,7 @@
         }
 
         .horse_list_card_new .top_list {
-            padding: 5px 0px;
+            padding: 20px 0px;
         }
 
         .horse_list_card_new .top_list li {
@@ -566,10 +566,14 @@
         }
 
         .horse_list_card_new .custome_listing_col .info_list li {
-            font-size: 20px;
+            font-size: 18px;
             margin: 5px 0px;
-            padding: 0px;
+            padding: 0px 10px;
             text-transform: uppercase;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .fs_tag {
@@ -588,7 +592,7 @@
             padding: 5px;
         }
 
-        ..horse_list_card.horse_list_card_new .blue_stripe h3 {
+        .horse_list_card.horse_list_card_new .blue_stripe h3 {
             font-size: 35px;
             text-transform: uppercase;
         }
@@ -625,7 +629,12 @@
         .real_estate_card_new.horse_list_card_new .custome_listing_col .info_list li {
             font-size: 16px;
             margin: 5px 0px;
-            padding: 4px 0px;
+            padding: 4px 13px;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
         }
 
         .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
@@ -774,7 +783,7 @@
         </div>
         <form action="{{ route('horse_listing_filter') }}" class="search_bar">
             <div class="row">
-                <div class="col-4">
+                <div class="col-6">
                     <div class="select_group">
                         <input type="text" placeholder="Location" />
                         <div class="select_group absolute_group location_group">
@@ -788,7 +797,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <div class="select_group">
                         <div class="price_filter">
                             <h3>Distance:</h3>
@@ -798,8 +807,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-4">
+                </div> -->
+                <div class="col-6">
                     <div class="select_group">
                         <div class="price_filter">
                             <h3>Price ($)</h3>
@@ -1134,7 +1143,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                             <a href="#!" class="service_card_new">
-                                <img src="https://horse.testlinkhost.com/assets/images/sm2.png" alt="img" class="img-fluid" />
+                                <img src="https://horse-dev.testlinkdev.com/Gallery_imgs/1758669774_21.jpg" alt="img" class="img-fluid" />
                                 <p>Real estate</p>
                             </a>
                         </div>
@@ -1173,9 +1182,9 @@
                                 <div class="blue_stripe">
                                     <p class="fs_tag">{{ $product->pro_ad_type }}</p>
                                     <ul class="top_list">
-                                        <li>Trail</li>
+                                        {{-- <li>Trail</li>
                                         <li>Dressage</li>
-                                        <li>Beginner Safe</li>
+                                        <li>Beginner Safe</li> --}}
                                     </ul>
                                 </div>
                                 <div class="blue_stripe blue_stripe_new">

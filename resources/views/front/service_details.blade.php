@@ -160,11 +160,11 @@
         }
 
         /* .horser_information_box_one  .horser_action_info_btn,
-                                                    .horser_information_box_one  .horser_action_info_btn:focus,
-                                                    .horser_information_box_one  .fvrt_btn {
-                                                        width: 30%;
-                                                        font-size: 12px;
-                                                    } */
+                                                        .horser_information_box_one  .horser_action_info_btn:focus,
+                                                        .horser_information_box_one  .fvrt_btn {
+                                                            width: 30%;
+                                                            font-size: 12px;
+                                                        } */
         .horser_information_box.horser_information_box_one,
         .img_radius_ext {
             height: 340px;
@@ -1100,9 +1100,9 @@
             }
 
             /* .side_box_one {
-                padding: 20px 20px 20.8px 85px;
-                margin-bottom: 23px;
-            } */
+                    padding: 20px 20px 20.8px 85px;
+                    margin-bottom: 23px;
+                } */
             .side_box_one {
                 padding: 0px 10px 0px 70px;
             }
@@ -1379,9 +1379,9 @@
 
         @media (max-width: 1799px) {
             /* .side_box_one {
-                min-height: 617px;
-                margin-bottom: 8px;
-            } */
+                    min-height: 617px;
+                    margin-bottom: 8px;
+                } */
         }
 
         @media (max-width: 1399px) {
@@ -1437,7 +1437,7 @@
                                     <!-- <p>{{ $data->website_url }}</p> -->
                                     <p>Cell: {{ $data->number }}</p>
                                     <p>{{ $data->email }}</p>
-                                    <p>Location: {{ $data->Address }}, {{ $data->state }}</p>
+                                    <p>{{ $data->user_address }}</p>
 
                                     <div class="social_icons mt-4">
                                         <a href="{{ $data->facebook_link }}" target="_blank" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
@@ -1562,14 +1562,15 @@
                                 <div class="address_tabs_sec">
                                     <!-- Text Section -->
                                     <div class="text-section">
-                                        <h2>SERVICE LOCATION:</h2>
-                                        <ul class="mb-4">
-                                            <li>- {{ $data->service_location }}</li>
+                                        <h2>Service Location:</h2>
+                                        <ul>
+                                            <li>{{ $data->service_address }} , {{ $data->state }}</li>
                                         </ul>
+
 
                                         <h2>BUSINESS LOCATION:</h2>
                                         <p>
-                                            {{ $data->Address }}
+                                            {{ $data->business_name1 . ', ' .$data->business_location1 }}
                                         </p>
                                     </div>
 
@@ -1614,13 +1615,29 @@
                                 <h2>Services offered<h2>
                             </div>
                             <ul>
-                                @foreach (collect(explode(',', $data->services_offered))->take(10) as $item)
-                                    @if ($loop->iteration == 10)
+                                @php
+                                    $services = collect(explode(',', $data->services_offered));
+                                @endphp
+
+                                @foreach ($services as $item)
+                                    @if ($loop->iteration > 5)
+                                        <li>
+                                            <span class="me-3">
+                                                <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
+                                            </span>
+                                            <a href="#!" class="view_btn">View All</a>
+                                        </li>
                                         @break
                                     @endif
-                                    <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>{{ Str::title(Str::replace('_', ' ', $item)) }}</li>
-                                    @endforeach
-                                    <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span><a href="#!">View All</a></li>
+
+                                    <li>
+                                        <span class="me-3">
+                                            <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
+                                        </span>
+                                        {{ Str::title(Str::replace('_', ' ', $item)) }}
+                                    </li>
+                                @endforeach
+
                             </ul>
                         </div>
                         <div class="side_box_one pt-4">
@@ -1628,7 +1645,7 @@
                                 <h2>Pricing<h2>
                             </div>
                             <h5>{{ $data->pkg_price }}</h5>
-                            <h6>Per Hour</h6>
+                            <h6>{{ $data->pkg_price . ' ' . $data->pricing_type }}</h6>
                             <h4>Payment Accepted</h4>
                             <ul>
                                 @foreach (explode(',', $data->payment_method) as $item)
@@ -1686,4 +1703,19 @@
         const timerInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
     </script>
+    <script>
+    // Wait for DOM
+    document.addEventListener("DOMContentLoaded", function() {
+        const viewBtn = document.querySelector(".view_btn");
+        const tabEl = document.getElementById("v_pills_seller_2-tab");
+
+        viewBtn.addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+
+            // Using Bootstrap 5 Tab API
+            const tab = new bootstrap.Tab(tabEl);
+            tab.show();
+        });
+    });
+</script>
 @endsection

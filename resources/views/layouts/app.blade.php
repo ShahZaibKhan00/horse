@@ -335,7 +335,7 @@
                         </ul>
                     </div>
                     <a href="{{ getenv('APP_URL') }}">
-                        <img src="{{ getenv('APP_URL') }}/assets/images/test-logo.gif" alt="Logo" class="logo img-fluid">
+                        <img src="{{ getenv('APP_URL') }}/assets/images/test-logo-1.gif" alt="Logo" class="logo img-fluid">
                     </a>
                     <div class="top_bar_flex_left login_btn_flex">
                         <ul>
@@ -357,7 +357,7 @@
                         <div class="top_nav nav_bar">
                             <ul class="navigation d-none d-lg-flex">
                                 <li><a href="{{ getenv('APP_URL') }}" class="nav_itm">Home</a></li>
-                                <li><a href="#!" class="menu-link nav_itm" data-target=".horser_menu_tab">Horses</a>
+                                <li><a href="{{ route('horse_listing_filter') }}" class="menu-link nav_itm" data-target=".horser_menu_tab">Horses</a>
                                     <div class="mega_menu_bar horser_menu_tab">
                                         <div class="row gy-4 p-4">
                                             <div class="col-3">
@@ -407,7 +407,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-3">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ route('horse_listing_filter', array_merge(request()->query(), ['type' => 'For Sale'])) }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -416,7 +416,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-3">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ route('horse_listing_filter', array_merge(request()->query(), ['type' => 'At Auction'])) }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -425,7 +425,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-3">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ route('horse_listing_filter', array_merge(request()->query(), ['type' => 'For Lease'])) }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -434,7 +434,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-3">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ route('horse_listing_filter', array_merge(request()->query(), ['type' => 'At Stud'])) }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -445,7 +445,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="javascript:;" class="menu-link nav_itm" data-target=".service_menu_tab">Services</a>
+                                <li><a href="{{ url('services') }}" class="menu-link nav_itm" data-target=".service_menu_tab">Services</a>
                                     <div class="mega_menu_bar service_menu_tab">
                                         <div class="row p-4">
                                             <div class="col-4">
@@ -467,7 +467,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-4">
-                                                <a href="{{ url('add_service') }}" class="inner_small_box">
+                                                <a href="{{ url('services') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -481,11 +481,11 @@
                             </ul>
 
                             <ul class="navigation d-none d-lg-flex">
-                                <li><a href="{{ url('farm_listing') }}" class="menu-link nav_itm" data-target=".estate_menu_tab">Real Estate</a>
+                                <li><a href="{{ url('realestate_listing_filter') }}" class="menu-link nav_itm" data-target=".estate_menu_tab">Real Estate</a>
                                     <div class="mega_menu_bar estate_menu_tab">
                                         <div class="row p-4">
                                             <div class="col-4">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ url('realestate_listing_filter') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -494,7 +494,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-4">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ url('realestate_listing_filter') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -503,7 +503,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-4">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ url('realestate_listing_filter') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -514,11 +514,11 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="#!" class="menu-link nav_itm" data-target=".ads_menu_tab">Advertise</a>
+                                <li><a href="{{ url('membership') }}" class="menu-link nav_itm" data-target=".ads_menu_tab">Advertise</a>
                                     <div class="mega_menu_bar ads_menu_tab">
                                         <div class="row p-4">
                                             <div class="col-4">
-                                                <a href="#!" class="inner_small_box">
+                                                <a href="{{ route('membership') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -714,8 +714,8 @@
                     <div class="col-md-4 mb-4 mb-md-0">
                         <div class="f_clm f_clm1">
 
-                            <a href="index.php" class="d-block">
-                                <img src="{{ getenv('APP_URL') }}/assets/images/test-logo.gif" class=" footer_logo" />
+                            <a href="{{ getenv('APP_URL') }}" class="d-block">
+                                <img src="{{ getenv('APP_URL') }}/assets/images/test-logo.gif" class="footer_logo" />
                             </a>
                             <!--- <p class="my-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p> --->
                             <form class="newsletter">
@@ -732,9 +732,8 @@
                                 <li><a href="{{ url('products') }}">Search Horses</a></li>
                                 <li><a href="{{ url('services') }}">Equestrian Services</a></li>
                                 <li><a href="{{ url('farm_listing') }}">Equestrian Real Estate</a></li>
-                                <li><a href="#!">Advertise</a></li>
+                                <li><a href="{{ url('membership') }}">Advertise</a></li>
                                 <li><a href="{{ url('about_us') }}">About</a></li>
-                                <li><a href="{{ url('membership') }}">Membership</a></li>
                             </ul>
                         </div>
                     </div>

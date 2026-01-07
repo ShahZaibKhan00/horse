@@ -1,4 +1,10 @@
-@extends('layouts.admin_app')
+{{-- @extends('layouts.admin_app') --}}
+
+@php
+    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+@endphp
+
+@extends($layout)
 
 @section('content')
 
@@ -558,7 +564,7 @@
             line-height: 100px;
         }
     </style>
-    <div class="content">
+    <div class="content user_main_content p-5">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

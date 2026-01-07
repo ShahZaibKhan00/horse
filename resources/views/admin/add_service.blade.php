@@ -1,4 +1,8 @@
-@extends('layouts.admin_app')
+@php
+    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+@endphp
+
+@extends($layout)
 @section('content')
     <style>
         .file-main-box {
@@ -232,7 +236,7 @@
             border: 1px solid #ccc;
             border-top: none;
             background: white;
-            z-index: 10;
+            z-index: 999;
             display: none;
         }
 
@@ -438,8 +442,8 @@
         }
 
         .custom-upload-img-box {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border: 2px dashed #ccc;
             display: flex;
             align-items: center;
@@ -475,7 +479,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            max-width: 970px;
+            max-width: 1100px;
         }
 
         .custom-relative-box {
@@ -600,8 +604,106 @@
             color: #000;
             margin-bottom: 1rem;
         }
+
+        .custom-multiselect{
+            position: relative;
+            width: 100%;
+            }
+
+           .selected-tags {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: wrap;
+                min-height: 44px;
+                padding: 4px 8px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                background: #fff;
+                cursor: text;
+                height: 55px !important;
+                border: 2px solid #1d2139;
+                border-radius: 8px !important;
+            }
+
+           .selected-tags .tag {
+                    background-color: #e0e5e9;
+                    padding: 10px 12px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    font-size: 0.8rem;
+                    gap: 8px;
+                }
+
+            .selected-tags .tag .remove {
+            cursor: pointer;
+            font-weight: 700;
+            padding-left: 4px;
+            }
+
+            .multi-input{
+            min-width: 140px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            padding: 6px 4px;
+            flex: 1 0 140px;
+            background: transparent;
+            }
+
+            .custom-multiselect .dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 999;
+            border-radius: 4px;
+            padding: 6px 0;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            }
+
+            .custom-multiselect .dropdown div {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #000;
+            }
+
+            .custom-multiselect .dropdown div:hover {
+            background-color: #f0f0f0;
+            }
+
+            .hidden { display: none; }
+
+            /* small hint style when no results */
+            .dropdown .no-results {
+            padding: 8px 12px;
+            color: #777;
+            font-size: 13px;
+            }
+
+
+        .price-input-box {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .remove-btn {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            background: none;
+            border: none;
+            color: #dc3545;
+            font-size: 18px;
+            cursor: pointer;
+        }
     </style>
-    <div class="content">
+    <div class="content user_main_content p-5">
         <div class="pb-5">
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -618,7 +720,7 @@
                     <h2 class="mb-2 main_heading_dashboard">Service Ad Information</h2>
                     <!-- <h5 class="text-700 fw-semi-bold">Here’s what’s going on at your business right now</h5> -->
                 </div>
-                <div class="row gy-4">
+                <div class="">
                     <div class="col-12">
                         <div class="border_box_one mb-3">
                             <div class="row align-items-end">
@@ -664,43 +766,12 @@
                             </div>
                         </div>
 
-                        <div class="border_box_one">
+                        <div class="border_box_one mb-3">
                             <h3 class="mb-2">Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h3>
                             <h4 class="mb-3"><small class="text-muted">(Kindly provide your address to include your business in our map feature, which will assist potential clients in locating your
                                     services more easily.)</small></h4>
                             <div class="row">
                                 <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" placeholder="Enter Your Town" /></div>
-                                <div class="col-6">
-                                    <select class="form-control gen_input mb-3" name="city">
-                                        <option value="">Select your City</option>
-                                        <option value="new_york">New York</option>
-                                        <option value="los_angeles">Los Angeles</option>
-                                        <option value="chicago">Chicago</option>
-                                        <option value="houston">Houston</option>
-                                        <option value="phoenix">Phoenix</option>
-                                        <option value="philadelphia">Philadelphia</option>
-                                        <option value="san_antonio">San Antonio</option>
-                                        <option value="san_diego">San Diego</option>
-                                        <option value="dallas">Dallas</option>
-                                        <option value="san_jose">San Jose</option>
-                                        <option value="austin">Austin</option>
-                                        <option value="jacksonville">Jacksonville</option>
-                                        <option value="san_francisco">San Francisco</option>
-                                        <option value="columbus">Columbus</option>
-                                        <option value="charlotte">Charlotte</option>
-                                        <option value="indianapolis">Indianapolis</option>
-                                        <option value="seattle">Seattle</option>
-                                        <option value="denver">Denver</option>
-                                        <option value="washington_dc">Washington D.C.</option>
-                                        <option value="boston">Boston</option>
-                                        <option value="las_vegas">Las Vegas</option>
-                                        <option value="miami">Miami</option>
-                                        <option value="atlanta">Atlanta</option>
-                                        <option value="orlando">Orlando</option>
-                                        <option value="new_orleans">New Orleans</option>
-                                    </select>
-                                </div>
-
                                 <div class="col-6">
                                     <select class="form-control gen_input mb-3" name="state">
                                         <option value="">Select your State</option>
@@ -756,6 +827,23 @@
                                         <option value="wyoming">Wyoming</option>
                                     </select>
                                 </div>
+                                <h3 class="mb-2">Business Physical Name & Location Required <span class="asterisk">*</span></h3>
+                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_name1" placeholder="Enter Business Name" /></div>
+                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_location1" placeholder="Enter Business Location" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="border_box_one mb-3">
+                            <h4 class="mb-3">Service Options</h4>
+                            <div class="form-check">
+                                <label><input class="form-check-input" type="checkbox" name="service_location[]" value="At Provider’s Facility" /> At Provider’s Facility</label>
+                            </div>
+                            <div class="form-check">
+                                <label><input class="form-check-input" type="checkbox" name="service_location[]" value="Mobile (I travel to client)" /> Mobile (I travel to client)</label>
+                            </div>
+                            <div class="form-check">
+                                <label><input class="form-check-input" type="checkbox" name="service_location[]" value="Virtual / Online Coaching" />Virtual / Online Coaching</label>
                             </div>
                         </div>
                     </div>
@@ -765,8 +853,8 @@
                             <h3 class="mb-3">About</h3>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <h5 class="mb-3">Short Bio / Introduction <small class="text-muted">(150–300 words to talk about experience, passion, certifications, etc.) </small></h5>
-                                    <textarea class="textarea" name="per_bio" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Tell your potential clients about you or your company"></textarea>
+                                    <h5 class="mb-3">Short Bio / Introduction </h5>
+                                    <textarea class="textarea" name="per_bio"  style="width: 100%; height: 15rem;" placeholder="Tell your potential clients about you or your company"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -785,9 +873,25 @@
                                 </div>
                                 <div class="col-9">
                                     <div class="border_box_one">
-                                        <input type="hidden" name="Languages" id="selectedInput_languages">
-                                        <div class="dropdown-container" data-dropdown-name="languages">
-                                            <h4 class="mb-3">Languages Spoken</h4>
+                                        <!--<input type="hidden" name="Languages" id="selectedInput_languages">-->
+                                        <h4 class="mb-3">Languages Spoken</h4>
+
+                                        <!-- HTML -->
+                                        <div class="custom-multiselect" id="languageSelect">
+                                            <div class="selected-tags" id="selectedLangTags">
+                                                <input type="text" id="langInput" class="multi-input"  placeholder="Select or type language..." />
+                                            </div>
+
+                                            <div class="dropdown hidden" id="langDropdown">
+                                                <div data-value="English">English</div>
+                                                <div data-value="Spanish">Spanish</div>
+                                                <div data-value="Chinese">Chinese</div>
+                                                <div data-value="French">French</div>
+                                                <div data-value="German">German</div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="languages" id="languagesInput" value="">
+                                        <!--<div class="dropdown-container" data-dropdown-name="languages">
                                             <div class="dropdown-header"></div>
                                             <div class="dropdown-list">
                                                 <div onclick="selectOption(this)" data-value="English">English</div>
@@ -818,7 +922,7 @@
                                                 <div onclick="selectOption(this)" data-value="Thai">Thai</div>
                                                 <div onclick="selectOption(this)" data-value="Armenian">Armenian</div>
                                                 <div onclick="selectOption(this)" data-value="Navajo">Navajo</div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -842,7 +946,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 pb-4">
+                    <div class="col-12">
                         <div class="border_box_one">
                             <h3 class="mb-3">Type of Services Offered <span class="asterisk">*</span></h3>
                             <div class="row custom_form_checks">
@@ -1574,75 +1678,81 @@
                         <div class="border_box_one">
                             <h3 class="mb-3">Service Details <small class="text-muted"> (What you offer, how it works, who's it for, etc.) </small></h3>
                             <div class="">
-                                <textarea class="textarea" name="service_desc" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Write description here...."></textarea>
+                                <textarea class="textarea" name="service_desc"  style="width: 100%; height: 15rem;" placeholder="Write description here...."></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 pb-4">
-                        <div class="border_box_one">
-                            <h4 class="mb-3">Service Location</h4>
-                            <div class="form-check">
-                                <label><input class="form-check-input" type="checkbox" name="service_location[]" value="" /> At Provider’s Facility</label>
-                            </div>
-                            <div class="form-check">
-                                <label><input class="form-check-input" type="checkbox" name="service_location[]" value="" /> Mobile (I travel to client)</label>
-                            </div>
-                            <div class="form-check">
-                                <label><input class="form-check-input" type="checkbox" name="service_location[]" value="" />Virtual / Online Coaching</label>
-                            </div>
-                        </div>
-                    </div>
+
+
+
                     <div class="col-12">
                         <!-- <h5 class="mb-3">Price Per Hour / Session / Package</h5>-->
                         <div class="row mb-4 align-items-cennter">
                             <div class="col-6">
                                 <div class="border_box_one">
                                     <h3 class="mb-3">Price [$] <span class="asterisk">*</span></h3>
-                                    <input class="form-control gen_input thousand-separator numbers_limit price-input" name="pkg_price" type="text" placeholder="Enter price" required />
+                                    <div class="row align-items-cennter mb-3 pricing_checks">
+                                        <div class="col-12">
+                                            <div class="d-flex gap-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Hour" id="ph_p">
+                                                    <label class="form-check-label" for="ph_p">Per Hour</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Session" id="ps_p">
+                                                    <label class="form-check-label" for="ps_p">Per Session</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Package" id="pp_p">
+                                                    <label class="form-check-label" for="pp_p">Per Package</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex gap-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Month" id="pm_p">
+                                                    <label class="form-check-label" for="pm_p">Per Month</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Varying Price per Service" id="vpps_p">
+                                                    <label class="form-check-label" for="vpps_p">Varying Price per Service</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Inputs for each option -->
+                                        {{-- <div class="col-12 mt-3">
+                                            <div class="price-input-box" id="input_ph_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Hour" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_ps_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Session" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_pp_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Package" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_pm_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Month" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_vpps_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Varying Price per Service" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+                                        </div> --}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="border_box_one">
-                                    <div class="row align-items-cennter mb-3">
-                                        <div class="col-12">
-                                            <div class="d-flex gap-3">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="pricing_type" type="radio" value="Per Hour" id="ph_p">
-                                                    <label class="form-check-label" for="ph_p">
-                                                        Per Hour
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="pricing_type" type="radio" value="Per Session" id="ps_p">
-                                                    <label class="form-check-label" for="ps_p">
-                                                        Per Session
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="pricing_type" type="radio" value="Per Package" id="pp_p">
-                                                    <label class="form-check-label" for="pp_p">
-                                                        Per Package
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="d-flex gap-3">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="pricing_type" type="radio" value="Per Month" id="pm_p">
-                                                    <label class="form-check-label" for="pm_p">
-                                                        Per Month
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="pricing_type" type="radio" value="Varying Price per Service" id="vpps_p">
-                                                    <label class="form-check-label" for="vpps_p">
-                                                        Varying Price per Service
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input class="form-control gen_input thousand-separator numbers_limit price-input" name="pkg_price" type="text" placeholder="Enter price" required />
                                 </div>
                             </div>
                         </div>
@@ -1661,6 +1771,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12">
                         <!-- GALLERY IMAGE UPLOAD -->
                         <div class="border_box_one mb-4">
@@ -1714,6 +1825,7 @@
 
                         </div>
                     </div>
+
                     <div class="col-12 d-flex justify-content-center">
                         <div class="col-auto  d-flex justify-content-center gap-3">
                             <a href="#!" class="btn submit_btn_one">Discard</a>
@@ -1723,6 +1835,8 @@
                     </div>
                 </div>
             </form>
+
+
             <!-- <div class="row">
               <div class="col-xl-12">
                 @if ($errors->any())
@@ -1759,6 +1873,7 @@
               </div> -->
         </div>
 
+
         <script>
             $(document).ready(function() {
                 $('input[name="ser_profile"]').on('change', function() {
@@ -1785,6 +1900,7 @@
                 };
             });
         </script>
+
         <script>
             jQuery(document).ready(function() {
                 ImgUpload();
@@ -1952,6 +2068,7 @@
                 galleryHiddenInput.value = JSON.stringify(galleryImages);
             }
         </script>
+
         <script>
             const selectedValuesMap = {};
 
@@ -2037,7 +2154,8 @@
                     }
                 });
             });
-        </script>
+        </script> -->
+
         <script>
             const addBtn = document.querySelector('.add_url_btn');
             const wrapper = document.getElementById('video_inputs_wrapper');
@@ -2058,9 +2176,9 @@
                 newInputDiv.className = 'video_input d-flex align-items-center mb-2';
 
                 newInputDiv.innerHTML = `
-      <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-      <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
-    `;
+                <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+                `;
 
                 wrapper.appendChild(newInputDiv);
 
@@ -2070,6 +2188,7 @@
                 });
             });
         </script>
+
         <script>
             document.querySelectorAll('.numbers_limit').forEach(function(input) {
                 input.addEventListener('input', function(e) {
@@ -2086,6 +2205,7 @@
                 });
             });
         </script>
+
         <script>
             document.querySelectorAll('.thousand-separator').forEach(function(input) {
                 input.addEventListener('input', function(e) {
@@ -2098,6 +2218,7 @@
                 });
             });
         </script>
+
         <script>
             document.querySelectorAll('.price-input').forEach(function(input) {
                 input.addEventListener('focus', function() {
@@ -2114,6 +2235,7 @@
                 });
             });
         </script>
+
         <script>
             document.querySelectorAll('.experience-input').forEach(input => {
                 input.addEventListener('input', function() {
@@ -2128,6 +2250,7 @@
                 });
             });
         </script>
+
         <script>
             function formatPhoneNumber(input) {
                 let value = input.value.replace(/\D/g, "");
@@ -2225,6 +2348,7 @@
                 });
             }
         </script> --}}
+
         <script>
             jQuery(document).ready(function() {
                 generateImageBoxes(20, 4); // 20 active + 4 inactive
@@ -2366,5 +2490,209 @@
                 });
             }
         </script>
+
+        <script>
+            (function(){
+                const selectedTagsEl = document.getElementById("selectedLangTags");
+                const dropdown = document.getElementById("langDropdown");
+                const multiSelect = document.getElementById("languageSelect");
+                const input = document.getElementById("langInput");
+                const hiddenInput = document.getElementById("languagesInput");
+
+                function getAllOptions(){
+                    return Array.from(dropdown.querySelectorAll("div"))
+                    .filter(d => !d.classList.contains('no-results'))
+                    .map(d => ({ el: d, value: d.dataset.value, text: d.textContent.trim() }));
+                }
+
+                let selectedValues = [];
+
+                function openDropdown(){ dropdown.classList.remove("hidden"); }
+                function closeDropdown(){ dropdown.classList.add("hidden"); }
+                function updateHiddenInput(){ hiddenInput.value = selectedValues.join(", "); }
+
+                function renderTags(){
+                    Array.from(selectedTagsEl.children).forEach(child => {
+                    if (child !== input) child.remove();
+                    });
+
+                    input.placeholder = selectedValues.length === 0 ? "Select or type language..." : "";
+
+                    selectedValues.forEach(value => {
+                    const tag = document.createElement("span");
+                    tag.className = "tag";
+                    tag.innerHTML = `${value} <span class="remove">&times;</span>`;
+                    tag.querySelector(".remove").addEventListener("click", (ev) => {
+                        ev.stopPropagation();
+                        removeTag(value);
+                    });
+                    selectedTagsEl.insertBefore(tag, input);
+                    });
+                    updateHiddenInput();
+                }
+
+                function addValue(value){
+                    if (!value || selectedValues.includes(value)) return;
+                    selectedValues.push(value);
+                    renderTags();
+                    input.value = "";
+                    filterDropdown("");
+                    openDropdown();
+                }
+
+                function removeTag(value){
+                    selectedValues = selectedValues.filter(v => v !== value);
+                    renderTags();
+                }
+
+                dropdown.addEventListener("click", (e) => {
+                    const target = e.target.closest("div");
+                    if (!target || target.classList.contains('no-results')) return;
+                    addValue(target.dataset.value);
+                    input.focus();
+                });
+
+                input.addEventListener("focus", () => {
+                    openDropdown();
+                    filterDropdown(input.value);
+                });
+
+                input.addEventListener("input", (e) => {
+                    filterDropdown(e.target.value);
+                });
+
+                input.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter") {
+                    e.preventDefault();
+                    const val = input.value.trim();
+                    if (!val) return;
+
+                    const opts = getAllOptions();
+                    const match = opts.find(o => o.text.toLowerCase() === val.toLowerCase());
+                    if (match) addValue(match.value);
+                    else addValue(val); // custom language
+                    } else if (e.key === "Backspace" && input.value === "") {
+                    if (selectedValues.length) removeTag(selectedValues[selectedValues.length - 1]);
+                    }
+                });
+
+                function filterDropdown(query){
+                    const q = String(query || "").trim().toLowerCase();
+                    const opts = getAllOptions();
+                    let anyVisible = false;
+
+                    opts.forEach(o => {
+                    const matches = q === "" || o.text.toLowerCase().includes(q);
+                    const alreadySelected = selectedValues.includes(o.value);
+                    o.el.style.display = (matches && !alreadySelected) ? "" : "none";
+                    if (matches && !alreadySelected) anyVisible = true;
+                    });
+
+                    let nr = dropdown.querySelector(".no-results");
+                    if (!anyVisible) {
+                    if (!nr) {
+                        nr = document.createElement("div");
+                        nr.className = "no-results";
+                        nr.textContent = "No results. Press Enter to add custom.";
+                        dropdown.appendChild(nr);
+                    }
+                    } else if (nr) nr.remove();
+                }
+
+                selectedTagsEl.addEventListener("click", () => {
+                    input.focus();
+                    openDropdown();
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!multiSelect.contains(e.target)) closeDropdown();
+                });
+
+                renderTags();
+                filterDropdown("");
+                })();
+            </script>
+
+
+<script>
+
+const checkboxes = document.querySelectorAll('.form-check-input');
+
+// IDs of checkboxes to disable when Varying Price per Service is checked
+const priceCheckboxes = ['ph_p', 'ps_p', 'pp_p', 'pm_p'];
+const vppsCheckbox = document.getElementById('vpps_p');
+
+// Your additional price input
+const pkgPriceInput = document.querySelector('input[name="pkg_price"]');
+
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    const relatedInputBox = document.getElementById('input_' + checkbox.id);
+
+    // Handle regular input visibility (except Varying Price per Service)
+    if (checkbox.id !== 'vpps_p') {
+      if (checkbox.checked) {
+        relatedInputBox && (relatedInputBox.style.display = 'block');
+
+        // If any price checkbox is checked, uncheck Varying Price
+        if (vppsCheckbox.checked) {
+          vppsCheckbox.checked = false;
+          enablePkgPriceInput();
+        }
+      } else {
+        relatedInputBox && (relatedInputBox.style.display = 'none');
+      }
+    }
+
+    // Handle "Varying Price per Service"
+    if (checkbox.id === 'vpps_p') {
+      priceCheckboxes.forEach(id => {
+        const cb = document.getElementById(id);
+        const input = document.getElementById('input_' + id);
+        if (cb) {
+          if (checkbox.checked) {
+            cb.checked = false;
+            cb.disabled = true;
+            if (input) input.style.display = 'none';
+          } else {
+            cb.disabled = false;
+          }
+        }
+      });
+
+      // Disable or enable pkg_price input
+      if (checkbox.checked) {
+        disablePkgPriceInput();
+      } else {
+        enablePkgPriceInput();
+      }
+    }
+  });
+});
+
+// Disable / Enable functions
+function disablePkgPriceInput() {
+  pkgPriceInput.value = "";
+  pkgPriceInput.disabled = true;
+  pkgPriceInput.classList.add("disabled");
+}
+
+function enablePkgPriceInput() {
+  pkgPriceInput.disabled = false;
+  pkgPriceInput.classList.remove("disabled");
+}
+
+// Handle cross buttons (close input + uncheck)
+const removeBtns = document.querySelectorAll('.price-input-box .remove-btn');
+removeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const inputBox = btn.parentElement;
+    inputBox.style.display = 'none';
+    const id = inputBox.id.replace('input_', '');
+    document.getElementById(id).checked = false;
+  });
+});
+
+</script>
 
     @endsection

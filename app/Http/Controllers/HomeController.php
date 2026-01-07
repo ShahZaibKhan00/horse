@@ -213,7 +213,7 @@ $user->breed = $request->filled('pro_breed_level') && $request->input('pro_breed
 $user->services = $request->filled('pro_service_level') && $request->input('pro_service_level') !== null
     ? explode(',', $request->input('pro_service_level'))
     : ($user->services ?? []);
-    
+
         $user->about = $request->about;
         $user->update();
         return redirect('/profile');
@@ -369,4 +369,7 @@ $user->services = $request->filled('pro_service_level') && $request->input('pro_
         return view('admin.real-state-favorite', compact('realstates', 'username', 'userprofile', 'Logo', 'Web_name', 'categories'));
     }
 
+    public function dashboardU() {
+        
+    }
 }

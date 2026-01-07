@@ -1,10 +1,10 @@
 @extends('layouts.app') @section('content')
     <style>
-    .view_detail_page {
-        font-family: "AvenirNextLTPro-Regular";
-        padding: 100px 0px!important;
-        position: relative;
-    }
+  .view_detail_page {
+    font-family: "AvenirNextLTPro-Regular";
+    padding: 100px 0px!important;
+    position: relative;
+}
 
 
 ul#pills-tab {
@@ -78,10 +78,10 @@ ul#pills-tab li button {
 }
 
 .img_radius_one {
-	border-radius: 0px;
-	overflow: hidden;
-	height: 355px;
-	object-fit: cover;
+    border-radius: 0px;
+    overflow: hidden;
+    height: 270px;
+    object-fit: cover;
 }
 
 .img_radius_two {
@@ -106,10 +106,10 @@ ul#pills-tab li button {
     justify-content: flex-end;
 }
 .sale_tag {
-    font-size: 25px;
+    font-size: 16px;
     font-family: "AvenirNextLTPro-Regular";
     font-weight: 700;
-    padding: 8px 65px;
+    padding: 8px 15px;
     background: #bf9855;
     background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
     position: absolute;
@@ -156,7 +156,7 @@ ul#pills-tab li button {
 	background: #fff;
 	border-bottom: 0;
 	border: 0;
-	padding: 10px 0px;
+	padding: 0px 0px;
 }
 
 
@@ -195,7 +195,7 @@ ul#pills-tab li button {
 }
 
 .price_Text {
-	font-size: 40px;
+	font-size: 30px;
 	margin: 0;
 	background: linear-gradient(to right, #e5dbc2 40%, #c19b59 75%, #c3ad72 100%);
 	-webkit-background-clip: text;
@@ -210,10 +210,11 @@ ul#pills-tab li button {
     width: 12%;
     height: 55px;
     border: 1px solid #1d2139;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 800;
     color: #1d2139;
     padding: 0px 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px inset;
 }
 
 .view_detail_page .nav-pills .nav-link.active,
@@ -270,7 +271,7 @@ ul#pills-tab li button {
 
 .image-grid img {
 	width: 100%;
-	height: 205px;
+	height: 300px;
 	object-fit: cover;
 }
 
@@ -569,11 +570,11 @@ ul#pills-tab li button {
 .horser_action_info_btn,
 .horser_action_info_btn:focus {
 	width: 48%;
-	height: 50px;
+	height: 40px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 2px solid #fff;
+	border: 1px solid #fff;
 	font-size: 16px;
 	color: #fff;
 	transition: all 0.25s;
@@ -721,7 +722,7 @@ ul#pills-tab li button {
 }
 
 .text_border {
-	font-size: 43px;
+	font-size: 30px;
 	text-shadow: -1px 0 0 #ba9148, 1px 0 0 #ba9148, 0 -1px 0 #ba9148, 0 1px 0 #ba9148, -1px -1px 0 #ba9148, 1px -1px 0 #ba9148, -1px 1px 0 #ba9148, 1px 1px 0 #ba9148;
 	line-height: 1;
 }
@@ -777,11 +778,12 @@ ul#pills-tab li button {
     gap: 0px;
     justify-content: center;
     font-weight: 700;
+    padding-top: 4px;
 }
 .h_tages p, .h_tages span {
     font-family: "AvenirNextLTPro-Regular";
-    font-size: 16px;
-    padding: 5px;
+    font-size: 12px;
+    padding: 3px;
     color: #fff;
     margin: 0;
 }
@@ -811,8 +813,8 @@ ul#pills-tab li button {
 }
 
 .top_blue_strip {
-	background: #1d2139;
-	padding: 25px 30px;
+    background: #1d2139;
+    padding: 15px 5px 10px 5px;
     position: relative;
 }
 
@@ -825,7 +827,7 @@ ul#pills-tab li button {
 }
 
 .horser_information_box.type_one {
-	padding: 15px 25px;
+    padding: 5px 5px;
 }
 
 .about_horse_heading,
@@ -886,13 +888,13 @@ ul#pills-tab li button {
 }
 
 .detail_right {
-	max-height: 818px;
-	overflow-y: auto;
-	overflow-x: hidden;
-	padding-top: 10px;
-	background: #fff;
-	z-index: 2;
-	position: relative;
+    max-height: 678px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 10px;
+    background: #fff;
+    z-index: 2;
+    position: relative;
 }
 
 .reg {
@@ -999,10 +1001,6 @@ ul#pills-tab li button {
 		font-size: 16px;
         padding: 5px;
 	}
-    .sale_tag {
-        font-size: 20px;
-        padding: 8px 23px;
-    }
     .blue_stripe h3 {
         font-size: 30px;
     }
@@ -1031,22 +1029,10 @@ ul#pills-tab li button {
 		font-size: 26px;
 	}
 
-	.horser_information_box.type_one {
-		padding: 15px 15px;
-	}
 
-	.h_tages p,
-	.h_tages span {
-		font-size: 14px;
-		font-weight: 700;
-	}
 
-	.horser_action_info_btn.action_btn,
-	.horse_info_btn.fvrt_btn.action_btn {
-		font-size: 12px;
-		height: 40px;
-		width: 28%;
-	}
+
+
 
 	.view_detail_page .nav-pills .nav-link {
         height: 45px;
@@ -1055,9 +1041,7 @@ ul#pills-tab li button {
         margin: 0;
     }
 
-	.image-grid img {
-		height: 200px;
-	}
+
 
 	.videoplay_box img {
 		height: 265px;
@@ -1087,7 +1071,7 @@ ul#pills-tab li button {
 		font-size: 35px;
 	}
     .detail_right {
-        max-height: 735px;
+        max-height: 668px;
     }
 
 	.heading65px.monte_carlo.fw_400.mb-4.odd_heading h1 {
@@ -1182,6 +1166,66 @@ ul#pills-tab li button {
     left: 4px;
   }
 }
+
+.breed_text {
+    background: #1d2139;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    z-index: 9;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.custome_listing_row {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+}
+.custome_listing_col {
+    width: 50%;
+}
+.custome_listing_col .info_list li {
+    font-size: 17px;
+    margin: 5px 0px;
+    padding: 2px 10px;
+    text-transform: uppercase;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #1d2139;
+    border-width: 1px;
+}
+.custome_listing_col .info_list {
+    margin: 0;
+}
+.horse_list_card_btn_flex_new.bottom_row {
+    display: flex;
+    gap: 5px;
+    }
+    .horser_action_info_btn  button {
+        border: 0;
+        background: transparent;
+        color: #fff;
+    }
+    .horser_action_info_btn:hover  button {
+        color: #1d2139;
+        width: 100%;
+        height: 100%;
+    }
+    .horser_ad_inner_container {
+        max-width: 1320px;
+        margin: 0 auto;
+    }
 </style>
 
 
@@ -1189,1060 +1233,1135 @@ ul#pills-tab li button {
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-sale" role="tabpanel" aria-labelledby="pills-sale-tab">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="nav flex-row nav-pills mb-2 horse_add_pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <button class="nav-link active" id="v-pills-detail_1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_1" type="button" role="tab"
-                                    aria-controls="v-pills-detail_1" aria-selected="true">
-                                    ALL PHOTOS
-                                </button>
-                                <button class="nav-link" id="v-pills-detail_2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_2" type="button" role="tab" aria-controls="v-pills-detail_2"
-                                    aria-selected="false">VIDEOS</button>
-                                <button class="nav-link unique_nav" id="v-pills-detail_3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_3" type="button" role="tab" aria-controls="v-pills-detail_3"
-                                    aria-selected="false">
-                                    SKILLS | DISCIPLINE | RIDER LEVEL
-                                </button>
-                                <button class="nav-link" id="v-pills-detail_4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_4" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                    aria-selected="false">DESCRIPTION</button>
+                    <div class="horser_ad_inner_container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="nav flex-row nav-pills mb-2 horse_add_pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                    <button class="nav-link active" id="v-pills-detail_1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_1" type="button" role="tab"
+                                        aria-controls="v-pills-detail_1" aria-selected="true">
+                                        ALL PHOTOS
+                                    </button>
+                                    <button class="nav-link" id="v-pills-detail_2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_2" type="button" role="tab" aria-controls="v-pills-detail_2"
+                                        aria-selected="false">VIDEOS</button>
+                                    <button class="nav-link unique_nav" id="v-pills-detail_3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_3" type="button" role="tab" aria-controls="v-pills-detail_3"
+                                        aria-selected="false">
+                                        SKILLS | DISCIPLINE | RIDER LEVEL
+                                    </button>
+                                    <button class="nav-link" id="v-pills-detail_4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_4" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                        aria-selected="false">DESCRIPTION</button>
 
-                                <button class="nav-link" id="v-pills-detail_5-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_5" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                    aria-selected="false">PPE | X-RAYS</button>
-                                <button class="nav-link unique_nav" id="v-pills-detail_6-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_6" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                    aria-selected="false">
-                                    PEDIGREE | REGISTRATION INFO
-                                </button>
-                                <button class="nav-link" id="v-pills-detail_7-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_7" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                    aria-selected="false">LOCATION</button>
-                                <button class="nav-link" id="v-pills-detail_8-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_8" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                    aria-selected="false">
-                                    SELLER INFORMATION
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                            <div class="detail_left">
-                                <div class="top_blue_strip_flex">
-                                    <h3 class="sale_tag">For Sale</h3>
-                                    <div class="h_tages">
-                                            <p>Payment Options Available</p>
-                                            <span>|</span>
-                                            <p>May Trade</p>
-                                            <span>|</span>
-                                            <p>Negotiable</p>
-                                        </div>
-                                    </div>
-                                <div class="top_blue_strip">
-                                    <h3 class="heading44px fw_700 text_border">{{$data->pro_name}}</h3>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="relative_img_box">
-                                    <div class="swiper horse_swiper_one">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide"><img src="{{ asset('Featured_image/' . $data->pro_Fimg) }}" alt="img" class="img-fluid w-100 img_radius_one" /></div>
-                                        </div>
-                                        <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                        <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                   
-                                </div>
-                                <div class="horser_information_box mb-0">
-                                    <div class="row">
-                                        <div class="col-6 pe-0">
-                                            <ul class="info_list_one">
-                                                <li><span>{{ $data->pro_breed }}</span></li>
-                                                <li><span>{{ $data->pro_age_year }} Years</span></li>
-                                                <li><span>{{ $data->pro_height }}</span></li>
-                                                <li class="mb-0"><span>{{ $data->pro_gender }}</span></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-6">
-                                            <ul class="info_list_one">
-                                                <li><span>{{ $data->pro_color }}</span></li>
-                                                <li><span>REGISTERED: {{$data->registerd_horse ?? "no" }}</span></li>
-                                                <li><span>GAITED: {{ $data->gaited }}</span></li>
-                                                <li class="mb-0"><span>{{ $data->pro_address . ' ' . $data->pro_city }}</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="horser_information_box type_one">
-                                    <h3 class="heading30px price_Text">PRICE : ${{ $data->pro_reg_price }}</h3>
-
-                                    
-
-                                    <div class="horser_information_btn_flex">
-                                        <a href="#!" class="horser_action_info_btn action_btn">SELLER’S PROFILE</a>
-                                        <a href="#!" class="horser_action_info_btn action_btn">CHAT WITH SELLER</a>
-                                    </div>
-                                    <div class="horser_information_btn_flex mt-2">
-                                        <a href="#!" class="horser_action_info_btn action_btn">SHARE</a>
-                                        <form action="{{ route('horse.favorite', Crypt::encrypt($data['id'])) }}" method="POST">
-                                            @csrf
-                                            <button class="fvrt_btn" type="submit">
-                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                    <button class="nav-link" id="v-pills-detail_5-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_5" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                        aria-selected="false">PPE | X-RAYS</button>
+                                    <button class="nav-link unique_nav" id="v-pills-detail_6-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_6" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                        aria-selected="false">
+                                        PEDIGREE | REGISTRATION INFO
+                                    </button>
+                                    <button class="nav-link" id="v-pills-detail_7-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_7" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                        aria-selected="false">LOCATION</button>
+                                    <button class="nav-link" id="v-pills-detail_8-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_8" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                        aria-selected="false">
+                                        SELLER INFORMATION
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-7 col-md-12 col-sm-12 col-12">
-                            <div class="content_scroll detail_right ">
-                                <div class="tab-content" id="v-pills-tabContent">
-                                    <div class="tab-pane fade show active" id="v-pills-detail_1" role="tabpanel" aria-labelledby="v-pills-detail_1-tab">
-                                        <div class="image-grid">
-                                            @php
-                                                $productImages = !empty($data->pro_imgs) ? json_decode($data->pro_imgs) : [];
-                                            @endphp
-                                            @forelse ($productImages as $item)
-                                                <a href="{{asset('storage/uploads/products/' . $item) }}" data-fancybox="group" data-caption="Horse">
-                                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="img" class="" />
-                                                </a>
-                                            @empty
-                                            @endforelse
-                                        </div>
-                                        <p class="heading18px text-center mt-4"><strong>CLICK PICTURE TO ENLARGE</strong></p>
-                                    </div>
-                                    <div class="tab-pane fade" id="v-pills-detail_2" role="tabpanel" aria-labelledby="v-pills-detail_2-tab">
-                                        <div class="row">
-                                            @php
-                                                $videoUrls = json_decode($data->pro_video_url, true) ?? [];
-                                                $filteredVideoUrls = array_filter($videoUrls); // remove empty values
-                                            @endphp
-                                            @if(!empty($filteredVideoUrls))
-                                                @if(count($filteredVideoUrls) > 0)
-                                                    @foreach ($filteredVideoUrls as $item)
-                                                        <div class="col-12 mb-4">
-                                                            <a data-fancybox="gallery" href="{{ asset('pro_video/'.$item) }}" class="videoplay_box d-block">
-                                                                <img src="/assets/images/H_05.jpg" alt="Video Thumbnail" class="w-100" />
-                                                                <span class="video-play-button"><span></span></span>
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
-                                                @else
-                                                    <div class="col-12 mb-4">
-                                                        <div class="border_box_one text-center blank_box">
-                                                            <h3 class="heading44px fw_700">We’re sorry!</h3>
-                                                            <p>No videos have been uploaded.</p>
-                                                            <!-- <a href="#!" class="horse_info_btn chat_btn">CHAT WITH SELLER</a> -->
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endif
-                                            @if(!empty($data->pro_youtube))
-                                                @if (!empty($data->pro_youtube))
-                                                    <div class="col-12 mb-4">
-                                                        <div data-src="{{ $data->pro_youtube }}" data-fancybox="group" data-caption="Horse 6"
-                                                            class="videoplay_box">
-                                                            <img src="/assets/images/H_01.jpg" alt="img" class="w-100" />
-                                                            <a id="play-video" class="video-play-button" href="{{ $data->pro_youtube }}" data-toggle="modal" data-target="#savoybeachhotel">
-                                                                <span></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                @else 
-                                                    <div class="col-12 mb-4">
-                                                        <div class="border_box_one text-center blank_box">
-                                                            <h3 class="heading44px fw_700">We’re sorry!</h3>
-                                                            <p>No videos have been uploaded, please contact the Seller.</p>
-                                                            <a href="#!" class="horse_info_btn chat_btn">CHAT WITH SELLER</a>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="v-pills-detail_3" role="tabpanel" aria-labelledby="v-pills-detail_3-tab">
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4">
-                                                <h1>SKILLS | DISCIPLINE</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                                <div class="detail_left">
+                                    <div class="top_blue_strip_flex">
+                                        <h3 class="sale_tag">For Sale</h3>
+                                        <div class="h_tages">
+                                                <p>Payment Options Available</p>
+                                                <span>|</span>
+                                                <p>May Trade</p>
+                                                <span>|</span>
+                                                <p>Negotiable</p>
                                             </div>
+                                        </div>
+                                    <div class="top_blue_strip">
+                                        <h3 class="heading44px fw_700 text_border">{{$data->pro_name}}</h3>
+                                        <label class="heart_checkbox_wrapper d-block">
+                                            <input type="checkbox" class="heartCheckbox" hidden />
+                                            <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                    <div class="relative_img_box">
+                                        <div class="swiper horse_swiper_one">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide"><img src="{{ asset('Featured_image/' . $data->pro_Fimg) }}" alt="img" class="img-fluid w-100 img_radius_one" /></div>
+                                            </div>
+                                            <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
+                                            <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                        <h2 class="breed_text">{{ $data->pro_breed }}</h2>
+                                    </div>
+                                    <div class="horser_information_box mb-0">
+                                        <!-- <div class="row">
+                                            <div class="col-6 pe-0">
+                                                <ul class="info_list_one">
+                                                    <li><span>{{ $data->pro_breed }}</span></li>
+                                                    <li><span>{{ $data->pro_age_year }} Years</span></li>
+                                                    <li><span>{{ $data->pro_height }}</span></li>
+                                                    <li class="mb-0"><span>{{ $data->pro_gender }}</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6">
+                                                <ul class="info_list_one">
+                                                    <li><span>{{ $data->pro_color }}</span></li>
+                                                    <li><span>REGISTERED: {{$data->registerd_horse ?? "no" }}</span></li>
+                                                    <li><span>GAITED: {{ $data->gaited }}</span></li>
+                                                    <li class="mb-0"><span>{{ $data->pro_address . ' ' . $data->pro_city }}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div> -->
 
-                                            <div class="border_box_one p-1">
-                                                <ul class="gen_list_flex">
-                                                    {{-- @dd(explode(',', $data->pro_skill)) --}}
-                                                    @if (!empty($data->pro_skill))
-                                                        @foreach (explode(',', $data->pro_skill) as $skill)
-                                                            <li>
-                                                                <span class="me-3">
-                                                                    <img src="/assets/images/h_icon.png" alt="img" class="img-fluid" />
-                                                                </span>
-                                                                {{ trim($skill) }}
-                                                            </li>
-                                                        @endforeach
-                                                    @else
-                                                        <li>
-                                                            <span class="me-3">
-                                                                <img src="/assets/images/h_icon.png" alt="img" class="img-fluid" />
-                                                            </span>
-                                                            No skills specified
-                                                        </li>
-                                                    @endif
+                                        <div class="custome_listing_row">
+                                            <div class="custome_listing_col">
+                                                <ul class="info_list">
+                                                    <li><span>{{ $data->pro_age_year }} Years</span></li>
+                                                    <li><span>{{ $data->pro_height }}</span></li>
+                                                    <li><span>{{ $data->pro_gender }}</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="custome_listing_col">
+                                                <ul class="info_list">
+                                                    <li><span>{{ $data->pro_color }}</span></li>
+                                                    <li><span>REGISTERED: {{$data->registerd_horse ?? "no" }}</span></li>
+                                                    <li><span>GAITED: {{ $data->gaited }}</span></li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        @php
-                                            $riderLevels = array_filter(explode(",", $data->pro_rider_level ?? ''));
-                                        @endphp
+                                        <div class="custome_listing_col w-100">
+                                                <ul class="info_list">
+                                                    <li class="m-0 mb-2"><span>{{ $data->pro_address . ' ' . $data->pro_city }}</span></li>
+                                                </ul>
+                                            </div>
+                                    </div>
 
+                                    <div class="horser_information_box type_one">
+                                        <h3 class="heading30px price_Text mb-2">PRICE : ${{ $data->pro_reg_price }}</h3>
+
+                                        
+
+                                        <div class="horse_list_card_btn_flex_new bottom_row mb-2">
+                                            <a href="#!" class="horser_action_info_btn action_btn w-50">Seller Profile</a>
+                                            <a href="#!" class="horser_action_info_btn action_btn w-50">Chat with seller</a>
+                                        </div>
+                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                            <a href="#!" class="horser_action_info_btn action_btn w-50">Share</a>
+                                            <form action="{{ route('horse.favorite', Crypt::encrypt($data['id'])) }}" class="horser_action_info_btn action_btn w-50" method="POST">
+                                                @csrf
+                                                <button class="" type="submit">
+                                                    Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                                <div class="content_scroll detail_right ">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="v-pills-detail_1" role="tabpanel" aria-labelledby="v-pills-detail_1-tab">
+                                            <div class="image-grid">
+                                                @php
+                                                    $productImages = !empty($data->pro_imgs) ? json_decode($data->pro_imgs) : [];
+                                                @endphp
+                                                @forelse ($productImages as $item)
+                                                    <a href="{{asset('storage/uploads/products/' . $item) }}" data-fancybox="group" data-caption="Horse">
+                                                        <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="img" class="" />
+                                                    </a>
+                                                @empty
+                                                @endforelse
+                                            </div>
+                                            <p class="heading18px text-center mt-4"><strong>CLICK PICTURE TO ENLARGE</strong></p>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-detail_2" role="tabpanel" aria-labelledby="v-pills-detail_2-tab">
+                                            <div class="row">
+                                                @php
+                                                    $videoUrls = json_decode($data->pro_video_url, true) ?? [];
+                                                    $filteredVideoUrls = array_filter($videoUrls); // remove empty values
+                                                @endphp
+                                                @if(!empty($filteredVideoUrls))
+                                                    @if(count($filteredVideoUrls) > 0)
+                                                        @foreach ($filteredVideoUrls as $item)
+                                                            <div class="col-12 mb-4">
+                                                                <a data-fancybox="gallery" href="{{ asset('pro_video/'.$item) }}" class="videoplay_box d-block">
+                                                                    <img src="/assets/images/H_05.jpg" alt="Video Thumbnail" class="w-100" />
+                                                                    <span class="video-play-button"><span></span></span>
+                                                                </a>
+                                                            </div>
+                                                        @endforeach
+                                                    @else
+                                                        <div class="col-12 mb-4">
+                                                            <div class="border_box_one text-center blank_box">
+                                                                <h3 class="heading44px fw_700">We’re sorry!</h3>
+                                                                <p>No videos have been uploaded.</p>
+                                                                <!-- <a href="#!" class="horse_info_btn chat_btn">CHAT WITH SELLER</a> -->
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endif
+                                                @if(!empty($data->pro_youtube))
+                                                    @if (!empty($data->pro_youtube))
+                                                        <div class="col-12 mb-4">
+                                                            <div data-src="{{ $data->pro_youtube }}" data-fancybox="group" data-caption="Horse 6"
+                                                                class="videoplay_box">
+                                                                <img src="/assets/images/H_01.jpg" alt="img" class="w-100" />
+                                                                <a id="play-video" class="video-play-button" href="{{ $data->pro_youtube }}" data-toggle="modal" data-target="#savoybeachhotel">
+                                                                    <span></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    @else 
+                                                        <div class="col-12 mb-4">
+                                                            <div class="border_box_one text-center blank_box">
+                                                                <h3 class="heading44px fw_700">We’re sorry!</h3>
+                                                                <p>No videos have been uploaded, please contact the Seller.</p>
+                                                                <a href="#!" class="horse_info_btn chat_btn">CHAT WITH SELLER</a>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-detail_3" role="tabpanel" aria-labelledby="v-pills-detail_3-tab">
                                             <div class="mb-4">
                                                 <div class="heading65px monte_carlo fw_400 mb-4">
-                                                    <h1>RIDER LEVEL</h1>
+                                                    <h1>SKILLS | DISCIPLINE</h1>
                                                     <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
                                                 </div>
 
                                                 <div class="border_box_one p-1">
                                                     <ul class="gen_list_flex">
-                                                        @if(count($riderLevels) > 0)
-                                                            @foreach ($riderLevels as $item)
+                                                        {{-- @dd(explode(',', $data->pro_skill)) --}}
+                                                        @if (!empty($data->pro_skill))
+                                                            @foreach (explode(',', $data->pro_skill) as $skill)
                                                                 <li>
                                                                     <span class="me-3">
-                                                                        <img src="/assets/images/h_icon_1.png" alt="img" class="img-fluid" />
+                                                                        <img src="/assets/images/h_icon.png" alt="img" class="img-fluid" />
                                                                     </span>
-                                                                    {{ $item }}
+                                                                    {{ trim($skill) }}
                                                                 </li>
                                                             @endforeach
                                                         @else
                                                             <li>
                                                                 <span class="me-3">
-                                                                    <img src="/assets/images/h_icon_1.png" alt="img" class="img-fluid" />
+                                                                    <img src="/assets/images/h_icon.png" alt="img" class="img-fluid" />
                                                                 </span>
-                                                                {{ "No Level Selected" }}
+                                                                No skills specified
                                                             </li>
                                                         @endif
                                                     </ul>
                                                 </div>
                                             </div>
-                                            
-                                        
-                                    </div>
-                                    <div class="tab-pane fade" id="v-pills-detail_4" role="tabpanel" aria-labelledby="v-pills-detail_4-tab">
-                                        <div class="mb-4">
-                                            <h3 class="heading44px fw_700 about_horse_heading">About {{$data->pro_name}}:</h3>
-                                            <p>
-                                                {!! $data->pro_desc !!}
-                                            </p>
-                                        </div>
-
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4">
-                                                <h1>ADDITIONAL INFORMATION</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                            </div>
-
-                                            <div class="border_box_one p-1">
-                                                <ul class="gen_list_flex gen_list_flex_one">
-                                                    <li>
-                                                        <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
-                                                        <p> Trail Period:</p>
-                                                        <p>Yes
-                                                        <p>
-                                                    </li>
-                                                    <li>
-                                                        <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
-                                                        <p>May Trade:</p>
-                                                        <p>No
-                                                        <p>
-                                                    </li>
-                                                    <li>
-                                                        <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
-                                                        <p>Payment Options Available:</p>
-                                                        <p>Yes
-                                                        <p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @php
-                                        $ppeFiles = json_decode($data->ppe_file, true);
-                                    @endphp
-                                    <div class="tab-pane fade" id="v-pills-detail_5" role="tabpanel" aria-labelledby="v-pills-detail_5-tab">
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4">
-                                                <h1>PRE-PURCHASE EXAM</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                            </div>
-                                            <div class="border_box_one ppe_border_box">
-                                                @foreach ($ppeFiles as $file)
-                                                    <a href="{{ asset('Product_images/' . $file) }}" class="horse_info_btn mb-3 w-100 common_btn" data-fancybox="ppe">CLICK TO VIEW PPE</a>
-                                                    <div class="ppe_xray_box">
-                                                        <img src="{{ asset('Product_images/' . $file) }}" alt="img" class="img-fluid" />
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4">
-                                                <h1>X-RAYS</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                            </div>
                                             @php
-                                                $x_rays = json_decode($data->xray_file, true);
+                                                $riderLevels = array_filter(explode(",", $data->pro_rider_level ?? ''));
                                             @endphp
-                                            <div class="border_box_one ppe_border_box">
-                                                @foreach ($x_rays as $file)
-                                                    <a href="{{ asset('Product_images/' . $file) }}" class="horse_info_btn mb-3 w-100 common_btn" data-fancybox="ppe">CLICK TO VIEW X-RAYS</a>
-                                                    <div class="ppe_xray_box">
-                                                        <img src="{{ asset('Product_images/' . $file) }}" alt="img" class="img-fluid" />
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="v-pills-detail_6" role="tabpanel" aria-labelledby="v-pills-detail_6-tab">
-                                        <!-- Sire -->
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4">
-                                                <h1>PEDIGREE</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                            </div>
 
-                                            <div class="pedigree_box">
-                                                <div class="pedigree_box_1 colord_box xy_center">
-                                                    <p>{{ $data->pro_sire ?? '' }}</p>
-                                                </div>
-                                                @if (!empty($data->pro_grand_sire))
-                                                    <div class="pedigree_box_1">
-                                                        @foreach (explode(',', $data->pro_grand_sire) as $item)
-                                                            <div class="pedigree_box_2 {{ $loop->first ? 'border_btm colord_box' : '' }} xy_center">
-                                                                <p>{{ $item }}</p>
-                                                            </div>
-                                                        @endforeach
+                                                <div class="mb-4">
+                                                    <div class="heading65px monte_carlo fw_400 mb-4">
+                                                        <h1>RIDER LEVEL</h1>
+                                                        <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
                                                     </div>
-                                                @endif
 
-                                                @if (!empty($data->pro_great_grand_sire))
-                                                    <div class="pedigree_box_1">
-                                                        @foreach (array_chunk(explode(',', $data->pro_great_grand_sire), 2) as $chunkIndex => $pair)
-                                                            <div class="pedigree_box_2 {{ $chunkIndex == 0 ? 'border_btm' : '' }}">
-                                                                @foreach ($pair as $index => $item)
-                                                                    <div class="pedigree_box_3 {{ $index == 0 ? 'border_btm colord_box' : '' }} xy_center">
-                                                                        <p>{{ $item }}</p>
-                                                                    </div>
+                                                    <div class="border_box_one p-1">
+                                                        <ul class="gen_list_flex">
+                                                            @if(count($riderLevels) > 0)
+                                                                @foreach ($riderLevels as $item)
+                                                                    <li>
+                                                                        <span class="me-3">
+                                                                            <img src="/assets/images/h_icon_1.png" alt="img" class="img-fluid" />
+                                                                        </span>
+                                                                        {{ $item }}
+                                                                    </li>
                                                                 @endforeach
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
-                                                @if (!empty($data->pro_twogreat_grand_sire))
-                                                    @php
-                                                        $pedigreeItems = explode(',', $data->pro_twogreat_grand_sire);
-                                                        $groupedItems = array_chunk($pedigreeItems, 4); // Split into groups of 4
-                                                    @endphp
-
-                                                    <div class="pedigree_box_1">
-                                                        @foreach ($groupedItems as $groupIndex => $group)
-                                                            <div class="pedigree_box_2 {{ $groupIndex == 0 ? 'border_btm' : '' }}">
-                                                                @foreach (array_chunk($group, 2) as $pairIndex => $pair)
-                                                                    <div class="pedigree_box_3 {{ $pairIndex == 0 ? 'border_btm' : '' }}">
-                                                                        @foreach ($pair as $itemIndex => $item)
-                                                                            <div class="pedigree_box_4 {{ $itemIndex == 0 ? 'border_btm colord_box' : '' }} xy_center">
-                                                                                <p>{{ trim($item) }}</p>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <!-- end Sire -->
-
-                                        
-
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4">
-                                                <h1>REGISTRY INFORMATION</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                            </div>
-                                            <div class="border_box_one">
-                                                <h1 class="heading30px my-2 text-center reg">Friesian Heritage and Sporthorse International</h1>
-                                                <h1 class="heading18px text-center">REGISTRATION #: MU-9497947472973</h1>
-                                                <div class="row mb-4 justify-content-center">
-                                                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                                                        <a href="/assets/images/certificate_1.png" data-fancybox="certificate">
-                                                            <img src="/assets/images/certificate_1.png" alt="img" class="img-fluid" />
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                                                        <a href="/assets/images/certificate_1.png" data-fancybox="certificate">
-                                                            <img src="/assets/images/certificate_1.png" alt="img" class="img-fluid" />
-                                                        </a>
+                                                            @else
+                                                                <li>
+                                                                    <span class="me-3">
+                                                                        <img src="/assets/images/h_icon_1.png" alt="img" class="img-fluid" />
+                                                                    </span>
+                                                                    {{ "No Level Selected" }}
+                                                                </li>
+                                                            @endif
+                                                        </ul>
                                                     </div>
                                                 </div>
-                                                <p class="heading18px text-center m-0"><strong>CLICK TO ENLARGE</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="v-pills-detail_7" role="tabpanel" aria-labelledby="v-pills-detail_7-tab">
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4">
-                                                <h1>HORSES LOCATION</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                            </div>
-
-                                            <div class="border_box_one">
-                                                <iframe
-                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.953385382017!2d-74.04668928459306!3d40.68924997933561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4c2927b2e6fe40f4!2sStatue%20of%20Liberty!5e0!3m2!1sen!2sus!4v1716905061377!5m2!1sen!2sus"
-                                                    style="border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                                                </iframe>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-4">
-                                            <div class="heading65px monte_carlo fw_400 mb-4 odd_heading">
-                                                <h1>SERVICE PROVIDERS AROUND THIS AREA</h1>
-                                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                            </div>
-
-                                            <div class="row gy-4">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <div class="product_clm">
-                                                        <div class="product_clm_img_box">
-                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/3.jpg" class="pro_img" width="" height=""
-                                                                alt="" />
-                                                            <div class="product_clm_img_hover_box">
-                                                                <a href="javascript:void(0)" class="product_clm_icon"><i class="fa fa-facebook"></i></a>
-                                                                <a href="javascript:void(0)" class="product_clm_icon"><i class="fa fa-twitter"></i></a>
-                                                                <a href="javascript:void(0)" class="product_clm_icon"><i class="fa fa-skype"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
-                                                        <a href="#!" class="webLink">www.abchorsetransport.com</a>
-                                                        <div class="btn_set mt-3">
-                                                            <a href="#!" class="horse_card_btn">View Detail</a>
-                                                            <label class="fvrt_btn">
-                                                                <input type="checkbox" hidden />
-                                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-4">
-                                                    <div class="product_clm">
-                                                        <div class="product_clm_img_box">
-                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" class="pro_img" width="" height=""
-                                                                alt="" />
-                                                            <div class="product_clm_img_hover_box">
-                                                                <a href="#!" class="product_clm_icon"><i class="fa fa-facebook"></i></a>
-                                                                <a href="#!" class="product_clm_icon"><i class="fa fa-twitter"></i></a>
-                                                                <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
-                                                        <a href="#!" class="webLink">www.abchorsetransport.com</a>
-                                                        <div class="btn_set mt-3">
-                                                            <a href="#!" class="horse_card_btn">View Detail</a>
-                                                            <label class="fvrt_btn">
-                                                                <input type="checkbox" hidden />
-                                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-4">
-                                                    <div class="product_clm">
-                                                        <div class="product_clm_img_box">
-                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/3.jpg" class="pro_img" width="" height=""
-                                                                alt="" />
-                                                            <div class="product_clm_img_hover_box">
-                                                                <a href="#!" class="product_clm_icon"><i class="fa fa-facebook"></i></a>
-                                                                <a href="#!" class="product_clm_icon"><i class="fa fa-twitter"></i></a>
-                                                                <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
-                                                        <a href="#!" class="webLink">www.abchorsetransport.com</a>
-                                                        <div class="btn_set mt-3">
-                                                            <a href="#!" class="horse_card_btn">View Detail</a>
-                                                            <label class="fvrt_btn">
-                                                                <input type="checkbox" hidden />
-                                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <a href="#!" class="search_all_btn"><span>Search All</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade seller_tab" id="v-pills-detail_8" role="tabpanel" aria-labelledby="v-pills-detail_8-tab">
-                                        <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <h3 class="heading44px fw_700 m-0">ABOUT THE AGENT | SELLER:</h3>
-                                            <!-- <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a> -->
-                                        </div>
-
-                                        <div class="row mb-4">
-                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                                <div class="seller_img">
-                                                    <img src="/assets/images/seller.webp" alt="img" class="img-fluid" />
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                                                <p class="seller_desc">
-                                                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                                                type and scrambled it to make a type specimen book.
-                                                </p>
-
-                                                <h1 class="heading18px mb-2">Social Links</h1>
-
-                                                <div class="social_icons mb-3">
-                                                    <a href="{{ $data->per_website }}" title="Website Link" class="web_btn">Website</a>
-                                                    <a href="{{ $data->pro_facebook }}" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
-                                                    <a href="{{ $data->pro_youtube }}" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
-                                                    <a href="{{ $data->pro_tiktok }}" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
-                                                    <a href="{{ $data->pro_insta }}" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
-                                                </div>
-
-                                                 <h1 class="heading18px mb-2">Contact</h1>
-
-                                                <div class="social_icons">
-                                                    <a href="tel:0000000000"><img src="/assets/images/call.png" alt="img" class="img-fluid" /></a>
-                                                    <a href="mailto:seller@abcd.com"><img src="/assets/images/email.png" alt="img" class="img-fluid" /></a>
+                                                
                                             
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-detail_4" role="tabpanel" aria-labelledby="v-pills-detail_4-tab">
+                                            <div class="mb-4">
+                                                <h3 class="heading44px fw_700 about_horse_heading">About {{$data->pro_name}}:</h3>
+                                                <p>
+                                                    {!! $data->pro_desc !!}
+                                                </p>
                                             </div>
+
+                                            <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4">
+                                                    <h1>ADDITIONAL INFORMATION</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
+
+                                                <div class="border_box_one p-1">
+                                                    <ul class="gen_list_flex gen_list_flex_one">
+                                                        <li>
+                                                            <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
+                                                            <p> Trail Period:</p>
+                                                            <p>Yes
+                                                            <p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
+                                                            <p>May Trade:</p>
+                                                            <p>No
+                                                            <p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
+                                                            <p>Payment Options Available:</p>
+                                                            <p>Yes
+                                                            <p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        
-                                        
+                                        {{-- @php
+                                            $ppeFiles = json_decode($data->ppe_file, true);
+                                        @endphp --}}
+                                        <div class="tab-pane fade" id="v-pills-detail_5" role="tabpanel" aria-labelledby="v-pills-detail_5-tab">
+                                            {{-- <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4">
+                                                    <h1>PRE-PURCHASE EXAM</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
+                                                <div class="border_box_one ppe_border_box">
+                                                    @foreach ($ppeFiles as $file)
+                                                        <a href="{{ asset('Product_images/' . $file) }}" class="horse_info_btn mb-3 w-100 common_btn" data-fancybox="ppe">CLICK TO VIEW PPE</a>
+                                                        <div class="ppe_xray_box">
+                                                            <img src="{{ asset('Product_images/' . $file) }}" alt="img" class="img-fluid" />
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div> --}}
+                                            @php
+                                            // Decode only if not empty and valid JSON
+                                                $ppeFiles = [];
 
-                                        <ul class="nav nav-tabs seller_action_btn_flex d-flex gap-2 mb-4" id="horseTabs" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link active horse_info_btn" id="for-sale-tab" data-bs-toggle="tab" data-bs-target="#for-sale" type="button" role="tab" aria-controls="for-sale" aria-selected="true">
-                                                HORSES FOR SALE (5)
-                                                </button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link horse_info_btn common_btn" id="sold-tab" data-bs-toggle="tab" data-bs-target="#sold" type="button" role="tab" aria-controls="sold" aria-selected="false">
-                                                HORSES SOLD (25)
-                                                </button>
-                                            </li>
-                                        </ul>
+                                                if (!empty($data->ppe_file)) {
+                                                    $decoded = json_decode($data->ppe_file, true);
+                                                    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                                                        $ppeFiles = $decoded;
+                                                    }
+                                                }
+                                            @endphp
 
+                                            <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4">
+                                                    <h1>PRE-PURCHASE EXAM</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
 
-                                        <div class="tab-content" id="horseTabsContent">
-                                            <div class="tab-pane fade show active" id="for-sale" role="tabpanel" aria-labelledby="for-sale-tab">
+                                                @if (!empty($ppeFiles))
+                                                    <div class="border_box_one ppe_border_box">
+                                                        @foreach ($ppeFiles as $file)
+                                                            <a href="{{ asset('Product_images/' . $file) }}" class="horse_info_btn mb-3 w-100 common_btn" data-fancybox="ppe">
+                                                                CLICK TO VIEW PPE
+                                                            </a>
+                                                            <div class="ppe_xray_box">
+                                                                <img src="{{ asset('Product_images/' . $file) }}" alt="img" class="img-fluid" />
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    <p class="text-muted">No PPE files available.</p>
+                                                @endif
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4">
+                                                    <h1>X-RAYS</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
+                                                @php
+                                                    // Initialize empty array for safety
+                                                    $x_rays = [];
+
+                                                    // Decode only if not empty and valid JSON
+                                                    if (!empty($data->xray_file)) {
+                                                        $decoded = json_decode($data->xray_file, true);
+                                                        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                                                            $x_rays = $decoded;
+                                                        }
+                                                    }
+                                                @endphp
+
+                                                <div class="border_box_one ppe_border_box">
+                                                    @if (!empty($x_rays))
+                                                        @foreach ($x_rays as $file)
+                                                            <a href="{{ asset('Product_images/' . $file) }}" class="horse_info_btn mb-3 w-100 common_btn" data-fancybox="ppe">
+                                                                CLICK TO VIEW X-RAYS
+                                                            </a>
+                                                            <div class="ppe_xray_box">
+                                                                <img src="{{ asset('Product_images/' . $file) }}" alt="img" class="img-fluid" />
+                                                            </div>
+                                                        @endforeach
+                                                    @else
+                                                        <p class="text-muted">No X-rays available.</p>
+                                                    @endif
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-detail_6" role="tabpanel" aria-labelledby="v-pills-detail_6-tab">
+                                            <!-- Sire -->
+                                            <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4">
+                                                    <h1>PEDIGREE</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
+
+                                                <div class="pedigree_box">
+                                                    <div class="pedigree_box_1 colord_box xy_center">
+                                                        <p>{{ $data->pro_sire ?? '' }}</p>
+                                                    </div>
+                                                    @if (!empty($data->pro_grand_sire))
+                                                        <div class="pedigree_box_1">
+                                                            @foreach (explode(',', $data->pro_grand_sire) as $item)
+                                                                <div class="pedigree_box_2 {{ $loop->first ? 'border_btm colord_box' : '' }} xy_center">
+                                                                    <p>{{ $item }}</p>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+
+                                                    @if (!empty($data->pro_great_grand_sire))
+                                                        <div class="pedigree_box_1">
+                                                            @foreach (array_chunk(explode(',', $data->pro_great_grand_sire), 2) as $chunkIndex => $pair)
+                                                                <div class="pedigree_box_2 {{ $chunkIndex == 0 ? 'border_btm' : '' }}">
+                                                                    @foreach ($pair as $index => $item)
+                                                                        <div class="pedigree_box_3 {{ $index == 0 ? 'border_btm colord_box' : '' }} xy_center">
+                                                                            <p>{{ $item }}</p>
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                    @if (!empty($data->pro_twogreat_grand_sire))
+                                                        @php
+                                                            $pedigreeItems = explode(',', $data->pro_twogreat_grand_sire);
+                                                            $groupedItems = array_chunk($pedigreeItems, 4); // Split into groups of 4
+                                                        @endphp
+
+                                                        <div class="pedigree_box_1">
+                                                            @foreach ($groupedItems as $groupIndex => $group)
+                                                                <div class="pedigree_box_2 {{ $groupIndex == 0 ? 'border_btm' : '' }}">
+                                                                    @foreach (array_chunk($group, 2) as $pairIndex => $pair)
+                                                                        <div class="pedigree_box_3 {{ $pairIndex == 0 ? 'border_btm' : '' }}">
+                                                                            @foreach ($pair as $itemIndex => $item)
+                                                                                <div class="pedigree_box_4 {{ $itemIndex == 0 ? 'border_btm colord_box' : '' }} xy_center">
+                                                                                    <p>{{ trim($item) }}</p>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <!-- end Sire -->
+
+                                            
+
+                                            <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4">
+                                                    <h1>REGISTRY INFORMATION</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
+                                                <div class="border_box_one">
+                                                    <h1 class="heading30px my-2 text-center reg">Friesian Heritage and Sporthorse International</h1>
+                                                    <h1 class="heading18px text-center">REGISTRATION #: MU-9497947472973</h1>
+                                                    <div class="row mb-4 justify-content-center">
+                                                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                                                            <a href="/assets/images/certificate_1.png" data-fancybox="certificate">
+                                                                <img src="/assets/images/certificate_1.png" alt="img" class="img-fluid" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                                                            <a href="/assets/images/certificate_1.png" data-fancybox="certificate">
+                                                                <img src="/assets/images/certificate_1.png" alt="img" class="img-fluid" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <p class="heading18px text-center m-0"><strong>CLICK TO ENLARGE</strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-detail_7" role="tabpanel" aria-labelledby="v-pills-detail_7-tab">
+                                            <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4">
+                                                    <h1>HORSES LOCATION</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
+
+                                                <div class="border_box_one">
+                                                    <iframe
+                                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.953385382017!2d-74.04668928459306!3d40.68924997933561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4c2927b2e6fe40f4!2sStatue%20of%20Liberty!5e0!3m2!1sen!2sus!4v1716905061377!5m2!1sen!2sus"
+                                                        style="border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                                    </iframe>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <div class="heading65px monte_carlo fw_400 mb-4 odd_heading">
+                                                    <h1>SERVICE PROVIDERS AROUND THIS AREA</h1>
+                                                    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                                </div>
+
                                                 <div class="row gy-4">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>ZION</h2>
-                                                                <label class="heart_checkbox_wrapper d-block">
-                                                                    <input type="checkbox" class="heartCheckbox" hidden />
-                                                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="product_clm">
+                                                            <div class="product_clm_img_box">
+                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/3.jpg" class="pro_img" width="" height=""
+                                                                    alt="" />
+                                                                <div class="product_clm_img_hover_box">
+                                                                    <a href="javascript:void(0)" class="product_clm_icon"><i class="fa fa-facebook"></i></a>
+                                                                    <a href="javascript:void(0)" class="product_clm_icon"><i class="fa fa-twitter"></i></a>
+                                                                    <a href="javascript:void(0)" class="product_clm_icon"><i class="fa fa-skype"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                            <p class="mb-1">(973) 555-555</p>
+                                                            <a href="#!" class="webLink">www.abchorsetransport.com</a>
+                                                            <div class="btn_set mt-3">
+                                                                <a href="#!" class="horse_card_btn">View Detail</a>
+                                                                <label class="fvrt_btn">
+                                                                    <input type="checkbox" hidden />
+                                                                    Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                                                 </label>
-                                                            </div>
-                                                            <div class="img_box">
-                                                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                    <div class="swiper-wrapper">
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="swiper-pagination"></div>
-                                                                </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: $10,000.00</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong></strong> Friesian Sport Horse</li>
-                                                                                    <li><strong></strong> 1.5 Years Old</li>
-                                                                                    <li><strong></strong> Gelding</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong></strong> 15 HH</li>
-                                                                                    <li><strong></strong> Auction</li>
-                                                                                    <li><strong></strong> New Jersey</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="blue_stripe">
-                                                                    <ul class="top_list justify-content-center">
-                                                                        <li>Trail</li>
-                                                                        <li>Dressage</li>
-                                                                        <li>Beginner Safe</li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="horse_list_card_btn_flex">
-                                                                    <a href="#!" class="horse_card_btn">Pictures</a>
-                                                                    <a href="#!" class="horse_card_btn">Videos</a>
-                                                                    <label class="fvrt_btn">
-                                                                        <input type="checkbox" hidden />
-                                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                                    </label>
-                                                                    <a href="#!" class="horse_card_btn">View Details</a>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>ZION</h2>
-                                                                <label class="heart_checkbox_wrapper d-block">
-                                                                    <input type="checkbox" class="heartCheckbox" hidden />
-                                                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="product_clm">
+                                                            <div class="product_clm_img_box">
+                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" class="pro_img" width="" height=""
+                                                                    alt="" />
+                                                                <div class="product_clm_img_hover_box">
+                                                                    <a href="#!" class="product_clm_icon"><i class="fa fa-facebook"></i></a>
+                                                                    <a href="#!" class="product_clm_icon"><i class="fa fa-twitter"></i></a>
+                                                                    <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                            <p class="mb-1">(973) 555-555</p>
+                                                            <a href="#!" class="webLink">www.abchorsetransport.com</a>
+                                                            <div class="btn_set mt-3">
+                                                                <a href="#!" class="horse_card_btn">View Detail</a>
+                                                                <label class="fvrt_btn">
+                                                                    <input type="checkbox" hidden />
+                                                                    Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                                                 </label>
-                                                            </div>
-                                                            <div class="img_box">
-                                                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                    <div class="swiper-wrapper">
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="swiper-pagination"></div>
-                                                                </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: $10,000.00</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong></strong> Friesian Sport Horse</li>
-                                                                                    <li><strong></strong> 1.5 Years Old</li>
-                                                                                    <li><strong></strong> Gelding</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong></strong> 15 HH</li>
-                                                                                    <li><strong></strong> Auction</li>
-                                                                                    <li><strong></strong> New Jersey</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="blue_stripe">
-                                                                    <ul class="top_list justify-content-center">
-                                                                        <li>Trail</li>
-                                                                        <li>Dressage</li>
-                                                                        <li>Beginner Safe</li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="horse_list_card_btn_flex">
-                                                                    <a href="#!" class="horse_card_btn">Pictures</a>
-                                                                    <a href="#!" class="horse_card_btn">Videos</a>
-                                                                    <label class="fvrt_btn">
-                                                                        <input type="checkbox" hidden />
-                                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                                    </label>
-                                                                    <a href="#!" class="horse_card_btn">View Details</a>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>ZION</h2>
-                                                                <label class="heart_checkbox_wrapper d-block">
-                                                                    <input type="checkbox" class="heartCheckbox" hidden />
-                                                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="product_clm">
+                                                            <div class="product_clm_img_box">
+                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/3.jpg" class="pro_img" width="" height=""
+                                                                    alt="" />
+                                                                <div class="product_clm_img_hover_box">
+                                                                    <a href="#!" class="product_clm_icon"><i class="fa fa-facebook"></i></a>
+                                                                    <a href="#!" class="product_clm_icon"><i class="fa fa-twitter"></i></a>
+                                                                    <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                            <p class="mb-1">(973) 555-555</p>
+                                                            <a href="#!" class="webLink">www.abchorsetransport.com</a>
+                                                            <div class="btn_set mt-3">
+                                                                <a href="#!" class="horse_card_btn">View Detail</a>
+                                                                <label class="fvrt_btn">
+                                                                    <input type="checkbox" hidden />
+                                                                    Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                                                 </label>
-                                                            </div>
-                                                            <div class="img_box">
-                                                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                    <div class="swiper-wrapper">
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="swiper-pagination"></div>
-                                                                </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: $10,000.00</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Breed:</strong> Friesian Sport Horse</li>
-                                                                                    <li><strong>Age:</strong> 1.5 Years Old</li>
-                                                                                    <li><strong>Sex:</strong> Gelding</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Height:</strong> 15 HH</li>
-                                                                                    <li><strong>Ad Type:</strong> Auction</li>
-                                                                                    <li><strong>Location:</strong> New Jersey</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="blue_stripe">
-                                                                    <ul class="top_list justify-content-center justify-content-center">
-                                                                        <li>Trail</li>
-                                                                        <li>Dressage</li>
-                                                                        <li>Beginner Safe</li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="horse_list_card_btn_flex">
-                                                                    <a href="#!" class="horse_card_btn">Pictures</a>
-                                                                    <a href="#!" class="horse_card_btn">Videos</a>
-                                                                    <label class="fvrt_btn">
-                                                                        <input type="checkbox" hidden />
-                                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                                    </label>
-                                                                    <a href="#!" class="horse_card_btn">View Details</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>ZION</h2>
-                                                                <label class="heart_checkbox_wrapper d-block">
-                                                                    <input type="checkbox" class="heartCheckbox" hidden />
-                                                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                                                </label>
-                                                            </div>
-                                                            <div class="img_box">
-                                                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                    <div class="swiper-wrapper">
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="swiper-pagination"></div>
-                                                                </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: $10,000.00</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Breed:</strong> Friesian Sport Horse</li>
-                                                                                    <li><strong>Age:</strong> 1.5 Years Old</li>
-                                                                                    <li><strong>Sex:</strong> Gelding</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Height:</strong> 15 HH</li>
-                                                                                    <li><strong>Ad Type:</strong> Auction</li>
-                                                                                    <li><strong>Location:</strong> New Jersey</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="blue_stripe">
-                                                                    <ul class="top_list justify-content-center justify-content-center">
-                                                                        <li>Trail</li>
-                                                                        <li>Dressage</li>
-                                                                        <li>Beginner Safe</li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="horse_list_card_btn_flex">
-                                                                    <a href="#!" class="horse_card_btn">Pictures</a>
-                                                                    <a href="#!" class="horse_card_btn">Videos</a>
-                                                                    <label class="fvrt_btn">
-                                                                        <input type="checkbox" hidden />
-                                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                                    </label>
-                                                                    <a href="#!" class="horse_card_btn">View Details</a>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="#!" class="search_all_btn mt-4"><span>SHOW MORE</span></a>
-                                            </div>
-                                            <div class="tab-pane fade" id="sold" role="tabpanel" aria-labelledby="sold-tab">
-                                                <div class="row gy-4">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>ZION</h2>
-                                                            </div>
-                                                            <div class="img_box">
-                                                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                    <div class="swiper-wrapper">
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="swiper-pagination"></div>
-                                                                </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                                <div class="sold_abs_box">
-                                                                    <h1>Sold</h1>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: $10,000.00</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Breed:</strong> Friesian Sport Horse</li>
-                                                                                    <li><strong>Age:</strong> 1.5 Years Old</li>
-                                                                                    <li><strong>Sex:</strong> Gelding</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Height:</strong> 15 HH</li>
-                                                                                    <li><strong>Ad Type:</strong> Auction</li>
-                                                                                    <li><strong>Location:</strong> New Jersey</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="blue_stripe">
-                                                                    <ul class="top_list justify-content-center">
-                                                                        <li>Trail</li>
-                                                                        <li>Dressage</li>
-                                                                        <li>Beginner Safe</li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="horse_list_card_btn_flex">
-                                                                    <a href="#!" class="horse_card_btn">Pictures</a>
-                                                                    <a href="#!" class="horse_card_btn">Videos</a>
-                                                                    <label class="fvrt_btn">
-                                                                        <input type="checkbox" hidden />
-                                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                                    </label>
-                                                                    <a href="#!" class="horse_card_btn">View Details</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>ZION</h2>
-                                                            </div>
-                                                            <div class="img_box">
-                                                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                    <div class="swiper-wrapper">
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                                        </div>
-                                                                        <div class="swiper-slide">
-                                                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="swiper-pagination"></div>
-                                                                </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                                <div class="sold_abs_box">
-                                                                    <h1>Sold</h1>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: $10,000.00</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Breed:</strong> Friesian Sport Horse</li>
-                                                                                    <li><strong>Age:</strong> 1.5 Years Old</li>
-                                                                                    <li><strong>Sex:</strong> Gelding</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list">
-                                                                                    <li><strong>Height:</strong> 15 HH</li>
-                                                                                    <li><strong>Ad Type:</strong> Auction</li>
-                                                                                    <li><strong>Location:</strong> New Jersey</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="blue_stripe">
-                                                                    <ul class="top_list justify-content-center">
-                                                                        <li>Trail</li>
-                                                                        <li>Dressage</li>
-                                                                        <li>Beginner Safe</li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="horse_list_card_btn_flex">
-                                                                    <a href="#!" class="horse_card_btn">Pictures</a>
-                                                                    <a href="#!" class="horse_card_btn">Videos</a>
-                                                                    <label class="fvrt_btn">
-                                                                        <input type="checkbox" hidden />
-                                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                                    </label>
-                                                                    <a href="#!" class="horse_card_btn">View Details</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="#!" class="search_all_btn mt-4"><span>SHOW MORE</span></a>
+                                                <a href="#!" class="search_all_btn"><span>Search All</span></a>
                                             </div>
                                         </div>
+                                        <div class="tab-pane fade seller_tab" id="v-pills-detail_8" role="tabpanel" aria-labelledby="v-pills-detail_8-tab">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h3 class="heading44px fw_700 m-0">ABOUT THE AGENT | SELLER:</h3>
+                                                <!-- <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a> -->
+                                            </div>
 
-                                        
+                                            <div class="row mb-4">
+                                                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                                    <div class="seller_img">
+                                                        <img src="/assets/images/seller.webp" alt="img" class="img-fluid" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                                                    <p class="seller_desc">
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                                                    type and scrambled it to make a type specimen book.
+                                                    </p>
+
+                                                    <h1 class="heading18px mb-2">Social Links</h1>
+
+                                                    <div class="social_icons mb-3">
+                                                        <a href="{{ $data->per_website }}" title="Website Link" class="web_btn">Website</a>
+                                                        <a href="{{ $data->pro_facebook }}" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
+                                                        <a href="{{ $data->pro_youtube }}" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
+                                                        <a href="{{ $data->pro_tiktok }}" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
+                                                        <a href="{{ $data->pro_insta }}" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
+                                                    </div>
+
+                                                    <h1 class="heading18px mb-2">Contact</h1>
+
+                                                    <div class="social_icons">
+                                                        <a href="tel:0000000000"><img src="/assets/images/call.png" alt="img" class="img-fluid" /></a>
+                                                        <a href="mailto:seller@abcd.com"><img src="/assets/images/email.png" alt="img" class="img-fluid" /></a>
+                                                
+                                                </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+
+                                            <ul class="nav nav-tabs seller_action_btn_flex d-flex gap-2 mb-4" id="horseTabs" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active horse_info_btn" id="for-sale-tab" data-bs-toggle="tab" data-bs-target="#for-sale" type="button" role="tab" aria-controls="for-sale" aria-selected="true">
+                                                    HORSES FOR SALE (5)
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link horse_info_btn common_btn" id="sold-tab" data-bs-toggle="tab" data-bs-target="#sold" type="button" role="tab" aria-controls="sold" aria-selected="false">
+                                                    HORSES SOLD (25)
+                                                    </button>
+                                                </li>
+                                            </ul>
+
+
+                                            <div class="tab-content" id="horseTabsContent">
+                                                <div class="tab-pane fade show active" id="for-sale" role="tabpanel" aria-labelledby="for-sale-tab">
+                                                    <!-- <div class="row gy-4">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                            <div class="horse_list_card horse_list_card_new">
+                                                                <div class="blue_stripe">
+                                                                    <p class="fs_tag">For Sale</p>
+                                                                    <ul class="top_list">
+                                                                        <li>Trail</li>
+                                                                        <li>Dressage</li>
+                                                                        <li>Beginner Safe</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="blue_stripe blue_stripe_new">
+                                                                    <h2>Majestic Thunder</h2>
+                                                                    <label class="heart_checkbox_wrapper d-block">
+                                                                        <input type="checkbox" class="heartCheckbox" hidden />
+                                                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="img_box">
+                                                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                        <div class="swiper-wrapper">
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="Horse Image" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="Horse Image" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="Horse Image" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="swiper-pagination"></div>
+                                                                    </div>
+                                                                    <div class="arrow_flex">
+                                                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                    <h2 class="breed_text">Arabian</h2>
+                                                                </div>
+                                                                <div class="text_box">
+                                                                    <div class="custome_listing_row">
+                                                                        <div class="custome_listing_col">
+                                                                            <ul class="info_list">
+                                                                                <li>5 Years 3 Months Old</li>
+                                                                                <li>15.2 Hands</li>
+                                                                                <li>Mare</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="custome_listing_col">
+                                                                            <ul class="info_list">
+                                                                                <li>Bay</li>
+                                                                                <li>Registered: Yes</li>
+                                                                                <li>Gaited: No</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="custome_listing_col w-100">
+                                                                        <ul class="info_list">
+                                                                            <li class="m-0 mb-2">Dallas</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="blue_wrapper">
+                                                                        <div class="blue_stripe">
+                                                                            <h3>Price: $8,500</h3>
+                                                                        </div>
+                                                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                            <a href="#!" class="horse_card_btn w-100">View Details</a>
+                                                                        </div>
+                                                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                                                            <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                                                        </div>
+                                                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                            <a href="#!" class="horse_card_btn">Share</a>
+                                                                            <button class="fvrt_btn" type="button">
+                                                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                            <div class="horse_list_card">
+                                                                <div class="blue_stripe">
+                                                                    <h2>ZION</h2>
+                                                                    <label class="heart_checkbox_wrapper d-block">
+                                                                        <input type="checkbox" class="heartCheckbox" hidden />
+                                                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="img_box">
+                                                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                        <div class="swiper-wrapper">
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="swiper-pagination"></div>
+                                                                    </div>
+                                                                    <div class="arrow_flex">
+                                                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="blue_stripe">
+                                                                    <h3>Price: $10,000.00</h3>
+                                                                </div>
+                                                                <div class="text_box">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong></strong> Friesian Sport Horse</li>
+                                                                                        <li><strong></strong> 1.5 Years Old</li>
+                                                                                        <li><strong></strong> Gelding</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong></strong> 15 HH</li>
+                                                                                        <li><strong></strong> Auction</li>
+                                                                                        <li><strong></strong> New Jersey</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="blue_stripe">
+                                                                        <ul class="top_list justify-content-center">
+                                                                            <li>Trail</li>
+                                                                            <li>Dressage</li>
+                                                                            <li>Beginner Safe</li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <div class="horse_list_card_btn_flex">
+                                                                        <a href="#!" class="horse_card_btn">Pictures</a>
+                                                                        <a href="#!" class="horse_card_btn">Videos</a>
+                                                                        <label class="fvrt_btn">
+                                                                            <input type="checkbox" hidden />
+                                                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                        </label>
+                                                                        <a href="#!" class="horse_card_btn">View Details</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                            <div class="horse_list_card">
+                                                                <div class="blue_stripe">
+                                                                    <h2>ZION</h2>
+                                                                    <label class="heart_checkbox_wrapper d-block">
+                                                                        <input type="checkbox" class="heartCheckbox" hidden />
+                                                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="img_box">
+                                                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                        <div class="swiper-wrapper">
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="swiper-pagination"></div>
+                                                                    </div>
+                                                                    <div class="arrow_flex">
+                                                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="blue_stripe">
+                                                                    <h3>Price: $10,000.00</h3>
+                                                                </div>
+                                                                <div class="text_box">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Breed:</strong> Friesian Sport Horse</li>
+                                                                                        <li><strong>Age:</strong> 1.5 Years Old</li>
+                                                                                        <li><strong>Sex:</strong> Gelding</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Height:</strong> 15 HH</li>
+                                                                                        <li><strong>Ad Type:</strong> Auction</li>
+                                                                                        <li><strong>Location:</strong> New Jersey</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="blue_stripe">
+                                                                        <ul class="top_list justify-content-center justify-content-center">
+                                                                            <li>Trail</li>
+                                                                            <li>Dressage</li>
+                                                                            <li>Beginner Safe</li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <div class="horse_list_card_btn_flex">
+                                                                        <a href="#!" class="horse_card_btn">Pictures</a>
+                                                                        <a href="#!" class="horse_card_btn">Videos</a>
+                                                                        <label class="fvrt_btn">
+                                                                            <input type="checkbox" hidden />
+                                                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                        </label>
+                                                                        <a href="#!" class="horse_card_btn">View Details</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                            <div class="horse_list_card">
+                                                                <div class="blue_stripe">
+                                                                    <h2>ZION</h2>
+                                                                    <label class="heart_checkbox_wrapper d-block">
+                                                                        <input type="checkbox" class="heartCheckbox" hidden />
+                                                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="img_box">
+                                                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                        <div class="swiper-wrapper">
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="swiper-pagination"></div>
+                                                                    </div>
+                                                                    <div class="arrow_flex">
+                                                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="blue_stripe">
+                                                                    <h3>Price: $10,000.00</h3>
+                                                                </div>
+                                                                <div class="text_box">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Breed:</strong> Friesian Sport Horse</li>
+                                                                                        <li><strong>Age:</strong> 1.5 Years Old</li>
+                                                                                        <li><strong>Sex:</strong> Gelding</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Height:</strong> 15 HH</li>
+                                                                                        <li><strong>Ad Type:</strong> Auction</li>
+                                                                                        <li><strong>Location:</strong> New Jersey</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="blue_stripe">
+                                                                        <ul class="top_list justify-content-center justify-content-center">
+                                                                            <li>Trail</li>
+                                                                            <li>Dressage</li>
+                                                                            <li>Beginner Safe</li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <div class="horse_list_card_btn_flex">
+                                                                        <a href="#!" class="horse_card_btn">Pictures</a>
+                                                                        <a href="#!" class="horse_card_btn">Videos</a>
+                                                                        <label class="fvrt_btn">
+                                                                            <input type="checkbox" hidden />
+                                                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                        </label>
+                                                                        <a href="#!" class="horse_card_btn">View Details</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#!" class="search_all_btn mt-4"><span>SHOW MORE</span></a> -->
+                                                </div>
+                                                <div class="tab-pane fade" id="sold" role="tabpanel" aria-labelledby="sold-tab">
+                                                    <!-- <div class="row gy-4">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                            <div class="horse_list_card">
+                                                                <div class="blue_stripe">
+                                                                    <h2>ZION</h2>
+                                                                </div>
+                                                                <div class="img_box">
+                                                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                        <div class="swiper-wrapper">
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="swiper-pagination"></div>
+                                                                    </div>
+                                                                    <div class="arrow_flex">
+                                                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                    <div class="sold_abs_box">
+                                                                        <h1>Sold</h1>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="blue_stripe">
+                                                                    <h3>Price: $10,000.00</h3>
+                                                                </div>
+                                                                <div class="text_box">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Breed:</strong> Friesian Sport Horse</li>
+                                                                                        <li><strong>Age:</strong> 1.5 Years Old</li>
+                                                                                        <li><strong>Sex:</strong> Gelding</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Height:</strong> 15 HH</li>
+                                                                                        <li><strong>Ad Type:</strong> Auction</li>
+                                                                                        <li><strong>Location:</strong> New Jersey</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="blue_stripe">
+                                                                        <ul class="top_list justify-content-center">
+                                                                            <li>Trail</li>
+                                                                            <li>Dressage</li>
+                                                                            <li>Beginner Safe</li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <div class="horse_list_card_btn_flex">
+                                                                        <a href="#!" class="horse_card_btn">Pictures</a>
+                                                                        <a href="#!" class="horse_card_btn">Videos</a>
+                                                                        <label class="fvrt_btn">
+                                                                            <input type="checkbox" hidden />
+                                                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                        </label>
+                                                                        <a href="#!" class="horse_card_btn">View Details</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                            <div class="horse_list_card">
+                                                                <div class="blue_stripe">
+                                                                    <h2>ZION</h2>
+                                                                </div>
+                                                                <div class="img_box">
+                                                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                        <div class="swiper-wrapper">
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                                            </div>
+                                                                            <div class="swiper-slide">
+                                                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="swiper-pagination"></div>
+                                                                    </div>
+                                                                    <div class="arrow_flex">
+                                                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                    <div class="sold_abs_box">
+                                                                        <h1>Sold</h1>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="blue_stripe">
+                                                                    <h3>Price: $10,000.00</h3>
+                                                                </div>
+                                                                <div class="text_box">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Breed:</strong> Friesian Sport Horse</li>
+                                                                                        <li><strong>Age:</strong> 1.5 Years Old</li>
+                                                                                        <li><strong>Sex:</strong> Gelding</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <ul class="info_list">
+                                                                                        <li><strong>Height:</strong> 15 HH</li>
+                                                                                        <li><strong>Ad Type:</strong> Auction</li>
+                                                                                        <li><strong>Location:</strong> New Jersey</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="blue_stripe">
+                                                                        <ul class="top_list justify-content-center">
+                                                                            <li>Trail</li>
+                                                                            <li>Dressage</li>
+                                                                            <li>Beginner Safe</li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <div class="horse_list_card_btn_flex">
+                                                                        <a href="#!" class="horse_card_btn">Pictures</a>
+                                                                        <a href="#!" class="horse_card_btn">Videos</a>
+                                                                        <label class="fvrt_btn">
+                                                                            <input type="checkbox" hidden />
+                                                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                        </label>
+                                                                        <a href="#!" class="horse_card_btn">View Details</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#!" class="search_all_btn mt-4"><span>SHOW MORE</span></a> -->
+                                                </div>
+                                            </div>
+
+                                            
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="google_ad_box mt-3">
-                                <img src="/assets/images/horser_ad.png" alt="img" class="img-fluid" />
+                            <div class="col-12">
+                                <div class="google_ad_box mt-3">
+                                    <img src="/assets/images/horser_ad.png" alt="img" class="img-fluid" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2741,8 +2860,8 @@ ul#pills-tab li button {
                                                                 <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
                                                             </div>
                                                         </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
+                                                        <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                        <p class="mb-1">(973) 555-555</p>
                                                         <a href="#!" class="webLink">www.abchorsetransport.com</a>
                                                         <div class="btn_set mt-3">
                                                             <a href="#!" class="horse_card_btn">View Detail</a>
@@ -2764,8 +2883,8 @@ ul#pills-tab li button {
                                                                 <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
                                                             </div>
                                                         </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
+                                                        <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                        <p class="mb-1">(973) 555-555</p>
                                                         <a href="#!" class="webLink">www.abchorsetransport.com</a>
                                                         <div class="btn_set mt-3">
                                                             <a href="#!" class="horse_card_btn">View Detail</a>
@@ -2787,8 +2906,8 @@ ul#pills-tab li button {
                                                                 <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
                                                             </div>
                                                         </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
+                                                        <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                        <p class="mb-1">(973) 555-555</p>
                                                         <a href="#!" class="webLink">www.abchorsetransport.com</a>
                                                         <div class="btn_set mt-3">
                                                             <a href="#!" class="horse_card_btn">View Detail</a>
@@ -3622,8 +3741,8 @@ ul#pills-tab li button {
                                                                 <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
                                                             </div>
                                                         </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
+                                                        <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                        <p class="mb-1">(973) 555-555</p>
                                                         <a href="#!" class="webLink">www.abchorsetransport.com</a>
                                                         <div class="btn_set mt-3">
                                                             <a href="#!" class="horse_card_btn">View Detail</a>
@@ -3645,8 +3764,8 @@ ul#pills-tab li button {
                                                                 <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
                                                             </div>
                                                         </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
+                                                        <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                        <p class="mb-1">(973) 555-555</p>
                                                         <a href="#!" class="webLink">www.abchorsetransport.com</a>
                                                         <div class="btn_set mt-3">
                                                             <a href="#!" class="horse_card_btn">View Detail</a>
@@ -3668,8 +3787,8 @@ ul#pills-tab li button {
                                                                 <a href="#!" class="product_clm_icon"><i class="fa fa-skype"></i></a>
                                                             </div>
                                                         </div>
-                                                        <h5 class="heading22px primeColor">ABC Horse transport company</h5>
-                                                        <p>(973) 555-555</p>
+                                                        <h5 class="heading22px primeColor mb-1">ABC Horse transport company</h5>
+                                                        <p class="mb-1">(973) 555-555</p>
                                                         <a href="#!" class="webLink">www.abchorsetransport.com</a>
                                                         <div class="btn_set mt-3">
                                                             <a href="#!" class="horse_card_btn">View Detail</a>

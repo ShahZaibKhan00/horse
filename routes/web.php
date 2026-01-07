@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AllController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -12,6 +13,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RealstateController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,7 @@ Route::get('/register', [RegisterController::class, 'create'])->name('register')
 Route::get('migrate/data', function() {
     Artisan::call('migrate:fresh');
 });
-
+// Route::view('abc', 'admin.membership');
 Auth::routes();
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
@@ -46,6 +48,11 @@ Route::get('/view_order/{id}', [HomeController::class, 'view_order'])->name('vie
 Route::get('/contacts', [HomeController::class, 'contacts'])->name('contacts');
 Route::get('favorite-horses', [HomeController::class, 'horse'])->name('horse');
 Route::get('favorite-realstate', [HomeController::class, 'realstate'])->name('realstate');
+Route::get('subscription', [PlanController::class, 'package'])->name('package');
+Route::get('list-management', [PlanController::class, 'listing'])->name('listing');
+Route::get('payment/page/{id}', [AllController::class, 'payment'])->name('payment.link');
+Route::get('sucess/payment', [AllController::class, 'sucess'])->name('payment.sucess');
+Route::get('cancel/payment', [AllController::class, 'cancel'])->name('payment.cancel');
 
 // Front Controller
 Route::get('/', [FrontController::class, 'index'])->name('/');
@@ -53,7 +60,7 @@ Route::get('/about_us', [FrontController::class, 'about_us'])->name('about_us');
 Route::get('/products', [FrontController::class, 'products'])->name('products');
 Route::get('/services', [FrontController::class, 'services'])->name('services');
 Route::get('/horse_listing_filter', [FrontController::class, 'horse_listing_filter'])->name('horse_listing_filter');
-Route::get('/abc', [FrontController::class, 'abc'])->name('horse_listing_filter1');
+// Route::get('/abc', [FrontController::class, 'abc'])->name('horse_listing_filter1');
 Route::get('/service_listing_filter', [FrontController::class, 'service_listing_filter'])->name('service_listing_filter');
 Route::get('/farm_directory_listing_filter', [FrontController::class, 'farm_directory_listing_filter'])->name('farm_directory_listing_filter');
 Route::get('/realestate_listing_filter', [FrontController::class, 'realestate_listing_filter'])->name('realestate_listing_filter');
@@ -63,6 +70,7 @@ Route::get('/farm_detail', [FrontController::class, 'farm_detail'])->name('farm_
 Route::get('/membership_form', [FrontController::class, 'membership_form'])->name('membership_form');
 Route::get('/membership', [FrontController::class, 'membership'])->name('membership');
 Route::get('/realestate', [FrontController::class, 'realestate'])->name('realestate');
+Route::get('user/dashboard', [HomeController::class, 'dashboardU'])->name('dashboardU');
 // Route::get('/view_detail', [FrontController::class, 'view_detail_page'])->name('view_detail_page');
 Route::get('/faqs', [FrontController::class, 'faqs'])->name('faqs');
 Route::get('/product/{id}', [FrontController::class, 'cate_products'])->name('product');
@@ -99,7 +107,9 @@ Route::post('/update_product', [ProductController::class, 'update'])->name('upda
 Route::delete('/delete_product/{id}/{name}', [ProductController::class, 'destroy'])->name('product.destroy');
 Route::get('/delete_addon/{id}/{proid}/{name}', [ProductController::class, 'destroy_addon']);
 // Route::post('/delete_addon/{id}/{name}', [ProductController::class, 'destroy_addon'])->name('addon.destroy');
-
+Route::get('horse-listing', [AllController::class, 'index'])->name('horse-listing');
+Route::get('realstate-listing', [AllController::class, 'reals'])->name('realstate-listing');
+Route::get('service-listing', [AllController::class, 'ser'])->name('service-listing');
 // Service routes -------
 Route::get('/manage_service', [ServiceController::class, 'index'])->name('manage_service');
 Route::get('/add_service', [ServiceController::class, 'create'])->name('add_service');
@@ -114,6 +124,7 @@ Route::get('/add_realstate', [RealstateController::class, 'create'])->name('add_
 Route::post('/realstate_store', [RealstateController::class, 'store']);
 Route::get('/edit_realstate/{id}', [RealstateController::class, 'edit']);
 Route::post('/update_property', [RealstateController::class, 'update']);
+
 Route::delete('/delete_realstate/{id}', [RealstateController::class, 'destroy'])->name('service.destroy');
 
 // Blogs routes -------
@@ -123,6 +134,18 @@ Route::post('/blog_store', [BlogController::class, 'store']);
 Route::get('/edit_blog/{id}', [BlogController::class, 'edit']);
 Route::post('/update_blog', [BlogController::class, 'update']);
 Route::get('/delete_blog/{id}', [BlogController::class, 'destroy']);
+
+Route::get('admin/plan', [PlanController::class, 'index'])->name('admin.plan');
+Route::get('admin/add-plan', [PlanController::class, 'create'])->name('admin.add-plan');
+Route::post('admin/post-plan', [PlanController::class, 'store'])->name('admin.add-plan');
+
+// Route::get('/plans/create', [PlanController::class, 'create'])->name('admin.plans.create');
+// Route::post('/plans', [PlanController::class, 'store'])->name('admin.plans.store');
+
+Route::get('/plans/{id}/edit', [PlanController::class, 'edit'])->name('admin.plans.edit');
+Route::put('/plans/{id}', [PlanController::class, 'update'])->name('admin.plans.update');
+Route::delete('/plans/{id}', [PlanController::class, 'destroy'])->name('plans.destroy');
+
 
 // Payments routes -------
 Route::post('/payment', [PaymentController::class, 'index'])->name('payment.index');

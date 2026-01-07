@@ -1,4 +1,8 @@
-@extends('layouts.admin_app')
+@php
+    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+@endphp
+
+@extends($layout)
 @section('content')
     <style>
         .file-main-box {
@@ -232,7 +236,7 @@
             border: 1px solid #ccc;
             border-top: none;
             background: white;
-            z-index: 10;
+            z-index: 999;
             display: none;
         }
 
@@ -349,7 +353,7 @@
         }
 
         .upload__img-box {
-            width: 80px;
+            width: 100px;
             margin-bottom: 12px;
             border-radius: 5px;
             overflow: visible;
@@ -438,8 +442,8 @@
         }
 
         .custom-upload-img-box {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border: 2px dashed #ccc;
             display: flex;
             align-items: center;
@@ -447,6 +451,7 @@
             cursor: default;
             position: relative;
             border-radius: 8px;
+            padding: 10px;
         }
 
         .custom-remove-btn {
@@ -474,6 +479,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            max-width: 1100px;
         }
 
         .custom-relative-box {
@@ -495,8 +501,7 @@
         }
 
         .custom-upload-img-box.inactive {
-            filter: blur(2px);
-            opacity: 0.5;
+            display: none;
         }
 
         .profile-upload-container {
@@ -545,6 +550,10 @@
             font-size: 14px;
         }
 
+        .heading__lg {
+            font-size: 35px;
+        }
+
         .upload__img-close {
             position: absolute;
             top: 3px;
@@ -584,8 +593,117 @@
             text-align: center;
             line-height: 100px;
         }
+
+        .service-category {
+            margin-bottom: 25px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        .custom-multiselect{
+            position: relative;
+            width: 100%;
+            }
+
+           .selected-tags {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: wrap;
+                min-height: 44px;
+                padding: 4px 8px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                background: #fff;
+                cursor: text;
+                height: 55px !important;
+                border: 2px solid #1d2139;
+                border-radius: 8px !important;
+            }
+
+           .selected-tags .tag {
+                    background-color: #e0e5e9;
+                    padding: 10px 12px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    font-size: 0.8rem;
+                    gap: 8px;
+                }
+
+            .selected-tags .tag .remove {
+            cursor: pointer;
+            font-weight: 700;
+            padding-left: 4px;
+            }
+
+            .multi-input{
+            min-width: 140px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            padding: 6px 4px;
+            flex: 1 0 140px;
+            background: transparent;
+            }
+
+            .custom-multiselect .dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 999;
+            border-radius: 4px;
+            padding: 6px 0;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            }
+
+            .custom-multiselect .dropdown div {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #000;
+            }
+
+            .custom-multiselect .dropdown div:hover {
+            background-color: #f0f0f0;
+            }
+
+            .hidden { display: none; }
+
+            /* small hint style when no results */
+            .dropdown .no-results {
+            padding: 8px 12px;
+            color: #777;
+            font-size: 13px;
+            }
+
+
+        .price-input-box {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .remove-btn {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            background: none;
+            border: none;
+            color: #dc3545;
+            font-size: 18px;
+            cursor: pointer;
+        }
     </style>
-    <div class="content">
+    <div class="content user_main_content p-5">
         <div class="pb-5">
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -602,7 +720,6 @@
                     <input type="hidden" value="{{ $data->id }}" name="id">
                     <div class="box_top">
                         <h2 class="mb-2 main_heading_dashboard">Edit Service Ad Information</h2>
-                        <!-- <h5 class="text-700 fw-semi-bold">Here’s what’s going on at your business right now</h5> -->
                     </div>
                     <div class="row gy-4">
                         <div class="col-12">
@@ -646,209 +763,272 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="border_box_one">
+                           <div class="border_box_one mb-3">
                                 <h3 class="mb-2">Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h3>
                                 <h4 class="mb-3"><small class="text-muted">(Kindly provide your address to include your business in our map feature, which will assist potential clients in locating your
                                         services more easily.)</small></h4>
                                 <div class="row">
-                                    <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
-                                    <div class="col-6 d-none">
-                                        @php
-                                            $cities = [
-                                                'new_york' => 'New York',
-                                                'los_angeles' => 'Los Angeles',
-                                                'chicago' => 'Chicago',
-                                                'houston' => 'Houston',
-                                                'phoenix' => 'Phoenix',
-                                                'philadelphia' => 'Philadelphia',
-                                                'san_antonio' => 'San Antonio',
-                                                'san_diego' => 'San Diego',
-                                                'dallas' => 'Dallas',
-                                                'san_jose' => 'San Jose',
-                                                'austin' => 'Austin',
-                                                'jacksonville' => 'Jacksonville',
-                                                'san_francisco' => 'San Francisco',
-                                                'columbus' => 'Columbus',
-                                                'charlotte' => 'Charlotte',
-                                                'indianapolis' => 'Indianapolis',
-                                                'seattle' => 'Seattle',
-                                                'denver' => 'Denver',
-                                                'washington_dc' => 'Washington D.C.',
-                                                'boston' => 'Boston',
-                                                'las_vegas' => 'Las Vegas',
-                                                'miami' => 'Miami',
-                                                'atlanta' => 'Atlanta',
-                                                'orlando' => 'Orlando',
-                                                'new_orleans' => 'New Orleans',
-                                            ];
-                                        @endphp
-
-                                        <select class="form-control gen_input mb-3" name="city" required>
-                                            <option value="" disabled {{ empty($data->city) ? 'selected' : '' }}>Select your City</option>
-                                            @foreach ($cities as $key => $city)
-                                                <option value="{{ $key }}" {{ $data->city == $key ? 'selected' : '' }}>{{ $city }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
                                     <div class="col-6">
-                                        @php
-                                            $states = [
-                                                'alabama' => 'Alabama',
-                                                'alaska' => 'Alaska',
-                                                'arizona' => 'Arizona',
-                                                'arkansas' => 'Arkansas',
-                                                'california' => 'California',
-                                                'colorado' => 'Colorado',
-                                                'connecticut' => 'Connecticut',
-                                                'delaware' => 'Delaware',
-                                                'florida' => 'Florida',
-                                                'georgia' => 'Georgia',
-                                                'hawaii' => 'Hawaii',
-                                                'idaho' => 'Idaho',
-                                                'illinois' => 'Illinois',
-                                                'indiana' => 'Indiana',
-                                                'iowa' => 'Iowa',
-                                                'kansas' => 'Kansas',
-                                                'kentucky' => 'Kentucky',
-                                                'louisiana' => 'Louisiana',
-                                                'maine' => 'Maine',
-                                                'maryland' => 'Maryland',
-                                                'massachusetts' => 'Massachusetts',
-                                                'michigan' => 'Michigan',
-                                                'minnesota' => 'Minnesota',
-                                                'mississippi' => 'Mississippi',
-                                                'missouri' => 'Missouri',
-                                                'montana' => 'Montana',
-                                                'nebraska' => 'Nebraska',
-                                                'nevada' => 'Nevada',
-                                                'new_hampshire' => 'New Hampshire',
-                                                'new_jersey' => 'New Jersey',
-                                                'new_mexico' => 'New Mexico',
-                                                'new_york' => 'New York',
-                                                'north_carolina' => 'North Carolina',
-                                                'north_dakota' => 'North Dakota',
-                                                'ohio' => 'Ohio',
-                                                'oklahoma' => 'Oklahoma',
-                                                'oregon' => 'Oregon',
-                                                'pennsylvania' => 'Pennsylvania',
-                                                'rhode_island' => 'Rhode Island',
-                                                'south_carolina' => 'South Carolina',
-                                                'south_dakota' => 'South Dakota',
-                                                'tennessee' => 'Tennessee',
-                                                'texas' => 'Texas',
-                                                'utah' => 'Utah',
-                                                'vermont' => 'Vermont',
-                                                'virginia' => 'Virginia',
-                                                'washington' => 'Washington',
-                                                'west_virginia' => 'West Virginia',
-                                                'wisconsin' => 'Wisconsin',
-                                                'wyoming' => 'Wyoming',
-                                            ];
-                                        @endphp
+                                        <select class="form-control gen_input mb-3" name="state">
+                                            <option value="">Select your State</option>
 
-                                        <select class="form-control gen_input mb-3" name="state" required>
-                                            <option value="" disabled {{ empty($data->state) ? 'selected' : '' }}>Select your State</option>
-                                            @foreach ($states as $key => $state)
-                                                <option value="{{ $key }}" {{ $data->state == $key ? 'selected' : '' }}>{{ $state }}</option>
-                                            @endforeach
+                                            <option value="alabama" {{ $data->state == 'alabama' ? 'selected' : '' }}>Alabama</option>
+                                            <option value="alaska" {{ $data->state == 'alaska' ? 'selected' : '' }}>Alaska</option>
+                                            <option value="arizona" {{ $data->state == 'arizona' ? 'selected' : '' }}>Arizona</option>
+                                            <option value="arkansas" {{ $data->state == 'arkansas' ? 'selected' : '' }}>Arkansas</option>
+                                            <option value="california" {{ $data->state == 'california' ? 'selected' : '' }}>California</option>
+                                            <option value="colorado" {{ $data->state == 'colorado' ? 'selected' : '' }}>Colorado</option>
+                                            <option value="connecticut" {{ $data->state == 'connecticut' ? 'selected' : '' }}>Connecticut</option>
+                                            <option value="delaware" {{ $data->state == 'delaware' ? 'selected' : '' }}>Delaware</option>
+                                            <option value="florida" {{ $data->state == 'florida' ? 'selected' : '' }}>Florida</option>
+                                            <option value="georgia" {{ $data->state == 'georgia' ? 'selected' : '' }}>Georgia</option>
+                                            <option value="hawaii" {{ $data->state == 'hawaii' ? 'selected' : '' }}>Hawaii</option>
+                                            <option value="idaho" {{ $data->state == 'idaho' ? 'selected' : '' }}>Idaho</option>
+                                            <option value="illinois" {{ $data->state == 'illinois' ? 'selected' : '' }}>Illinois</option>
+                                            <option value="indiana" {{ $data->state == 'indiana' ? 'selected' : '' }}>Indiana</option>
+                                            <option value="iowa" {{ $data->state == 'iowa' ? 'selected' : '' }}>Iowa</option>
+                                            <option value="kansas" {{ $data->state == 'kansas' ? 'selected' : '' }}>Kansas</option>
+                                            <option value="kentucky" {{ $data->state == 'kentucky' ? 'selected' : '' }}>Kentucky</option>
+                                            <option value="louisiana" {{ $data->state == 'louisiana' ? 'selected' : '' }}>Louisiana</option>
+                                            <option value="maine" {{ $data->state == 'maine' ? 'selected' : '' }}>Maine</option>
+                                            <option value="maryland" {{ $data->state == 'maryland' ? 'selected' : '' }}>Maryland</option>
+                                            <option value="massachusetts" {{ $data->state == 'massachusetts' ? 'selected' : '' }}>Massachusetts</option>
+                                            <option value="michigan" {{ $data->state == 'michigan' ? 'selected' : '' }}>Michigan</option>
+                                            <option value="minnesota" {{ $data->state == 'minnesota' ? 'selected' : '' }}>Minnesota</option>
+                                            <option value="mississippi" {{ $data->state == 'mississippi' ? 'selected' : '' }}>Mississippi</option>
+                                            <option value="missouri" {{ $data->state == 'missouri' ? 'selected' : '' }}>Missouri</option>
+                                            <option value="montana" {{ $data->state == 'montana' ? 'selected' : '' }}>Montana</option>
+                                            <option value="nebraska" {{ $data->state == 'nebraska' ? 'selected' : '' }}>Nebraska</option>
+                                            <option value="nevada" {{ $data->state == 'nevada' ? 'selected' : '' }}>Nevada</option>
+                                            <option value="new_hampshire" {{ $data->state == 'new_hampshire' ? 'selected' : '' }}>New Hampshire</option>
+                                            <option value="new_jersey" {{ $data->state == 'new_jersey' ? 'selected' : '' }}>New Jersey</option>
+                                            <option value="new_mexico" {{ $data->state == 'new_mexico' ? 'selected' : '' }}>New Mexico</option>
+                                            <option value="new_york" {{ $data->state == 'new_york' ? 'selected' : '' }}>New York</option>
+                                            <option value="north_carolina" {{ $data->state == 'north_carolina' ? 'selected' : '' }}>North Carolina</option>
+                                            <option value="north_dakota" {{ $data->state == 'north_dakota' ? 'selected' : '' }}>North Dakota</option>
+                                            <option value="ohio" {{ $data->state == 'ohio' ? 'selected' : '' }}>Ohio</option>
+                                            <option value="oklahoma" {{ $data->state == 'oklahoma' ? 'selected' : '' }}>Oklahoma</option>
+                                            <option value="oregon" {{ $data->state == 'oregon' ? 'selected' : '' }}>Oregon</option>
+                                            <option value="pennsylvania" {{ $data->state == 'pennsylvania' ? 'selected' : '' }}>Pennsylvania</option>
+                                            <option value="rhode_island" {{ $data->state == 'rhode_island' ? 'selected' : '' }}>Rhode Island</option>
+                                            <option value="south_carolina" {{ $data->state == 'south_carolina' ? 'selected' : '' }}>South Carolina</option>
+                                            <option value="south_dakota" {{ $data->state == 'south_dakota' ? 'selected' : '' }}>South Dakota</option>
+                                            <option value="tennessee" {{ $data->state == 'tennessee' ? 'selected' : '' }}>Tennessee</option>
+                                            <option value="texas" {{ $data->state == 'texas' ? 'selected' : '' }}>Texas</option>
+                                            <option value="utah" {{ $data->state == 'utah' ? 'selected' : '' }}>Utah</option>
+                                            <option value="vermont" {{ $data->state == 'vermont' ? 'selected' : '' }}>Vermont</option>
+                                            <option value="virginia" {{ $data->state == 'virginia' ? 'selected' : '' }}>Virginia</option>
+                                            <option value="washington" {{ $data->state == 'washington' ? 'selected' : '' }}>Washington</option>
+                                            <option value="west_virginia" {{ $data->state == 'west_virginia' ? 'selected' : '' }}>West Virginia</option>
+                                            <option value="wisconsin" {{ $data->state == 'wisconsin' ? 'selected' : '' }}>Wisconsin</option>
+                                            <option value="wyoming" {{ $data->state == 'wyoming' ? 'selected' : '' }}>Wyoming</option>
                                         </select>
+
                                     </div>
+                                    <h3 class="mb-2">Business Physical Name & Location Required <span class="asterisk">*</span></h3>
+                                    <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_name1" value="{{ $data->business_name1 }}"
+                                            placeholder="Enter Business Name" /></div>
+                                    <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_location1" value="{{ $data->business_location1 }}"
+                                            placeholder="Enter Business Location" /></div>
+                                </div>
+                            </div>
+                            <!--<div class="row">
+                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
+                                <div class="col-6">
+                                    @php
+                                        $states = [
+                                            'alabama' => 'Alabama',
+                                            'alaska' => 'Alaska',
+                                            'arizona' => 'Arizona',
+                                            'arkansas' => 'Arkansas',
+                                            'california' => 'California',
+                                            'colorado' => 'Colorado',
+                                            'connecticut' => 'Connecticut',
+                                            'delaware' => 'Delaware',
+                                            'florida' => 'Florida',
+                                            'georgia' => 'Georgia',
+                                            'hawaii' => 'Hawaii',
+                                            'idaho' => 'Idaho',
+                                            'illinois' => 'Illinois',
+                                            'indiana' => 'Indiana',
+                                            'iowa' => 'Iowa',
+                                            'kansas' => 'Kansas',
+                                            'kentucky' => 'Kentucky',
+                                            'louisiana' => 'Louisiana',
+                                            'maine' => 'Maine',
+                                            'maryland' => 'Maryland',
+                                            'massachusetts' => 'Massachusetts',
+                                            'michigan' => 'Michigan',
+                                            'minnesota' => 'Minnesota',
+                                            'mississippi' => 'Mississippi',
+                                            'missouri' => 'Missouri',
+                                            'montana' => 'Montana',
+                                            'nebraska' => 'Nebraska',
+                                            'nevada' => 'Nevada',
+                                            'new_hampshire' => 'New Hampshire',
+                                            'new_jersey' => 'New Jersey',
+                                            'new_mexico' => 'New Mexico',
+                                            'new_york' => 'New York',
+                                            'north_carolina' => 'North Carolina',
+                                            'north_dakota' => 'North Dakota',
+                                            'ohio' => 'Ohio',
+                                            'oklahoma' => 'Oklahoma',
+                                            'oregon' => 'Oregon',
+                                            'pennsylvania' => 'Pennsylvania',
+                                            'rhode_island' => 'Rhode Island',
+                                            'south_carolina' => 'South Carolina',
+                                            'south_dakota' => 'South Dakota',
+                                            'tennessee' => 'Tennessee',
+                                            'texas' => 'Texas',
+                                            'utah' => 'Utah',
+                                            'vermont' => 'Vermont',
+                                            'virginia' => 'Virginia',
+                                            'washington' => 'Washington',
+                                            'west_virginia' => 'West Virginia',
+                                            'wisconsin' => 'Wisconsin',
+                                            'wyoming' => 'Wyoming',
+                                        ];
+                                    @endphp
+
+                                    <select class="form-control gen_input mb-3" name="state" required>
+                                        <option value="" disabled {{ empty($data->state) ? 'selected' : '' }}>Select your State</option>
+                                        @foreach ($states as $key => $state)
+                                            <option value="{{ $key }}" {{ $data->state == $key ? 'selected' : '' }}>{{ $state }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+
+
+                    @php
+                        $selected = explode(',', $data->service_location);
+                    @endphp
+
+                    <div class="col-12">
+                        <div class="border_box_one mb-3">
+                            <h4 class="mb-3">Service Options</h4>
+
+                            <div class="form-check">
+                                <label>
+                                    <input type="checkbox" name="service_location[]" value="At Provider’s Facility"
+                                        @if(in_array("At Provider’s Facility", $selected)) checked @endif >
+                                    At Provider’s Facility
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <label>
+                                    <input type="checkbox" name="service_location[]" value="Mobile (I travel to client)"
+                                        @if(in_array("Mobile (I travel to client)", $selected)) checked @endif >
+                                    Mobile (I travel to client)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <label>
+                                    <input type="checkbox" name="service_location[]" value="Virtual / Online Coaching"
+                                        @if(in_array("Virtual / Online Coaching", $selected)) checked @endif >
+                                    Virtual / Online Coaching
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="border_box_one mb-3">
+                            <h3 class="mb-3">About</h3>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <h5 class="mb-3">Short Bio / Introduction <small class="text-muted">(150–300 words to talk about experience, passion, certifications, etc.) </small></h5>
+                                    <textarea class="textarea" name="per_bio" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Tell your potential clients about you or your company">{{ $data->per_bio }}</textarea>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-12">
-                            <div class="border_box_one mb-3">
-                                <h3 class="mb-3">About</h3>
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <h5 class="mb-3">Short Bio / Introduction <small class="text-muted">(150–300 words to talk about experience, passion, certifications, etc.) </small></h5>
-                                        <textarea class="textarea" name="per_bio" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Tell your potential clients about you or your company">{{ $data->per_bio }}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="row mb-4">
-                                    <div class="col-3">
-                                        <div class="border_box_one">
-                                            <div class="">
-                                                <h4 class="mb-3">Experience</h4>
-                                                <div class="gen_flex_box">
-                                                    <input class="form-control gen_input text-center experience-input" type="tel" name="experience" value="{{ $data->experience }}"
-                                                        placeholder="---" />
-                                                    <h5 class="experience-label">Years Experience</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-9">
-                                        <div class="border_box_one">
-                                            <input type="hidden" id="selectedInput_languages" name="Languages[]" value="{{ $data->Languages }}">
-                                            <div class="dropdown-container" data-dropdown-name="languages">
-                                                <h4 class="mb-3">Languages Spoken</h4>
-                                                <div class="dropdown-header"></div>
-                                                <div class="dropdown-list">
-                                                    <div onclick="selectOption(this)" data-value="English">English</div>
-                                                    <div onclick="selectOption(this)" data-value="Spanish">Spanish</div>
-                                                    <div onclick="selectOption(this)" data-value="Chinese (Mandarin)">Chinese (Mandarin)</div>
-                                                    <div onclick="selectOption(this)" data-value="Hindi">Hindi</div>
-                                                    <div onclick="selectOption(this)" data-value="Arabic">Arabic</div>
-                                                    <div onclick="selectOption(this)" data-value="Portuguese">Portuguese</div>
-                                                    <div onclick="selectOption(this)" data-value="Russian">Russian</div>
-                                                    <div onclick="selectOption(this)" data-value="Japanese">Japanese</div>
-                                                    <div onclick="selectOption(this)" data-value="French">French</div>
-                                                    <div onclick="selectOption(this)" data-value="German">German</div>
-                                                    <div onclick="selectOption(this)" data-value="Korean">Korean</div>
-                                                    <div onclick="selectOption(this)" data-value="Italian">Italian</div>
-                                                    <div onclick="selectOption(this)" data-value="Turkish">Turkish</div>
-                                                    <div onclick="selectOption(this)" data-value="Bengali">Bengali</div>
-                                                    <div onclick="selectOption(this)" data-value="Vietnamese">Vietnamese</div>
-                                                    <div onclick="selectOption(this)" data-value="Tagalog">Tagalog</div>
-                                                    <div onclick="selectOption(this)" data-value="Polish">Polish</div>
-                                                    <div onclick="selectOption(this)" data-value="Persian (Farsi)">Persian (Farsi)</div>
-                                                    <div onclick="selectOption(this)" data-value="Gujarati">Gujarati</div>
-                                                    <div onclick="selectOption(this)" data-value="Greek">Greek</div>
-                                                    <div onclick="selectOption(this)" data-value="Hebrew">Hebrew</div>
-                                                    <div onclick="selectOption(this)" data-value="Ukrainian">Ukrainian</div>
-                                                    <div onclick="selectOption(this)" data-value="Hmong">Hmong</div>
-                                                    <div onclick="selectOption(this)" data-value="Tamil">Tamil</div>
-                                                    <div onclick="selectOption(this)" data-value="Dutch">Dutch</div>
-                                                    <div onclick="selectOption(this)" data-value="Thai">Thai</div>
-                                                    <div onclick="selectOption(this)" data-value="Armenian">Armenian</div>
-                                                    <div onclick="selectOption(this)" data-value="Navajo">Navajo</div>
-                                                </div>
+                            <div class="row mb-4">
+                                <div class="col-3">
+                                    <div class="border_box_one">
+                                        <div class="">
+                                            <h4 class="mb-3">Experience</h4>
+                                            <div class="gen_flex_box">
+                                                <input class="form-control gen_input text-center experience-input" type="tel" name="experience" value="{{ $data->experience }}"
+                                                    placeholder="---" />
+                                                <h5 class="experience-label">Years Experience</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="border_box_one">
-                                    <h4 class="mb-3">Certifications / Accreditations</h4>
-                                    <div class="upload__box">
-                                        @php
-                                            $certifications = json_decode($data->certifications, true);
-                                        @endphp
-
-                                        <div class="upload__img-wrap">
-                                            @if (!empty($certifications) && is_array($certifications))
-                                                @foreach ($certifications as $cert)
-                                                    <img src="{{ asset('certification_images/' . $cert) }}" alt="Certification Image" style="width: 100px; margin: 5px;">
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                        <div class="upload__btn-box">
-                                            <label class="upload__btn">
-                                                <p>Drag your Image here <span class="or">OR</span> <span class="browse_option">Browse from device</span></p>
-                                                <input name="certifications[]" type="file" class="upload__inputfile">
-                                            </label>
+                                <div class="col-9">
+                                    <div class="border_box_one">
+                                        <input type="hidden" id="selectedInput_languages" name="Languages[]" value="{{ $data->Languages }}">
+                                        <div class="dropdown-container" data-dropdown-name="languages">
+                                            <h4 class="mb-3">Languages Spoken</h4>
+                                            <div class="dropdown-header"></div>
+                                            <div class="dropdown-list">
+                                                <div onclick="selectOption(this)" data-value="English">English</div>
+                                                <div onclick="selectOption(this)" data-value="Spanish">Spanish</div>
+                                                <div onclick="selectOption(this)" data-value="Chinese (Mandarin)">Chinese (Mandarin)</div>
+                                                <div onclick="selectOption(this)" data-value="Hindi">Hindi</div>
+                                                <div onclick="selectOption(this)" data-value="Arabic">Arabic</div>
+                                                <div onclick="selectOption(this)" data-value="Portuguese">Portuguese</div>
+                                                <div onclick="selectOption(this)" data-value="Russian">Russian</div>
+                                                <div onclick="selectOption(this)" data-value="Japanese">Japanese</div>
+                                                <div onclick="selectOption(this)" data-value="French">French</div>
+                                                <div onclick="selectOption(this)" data-value="German">German</div>
+                                                <div onclick="selectOption(this)" data-value="Korean">Korean</div>
+                                                <div onclick="selectOption(this)" data-value="Italian">Italian</div>
+                                                <div onclick="selectOption(this)" data-value="Turkish">Turkish</div>
+                                                <div onclick="selectOption(this)" data-value="Bengali">Bengali</div>
+                                                <div onclick="selectOption(this)" data-value="Vietnamese">Vietnamese</div>
+                                                <div onclick="selectOption(this)" data-value="Tagalog">Tagalog</div>
+                                                <div onclick="selectOption(this)" data-value="Polish">Polish</div>
+                                                <div onclick="selectOption(this)" data-value="Persian (Farsi)">Persian (Farsi)</div>
+                                                <div onclick="selectOption(this)" data-value="Gujarati">Gujarati</div>
+                                                <div onclick="selectOption(this)" data-value="Greek">Greek</div>
+                                                <div onclick="selectOption(this)" data-value="Hebrew">Hebrew</div>
+                                                <div onclick="selectOption(this)" data-value="Ukrainian">Ukrainian</div>
+                                                <div onclick="selectOption(this)" data-value="Hmong">Hmong</div>
+                                                <div onclick="selectOption(this)" data-value="Tamil">Tamil</div>
+                                                <div onclick="selectOption(this)" data-value="Dutch">Dutch</div>
+                                                <div onclick="selectOption(this)" data-value="Thai">Thai</div>
+                                                <div onclick="selectOption(this)" data-value="Armenian">Armenian</div>
+                                                <div onclick="selectOption(this)" data-value="Navajo">Navajo</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <div class="border_box_one">
+                                <h4 class="mb-3">Certifications / Accreditations</h4>
+                                <div class="upload__box">
+                                    @php
+                                        $certifications = json_decode($data->certifications, true);
+                                    @endphp
 
-                        {{-- <div class="col-12 mb-4">
+                                    <div class="upload__img-wrap">
+                                        @if (!empty($certifications) && is_array($certifications))
+                                            @foreach ($certifications as $cert)
+                                                <img src="{{ asset('certification_images/' . $cert) }}" alt="Certification Image" style="width: 100px; margin: 5px;">
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                    <div class="upload__btn-box">
+                                        <label class="upload__btn">
+                                            <p>Drag your Image here <span class="or">OR</span> <span class="browse_option">Browse from device</span></p>
+                                            <input name="certifications[]" type="file" class="upload__inputfile">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- <div class="col-12 mb-4">
                             <div class="border_box_one">
                                 <h3 class="mb-3">Type of Services Offered <span class="asterisk">*</span></h3>
                                 @php
@@ -948,1184 +1128,1209 @@
                             </div>
                         </div> --}}
 
-                        <div class="col-12 pb-4">
-                            <div class="border_box_one">
-                                <h3 class="mb-3">Type of Services Offered <span class="asterisk">*</span></h3>
-                                <div class="row custom_form_checks">
-                                    <!-- Veterinary & Health Services -->
-                                    <div class="col-md-4 ">
-                                        @php
-                                            $csv = $data->services_offered;
-                                            $values = explode(',', $csv);
-                                        @endphp
-                                        <div class="service-category">
-                                            <h5 class="category-title">Veterinary & Health</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('acupuncture', $values) ? 'checked' : '' }} value="acupuncture"
-                                                    id="acupuncture">
-                                                <label class="form-check-label" for="acupuncture">Acupuncture</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('anhydrosis_treatment', $values) ? 'checked' : '' }}
-                                                    value="anhydrosis_treatment" id="anhydrosis_treatment">
-                                                <label class="form-check-label" for="anhydrosis_treatment">Anhydrosis diagnosis & treatment</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('blood_transfusion', $values) ? 'checked' : '' }}
-                                                    value="blood_transfusion" id="blood_transfusion">
-                                                <label class="form-check-label" for="blood_transfusion">Blood transfusion services</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('cardiac_telemetry', $values) ? 'checked' : '' }}
-                                                    value="cardiac_telemetry" id="cardiac_telemetry">
-                                                <label class="form-check-label" for="cardiac_telemetry">Cardiac telemetry</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('chiropractic_care', $values) ? 'checked' : '' }}
-                                                    value="chiropractic_care" id="chiropractic_care">
-                                                <label class="form-check-label" for="chiropractic_care">Chiropractic care</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('clinical_trials', $values) ? 'checked' : '' }}
-                                                    value="clinical_trials" id="clinical_trials">
-                                                <label class="form-check-label" for="clinical_trials">Clinical trials / research participation</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('dentistry', $values) ? 'checked' : '' }} value="dentistry"
-                                                    id="dentistry">
-                                                <label class="form-check-label" for="dentistry">Dentistry</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('dermatology', $values) ? 'checked' : '' }} value="dermatology"
-                                                    id="dermatology">
-                                                <label class="form-check-label" for="dermatology">Dermatology</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('deworming_programs', $values) ? 'checked' : '' }}
-                                                    value="deworming_programs" id="deworming_programs">
-                                                <label class="form-check-label" for="deworming_programs">Deworming programs</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('diagnostic_imaging', $values) ? 'checked' : '' }}
-                                                    value="diagnostic_imaging" id="diagnostic_imaging">
-                                                <label class="form-check-label" for="diagnostic_imaging">Diagnostic imaging</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('dynamic_endoscopy', $values) ? 'checked' : '' }}
-                                                    value="dynamic_endoscopy" id="dynamic_endoscopy">
-                                                <label class="form-check-label" for="dynamic_endoscopy">Dynamic endoscopy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('emergency_vet_care', $values) ? 'checked' : '' }}
-                                                    value="emergency_vet_care" id="emergency_vet_care">
-                                                <label class="form-check-label" for="emergency_vet_care">Emergency vet care</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('endoscopy_gastroscopy', $values) ? 'checked' : '' }}
-                                                    value="endoscopy_gastroscopy" id="endoscopy_gastroscopy">
-                                                <label class="form-check-label" for="endoscopy_gastroscopy">Endoscopy & gastroscopy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_hospice', $values) ? 'checked' : '' }}
-                                                    value="equine_hospice" id="equine_hospice">
-                                                <label class="form-check-label" for="equine_hospice">Equine hospice / end-of-life care</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('shock_wave_therapy', $values) ? 'checked' : '' }}
-                                                    value="shock_wave_therapy" id="shock_wave_therapy">
-                                                <label class="form-check-label" for="shock_wave_therapy">Extra-corporeal shock wave therapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('fracture_repair', $values) ? 'checked' : '' }}
-                                                    value="fracture_repair" id="fracture_repair">
-                                                <label class="form-check-label" for="fracture_repair">Fracture repair surgery</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('gait_analysis', $values) ? 'checked' : '' }}
-                                                    value="gait_analysis" id="gait_analysis">
-                                                <label class="form-check-label" for="gait_analysis">Gait analysis and biomechanics</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('general_veterinary', $values) ? 'checked' : '' }}
-                                                    value="general_veterinary" id="general_veterinary">
-                                                <label class="form-check-label" for="general_veterinary">General veterinary care</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('genetic_testing', $values) ? 'checked' : '' }}
-                                                    value="genetic_testing" id="genetic_testing">
-                                                <label class="form-check-label" for="genetic_testing">Genetic testing & disease screening</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hyperbaric_oxygen', $values) ? 'checked' : '' }}
-                                                    value="hyperbaric_oxygen" id="hyperbaric_oxygen">
-                                                <label class="form-check-label" for="hyperbaric_oxygen">Hyperbaric oxygen therapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('iv_fluid_therapy', $values) ? 'checked' : '' }}
-                                                    value="iv_fluid_therapy" id="iv_fluid_therapy">
-                                                <label class="form-check-label" for="iv_fluid_therapy">IV fluid therapy for hydration/illness</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('interspinous_desmotomy', $values) ? 'checked' : '' }}
-                                                    value="interspinous_desmotomy" id="interspinous_desmotomy">
-                                                <label class="form-check-label" for="interspinous_desmotomy">Inter-spinous ligament desmotomy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('internal_medicine', $values) ? 'checked' : '' }}
-                                                    value="internal_medicine" id="internal_medicine">
-                                                <label class="form-check-label" for="internal_medicine">Internal medicine specialty consults</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('joint_fusion', $values) ? 'checked' : '' }} value="joint_fusion"
-                                                    id="joint_fusion">
-                                                <label class="form-check-label" for="joint_fusion">Joint fusion</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('joint_lavage', $values) ? 'checked' : '' }} value="joint_lavage"
-                                                    id="joint_lavage">
-                                                <label class="form-check-label" for="joint_lavage">Joint lavage</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('lameness_evaluation', $values) ? 'checked' : '' }}
-                                                    value="lameness_evaluation" id="lameness_evaluation">
-                                                <label class="form-check-label" for="lameness_evaluation">Lameness evaluation and treatment</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('lung_function_testing', $values) ? 'checked' : '' }}
-                                                    value="lung_function_testing" id="lung_function_testing">
-                                                <label class="form-check-label" for="lung_function_testing">Lung function testing</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mesotherapy', $values) ? 'checked' : '' }} value="mesotherapy"
-                                                    id="mesotherapy">
-                                                <label class="form-check-label" for="mesotherapy">Mesotherapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('neurectomy', $values) ? 'checked' : '' }} value="neurectomy"
-                                                    id="neurectomy">
-                                                <label class="form-check-label" for="neurectomy">Neurectomy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('neurological_evaluation', $values) ? 'checked' : '' }}
-                                                    value="neurological_evaluation" id="neurological_evaluation">
-                                                <label class="form-check-label" for="neurological_evaluation">Neurological evaluation</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('nuclear_medicine', $values) ? 'checked' : '' }}
-                                                    value="nuclear_medicine" id="nuclear_medicine">
-                                                <label class="form-check-label" for="nuclear_medicine">Nuclear medicine</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('oncology', $values) ? 'checked' : '' }} value="oncology"
-                                                    id="oncology">
-                                                <label class="form-check-label" for="oncology">Oncology</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('prp_irap_stem_cell', $values) ? 'checked' : '' }}
-                                                    value="prp_irap_stem_cell" id="prp_irap_stem_cell">
-                                                <label class="form-check-label" for="prp_irap_stem_cell">PRP / IRAP / stem cell therapies</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('podiatry', $values) ? 'checked' : '' }} value="podiatry"
-                                                    id="podiatry">
-                                                <label class="form-check-label" for="podiatry">Podiatry (advanced hoof care)</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('post_surgical_rehab', $values) ? 'checked' : '' }}
-                                                    value="post_surgical_rehab" id="post_surgical_rehab">
-                                                <label class="form-check-label" for="post_surgical_rehab">Post-surgical rehab programs</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('radiology_mri', $values) ? 'checked' : '' }}
-                                                    value="radiology_mri" id="radiology_mri">
-                                                <label class="form-check-label" for="radiology_mri">Radiology/CT/MRI/High-field MRI</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('reproductive_services', $values) ? 'checked' : '' }}
-                                                    value="reproductive_services" id="reproductive_services">
-                                                <label class="form-check-label" for="reproductive_services">Reproductive services</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('respiratory_evaluations', $values) ? 'checked' : '' }}
-                                                    value="respiratory_evaluations" id="respiratory_evaluations">
-                                                <label class="form-check-label" for="respiratory_evaluations">Respiratory evaluations and sinus surgery</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('telemetric_diagnostics', $values) ? 'checked' : '' }}
-                                                    value="telemetric_diagnostics" id="telemetric_diagnostics">
-                                                <label class="form-check-label" for="telemetric_diagnostics">Telemetric diagnostics</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('vaccination_programs', $values) ? 'checked' : '' }}
-                                                    value="vaccination_programs" id="vaccination_programs">
-                                                <label class="form-check-label" for="vaccination_programs">Vaccination programs</label>
-                                            </div>
+                    <div class="col-12 pb-4">
+                        <div class="border_box_one">
+                            <h3 class="mb-3">Type of Services Offered <span class="asterisk">*</span></h3>
+                            <div class="row custom_form_checks">
+                                <!-- Veterinary & Health Services -->
+                                <div class="col-md-4 ">
+                                    @php
+                                        $csv = $data->services_offered;
+                                        $values = explode(',', $csv);
+                                    @endphp
+                                    <div class="service-category">
+                                        <h5 class="category-title">Veterinary & Health</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('acupuncture', $values) ? 'checked' : '' }} value="acupuncture"
+                                                id="acupuncture">
+                                            <label class="form-check-label" for="acupuncture">Acupuncture</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Alternative & Holistic</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('aromatherapy', $values) ? 'checked' : '' }} value="aromatherapy"
-                                                    id="aromatherapy">
-                                                <label class="form-check-label" for="aromatherapy">Aromatherapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('bioresonance_therapy', $values) ? 'checked' : '' }}
-                                                    value="bioresonance_therapy" id="bioresonance_therapy">
-                                                <label class="form-check-label" for="bioresonance_therapy">Bioresonance therapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('herbal_homeopathic', $values) ? 'checked' : '' }}
-                                                    value="herbal_homeopathic" id="herbal_homeopathic">
-                                                <label class="form-check-label" for="herbal_homeopathic">Herbal/homeopathic therapies</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('magnet_therapy', $values) ? 'checked' : '' }}
-                                                    value="magnet_therapy" id="magnet_therapy">
-                                                <label class="form-check-label" for="magnet_therapy">Magnet therapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pemf', $values) ? 'checked' : '' }} value="pemf"
-                                                    id="pemf">
-                                                <label class="form-check-label" for="pemf">PEMF</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('red_light_laser', $values) ? 'checked' : '' }}
-                                                    value="red_light_laser" id="red_light_laser">
-                                                <label class="form-check-label" for="red_light_laser">Red light/laser therapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('sound_vibration', $values) ? 'checked' : '' }}
-                                                    value="sound_vibration" id="sound_vibration">
-                                                <label class="form-check-label" for="sound_vibration">Sound/vibration therapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('thermography', $values) ? 'checked' : '' }} value="thermography"
-                                                    id="thermography">
-                                                <label class="form-check-label" for="thermography">Thermography</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('anhydrosis_treatment', $values) ? 'checked' : '' }}
+                                                value="anhydrosis_treatment" id="anhydrosis_treatment">
+                                            <label class="form-check-label" for="anhydrosis_treatment">Anhydrosis diagnosis & treatment</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Breeding & Foaling</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('artificial_insemination', $values) ? 'checked' : '' }}
-                                                    value="artificial_insemination" id="artificial_insemination">
-                                                <label class="form-check-label" for="artificial_insemination">Artificial insemination</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('breeding_soundness', $values) ? 'checked' : '' }}
-                                                    value="breeding_soundness" id="breeding_soundness">
-                                                <label class="form-check-label" for="breeding_soundness">Breeding soundness exams</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('foal_handling', $values) ? 'checked' : '' }}
-                                                    value="foal_handling" id="foal_handling">
-                                                <label class="form-check-label" for="foal_handling">Foal handling/imprinting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('foaling_assistance', $values) ? 'checked' : '' }}
-                                                    value="foaling_assistance" id="foaling_assistance">
-                                                <label class="form-check-label" for="foaling_assistance">Foaling assistance</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mare_management', $values) ? 'checked' : '' }}
-                                                    value="mare_management" id="mare_management">
-                                                <label class="form-check-label" for="mare_management">Mare management</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stallion_services', $values) ? 'checked' : '' }}
-                                                    value="stallion_services" id="stallion_services">
-                                                <label class="form-check-label" for="stallion_services">Stallion services (stud)</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('blood_transfusion', $values) ? 'checked' : '' }}
+                                                value="blood_transfusion" id="blood_transfusion">
+                                            <label class="form-check-label" for="blood_transfusion">Blood transfusion services</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Sales, Leasing & Auction</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('auction_online', $values) ? 'checked' : '' }}
-                                                    value="auction_online" id="auction_online">
-                                                <label class="form-check-label" for="auction_online">Auction - On-line</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('auction_live', $values) ? 'checked' : '' }} value="auction_live"
-                                                    id="auction_live">
-                                                <label class="form-check-label" for="auction_live">Auction - Live</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('consignment_sales', $values) ? 'checked' : '' }}
-                                                    value="consignment_sales" id="consignment_sales">
-                                                <label class="form-check-label" for="consignment_sales">Consignment sales</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_leasing_services', $values) ? 'checked' : '' }}
-                                                    value="horse_leasing_services" id="horse_leasing_services">
-                                                <label class="form-check-label" for="horse_leasing_services">Horse leasing services</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('cardiac_telemetry', $values) ? 'checked' : '' }}
+                                                value="cardiac_telemetry" id="cardiac_telemetry">
+                                            <label class="form-check-label" for="cardiac_telemetry">Cardiac telemetry</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Transport & Travel</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('emergency_evacuation', $values) ? 'checked' : '' }}
-                                                    value="emergency_evacuation" id="emergency_evacuation">
-                                                <label class="form-check-label" for="emergency_evacuation">Emergency evacuation (natural disasters)</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('gate_training', $values) ? 'checked' : '' }}
-                                                    value="gate_training" id="gate_training">
-                                                <label class="form-check-label" for="gate_training">Gate training</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hauling_services', $values) ? 'checked' : '' }}
-                                                    value="hauling_services" id="hauling_services">
-                                                <label class="form-check-label" for="hauling_services">Hauling services</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_international_shipping', $values) ? 'checked' : '' }}
-                                                    value="horse_international_shipping" id="horse_international_shipping">
-                                                <label class="form-check-label" for="horse_international_shipping">Horse international shipping</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_local_transport', $values) ? 'checked' : '' }}
-                                                    value="horse_local_transport" id="horse_local_transport">
-                                                <label class="form-check-label" for="horse_local_transport">Horse local transport</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('travel_management_show_horses', $values) ? 'checked' : '' }}
-                                                    value="travel_management_show_horses" id="travel_management_show_horses">
-                                                <label class="form-check-label" for="travel_management_show_horses">Travel management for show horses</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('chiropractic_care', $values) ? 'checked' : '' }}
+                                                value="chiropractic_care" id="chiropractic_care">
+                                            <label class="form-check-label" for="chiropractic_care">Chiropractic care</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Grooming & Presentation</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('bathing', $values) ? 'checked' : '' }} value="bathing"
-                                                    id="bathing">
-                                                <label class="form-check-label" for="bathing">Bathing</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('body_clipping', $values) ? 'checked' : '' }}
-                                                    value="body_clipping" id="body_clipping">
-                                                <label class="form-check-label" for="body_clipping">Body clipping</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('braiding', $values) ? 'checked' : '' }} value="braiding"
-                                                    id="braiding">
-                                                <label class="form-check-label" for="braiding">Braiding</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('grooming_services', $values) ? 'checked' : '' }}
-                                                    value="grooming_services" id="grooming_services">
-                                                <label class="form-check-label" for="grooming_services">Grooming services</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mane_tail_care', $values) ? 'checked' : '' }}
-                                                    value="mane_tail_care" id="mane_tail_care">
-                                                <label class="form-check-label" for="mane_tail_care">Mane & tail care</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('show_prep', $values) ? 'checked' : '' }} value="show_prep"
-                                                    id="show_prep">
-                                                <label class="form-check-label" for="show_prep">Show prep</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('tack_cleaning', $values) ? 'checked' : '' }}
-                                                    value="tack_cleaning" id="tack_cleaning">
-                                                <label class="form-check-label" for="tack_cleaning">Tack cleaning</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('clinical_trials', $values) ? 'checked' : '' }}
+                                                value="clinical_trials" id="clinical_trials">
+                                            <label class="form-check-label" for="clinical_trials">Clinical trials / research participation</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Recreational & Community</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('4h_ffa_support', $values) ? 'checked' : '' }}
-                                                    value="4h_ffa_support" id="4h_ffa_support">
-                                                <label class="form-check-label" for="4h_ffa_support">4-H/FFA horse program support</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horsemanship_camps', $values) ? 'checked' : '' }}
-                                                    value="horsemanship_camps" id="horsemanship_camps">
-                                                <label class="form-check-label" for="horsemanship_camps">Horsemanship camps</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('junior_mounted_patrol', $values) ? 'checked' : '' }}
-                                                    value="junior_mounted_patrol" id="junior_mounted_patrol">
-                                                <label class="form-check-label" for="junior_mounted_patrol">Junior mounted patrol units</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pony_parties', $values) ? 'checked' : '' }} value="pony_parties"
-                                                    id="pony_parties">
-                                                <label class="form-check-label" for="pony_parties">Pony parties</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('school_visits', $values) ? 'checked' : '' }}
-                                                    value="school_visits" id="school_visits">
-                                                <label class="form-check-label" for="school_visits">School visits or public education</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('therapy_programs', $values) ? 'checked' : '' }}
-                                                    value="therapy_programs" id="therapy_programs">
-                                                <label class="form-check-label" for="therapy_programs">Therapy programs</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('vocational_therapies', $values) ? 'checked' : '' }}
-                                                    value="vocational_therapies" id="vocational_therapies">
-                                                <label class="form-check-label" for="vocational_therapies">Vocational therapies</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('dentistry', $values) ? 'checked' : '' }} value="dentistry"
+                                                id="dentistry">
+                                            <label class="form-check-label" for="dentistry">Dentistry</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('dermatology', $values) ? 'checked' : '' }} value="dermatology"
+                                                id="dermatology">
+                                            <label class="form-check-label" for="dermatology">Dermatology</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('deworming_programs', $values) ? 'checked' : '' }}
+                                                value="deworming_programs" id="deworming_programs">
+                                            <label class="form-check-label" for="deworming_programs">Deworming programs</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('diagnostic_imaging', $values) ? 'checked' : '' }}
+                                                value="diagnostic_imaging" id="diagnostic_imaging">
+                                            <label class="form-check-label" for="diagnostic_imaging">Diagnostic imaging</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('dynamic_endoscopy', $values) ? 'checked' : '' }}
+                                                value="dynamic_endoscopy" id="dynamic_endoscopy">
+                                            <label class="form-check-label" for="dynamic_endoscopy">Dynamic endoscopy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('emergency_vet_care', $values) ? 'checked' : '' }}
+                                                value="emergency_vet_care" id="emergency_vet_care">
+                                            <label class="form-check-label" for="emergency_vet_care">Emergency vet care</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('endoscopy_gastroscopy', $values) ? 'checked' : '' }}
+                                                value="endoscopy_gastroscopy" id="endoscopy_gastroscopy">
+                                            <label class="form-check-label" for="endoscopy_gastroscopy">Endoscopy & gastroscopy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_hospice', $values) ? 'checked' : '' }} value="equine_hospice"
+                                                id="equine_hospice">
+                                            <label class="form-check-label" for="equine_hospice">Equine hospice / end-of-life care</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('shock_wave_therapy', $values) ? 'checked' : '' }}
+                                                value="shock_wave_therapy" id="shock_wave_therapy">
+                                            <label class="form-check-label" for="shock_wave_therapy">Extra-corporeal shock wave therapy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('fracture_repair', $values) ? 'checked' : '' }}
+                                                value="fracture_repair" id="fracture_repair">
+                                            <label class="form-check-label" for="fracture_repair">Fracture repair surgery</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('gait_analysis', $values) ? 'checked' : '' }} value="gait_analysis"
+                                                id="gait_analysis">
+                                            <label class="form-check-label" for="gait_analysis">Gait analysis and biomechanics</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('general_veterinary', $values) ? 'checked' : '' }}
+                                                value="general_veterinary" id="general_veterinary">
+                                            <label class="form-check-label" for="general_veterinary">General veterinary care</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('genetic_testing', $values) ? 'checked' : '' }}
+                                                value="genetic_testing" id="genetic_testing">
+                                            <label class="form-check-label" for="genetic_testing">Genetic testing & disease screening</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hyperbaric_oxygen', $values) ? 'checked' : '' }}
+                                                value="hyperbaric_oxygen" id="hyperbaric_oxygen">
+                                            <label class="form-check-label" for="hyperbaric_oxygen">Hyperbaric oxygen therapy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('iv_fluid_therapy', $values) ? 'checked' : '' }}
+                                                value="iv_fluid_therapy" id="iv_fluid_therapy">
+                                            <label class="form-check-label" for="iv_fluid_therapy">IV fluid therapy for hydration/illness</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('interspinous_desmotomy', $values) ? 'checked' : '' }}
+                                                value="interspinous_desmotomy" id="interspinous_desmotomy">
+                                            <label class="form-check-label" for="interspinous_desmotomy">Inter-spinous ligament desmotomy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('internal_medicine', $values) ? 'checked' : '' }}
+                                                value="internal_medicine" id="internal_medicine">
+                                            <label class="form-check-label" for="internal_medicine">Internal medicine specialty consults</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('joint_fusion', $values) ? 'checked' : '' }} value="joint_fusion"
+                                                id="joint_fusion">
+                                            <label class="form-check-label" for="joint_fusion">Joint fusion</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('joint_lavage', $values) ? 'checked' : '' }} value="joint_lavage"
+                                                id="joint_lavage">
+                                            <label class="form-check-label" for="joint_lavage">Joint lavage</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('lameness_evaluation', $values) ? 'checked' : '' }}
+                                                value="lameness_evaluation" id="lameness_evaluation">
+                                            <label class="form-check-label" for="lameness_evaluation">Lameness evaluation and treatment</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('lung_function_testing', $values) ? 'checked' : '' }}
+                                                value="lung_function_testing" id="lung_function_testing">
+                                            <label class="form-check-label" for="lung_function_testing">Lung function testing</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mesotherapy', $values) ? 'checked' : '' }} value="mesotherapy"
+                                                id="mesotherapy">
+                                            <label class="form-check-label" for="mesotherapy">Mesotherapy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('neurectomy', $values) ? 'checked' : '' }} value="neurectomy"
+                                                id="neurectomy">
+                                            <label class="form-check-label" for="neurectomy">Neurectomy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('neurological_evaluation', $values) ? 'checked' : '' }}
+                                                value="neurological_evaluation" id="neurological_evaluation">
+                                            <label class="form-check-label" for="neurological_evaluation">Neurological evaluation</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('nuclear_medicine', $values) ? 'checked' : '' }}
+                                                value="nuclear_medicine" id="nuclear_medicine">
+                                            <label class="form-check-label" for="nuclear_medicine">Nuclear medicine</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('oncology', $values) ? 'checked' : '' }} value="oncology"
+                                                id="oncology">
+                                            <label class="form-check-label" for="oncology">Oncology</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('prp_irap_stem_cell', $values) ? 'checked' : '' }}
+                                                value="prp_irap_stem_cell" id="prp_irap_stem_cell">
+                                            <label class="form-check-label" for="prp_irap_stem_cell">PRP / IRAP / stem cell therapies</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('podiatry', $values) ? 'checked' : '' }} value="podiatry"
+                                                id="podiatry">
+                                            <label class="form-check-label" for="podiatry">Podiatry (advanced hoof care)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('post_surgical_rehab', $values) ? 'checked' : '' }}
+                                                value="post_surgical_rehab" id="post_surgical_rehab">
+                                            <label class="form-check-label" for="post_surgical_rehab">Post-surgical rehab programs</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('radiology_mri', $values) ? 'checked' : '' }} value="radiology_mri"
+                                                id="radiology_mri">
+                                            <label class="form-check-label" for="radiology_mri">Radiology/CT/MRI/High-field MRI</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('reproductive_services', $values) ? 'checked' : '' }}
+                                                value="reproductive_services" id="reproductive_services">
+                                            <label class="form-check-label" for="reproductive_services">Reproductive services</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('respiratory_evaluations', $values) ? 'checked' : '' }}
+                                                value="respiratory_evaluations" id="respiratory_evaluations">
+                                            <label class="form-check-label" for="respiratory_evaluations">Respiratory evaluations and sinus surgery</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('telemetric_diagnostics', $values) ? 'checked' : '' }}
+                                                value="telemetric_diagnostics" id="telemetric_diagnostics">
+                                            <label class="form-check-label" for="telemetric_diagnostics">Telemetric diagnostics</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('vaccination_programs', $values) ? 'checked' : '' }}
+                                                value="vaccination_programs" id="vaccination_programs">
+                                            <label class="form-check-label" for="vaccination_programs">Vaccination programs</label>
                                         </div>
                                     </div>
-
-                                    <!-- Performance, Training & Riding -->
-                                    <div class="col-md-4">
-                                        <div class="service-category">
-                                            <h5 class="category-title">Performance, Training & Riding</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('behavior_correction', $values) ? 'checked' : '' }}
-                                                    value="behavior_correction" id="behavior_correction">
-                                                <label class="form-check-label" for="behavior_correction">Behavior correction</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('colt_starting', $values) ? 'checked' : '' }}
-                                                    value="colt_starting" id="colt_starting">
-                                                <label class="form-check-label" for="colt_starting">Colt starting / breaking</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('desensitization_training', $values) ? 'checked' : '' }}
-                                                    value="desensitization_training" id="desensitization_training">
-                                                <label class="form-check-label" for="desensitization_training">Desensitization training</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('eventing_preparation', $values) ? 'checked' : '' }}
-                                                    value="eventing_preparation" id="eventing_preparation">
-                                                <label class="form-check-label" for="eventing_preparation">Eventing preparation</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('foal_training', $values) ? 'checked' : '' }}
-                                                    value="foal_training" id="foal_training">
-                                                <label class="form-check-label" for="foal_training">Foal training</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('groundwork_horsemanship', $values) ? 'checked' : '' }}
-                                                    value="groundwork_horsemanship" id="groundwork_horsemanship">
-                                                <label class="form-check-label" for="groundwork_horsemanship">Groundwork and horsemanship</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_conditioning', $values) ? 'checked' : '' }}
-                                                    value="horse_conditioning" id="horse_conditioning">
-                                                <label class="form-check-label" for="horse_conditioning">Horse conditioning & fitness</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_training', $values) ? 'checked' : '' }}
-                                                    value="horse_training" id="horse_training">
-                                                <label class="form-check-label" for="horse_training">Horse training</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_sales', $values) ? 'checked' : '' }} value="horse_sales"
-                                                    id="horse_sales">
-                                                <label class="form-check-label" for="horse_sales">Horse Sales</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('jockey_services', $values) ? 'checked' : '' }}
-                                                    value="jockey_services" id="jockey_services">
-                                                <label class="form-check-label" for="jockey_services">Jockey services</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('jumping_training', $values) ? 'checked' : '' }}
-                                                    value="jumping_training" id="jumping_training">
-                                                <label class="form-check-label" for="jumping_training">Jumping training</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('liberty_training', $values) ? 'checked' : '' }}
-                                                    value="liberty_training" id="liberty_training">
-                                                <label class="form-check-label" for="liberty_training">Liberty training</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mounted_archery', $values) ? 'checked' : '' }}
-                                                    value="mounted_archery" id="mounted_archery">
-                                                <label class="form-check-label" for="mounted_archery">Mounted archery or games training</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('problem_horse_retraining', $values) ? 'checked' : '' }}
-                                                    value="problem_horse_retraining" id="problem_horse_retraining">
-                                                <label class="form-check-label" for="problem_horse_retraining">Problem horse retraining</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('racehorse_conditioning', $values) ? 'checked' : '' }}
-                                                    value="racehorse_conditioning" id="racehorse_conditioning">
-                                                <label class="form-check-label" for="racehorse_conditioning">Racehorse conditioning & prep</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('rider_coaching', $values) ? 'checked' : '' }}
-                                                    value="rider_coaching" id="rider_coaching">
-                                                <label class="form-check-label" for="rider_coaching">Rider coaching</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('riding_lessons', $values) ? 'checked' : '' }}
-                                                    value="riding_lessons" id="riding_lessons">
-                                                <label class="form-check-label" for="riding_lessons">Riding lessons</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('show_coaching', $values) ? 'checked' : '' }}
-                                                    value="show_coaching" id="show_coaching">
-                                                <label class="form-check-label" for="show_coaching">Show coaching</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('therapeutic_riding_instruction', $values) ? 'checked' : '' }}
-                                                    value="therapeutic_riding_instruction" id="therapeutic_riding_instruction">
-                                                <label class="form-check-label" for="therapeutic_riding_instruction">Therapeutic riding instruction</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('virtual_training', $values) ? 'checked' : '' }}
-                                                    value="virtual_training" id="virtual_training">
-                                                <label class="form-check-label" for="virtual_training">Virtual training/coaching</label>
-                                            </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Alternative & Holistic</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('aromatherapy', $values) ? 'checked' : '' }} value="aromatherapy"
+                                                id="aromatherapy">
+                                            <label class="form-check-label" for="aromatherapy">Aromatherapy</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Barn, Facility & Property</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('arena_construction', $values) ? 'checked' : '' }}
-                                                    value="arena_construction" id="arena_construction">
-                                                <label class="form-check-label" for="arena_construction">Arena construction & maintenance</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('arena_footing', $values) ? 'checked' : '' }}
-                                                    value="arena_footing" id="arena_footing">
-                                                <label class="form-check-label" for="arena_footing">Arena footing consulting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('barn_cleaning', $values) ? 'checked' : '' }}
-                                                    value="barn_cleaning" id="barn_cleaning">
-                                                <label class="form-check-label" for="barn_cleaning">Barn cleaning & mucking</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('fence_installation', $values) ? 'checked' : '' }}
-                                                    value="fence_installation" id="fence_installation">
-                                                <label class="form-check-label" for="fence_installation">Fence installation & repair</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pasture_management', $values) ? 'checked' : '' }}
-                                                    value="pasture_management" id="pasture_management">
-                                                <label class="form-check-label" for="pasture_management">Pasture management</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('portable_stall_setup', $values) ? 'checked' : '' }}
-                                                    value="portable_stall_setup" id="portable_stall_setup">
-                                                <label class="form-check-label" for="portable_stall_setup">Portable stall setup for events</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stall_rental', $values) ? 'checked' : '' }}
-                                                    value="stall_rental" id="stall_rental">
-                                                <label class="form-check-label" for="stall_rental">Stall rental</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('bioresonance_therapy', $values) ? 'checked' : '' }}
+                                                value="bioresonance_therapy" id="bioresonance_therapy">
+                                            <label class="form-check-label" for="bioresonance_therapy">Bioresonance therapy</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Boarding & Stabling</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('coop_boarding', $values) ? 'checked' : '' }}
-                                                    value="coop_boarding" id="coop_boarding">
-                                                <label class="form-check-label" for="coop_boarding">Co-op boarding</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('full_care_boarding', $values) ? 'checked' : '' }}
-                                                    value="full_care_boarding" id="full_care_boarding">
-                                                <label class="form-check-label" for="full_care_boarding">Full-care boarding</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('layup_rehab_boarding', $values) ? 'checked' : '' }}
-                                                    value="layup_rehab_boarding" id="layup_rehab_boarding">
-                                                <label class="form-check-label" for="layup_rehab_boarding">Layup and rehab boarding</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pasture_boarding', $values) ? 'checked' : '' }}
-                                                    value="pasture_boarding" id="pasture_boarding">
-                                                <label class="form-check-label" for="pasture_boarding">Pasture boarding</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('retirement_boarding', $values) ? 'checked' : '' }}
-                                                    value="retirement_boarding" id="retirement_boarding">
-                                                <label class="form-check-label" for="retirement_boarding">Retirement boarding</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('self_care_boarding', $values) ? 'checked' : '' }}
-                                                    value="self_care_boarding" id="self_care_boarding">
-                                                <label class="form-check-label" for="self_care_boarding">Self-care boarding</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('temporary_event_stabling', $values) ? 'checked' : '' }}
-                                                    value="temporary_event_stabling" id="temporary_event_stabling">
-                                                <label class="form-check-label" for="temporary_event_stabling">Temporary event stabling</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('herbal_homeopathic', $values) ? 'checked' : '' }}
+                                                value="herbal_homeopathic" id="herbal_homeopathic">
+                                            <label class="form-check-label" for="herbal_homeopathic">Herbal/homeopathic therapies</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Farrier & Hoof</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('applied_equine_podiatry', $values) ? 'checked' : '' }}
-                                                    value="applied_equine_podiatry" id="applied_equine_podiatry">
-                                                <label class="form-check-label" for="applied_equine_podiatry">Applied equine podiatry</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('corrective_therapeutic_shoeing', $values) ? 'checked' : '' }}
-                                                    value="corrective_therapeutic_shoeing" id="corrective_therapeutic_shoeing">
-                                                <label class="form-check-label" for="corrective_therapeutic_shoeing">Corrective/therapeutic shoeing</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('glue_on_shoes', $values) ? 'checked' : '' }}
-                                                    value="glue_on_shoes" id="glue_on_shoes">
-                                                <label class="form-check-label" for="glue_on_shoes">Glue-on shoe application</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hoof_casting', $values) ? 'checked' : '' }}
-                                                    value="hoof_casting" id="hoof_casting">
-                                                <label class="form-check-label" for="hoof_casting">Hoof casting for injuries</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hoof_reconstruction', $values) ? 'checked' : '' }}
-                                                    value="hoof_reconstruction" id="hoof_reconstruction">
-                                                <label class="form-check-label" for="hoof_reconstruction">Hoof reconstruction/resin fill</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hoof_resections', $values) ? 'checked' : '' }}
-                                                    value="hoof_resections" id="hoof_resections">
-                                                <label class="form-check-label" for="hoof_resections">Hoof resections</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('integrated_podiatry', $values) ? 'checked' : '' }}
-                                                    value="integrated_podiatry" id="integrated_podiatry">
-                                                <label class="form-check-label" for="integrated_podiatry">Integrated podiatry</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('natural_hoof_care', $values) ? 'checked' : '' }}
-                                                    value="natural_hoof_care" id="natural_hoof_care">
-                                                <label class="form-check-label" for="natural_hoof_care">Natural hoof care</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('performance_shoeing', $values) ? 'checked' : '' }}
-                                                    value="performance_shoeing" id="performance_shoeing">
-                                                <label class="form-check-label" for="performance_shoeing">Performance shoeing</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('magnet_therapy', $values) ? 'checked' : '' }} value="magnet_therapy"
+                                                id="magnet_therapy">
+                                            <label class="form-check-label" for="magnet_therapy">Magnet therapy</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Professional, Educational & Consulting</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('business_planning', $values) ? 'checked' : '' }}
-                                                    value="business_planning" id="business_planning">
-                                                <label class="form-check-label" for="business_planning">Business planning (equine-specific)</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('continuing_education', $values) ? 'checked' : '' }}
-                                                    value="continuing_education" id="continuing_education">
-                                                <label class="form-check-label" for="continuing_education">Continuing education for equine pros</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_appraisals', $values) ? 'checked' : '' }}
-                                                    value="equine_appraisals" id="equine_appraisals">
-                                                <label class="form-check-label" for="equine_appraisals">Equine appraisals</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_behavior_consulting', $values) ? 'checked' : '' }}
-                                                    value="equine_behavior_consulting" id="equine_behavior_consulting">
-                                                <label class="form-check-label" for="equine_behavior_consulting">Equine behavior consulting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_branding_marketing', $values) ? 'checked' : '' }}
-                                                    value="equine_branding_marketing" id="equine_branding_marketing">
-                                                <label class="form-check-label" for="equine_branding_marketing">Equine branding & marketing services</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_insurance_brokerage', $values) ? 'checked' : '' }}
-                                                    value="equine_insurance_brokerage" id="equine_insurance_brokerage">
-                                                <label class="form-check-label" for="equine_insurance_brokerage">Equine insurance brokerage</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_assisted_therapy', $values) ? 'checked' : '' }}
-                                                    value="equine_assisted_therapy" id="equine_assisted_therapy">
-                                                <label class="form-check-label" for="equine_assisted_therapy">Equine-assisted therapy</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('farm_ranch_bookkeeping', $values) ? 'checked' : '' }}
-                                                    value="farm_ranch_bookkeeping" id="farm_ranch_bookkeeping">
-                                                <label class="form-check-label" for="farm_ranch_bookkeeping">Farm & ranch bookkeeping</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('grant_writing', $values) ? 'checked' : '' }}
-                                                    value="grant_writing" id="grant_writing">
-                                                <label class="form-check-label" for="grant_writing">Grant writing</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_ownership_consulting', $values) ? 'checked' : '' }}
-                                                    value="horse_ownership_consulting" id="horse_ownership_consulting">
-                                                <label class="form-check-label" for="horse_ownership_consulting">Horse ownership consulting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('legal_consulting', $values) ? 'checked' : '' }}
-                                                    value="legal_consulting" id="legal_consulting">
-                                                <label class="form-check-label" for="legal_consulting">Legal consulting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('nutritional_consulting', $values) ? 'checked' : '' }}
-                                                    value="nutritional_consulting" id="nutritional_consulting">
-                                                <label class="form-check-label" for="nutritional_consulting">Nutritional consulting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('public_relations', $values) ? 'checked' : '' }}
-                                                    value="public_relations" id="public_relations">
-                                                <label class="form-check-label" for="public_relations">Public relations for equestrian athletes/facilities</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('risk_management', $values) ? 'checked' : '' }}
-                                                    value="risk_management" id="risk_management">
-                                                <label class="form-check-label" for="risk_management">Risk management assessment</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('tech_software_training', $values) ? 'checked' : '' }}
-                                                    value="tech_software_training" id="tech_software_training">
-                                                <label class="form-check-label" for="tech_software_training">Tech & software training for equine businesses</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('trademark_copyright', $values) ? 'checked' : '' }}
-                                                    value="trademark_copyright" id="trademark_copyright">
-                                                <label class="form-check-label" for="trademark_copyright">Trademark and copyright help</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pemf', $values) ? 'checked' : '' }} value="pemf" id="pemf">
+                                            <label class="form-check-label" for="pemf">PEMF</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Retail, Feed & Mobile</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('bit_fitting', $values) ? 'checked' : '' }}
-                                                    value="bit_fitting" id="bit_fitting">
-                                                <label class="form-check-label" for="bit_fitting">Bit fitting services</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('blanket_washing_repair', $values) ? 'checked' : '' }}
-                                                    value="blanket_washing_repair" id="blanket_washing_repair">
-                                                <label class="form-check-label" for="blanket_washing_repair">Blanket washing and repair</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('custom_leatherwork', $values) ? 'checked' : '' }}
-                                                    value="custom_leatherwork" id="custom_leatherwork">
-                                                <label class="form-check-label" for="custom_leatherwork">Custom leatherwork or repairs</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('customized_feeding_plans', $values) ? 'checked' : '' }}
-                                                    value="customized_feeding_plans" id="customized_feeding_plans">
-                                                <label class="form-check-label" for="customized_feeding_plans">Customized feeding plans and consulting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equestrian_subscription_boxes', $values) ? 'checked' : '' }}
-                                                    value="equestrian_subscription_boxes" id="equestrian_subscription_boxes">
-                                                <label class="form-check-label" for="equestrian_subscription_boxes">Equestrian subscription boxes</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mobile_feed_delivery', $values) ? 'checked' : '' }}
-                                                    value="mobile_feed_delivery" id="mobile_feed_delivery">
-                                                <label class="form-check-label" for="mobile_feed_delivery">Mobile feed delivery / subscription boxes</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mobile_saddle_tack', $values) ? 'checked' : '' }}
-                                                    value="mobile_saddle_tack" id="mobile_saddle_tack">
-                                                <label class="form-check-label" for="mobile_saddle_tack">Mobile saddle and tack shops</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mobile_veterinary_pharmacy', $values) ? 'checked' : '' }}
-                                                    value="mobile_veterinary_pharmacy" id="mobile_veterinary_pharmacy">
-                                                <label class="form-check-label" for="mobile_veterinary_pharmacy">Mobile veterinary pharmacy delivery</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('organic_feed_supplement', $values) ? 'checked' : '' }}
-                                                    value="organic_feed_supplement" id="organic_feed_supplement">
-                                                <label class="form-check-label" for="organic_feed_supplement">Organic feed/supplement production</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('saddle_fitting_consulting', $values) ? 'checked' : '' }}
-                                                    value="saddle_fitting_consulting" id="saddle_fitting_consulting">
-                                                <label class="form-check-label" for="saddle_fitting_consulting">Saddle fitting consulting</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('specialized_horse_feed', $values) ? 'checked' : '' }}
-                                                    value="specialized_horse_feed" id="specialized_horse_feed">
-                                                <label class="form-check-label" for="specialized_horse_feed">Specialized horse feed manufacturing</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('red_light_laser', $values) ? 'checked' : '' }}
+                                                value="red_light_laser" id="red_light_laser">
+                                            <label class="form-check-label" for="red_light_laser">Red light/laser therapy</label>
                                         </div>
-                                        <div class="service-category">
-                                            <h5 class="category-title">Media, Events & Promotion</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_photography_videography', $values) ? 'checked' : '' }}
-                                                    value="equine_photography_videography" id="equine_photography_videography">
-                                                <label class="form-check-label" for="equine_photography_videography">Equine photography & videography</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_show_announcing', $values) ? 'checked' : '' }}
-                                                    value="horse_show_announcing" id="horse_show_announcing">
-                                                <label class="form-check-label" for="horse_show_announcing">Horse show announcing & judging</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_show_entry_management', $values) ? 'checked' : '' }}
-                                                    value="horse_show_entry_management" id="horse_show_entry_management">
-                                                <label class="form-check-label" for="horse_show_entry_management">Horse show entry management</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_show_management', $values) ? 'checked' : '' }}
-                                                    value="horse_show_management" id="horse_show_management">
-                                                <label class="form-check-label" for="horse_show_management">Horse show management</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('live_streaming', $values) ? 'checked' : '' }}
-                                                    value="live_streaming" id="live_streaming">
-                                                <label class="form-check-label" for="live_streaming">Live streaming / online show coverage</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('marketing_horses_farms', $values) ? 'checked' : '' }}
-                                                    value="marketing_horses_farms" id="marketing_horses_farms">
-                                                <label class="form-check-label" for="marketing_horses_farms">Marketing for horses or farms</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('prize_procurement', $values) ? 'checked' : '' }}
-                                                    value="prize_procurement" id="prize_procurement">
-                                                <label class="form-check-label" for="prize_procurement">Prize procurement and sponsor outreach</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('sales_video_editing', $values) ? 'checked' : '' }}
-                                                    value="sales_video_editing" id="sales_video_editing">
-                                                <label class="form-check-label" for="sales_video_editing">Sales video editing</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('show_steward', $values) ? 'checked' : '' }}
-                                                    value="show_steward" id="show_steward">
-                                                <label class="form-check-label" for="show_steward">Show steward or technical delegate</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stabling_grounds_crew', $values) ? 'checked' : '' }}
-                                                    value="stabling_grounds_crew" id="stabling_grounds_crew">
-                                                <label class="form-check-label" for="stabling_grounds_crew">Stabling and grounds crew</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stallion_promotion', $values) ? 'checked' : '' }}
-                                                    value="stallion_promotion" id="stallion_promotion">
-                                                <label class="form-check-label" for="stallion_promotion">Stallion promotion and stud marketing</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('sound_vibration', $values) ? 'checked' : '' }}
+                                                value="sound_vibration" id="sound_vibration">
+                                            <label class="form-check-label" for="sound_vibration">Sound/vibration therapy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('thermography', $values) ? 'checked' : '' }} value="thermography"
+                                                id="thermography">
+                                            <label class="form-check-label" for="thermography">Thermography</label>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <div class="service-category">
-                                            <h5 class="category-title">Other Services</h5>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom1', $values) ? 'checked' : '' }}
-                                                    value="other_custom1" id="other_custom1">
-                                                <label class="form-check-label" for="other_custom1">
-                                                    <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
-                                                        name="custom_service_1">
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom2', $values) ? 'checked' : '' }}
-                                                    value="other_custom2" id="other_custom2">
-                                                <label class="form-check-label" for="other_custom2">
-                                                    <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
-                                                        name="custom_service_2">
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom3', $values) ? 'checked' : '' }}
-                                                    value="other_custom3" id="other_custom3">
-                                                <label class="form-check-label" for="other_custom3">
-                                                    <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
-                                                        name="custom_service_3">
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom4', $values) ? 'checked' : '' }}
-                                                    value="other_custom4" id="other_custom4">
-                                                <label class="form-check-label" for="other_custom4">
-                                                    <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
-                                                        name="custom_service_4">
-                                                </label>
-                                            </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Breeding & Foaling</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('artificial_insemination', $values) ? 'checked' : '' }}
+                                                value="artificial_insemination" id="artificial_insemination">
+                                            <label class="form-check-label" for="artificial_insemination">Artificial insemination</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('breeding_soundness', $values) ? 'checked' : '' }}
+                                                value="breeding_soundness" id="breeding_soundness">
+                                            <label class="form-check-label" for="breeding_soundness">Breeding soundness exams</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('foal_handling', $values) ? 'checked' : '' }} value="foal_handling"
+                                                id="foal_handling">
+                                            <label class="form-check-label" for="foal_handling">Foal handling/imprinting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('foaling_assistance', $values) ? 'checked' : '' }}
+                                                value="foaling_assistance" id="foaling_assistance">
+                                            <label class="form-check-label" for="foaling_assistance">Foaling assistance</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mare_management', $values) ? 'checked' : '' }}
+                                                value="mare_management" id="mare_management">
+                                            <label class="form-check-label" for="mare_management">Mare management</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stallion_services', $values) ? 'checked' : '' }}
+                                                value="stallion_services" id="stallion_services">
+                                            <label class="form-check-label" for="stallion_services">Stallion services (stud)</label>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="border_box_one">
-                                <h3 class="mb-3">Service Details <small class="text-muted"> (What you offer, how it works, who's it for, etc.) </small></h3>
-                                <div class="">
-                                    <textarea class="textarea" name="service_desc" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Write description here....">{{ $data->service_desc }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 pb-4">
-                            <div class="border_box_one">
-                                <h4 class="mb-3">Service Location</h4>
-                                @php
-                                    $service_location = explode(',', $data->service_location);
-                                @endphp
-
-                                <div class="form-check">
-                                    <label>
-                                        <input class="form-check-input" type="checkbox" name="service_location[]" value="At Provider's Facility"
-                                            {{ in_array("At Provider's Facility", $service_location) ? 'checked' : '' }}>
-                                        At Provider’s Facility
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <label>
-                                        <input class="form-check-input" type="checkbox" name="service_location[]" value="Mobile (I travel to client)"
-                                            {{ in_array('Mobile (I travel to client)', $service_location) ? 'checked' : '' }}>
-                                        Mobile (I travel to client)
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <label>
-                                        <input class="form-check-input" type="checkbox" name="service_location[]" value="Virtual / Online Coaching"
-                                            {{ in_array('Virtual / Online Coaching', $service_location) ? 'checked' : '' }}>
-                                        Virtual / Online Coaching
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <!-- <h5 class="mb-3">Price Per Hour / Session / Package</h5>-->
-                            <div class="row mb-4 align-items-cennter">
-                                <div class="col-6">
-                                    <div class="border_box_one">
-                                        <h3 class="mb-3">Price [$] <span class="asterisk">*</span></h3>
-                                        <input class="form-control gen_input thousand-separator numbers_limit price-input" name="pkg_price" value="{{ $data->pkg_price }}" type="text"
-                                            placeholder="Enter price" required />
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="border_box_one">
-                                        @php
-                                            $pricing_type = $data->pricing_type ?? '';
-                                        @endphp
-
-                                        <div class="row align-items-center mb-3">
-                                            <div class="col-12">
-                                                <div class="d-flex gap-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="pricing_type" type="radio" value="Per Hour" id="ph_p"
-                                                            {{ $pricing_type == 'Per Hour' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="ph_p">
-                                                            Per Hour
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="pricing_type" type="radio" value="Per Session" id="ps_p"
-                                                            {{ $pricing_type == 'Per Session' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="ps_p">
-                                                            Per Session
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="pricing_type" type="radio" value="Per Package" id="pp_p"
-                                                            {{ $pricing_type == 'Per Package' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="pp_p">
-                                                            Per Package
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="d-flex gap-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="pricing_type" type="radio" value="Per Month" id="pm_p"
-                                                            {{ $pricing_type == 'Per Month' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="pm_p">
-                                                            Per Month
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="pricing_type" type="radio" value="Varying Price per Service" id="vpps_p"
-                                                            {{ $pricing_type == 'Varying Price per Service' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="vpps_p">
-                                                            Varying Price per Service
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Sales, Leasing & Auction</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('auction_online', $values) ? 'checked' : '' }} value="auction_online"
+                                                id="auction_online">
+                                            <label class="form-check-label" for="auction_online">Auction - On-line</label>
                                         </div>
-
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('auction_live', $values) ? 'checked' : '' }} value="auction_live"
+                                                id="auction_live">
+                                            <label class="form-check-label" for="auction_live">Auction - Live</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('consignment_sales', $values) ? 'checked' : '' }}
+                                                value="consignment_sales" id="consignment_sales">
+                                            <label class="form-check-label" for="consignment_sales">Consignment sales</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_leasing_services', $values) ? 'checked' : '' }}
+                                                value="horse_leasing_services" id="horse_leasing_services">
+                                            <label class="form-check-label" for="horse_leasing_services">Horse leasing services</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Transport & Travel</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('emergency_evacuation', $values) ? 'checked' : '' }}
+                                                value="emergency_evacuation" id="emergency_evacuation">
+                                            <label class="form-check-label" for="emergency_evacuation">Emergency evacuation (natural disasters)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('gate_training', $values) ? 'checked' : '' }} value="gate_training"
+                                                id="gate_training">
+                                            <label class="form-check-label" for="gate_training">Gate training</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hauling_services', $values) ? 'checked' : '' }}
+                                                value="hauling_services" id="hauling_services">
+                                            <label class="form-check-label" for="hauling_services">Hauling services</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_international_shipping', $values) ? 'checked' : '' }}
+                                                value="horse_international_shipping" id="horse_international_shipping">
+                                            <label class="form-check-label" for="horse_international_shipping">Horse international shipping</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_local_transport', $values) ? 'checked' : '' }}
+                                                value="horse_local_transport" id="horse_local_transport">
+                                            <label class="form-check-label" for="horse_local_transport">Horse local transport</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('travel_management_show_horses', $values) ? 'checked' : '' }}
+                                                value="travel_management_show_horses" id="travel_management_show_horses">
+                                            <label class="form-check-label" for="travel_management_show_horses">Travel management for show horses</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Grooming & Presentation</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('bathing', $values) ? 'checked' : '' }} value="bathing"
+                                                id="bathing">
+                                            <label class="form-check-label" for="bathing">Bathing</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('body_clipping', $values) ? 'checked' : '' }} value="body_clipping"
+                                                id="body_clipping">
+                                            <label class="form-check-label" for="body_clipping">Body clipping</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('braiding', $values) ? 'checked' : '' }} value="braiding"
+                                                id="braiding">
+                                            <label class="form-check-label" for="braiding">Braiding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('grooming_services', $values) ? 'checked' : '' }}
+                                                value="grooming_services" id="grooming_services">
+                                            <label class="form-check-label" for="grooming_services">Grooming services</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mane_tail_care', $values) ? 'checked' : '' }} value="mane_tail_care"
+                                                id="mane_tail_care">
+                                            <label class="form-check-label" for="mane_tail_care">Mane & tail care</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('show_prep', $values) ? 'checked' : '' }} value="show_prep"
+                                                id="show_prep">
+                                            <label class="form-check-label" for="show_prep">Show prep</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('tack_cleaning', $values) ? 'checked' : '' }} value="tack_cleaning"
+                                                id="tack_cleaning">
+                                            <label class="form-check-label" for="tack_cleaning">Tack cleaning</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Recreational & Community</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('4h_ffa_support', $values) ? 'checked' : '' }} value="4h_ffa_support"
+                                                id="4h_ffa_support">
+                                            <label class="form-check-label" for="4h_ffa_support">4-H/FFA horse program support</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horsemanship_camps', $values) ? 'checked' : '' }}
+                                                value="horsemanship_camps" id="horsemanship_camps">
+                                            <label class="form-check-label" for="horsemanship_camps">Horsemanship camps</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('junior_mounted_patrol', $values) ? 'checked' : '' }}
+                                                value="junior_mounted_patrol" id="junior_mounted_patrol">
+                                            <label class="form-check-label" for="junior_mounted_patrol">Junior mounted patrol units</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pony_parties', $values) ? 'checked' : '' }} value="pony_parties"
+                                                id="pony_parties">
+                                            <label class="form-check-label" for="pony_parties">Pony parties</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('school_visits', $values) ? 'checked' : '' }} value="school_visits"
+                                                id="school_visits">
+                                            <label class="form-check-label" for="school_visits">School visits or public education</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('therapy_programs', $values) ? 'checked' : '' }}
+                                                value="therapy_programs" id="therapy_programs">
+                                            <label class="form-check-label" for="therapy_programs">Therapy programs</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('vocational_therapies', $values) ? 'checked' : '' }}
+                                                value="vocational_therapies" id="vocational_therapies">
+                                            <label class="form-check-label" for="vocational_therapies">Vocational therapies</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="border_box_one">
-                                <input type="hidden" name="payment_method" id="selectedInput_payments" value="{{ $data->payment_method }}">
-                                <div class="dropdown-container" data-dropdown-name="payments">
-                                    <h4 class="mb-3">Payment Methods Accepted</h4>
-                                    <div class="dropdown-header"></div>
-                                    <div class="dropdown-list">
-                                        <div data-value="Cash">Cash</div>
-                                        <div data-value="Card">Card</div>
-                                        <div data-value="PayPal">PayPal</div>
-                                        <div data-value="Venmo">Venmo</div>
-                                        <div data-value="Zelle">Zelle</div>
+
+                                <!-- Performance, Training & Riding -->
+                                <div class="col-md-4">
+                                    <div class="service-category">
+                                        <h5 class="category-title">Performance, Training & Riding</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('behavior_correction', $values) ? 'checked' : '' }}
+                                                value="behavior_correction" id="behavior_correction">
+                                            <label class="form-check-label" for="behavior_correction">Behavior correction</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('colt_starting', $values) ? 'checked' : '' }} value="colt_starting"
+                                                id="colt_starting">
+                                            <label class="form-check-label" for="colt_starting">Colt starting / breaking</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('desensitization_training', $values) ? 'checked' : '' }}
+                                                value="desensitization_training" id="desensitization_training">
+                                            <label class="form-check-label" for="desensitization_training">Desensitization training</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('eventing_preparation', $values) ? 'checked' : '' }}
+                                                value="eventing_preparation" id="eventing_preparation">
+                                            <label class="form-check-label" for="eventing_preparation">Eventing preparation</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('foal_training', $values) ? 'checked' : '' }} value="foal_training"
+                                                id="foal_training">
+                                            <label class="form-check-label" for="foal_training">Foal training</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('groundwork_horsemanship', $values) ? 'checked' : '' }}
+                                                value="groundwork_horsemanship" id="groundwork_horsemanship">
+                                            <label class="form-check-label" for="groundwork_horsemanship">Groundwork and horsemanship</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_conditioning', $values) ? 'checked' : '' }}
+                                                value="horse_conditioning" id="horse_conditioning">
+                                            <label class="form-check-label" for="horse_conditioning">Horse conditioning & fitness</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_training', $values) ? 'checked' : '' }}
+                                                value="horse_training" id="horse_training">
+                                            <label class="form-check-label" for="horse_training">Horse training</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_sales', $values) ? 'checked' : '' }} value="horse_sales"
+                                                id="horse_sales">
+                                            <label class="form-check-label" for="horse_sales">Horse Sales</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('jockey_services', $values) ? 'checked' : '' }}
+                                                value="jockey_services" id="jockey_services">
+                                            <label class="form-check-label" for="jockey_services">Jockey services</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('jumping_training', $values) ? 'checked' : '' }}
+                                                value="jumping_training" id="jumping_training">
+                                            <label class="form-check-label" for="jumping_training">Jumping training</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('liberty_training', $values) ? 'checked' : '' }}
+                                                value="liberty_training" id="liberty_training">
+                                            <label class="form-check-label" for="liberty_training">Liberty training</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mounted_archery', $values) ? 'checked' : '' }}
+                                                value="mounted_archery" id="mounted_archery">
+                                            <label class="form-check-label" for="mounted_archery">Mounted archery or games training</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('problem_horse_retraining', $values) ? 'checked' : '' }}
+                                                value="problem_horse_retraining" id="problem_horse_retraining">
+                                            <label class="form-check-label" for="problem_horse_retraining">Problem horse retraining</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('racehorse_conditioning', $values) ? 'checked' : '' }}
+                                                value="racehorse_conditioning" id="racehorse_conditioning">
+                                            <label class="form-check-label" for="racehorse_conditioning">Racehorse conditioning & prep</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('rider_coaching', $values) ? 'checked' : '' }}
+                                                value="rider_coaching" id="rider_coaching">
+                                            <label class="form-check-label" for="rider_coaching">Rider coaching</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('riding_lessons', $values) ? 'checked' : '' }}
+                                                value="riding_lessons" id="riding_lessons">
+                                            <label class="form-check-label" for="riding_lessons">Riding lessons</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('show_coaching', $values) ? 'checked' : '' }}
+                                                value="show_coaching" id="show_coaching">
+                                            <label class="form-check-label" for="show_coaching">Show coaching</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('therapeutic_riding_instruction', $values) ? 'checked' : '' }}
+                                                value="therapeutic_riding_instruction" id="therapeutic_riding_instruction">
+                                            <label class="form-check-label" for="therapeutic_riding_instruction">Therapeutic riding instruction</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('virtual_training', $values) ? 'checked' : '' }}
+                                                value="virtual_training" id="virtual_training">
+                                            <label class="form-check-label" for="virtual_training">Virtual training/coaching</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Barn, Facility & Property</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('arena_construction', $values) ? 'checked' : '' }}
+                                                value="arena_construction" id="arena_construction">
+                                            <label class="form-check-label" for="arena_construction">Arena construction & maintenance</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('arena_footing', $values) ? 'checked' : '' }}
+                                                value="arena_footing" id="arena_footing">
+                                            <label class="form-check-label" for="arena_footing">Arena footing consulting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('barn_cleaning', $values) ? 'checked' : '' }}
+                                                value="barn_cleaning" id="barn_cleaning">
+                                            <label class="form-check-label" for="barn_cleaning">Barn cleaning & mucking</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('fence_installation', $values) ? 'checked' : '' }}
+                                                value="fence_installation" id="fence_installation">
+                                            <label class="form-check-label" for="fence_installation">Fence installation & repair</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pasture_management', $values) ? 'checked' : '' }}
+                                                value="pasture_management" id="pasture_management">
+                                            <label class="form-check-label" for="pasture_management">Pasture management</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('portable_stall_setup', $values) ? 'checked' : '' }}
+                                                value="portable_stall_setup" id="portable_stall_setup">
+                                            <label class="form-check-label" for="portable_stall_setup">Portable stall setup for events</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stall_rental', $values) ? 'checked' : '' }}
+                                                value="stall_rental" id="stall_rental">
+                                            <label class="form-check-label" for="stall_rental">Stall rental</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Boarding & Stabling</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('coop_boarding', $values) ? 'checked' : '' }}
+                                                value="coop_boarding" id="coop_boarding">
+                                            <label class="form-check-label" for="coop_boarding">Co-op boarding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('full_care_boarding', $values) ? 'checked' : '' }}
+                                                value="full_care_boarding" id="full_care_boarding">
+                                            <label class="form-check-label" for="full_care_boarding">Full-care boarding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('layup_rehab_boarding', $values) ? 'checked' : '' }}
+                                                value="layup_rehab_boarding" id="layup_rehab_boarding">
+                                            <label class="form-check-label" for="layup_rehab_boarding">Layup and rehab boarding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('pasture_boarding', $values) ? 'checked' : '' }}
+                                                value="pasture_boarding" id="pasture_boarding">
+                                            <label class="form-check-label" for="pasture_boarding">Pasture boarding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('retirement_boarding', $values) ? 'checked' : '' }}
+                                                value="retirement_boarding" id="retirement_boarding">
+                                            <label class="form-check-label" for="retirement_boarding">Retirement boarding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('self_care_boarding', $values) ? 'checked' : '' }}
+                                                value="self_care_boarding" id="self_care_boarding">
+                                            <label class="form-check-label" for="self_care_boarding">Self-care boarding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('temporary_event_stabling', $values) ? 'checked' : '' }}
+                                                value="temporary_event_stabling" id="temporary_event_stabling">
+                                            <label class="form-check-label" for="temporary_event_stabling">Temporary event stabling</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Farrier & Hoof</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('applied_equine_podiatry', $values) ? 'checked' : '' }}
+                                                value="applied_equine_podiatry" id="applied_equine_podiatry">
+                                            <label class="form-check-label" for="applied_equine_podiatry">Applied equine podiatry</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('corrective_therapeutic_shoeing', $values) ? 'checked' : '' }}
+                                                value="corrective_therapeutic_shoeing" id="corrective_therapeutic_shoeing">
+                                            <label class="form-check-label" for="corrective_therapeutic_shoeing">Corrective/therapeutic shoeing</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('glue_on_shoes', $values) ? 'checked' : '' }}
+                                                value="glue_on_shoes" id="glue_on_shoes">
+                                            <label class="form-check-label" for="glue_on_shoes">Glue-on shoe application</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hoof_casting', $values) ? 'checked' : '' }}
+                                                value="hoof_casting" id="hoof_casting">
+                                            <label class="form-check-label" for="hoof_casting">Hoof casting for injuries</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hoof_reconstruction', $values) ? 'checked' : '' }}
+                                                value="hoof_reconstruction" id="hoof_reconstruction">
+                                            <label class="form-check-label" for="hoof_reconstruction">Hoof reconstruction/resin fill</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('hoof_resections', $values) ? 'checked' : '' }}
+                                                value="hoof_resections" id="hoof_resections">
+                                            <label class="form-check-label" for="hoof_resections">Hoof resections</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('integrated_podiatry', $values) ? 'checked' : '' }}
+                                                value="integrated_podiatry" id="integrated_podiatry">
+                                            <label class="form-check-label" for="integrated_podiatry">Integrated podiatry</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('natural_hoof_care', $values) ? 'checked' : '' }}
+                                                value="natural_hoof_care" id="natural_hoof_care">
+                                            <label class="form-check-label" for="natural_hoof_care">Natural hoof care</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('performance_shoeing', $values) ? 'checked' : '' }}
+                                                value="performance_shoeing" id="performance_shoeing">
+                                            <label class="form-check-label" for="performance_shoeing">Performance shoeing</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Professional, Educational & Consulting</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('business_planning', $values) ? 'checked' : '' }}
+                                                value="business_planning" id="business_planning">
+                                            <label class="form-check-label" for="business_planning">Business planning (equine-specific)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('continuing_education', $values) ? 'checked' : '' }}
+                                                value="continuing_education" id="continuing_education">
+                                            <label class="form-check-label" for="continuing_education">Continuing education for equine pros</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_appraisals', $values) ? 'checked' : '' }}
+                                                value="equine_appraisals" id="equine_appraisals">
+                                            <label class="form-check-label" for="equine_appraisals">Equine appraisals</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_behavior_consulting', $values) ? 'checked' : '' }}
+                                                value="equine_behavior_consulting" id="equine_behavior_consulting">
+                                            <label class="form-check-label" for="equine_behavior_consulting">Equine behavior consulting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_branding_marketing', $values) ? 'checked' : '' }}
+                                                value="equine_branding_marketing" id="equine_branding_marketing">
+                                            <label class="form-check-label" for="equine_branding_marketing">Equine branding & marketing services</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_insurance_brokerage', $values) ? 'checked' : '' }}
+                                                value="equine_insurance_brokerage" id="equine_insurance_brokerage">
+                                            <label class="form-check-label" for="equine_insurance_brokerage">Equine insurance brokerage</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_assisted_therapy', $values) ? 'checked' : '' }}
+                                                value="equine_assisted_therapy" id="equine_assisted_therapy">
+                                            <label class="form-check-label" for="equine_assisted_therapy">Equine-assisted therapy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('farm_ranch_bookkeeping', $values) ? 'checked' : '' }}
+                                                value="farm_ranch_bookkeeping" id="farm_ranch_bookkeeping">
+                                            <label class="form-check-label" for="farm_ranch_bookkeeping">Farm & ranch bookkeeping</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('grant_writing', $values) ? 'checked' : '' }}
+                                                value="grant_writing" id="grant_writing">
+                                            <label class="form-check-label" for="grant_writing">Grant writing</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_ownership_consulting', $values) ? 'checked' : '' }}
+                                                value="horse_ownership_consulting" id="horse_ownership_consulting">
+                                            <label class="form-check-label" for="horse_ownership_consulting">Horse ownership consulting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('legal_consulting', $values) ? 'checked' : '' }}
+                                                value="legal_consulting" id="legal_consulting">
+                                            <label class="form-check-label" for="legal_consulting">Legal consulting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('nutritional_consulting', $values) ? 'checked' : '' }}
+                                                value="nutritional_consulting" id="nutritional_consulting">
+                                            <label class="form-check-label" for="nutritional_consulting">Nutritional consulting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('public_relations', $values) ? 'checked' : '' }}
+                                                value="public_relations" id="public_relations">
+                                            <label class="form-check-label" for="public_relations">Public relations for equestrian athletes/facilities</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('risk_management', $values) ? 'checked' : '' }}
+                                                value="risk_management" id="risk_management">
+                                            <label class="form-check-label" for="risk_management">Risk management assessment</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('tech_software_training', $values) ? 'checked' : '' }}
+                                                value="tech_software_training" id="tech_software_training">
+                                            <label class="form-check-label" for="tech_software_training">Tech & software training for equine businesses</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('trademark_copyright', $values) ? 'checked' : '' }}
+                                                value="trademark_copyright" id="trademark_copyright">
+                                            <label class="form-check-label" for="trademark_copyright">Trademark and copyright help</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Retail, Feed & Mobile</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('bit_fitting', $values) ? 'checked' : '' }} value="bit_fitting"
+                                                id="bit_fitting">
+                                            <label class="form-check-label" for="bit_fitting">Bit fitting services</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('blanket_washing_repair', $values) ? 'checked' : '' }}
+                                                value="blanket_washing_repair" id="blanket_washing_repair">
+                                            <label class="form-check-label" for="blanket_washing_repair">Blanket washing and repair</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('custom_leatherwork', $values) ? 'checked' : '' }}
+                                                value="custom_leatherwork" id="custom_leatherwork">
+                                            <label class="form-check-label" for="custom_leatherwork">Custom leatherwork or repairs</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('customized_feeding_plans', $values) ? 'checked' : '' }}
+                                                value="customized_feeding_plans" id="customized_feeding_plans">
+                                            <label class="form-check-label" for="customized_feeding_plans">Customized feeding plans and consulting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equestrian_subscription_boxes', $values) ? 'checked' : '' }}
+                                                value="equestrian_subscription_boxes" id="equestrian_subscription_boxes">
+                                            <label class="form-check-label" for="equestrian_subscription_boxes">Equestrian subscription boxes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mobile_feed_delivery', $values) ? 'checked' : '' }}
+                                                value="mobile_feed_delivery" id="mobile_feed_delivery">
+                                            <label class="form-check-label" for="mobile_feed_delivery">Mobile feed delivery / subscription boxes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mobile_saddle_tack', $values) ? 'checked' : '' }}
+                                                value="mobile_saddle_tack" id="mobile_saddle_tack">
+                                            <label class="form-check-label" for="mobile_saddle_tack">Mobile saddle and tack shops</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mobile_veterinary_pharmacy', $values) ? 'checked' : '' }}
+                                                value="mobile_veterinary_pharmacy" id="mobile_veterinary_pharmacy">
+                                            <label class="form-check-label" for="mobile_veterinary_pharmacy">Mobile veterinary pharmacy delivery</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('organic_feed_supplement', $values) ? 'checked' : '' }}
+                                                value="organic_feed_supplement" id="organic_feed_supplement">
+                                            <label class="form-check-label" for="organic_feed_supplement">Organic feed/supplement production</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('saddle_fitting_consulting', $values) ? 'checked' : '' }}
+                                                value="saddle_fitting_consulting" id="saddle_fitting_consulting">
+                                            <label class="form-check-label" for="saddle_fitting_consulting">Saddle fitting consulting</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('specialized_horse_feed', $values) ? 'checked' : '' }}
+                                                value="specialized_horse_feed" id="specialized_horse_feed">
+                                            <label class="form-check-label" for="specialized_horse_feed">Specialized horse feed manufacturing</label>
+                                        </div>
+                                    </div>
+                                    <div class="service-category">
+                                        <h5 class="category-title">Media, Events & Promotion</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('equine_photography_videography', $values) ? 'checked' : '' }}
+                                                value="equine_photography_videography" id="equine_photography_videography">
+                                            <label class="form-check-label" for="equine_photography_videography">Equine photography & videography</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_show_announcing', $values) ? 'checked' : '' }}
+                                                value="horse_show_announcing" id="horse_show_announcing">
+                                            <label class="form-check-label" for="horse_show_announcing">Horse show announcing & judging</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_show_entry_management', $values) ? 'checked' : '' }}
+                                                value="horse_show_entry_management" id="horse_show_entry_management">
+                                            <label class="form-check-label" for="horse_show_entry_management">Horse show entry management</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('horse_show_management', $values) ? 'checked' : '' }}
+                                                value="horse_show_management" id="horse_show_management">
+                                            <label class="form-check-label" for="horse_show_management">Horse show management</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('live_streaming', $values) ? 'checked' : '' }}
+                                                value="live_streaming" id="live_streaming">
+                                            <label class="form-check-label" for="live_streaming">Live streaming / online show coverage</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('marketing_horses_farms', $values) ? 'checked' : '' }}
+                                                value="marketing_horses_farms" id="marketing_horses_farms">
+                                            <label class="form-check-label" for="marketing_horses_farms">Marketing for horses or farms</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('prize_procurement', $values) ? 'checked' : '' }}
+                                                value="prize_procurement" id="prize_procurement">
+                                            <label class="form-check-label" for="prize_procurement">Prize procurement and sponsor outreach</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('sales_video_editing', $values) ? 'checked' : '' }}
+                                                value="sales_video_editing" id="sales_video_editing">
+                                            <label class="form-check-label" for="sales_video_editing">Sales video editing</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('show_steward', $values) ? 'checked' : '' }}
+                                                value="show_steward" id="show_steward">
+                                            <label class="form-check-label" for="show_steward">Show steward or technical delegate</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stabling_grounds_crew', $values) ? 'checked' : '' }}
+                                                value="stabling_grounds_crew" id="stabling_grounds_crew">
+                                            <label class="form-check-label" for="stabling_grounds_crew">Stabling and grounds crew</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('stallion_promotion', $values) ? 'checked' : '' }}
+                                                value="stallion_promotion" id="stallion_promotion">
+                                            <label class="form-check-label" for="stallion_promotion">Stallion promotion and stud marketing</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <!-- GALLERY IMAGE UPLOAD -->
-                            <div class="border_box_one mb-4">
-                                <h4 class="mb-3">Gallery</h4>
-                                @php
-                                    $existingImages = json_decode($data->ser_gallery) ?? [];
-                                    $maxImages = 10; // ya jo limit chahiye
-                                @endphp
 
-                                <div class="col-12 mb-3">
-                                    <div class="custom-upload__box">
-                                        <div class="custom-upload__btn-box">
-                                            <label class="custom-upload__btn">
-                                                <p>Drag your Image here<span class="or">OR</span><span class="browse_option">Browse from device</span></p>
-                                                <input id="customImageInput" name="ser_gallery[]" type="file" class="custom-upload__inputfile" accept="image/*" multiple>
+                                <div class="col-md-4">
+                                    <div class="service-category">
+                                        <h5 class="category-title">Other Services</h5>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom1', $values) ? 'checked' : '' }}
+                                                value="other_custom1" id="other_custom1">
+                                            <label class="form-check-label" for="other_custom1">
+                                                <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
+                                                    name="custom_service_1">
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom2', $values) ? 'checked' : '' }}
+                                                value="other_custom2" id="other_custom2">
+                                            <label class="form-check-label" for="other_custom2">
+                                                <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
+                                                    name="custom_service_2">
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom3', $values) ? 'checked' : '' }}
+                                                value="other_custom3" id="other_custom3">
+                                            <label class="form-check-label" for="other_custom3">
+                                                <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
+                                                    name="custom_service_3">
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('other_custom4', $values) ? 'checked' : '' }}
+                                                value="other_custom4" id="other_custom4">
+                                            <label class="form-check-label" for="other_custom4">
+                                                <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..."
+                                                    name="custom_service_4">
                                             </label>
                                         </div>
                                     </div>
-
-                                    <div class="col-12">
-                                        <div id="customErrorMsg" style="color:red;margin-top:10px;"></div>
-
-                                        <div class="custom-upload-images-flex" id="customUploadImagesContainer">
-                                            @for ($i = 0; $i < $maxImages; $i++)
-                                                <div class="custom-upload-img-box">
-                                                    @if (isset($existingImages[$i]))
-                                                        <img src="{{ asset('storage/uploads/services/' . $existingImages[$i]) }}" class="img-fluid uploaded existing"
-                                                            data-image-index="{{ $i }}" alt="Existing image">
-                                                        <span class="custom-remove-btn">&times;</span>
-                                                    @else
-                                                        <img src="https://img.icons8.com/metro/512/plus.png" class="img-fluid" alt="Add image">
-                                                        <span class="custom-remove-btn" style="display:none">&times;</span>
-                                                    @endif
-                                                </div>
-                                            @endfor
-                                        </div>
-                                    </div>
                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="border_box_one">
+                            <h3 class="mb-3">Service Details <small class="text-muted"> (What you offer, how it works, who's it for, etc.) </small></h3>
+                            <div class="">
+                                <textarea class="textarea" name="service_desc" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Write description here....">{{ $data->service_desc }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- <div class="col-12 pb-4">
+                        <div class="border_box_one">
+                            <h4 class="mb-3">Service Location</h4>
+                            @php
+                                $service_location = explode(',', $data->service_location);
+                            @endphp
+
+                            <div class="form-check">
+                                <label>
+                                    <input class="form-check-input" type="checkbox" name="service_location[]" value="At Provider's Facility"
+                                        {{ in_array("At Provider's Facility", $service_location) ? 'checked' : '' }}>
+                                    At Provider’s Facility
+                                </label>
                             </div>
 
-                            <div class="col-12">
-                                <div class="border_box_one">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                                <h4 class="">YouTube / Vimeo video link introduction (Optional)</h4>
-                                                <a href="#!" class="add_url_btn">Add another video</a>
-                                            </div>
-                                            <div id="video_inputs_wrapper">
-                                                <div class="video_input d-flex align-items-center mb-2">
-                                                    <input class="form-control gen_input" type="url" value="{{ $data->demo_link ?? '' }}" name="demo_link[]"
-                                                        placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-                                                </div>
-                                            </div>
-                                            <p id="error_message" style="color: red; display: none;">You can only add up to 3 video URLs.</p>
-                                        </div>
+                            <div class="form-check">
+                                <label>
+                                    <input class="form-check-input" type="checkbox" name="service_location[]" value="Mobile (I travel to client)"
+                                        {{ in_array('Mobile (I travel to client)', $service_location) ? 'checked' : '' }}>
+                                    Mobile (I travel to client)
+                                </label>
+                            </div>
 
-                                        <div class="col-6">
-                                            <div class="upload__box">
-                                                <div class="upload__img-wrap"></div>
-                                                <div class="upload__btn-box">
-                                                    <label class="upload__btn">
-                                                        <p>Drag your Video here <span class="or">OR</span> <span class="browse_option">Browse from device</span></p>
-                                                        <input name="pro_video_url[]" type="file" multiple class="upload__inputfile" accept="image/video/*">
+                            <div class="form-check">
+                                <label>
+                                    <input class="form-check-input" type="checkbox" name="service_location[]" value="Virtual / Online Coaching"
+                                        {{ in_array('Virtual / Online Coaching', $service_location) ? 'checked' : '' }}>
+                                    Virtual / Online Coaching
+                                </label>
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    <div class="col-12">
+                        <!-- <h5 class="mb-3">Price Per Hour / Session / Package</h5>-->
+                        <div class="row mb-4 align-items-cennter">
+                            <div class="col-6">
+                                <div class="border_box_one">
+                                    <h3 class="mb-3">Price [$] <span class="asterisk">*</span></h3>
+                                    @php
+                                        $pricing_type = $data->pricing_type ?? '';
+                                    @endphp
+
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-12">
+                                            <div class="d-flex gap-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Hour" id="ph_p"
+                                                        {{ $pricing_type == 'Per Hour' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="ph_p">
+                                                        Per Hour
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Session" id="ps_p"
+                                                        {{ $pricing_type == 'Per Session' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="ps_p">
+                                                        Per Session
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Package" id="pp_p"
+                                                        {{ $pricing_type == 'Per Package' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="pp_p">
+                                                        Per Package
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="d-flex gap-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Per Month" id="pm_p"
+                                                        {{ $pricing_type == 'Per Month' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="pm_p">
+                                                        Per Month
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="pricing_type" type="checkbox" value="Varying Price per Service" id="vpps_p"
+                                                        {{ $pricing_type == 'Varying Price per Service' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="vpps_p">
+                                                        Varying Price per Service
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Inputs for each option -->
+                                        {{-- <div class="col-12 mt-3">
+                                            <div class="price-input-box" id="input_ph_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Hour" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_ps_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Session" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_pp_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Package" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_pm_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Per Month" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+
+                                            <div class="price-input-box" id="input_vpps_p" style="display: none;">
+                                            <input class="form-control gen_input thousand-separator" type="text" placeholder="Varying Price per Service" />
+                                            <button type="button" class="remove-btn">&times;</button>
+                                            </div>
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="border_box_one">
+                                    <input class="form-control gen_input thousand-separator numbers_limit price-input" name="pkg_price" value="{{ $data->pkg_price }}" type="text"
+                                        placeholder="Enter price" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border_box_one">
+                            <input type="hidden" name="payment_method" id="selectedInput_payments" value="{{ $data->payment_method }}">
+                            <div class="dropdown-container" data-dropdown-name="payments">
+                                <h4 class="mb-3">Payment Methods Accepted</h4>
+                                <div class="dropdown-header"></div>
+                                <div class="dropdown-list">
+                                    <div data-value="Cash">Cash</div>
+                                    <div data-value="Card">Card</div>
+                                    <div data-value="PayPal">PayPal</div>
+                                    <div data-value="Venmo">Venmo</div>
+                                    <div data-value="Zelle">Zelle</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- GALLERY IMAGE UPLOAD -->
+                        <div class="border_box_one mb-4">
+                            <h4 class="mb-3">Gallery</h4>
+                            @php
+                                $existingImages = json_decode($data->ser_gallery) ?? [];
+                                $maxImages = 10; // ya jo limit chahiye
+                            @endphp
+
+                            <div class="col-12 mb-3">
+                                <div class="custom-upload__box">
+                                    <div class="custom-upload__btn-box">
+                                        <label class="custom-upload__btn">
+                                            <p>Drag your Image here<span class="or">OR</span><span class="browse_option">Browse from device</span></p>
+                                            <input id="customImageInput" name="ser_gallery[]" type="file" class="custom-upload__inputfile" accept="image/*" multiple>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div id="customErrorMsg" style="color:red;margin-top:10px;"></div>
+
+                                    <div class="custom-upload-images-flex" id="customUploadImagesContainer">
+                                        @for ($i = 0; $i < $maxImages; $i++)
+                                            <div class="custom-upload-img-box">
+                                                @if (isset($existingImages[$i]))
+                                                    <img src="{{ asset('storage/uploads/services/' . $existingImages[$i]) }}" class="img-fluid uploaded existing"
+                                                        data-image-index="{{ $i }}" alt="Existing image">
+                                                    <span class="custom-remove-btn">&times;</span>
+                                                @else
+                                                    <img src="https://img.icons8.com/metro/512/plus.png" class="img-fluid" alt="Add image">
+                                                    <span class="custom-remove-btn" style="display:none">&times;</span>
+                                                @endif
+                                            </div>
+                                        @endfor
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-center">
-                            <div class="col-auto  d-flex justify-content-center gap-3">
-                                <a href="#!" class="btn submit_btn_one">Discard</a>
-                                <button class="btn submit_btn_one" type="submit">Submit</button>
-                                <a href="#!" class="btn submit_btn_one">Preview</a>
+
+                        <div class="col-12">
+                            <div class="border_box_one">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <h4 class="">YouTube / Vimeo video link introduction (Optional)</h4>
+                                            <a href="#!" class="add_url_btn">Add another video</a>
+                                        </div>
+                                        <div id="video_inputs_wrapper">
+                                            <div class="video_input d-flex align-items-center mb-2">
+                                                <input class="form-control gen_input" type="url" value="{{ $data->demo_link ?? '' }}" name="demo_link[]"
+                                                    placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                                            </div>
+                                        </div>
+                                        <p id="error_message" style="color: red; display: none;">You can only add up to 3 video URLs.</p>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="upload__box">
+                                            <div class="upload__img-wrap"></div>
+                                            <div class="upload__btn-box">
+                                                <label class="upload__btn">
+                                                    <p>Drag your Video here <span class="or">OR</span> <span class="browse_option">Browse from device</span></p>
+                                                    <input name="pro_video_url[]" type="file" multiple class="upload__inputfile" accept="image/video/*">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-                </form>
-            @endforeach
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="col-auto  d-flex justify-content-center gap-3">
+                            <a href="#!" class="btn submit_btn_one">Discard</a>
+                            <button class="btn submit_btn_one" type="submit">Submit</button>
+                            <a href="#!" class="btn submit_btn_one">Preview</a>
+                        </div>
+                    </div>
+
         </div>
+        </form>
+        @endforeach
+    </div>
 
-        <script>
-            $(document).ready(function() {
-                $('input[name="ser_profile"]').on('change', function() {
-                    readURL(this, $('.file-wrapper')); // Change the image
-                });
+    <script>
+        $(document).ready(function() {
+            $('input[name="ser_profile"]').on('change', function() {
+                readURL(this, $('.file-wrapper')); // Change the image
+            });
 
-                $('.close-btn').on('click', function() { // Unset the image
-                    let file = $('input[name="ser_profile"]');
-                    $('.file-wrapper').css('background-image', 'unset');
-                    $('.file-wrapper').removeClass('file-set');
-                    file.replaceWith(file.clone(true));
-                });
+            $('.close-btn').on('click', function() { // Unset the image
+                let file = $('input[name="ser_profile"]');
+                $('.file-wrapper').css('background-image', 'unset');
+                $('.file-wrapper').removeClass('file-set');
+                file.replaceWith(file.clone(true));
+            });
 
-                // FILE
-                function readURL(input, obj) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            obj.css('background-image', 'url(' + e.target.result + ')');
-                            obj.addClass('file-set');
-                        }
-                        reader.readAsDataURL(input.files[0]);
+            // FILE
+            function readURL(input, obj) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        obj.css('background-image', 'url(' + e.target.result + ')');
+                        obj.addClass('file-set');
                     }
-                };
-            });
-        </script>
-        <script>
-            jQuery(document).ready(function() {
-                ImgUpload();
-            });
+                    reader.readAsDataURL(input.files[0]);
+                }
+            };
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            ImgUpload();
+        });
 
-            function ImgUpload() {
-                var imgArray = [];
+        function ImgUpload() {
+            var imgArray = [];
 
-                $('.upload__inputfile').each(function() {
-                    $(this).on('change', function(e) {
-                        var imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
-                        var maxLength = $(this).attr('data-max_length') || 10;
-                        var files = e.target.files;
-                        var filesArr = Array.prototype.slice.call(files);
+            $('.upload__inputfile').each(function() {
+                $(this).on('change', function(e) {
+                    var imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
+                    var maxLength = $(this).attr('data-max_length') || 10;
+                    var files = e.target.files;
+                    var filesArr = Array.prototype.slice.call(files);
 
-                        filesArr.forEach(function(f) {
-                            if (
-                                !f.type.match('image.*') &&
-                                !f.type.match('application/pdf') &&
-                                !f.type.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document') &&
-                                !f.type.match('video.*')
-                            ) {
-                                return;
+                    filesArr.forEach(function(f) {
+                        if (
+                            !f.type.match('image.*') &&
+                            !f.type.match('application/pdf') &&
+                            !f.type.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document') &&
+                            !f.type.match('video.*')
+                        ) {
+                            return;
+                        }
+
+                        if (imgArray.length >= maxLength) return;
+
+                        imgArray.push(f);
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            var iconClass = "";
+                            var iconContent = "";
+                            var style = "";
+
+                            if (f.type.match('image.*')) {
+                                iconClass = "img-bg";
+                                style = `background-image: url(${e.target.result})`;
+                            } else if (f.type.match('application/pdf')) {
+                                iconClass = "pdf-icon";
+                                iconContent = "📄";
+                            } else if (f.type.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+                                iconClass = "docx-icon";
+                                iconContent = "📃";
+                            } else if (f.type.match('video.*')) {
+                                iconClass = "video-icon";
+                                iconContent = "🎥";
                             }
 
-                            if (imgArray.length >= maxLength) return;
-
-                            imgArray.push(f);
-                            var reader = new FileReader();
-
-                            reader.onload = function(e) {
-                                var iconClass = "";
-                                var iconContent = "";
-                                var style = "";
-
-                                if (f.type.match('image.*')) {
-                                    iconClass = "img-bg";
-                                    style = `background-image: url(${e.target.result})`;
-                                } else if (f.type.match('application/pdf')) {
-                                    iconClass = "pdf-icon";
-                                    iconContent = "📄";
-                                } else if (f.type.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
-                                    iconClass = "docx-icon";
-                                    iconContent = "📃";
-                                } else if (f.type.match('video.*')) {
-                                    iconClass = "video-icon";
-                                    iconContent = "🎥";
-                                }
-
-                                var html = `
+                            var html = `
             <div class='upload__img-box'>
               <div class='${iconClass}' style='${style}' data-number='${$(".upload__img-close").length}' data-file='${f.name}'>
                 ${iconContent ? `<div class='file-icon-text'>${iconContent}</div>` : ""}
@@ -2133,173 +2338,173 @@
               </div>
             </div>
           `;
-                                imgWrap.append(html);
-                            };
+                            imgWrap.append(html);
+                        };
 
-                            if (f.type.match('image.*')) {
-                                reader.readAsDataURL(f);
-                            } else {
-                                reader.onload(); // Manually trigger for non-image files
-                            }
-                        });
+                        if (f.type.match('image.*')) {
+                            reader.readAsDataURL(f);
+                        } else {
+                            reader.onload(); // Manually trigger for non-image files
+                        }
                     });
                 });
+            });
 
-                $('body').on('click', ".upload__img-close", function(e) {
-                    var file = $(this).parent().data("file");
-                    for (var i = 0; i < imgArray.length; i++) {
-                        if (imgArray[i].name === file) {
-                            imgArray.splice(i, 1);
-                            break;
-                        }
+            $('body').on('click', ".upload__img-close", function(e) {
+                var file = $(this).parent().data("file");
+                for (var i = 0; i < imgArray.length; i++) {
+                    if (imgArray[i].name === file) {
+                        imgArray.splice(i, 1);
+                        break;
                     }
-                    $(this).closest('.upload__img-box').remove();
-                });
-            }
-            // ===== PROFILE IMAGE UPLOAD =====
-            const profileInput = document.getElementById('profileUploadInput');
-            const profilePreview = document.getElementById('profilePreviewImg');
-            const profileHiddenInput = document.getElementById('profile_image_url');
-            const profileRemoveBtn = document.getElementById('removeProfileBtn');
-            const profileDefaultImg = "https://img.icons8.com/m_rounded/512/plus.png";
-
-            profileInput.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        profilePreview.src = e.target.result;
-                        profileHiddenInput.value = e.target.result;
-                        profileRemoveBtn.style.display = 'flex';
-                    };
-                    reader.readAsDataURL(file);
                 }
+                $(this).closest('.upload__img-box').remove();
             });
+        }
+        // ===== PROFILE IMAGE UPLOAD =====
+        const profileInput = document.getElementById('profileUploadInput');
+        const profilePreview = document.getElementById('profilePreviewImg');
+        const profileHiddenInput = document.getElementById('profile_image_url');
+        const profileRemoveBtn = document.getElementById('removeProfileBtn');
+        const profileDefaultImg = "https://img.icons8.com/m_rounded/512/plus.png";
 
-            profileRemoveBtn.addEventListener('click', function() {
-                profilePreview.src = profileDefaultImg;
-                profileHiddenInput.value = '';
-                profileInput.value = '';
-                profileRemoveBtn.style.display = 'none';
-            });
+        profileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePreview.src = e.target.result;
+                    profileHiddenInput.value = e.target.result;
+                    profileRemoveBtn.style.display = 'flex';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-            // ===== GALLERY IMAGE UPLOAD =====
-            // const galleryInput = document.getElementById('galleryUploadInput');
-            // const galleryContainer = document.getElementById('galleryUploadContainer');
-            // const galleryError = document.getElementById('galleryErrorMsg');
-            // const galleryHiddenInput = document.getElementById('gallery_image_data');
-            // const galleryDefaultImg = "https://img.icons8.com/m_rounded/512/plus.png";
+        profileRemoveBtn.addEventListener('click', function() {
+            profilePreview.src = profileDefaultImg;
+            profileHiddenInput.value = '';
+            profileInput.value = '';
+            profileRemoveBtn.style.display = 'none';
+        });
 
-            // let galleryImages = [];
+        // ===== GALLERY IMAGE UPLOAD =====
+        // const galleryInput = document.getElementById('galleryUploadInput');
+        // const galleryContainer = document.getElementById('galleryUploadContainer');
+        // const galleryError = document.getElementById('galleryErrorMsg');
+        // const galleryHiddenInput = document.getElementById('gallery_image_data');
+        // const galleryDefaultImg = "https://img.icons8.com/m_rounded/512/plus.png";
 
-            // galleryInput.addEventListener('change', function() {
-            //     const files = Array.from(this.files);
-            //     const total = galleryImages.length + files.length;
+        // let galleryImages = [];
 
-            //     if (total > 10) {
-            //         galleryError.textContent = "You can upload a maximum of 10 images.";
-            //         return;
-            //     }
+        // galleryInput.addEventListener('change', function() {
+        //     const files = Array.from(this.files);
+        //     const total = galleryImages.length + files.length;
 
-            //     galleryError.textContent = "";
-            //     files.forEach(file => {
-            //         const reader = new FileReader();
-            //         reader.onload = function(e) {
-            //             galleryImages.push(e.target.result);
-            //             updateGalleryPreview();
-            //         };
-            //         reader.readAsDataURL(file);
-            //     });
+        //     if (total > 10) {
+        //         galleryError.textContent = "You can upload a maximum of 10 images.";
+        //         return;
+        //     }
 
-            //     this.value = '';
-            // });
+        //     galleryError.textContent = "";
+        //     files.forEach(file => {
+        //         const reader = new FileReader();
+        //         reader.onload = function(e) {
+        //             galleryImages.push(e.target.result);
+        //             updateGalleryPreview();
+        //         };
+        //         reader.readAsDataURL(file);
+        //     });
 
-            // function updateGalleryPreview() {
-            //     const boxes = galleryContainer.querySelectorAll('.upload_img_box:not(.inactive)');
+        //     this.value = '';
+        // });
 
-            //     boxes.forEach((box, index) => {
-            //         box.innerHTML = '';
-            //         const img = document.createElement('img');
-            //         img.className = 'img-fluid';
+        // function updateGalleryPreview() {
+        //     const boxes = galleryContainer.querySelectorAll('.upload_img_box:not(.inactive)');
 
-            //         if (galleryImages[index]) {
-            //             img.src = galleryImages[index];
-            //             const removeBtn = document.createElement('div');
-            //             removeBtn.textContent = 'x';
-            //             removeBtn.className = 'remove-multi-img';
-            //             removeBtn.addEventListener('click', () => {
-            //                 galleryImages.splice(index, 1);
-            //                 updateGalleryPreview();
-            //             });
-            //             box.appendChild(img);
-            //             box.appendChild(removeBtn);
-            //         } else {
-            //             img.src = galleryDefaultImg;
-            //             box.appendChild(img);
-            //         }
-            //     });
+        //     boxes.forEach((box, index) => {
+        //         box.innerHTML = '';
+        //         const img = document.createElement('img');
+        //         img.className = 'img-fluid';
 
-            //     galleryHiddenInput.value = JSON.stringify(galleryImages);
-            // }
-            // function initCustomImageUpload() {
-            //     const maxImages = 3;
-            //     let currentImages = @json(array_slice($existingImages, 0, $maxImages));
-            //     let newImages = [];
-            //     let imagesToDelete = [];
+        //         if (galleryImages[index]) {
+        //             img.src = galleryImages[index];
+        //             const removeBtn = document.createElement('div');
+        //             removeBtn.textContent = 'x';
+        //             removeBtn.className = 'remove-multi-img';
+        //             removeBtn.addEventListener('click', () => {
+        //                 galleryImages.splice(index, 1);
+        //                 updateGalleryPreview();
+        //             });
+        //             box.appendChild(img);
+        //             box.appendChild(removeBtn);
+        //         } else {
+        //             img.src = galleryDefaultImg;
+        //             box.appendChild(img);
+        //         }
+        //     });
 
-            //     $('#customImageInput').on('change', function(e) {
-            //         const files = Array.from(e.target.files);
-            //         const usedSlots = $('.custom-upload-img-box:not(.inactive) img.uploaded').length;
-            //         const availableSlots = maxImages - usedSlots;
-            //         const filesToUse = files.slice(0, availableSlots);
+        //     galleryHiddenInput.value = JSON.stringify(galleryImages);
+        // }
+        // function initCustomImageUpload() {
+        //     const maxImages = 3;
+        //     let currentImages = @json(array_slice($existingImages, 0, $maxImages));
+        //     let newImages = [];
+        //     let imagesToDelete = [];
 
-            //         const availableBoxes = $('.custom-upload-img-box:not(.inactive)').filter(function() {
-            //             return !$(this).find('img').hasClass('uploaded');
-            //         });
+        //     $('#customImageInput').on('change', function(e) {
+        //         const files = Array.from(e.target.files);
+        //         const usedSlots = $('.custom-upload-img-box:not(.inactive) img.uploaded').length;
+        //         const availableSlots = maxImages - usedSlots;
+        //         const filesToUse = files.slice(0, availableSlots);
 
-            //         filesToUse.forEach((file, i) => {
-            //             const box = $(availableBoxes[i]);
-            //             const reader = new FileReader();
-            //             reader.onload = function(event) {
-            //                 const img = box.find('img');
-            //                 img.attr('src', event.target.result)
-            //                     .addClass('uploaded new')
-            //                     .removeClass('existing')
-            //                     .removeAttr('data-image-index');
-            //                 box.find('.custom-remove-btn').show();
-            //                 newImages.push(file);
-            //             };
-            //             reader.readAsDataURL(file);
-            //         });
-            //     });
+        //         const availableBoxes = $('.custom-upload-img-box:not(.inactive)').filter(function() {
+        //             return !$(this).find('img').hasClass('uploaded');
+        //         });
 
-            //     $('#customUploadImagesContainer').on('click', '.custom-remove-btn', function() {
-            //         const box = $(this).closest('.custom-upload-img-box');
-            //         const img = box.find('img');
-            //         if (img.hasClass('existing')) {
-            //             const index = img.data('image-index');
-            //             if (!imagesToDelete.includes(index)) {
-            //                 imagesToDelete.push(index);
-            //             }
-            //         }
-            //         img.attr('src', 'https://img.icons8.com/m_rounded/512/plus.png')
-            //             .removeClass('uploaded new existing')
-            //             .removeAttr('data-image-index');
-            //         $(this).hide();
-            //     });
+        //         filesToUse.forEach((file, i) => {
+        //             const box = $(availableBoxes[i]);
+        //             const reader = new FileReader();
+        //             reader.onload = function(event) {
+        //                 const img = box.find('img');
+        //                 img.attr('src', event.target.result)
+        //                     .addClass('uploaded new')
+        //                     .removeClass('existing')
+        //                     .removeAttr('data-image-index');
+        //                 box.find('.custom-remove-btn').show();
+        //                 newImages.push(file);
+        //             };
+        //             reader.readAsDataURL(file);
+        //         });
+        //     });
 
-            //     $('form').on('submit', function() {
-            //         $('<input>').attr({
-            //             type: 'hidden',
-            //             name: 'images_to_delete',
-            //             value: JSON.stringify(imagesToDelete)
-            //         }).appendTo(this);
-            //     });
-            // }
+        //     $('#customUploadImagesContainer').on('click', '.custom-remove-btn', function() {
+        //         const box = $(this).closest('.custom-upload-img-box');
+        //         const img = box.find('img');
+        //         if (img.hasClass('existing')) {
+        //             const index = img.data('image-index');
+        //             if (!imagesToDelete.includes(index)) {
+        //                 imagesToDelete.push(index);
+        //             }
+        //         }
+        //         img.attr('src', 'https://img.icons8.com/m_rounded/512/plus.png')
+        //             .removeClass('uploaded new existing')
+        //             .removeAttr('data-image-index');
+        //         $(this).hide();
+        //     });
 
-            // jQuery(document).ready(initCustomImageUpload);
-        </script>
-        {{-- <script>
+        //     $('form').on('submit', function() {
+        //         $('<input>').attr({
+        //             type: 'hidden',
+        //             name: 'images_to_delete',
+        //             value: JSON.stringify(imagesToDelete)
+        //         }).appendTo(this);
+        //     });
+        // }
+
+        // jQuery(document).ready(initCustomImageUpload);
+    </script>
+    {{-- <script>
             const selectedValuesMap = {};
 
             document.querySelectorAll(".dropdown-container").forEach(container => {
@@ -2431,439 +2636,520 @@
             });
         </script> --}}
 
-        <script>
-jQuery(document).ready(function() {
-    initCustomImageUpload();
-});
-
-function initCustomImageUpload() {
-    const maxImages = 10; // Must match PHP $maxImages
-    const existingImages = @json(array_values(json_decode($data->ser_gallery ?? '[]') ?? []));
-    let imagesToDelete = [];
-
-    // Handle file selection
-    $('#customImageInput').on('change', function(e) {
-        const files = Array.from(e.target.files);
-        const uploadedCount = $('.custom-upload-img-box img.uploaded').length;
-        const availableSlots = maxImages - uploadedCount;
-
-        if (availableSlots <= 0) {
-            $('#customErrorMsg').text(`You can only upload up to ${maxImages} images.`);
-            return;
-        }
-
-        const filesToUse = files.slice(0, availableSlots);
-        const emptyBoxes = $('.custom-upload-img-box').filter(function() {
-            return !$(this).find('img').hasClass('uploaded');
+    <script>
+        jQuery(document).ready(function() {
+            initCustomImageUpload();
         });
 
-        filesToUse.forEach((file, index) => {
-            if (index >= emptyBoxes.length) return;
+        function initCustomImageUpload() {
+            const maxImages = 10; // Must match PHP $maxImages
+            const existingImages = @json(array_values(json_decode($data->ser_gallery ?? '[]') ?? []));
+            let imagesToDelete = [];
 
-            if (!file.type.match('image/')) {
-                $('#customErrorMsg').text('Only image files are allowed.');
-                return;
-            }
+            // Handle file selection
+            $('#customImageInput').on('change', function(e) {
+                const files = Array.from(e.target.files);
+                const uploadedCount = $('.custom-upload-img-box img.uploaded').length;
+                const availableSlots = maxImages - uploadedCount;
 
-            const box = $(emptyBoxes[index]);
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = box.find('img');
-                img.attr('src', e.target.result)
-                   .addClass('uploaded new')
-                   .removeClass('existing')
-                   .removeAttr('data-image-index');
-                box.find('.custom-remove-btn').show();
-            };
-            reader.readAsDataURL(file);
-        });
-
-        // Clear input for re-selection
-        $(this).val('');
-        $('#customErrorMsg').text('');
-    });
-
-    // Handle image removal
-    $('#customUploadImagesContainer').on('click', '.custom-remove-btn', function() {
-        const box = $(this).closest('.custom-upload-img-box');
-        const img = box.find('img');
-
-        // If it's an existing image, mark for deletion
-        if (img.hasClass('existing')) {
-            const index = img.data('image-index');
-            if (!imagesToDelete.includes(index)) {
-                imagesToDelete.push(index);
-            }
-        }
-
-        // Reset box to "plus" icon
-        img.attr('src', 'https://img.icons8.com/metro/512/plus.png')
-           .removeClass('uploaded new existing')
-           .removeAttr('data-image-index');
-        $(this).hide();
-    });
-
-    // On form submit, send deletion info
-    $('form').on('submit', function() {
-        $('<input>')
-            .attr({
-                type: 'hidden',
-                name: 'images_to_delete',
-                value: JSON.stringify(imagesToDelete)
-            })
-            .appendTo(this);
-    });
-}
-</script>
-
-        <script>
-            const selectedValuesMap = {};
-
-            document.querySelectorAll(".dropdown-container").forEach(container => {
-                const dropdownName = container.getAttribute("data-dropdown-name");
-                const dropdownHeader = container.querySelector(".dropdown-header");
-                const dropdownList = container.querySelector(".dropdown-list");
-                const hiddenInput = document.getElementById(`selectedInput_${dropdownName}`);
-
-                // Initialize selected values from the input field
-                if (hiddenInput && hiddenInput.value) {
-                    selectedValuesMap[dropdownName] = hiddenInput.value
-                        .split(',')
-                        .map(v => v.trim())
-                        .filter(v => v !== '');
-                } else {
-                    selectedValuesMap[dropdownName] = [];
-                }
-
-                // Toggle dropdown
-                dropdownHeader.addEventListener("click", () => {
-                    dropdownList.classList.toggle("active");
-                });
-
-                // Handle option selection
-                dropdownList.querySelectorAll("div").forEach(option => {
-                    option.addEventListener("click", () => {
-                        const value = option.getAttribute("data-value");
-                        if (selectedValuesMap[dropdownName].includes(value)) return;
-
-                        if (selectedValuesMap[dropdownName].length < 5) {
-                            selectedValuesMap[dropdownName].push(value);
-                            renderTags(dropdownName, container);
-                            updateOptionsState(dropdownName, container);
-                        } else {
-                            alert("Only 5 options can be selected.");
-                        }
-                    });
-                });
-
-                // Initial render
-                renderTags(dropdownName, container);
-                updateOptionsState(dropdownName, container);
-            });
-
-            function removeTag(value, dropdownName, container) {
-                selectedValuesMap[dropdownName] = selectedValuesMap[dropdownName].filter(v => v !== value);
-                renderTags(dropdownName, container);
-                updateOptionsState(dropdownName, container);
-            }
-
-            function renderTags(dropdownName, container) {
-                const dropdownHeader = container.querySelector(".dropdown-header");
-                const hiddenInput = document.getElementById(`selectedInput_${dropdownName}`);
-
-                dropdownHeader.innerHTML = "";
-
-                if (selectedValuesMap[dropdownName].length === 0) {
-                    const placeholder = document.createElement("span");
-                    placeholder.className = "placeholder_new";
-                    placeholder.textContent = "Select Options";
-                    dropdownHeader.appendChild(placeholder);
-                } else {
-                    selectedValuesMap[dropdownName].forEach(value => {
-                        const tag = document.createElement("div");
-                        tag.className = "tag";
-                        tag.innerHTML = `${value} <button onclick="removeTag('${value}', '${dropdownName}', this.closest('.dropdown-container'))">✕</button>`;
-                        dropdownHeader.appendChild(tag);
-                    });
-                }
-
-                if (hiddenInput) {
-                    hiddenInput.value = selectedValuesMap[dropdownName].join(',');
-                }
-            }
-
-            function updateOptionsState(dropdownName, container) {
-                const dropdownList = container.querySelector(".dropdown-list");
-                const options = dropdownList.querySelectorAll("div");
-                const isLimitReached = selectedValuesMap[dropdownName].length >= 5;
-
-                options.forEach(option => {
-                    const value = option.getAttribute("data-value");
-                    const isSelected = selectedValuesMap[dropdownName].includes(value);
-
-                    if (isSelected) {
-                        option.style.pointerEvents = "none";
-                        option.style.opacity = "0.7";
-                        option.style.backgroundColor = "#e0e0e0"; // Optional: visual feedback
-                    } else {
-                        option.style.pointerEvents = isLimitReached ? "none" : "auto";
-                        option.style.opacity = isLimitReached ? "0.5" : "1";
-                        option.style.backgroundColor = ""; // Reset
-                    }
-                });
-            }
-
-            // Close dropdown when clicking outside
-            document.addEventListener("click", (e) => {
-                document.querySelectorAll(".dropdown-container").forEach(container => {
-                    if (!container.contains(e.target)) {
-                        container.querySelector(".dropdown-list").classList.remove("active");
-                    }
-                });
-            });
-        </script>
-        <script>
-            const addBtn = document.querySelector('.add_url_btn');
-            const wrapper = document.getElementById('video_inputs_wrapper');
-            const errorMsg = document.getElementById('error_message');
-
-            addBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const inputs = wrapper.querySelectorAll('.video_input');
-
-                if (inputs.length >= 3) {
-                    errorMsg.style.display = 'block';
+                if (availableSlots <= 0) {
+                    $('#customErrorMsg').text(`You can only upload up to ${maxImages} images.`);
                     return;
-                } else {
-                    errorMsg.style.display = 'none';
                 }
 
-                const newInputDiv = document.createElement('div');
-                newInputDiv.className = 'video_input d-flex align-items-center mb-2';
+                const filesToUse = files.slice(0, availableSlots);
+                const emptyBoxes = $('.custom-upload-img-box').filter(function() {
+                    return !$(this).find('img').hasClass('uploaded');
+                });
 
-                newInputDiv.innerHTML = `
+                filesToUse.forEach((file, index) => {
+                    if (index >= emptyBoxes.length) return;
+
+                    if (!file.type.match('image/')) {
+                        $('#customErrorMsg').text('Only image files are allowed.');
+                        return;
+                    }
+
+                    const box = $(emptyBoxes[index]);
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = box.find('img');
+                        img.attr('src', e.target.result)
+                            .addClass('uploaded new')
+                            .removeClass('existing')
+                            .removeAttr('data-image-index');
+                        box.find('.custom-remove-btn').show();
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                // Clear input for re-selection
+                $(this).val('');
+                $('#customErrorMsg').text('');
+            });
+
+            // Handle image removal
+            $('#customUploadImagesContainer').on('click', '.custom-remove-btn', function() {
+                const box = $(this).closest('.custom-upload-img-box');
+                const img = box.find('img');
+
+                // If it's an existing image, mark for deletion
+                if (img.hasClass('existing')) {
+                    const index = img.data('image-index');
+                    if (!imagesToDelete.includes(index)) {
+                        imagesToDelete.push(index);
+                    }
+                }
+
+                // Reset box to "plus" icon
+                img.attr('src', 'https://img.icons8.com/metro/512/plus.png')
+                    .removeClass('uploaded new existing')
+                    .removeAttr('data-image-index');
+                $(this).hide();
+            });
+
+            // On form submit, send deletion info
+            $('form').on('submit', function() {
+                $('<input>')
+                    .attr({
+                        type: 'hidden',
+                        name: 'images_to_delete',
+                        value: JSON.stringify(imagesToDelete)
+                    })
+                    .appendTo(this);
+            });
+        }
+    </script>
+
+    <script>
+        const selectedValuesMap = {};
+
+        document.querySelectorAll(".dropdown-container").forEach(container => {
+            const dropdownName = container.getAttribute("data-dropdown-name");
+            const dropdownHeader = container.querySelector(".dropdown-header");
+            const dropdownList = container.querySelector(".dropdown-list");
+            const hiddenInput = document.getElementById(`selectedInput_${dropdownName}`);
+
+            // Initialize selected values from the input field
+            if (hiddenInput && hiddenInput.value) {
+                selectedValuesMap[dropdownName] = hiddenInput.value
+                    .split(',')
+                    .map(v => v.trim())
+                    .filter(v => v !== '');
+            } else {
+                selectedValuesMap[dropdownName] = [];
+            }
+
+            // Toggle dropdown
+            dropdownHeader.addEventListener("click", () => {
+                dropdownList.classList.toggle("active");
+            });
+
+            // Handle option selection
+            dropdownList.querySelectorAll("div").forEach(option => {
+                option.addEventListener("click", () => {
+                    const value = option.getAttribute("data-value");
+                    if (selectedValuesMap[dropdownName].includes(value)) return;
+
+                    if (selectedValuesMap[dropdownName].length < 5) {
+                        selectedValuesMap[dropdownName].push(value);
+                        renderTags(dropdownName, container);
+                        updateOptionsState(dropdownName, container);
+                    } else {
+                        alert("Only 5 options can be selected.");
+                    }
+                });
+            });
+
+            // Initial render
+            renderTags(dropdownName, container);
+            updateOptionsState(dropdownName, container);
+        });
+
+        function removeTag(value, dropdownName, container) {
+            selectedValuesMap[dropdownName] = selectedValuesMap[dropdownName].filter(v => v !== value);
+            renderTags(dropdownName, container);
+            updateOptionsState(dropdownName, container);
+        }
+
+        function renderTags(dropdownName, container) {
+            const dropdownHeader = container.querySelector(".dropdown-header");
+            const hiddenInput = document.getElementById(`selectedInput_${dropdownName}`);
+
+            dropdownHeader.innerHTML = "";
+
+            if (selectedValuesMap[dropdownName].length === 0) {
+                const placeholder = document.createElement("span");
+                placeholder.className = "placeholder_new";
+                placeholder.textContent = "Select Options";
+                dropdownHeader.appendChild(placeholder);
+            } else {
+                selectedValuesMap[dropdownName].forEach(value => {
+                    const tag = document.createElement("div");
+                    tag.className = "tag";
+                    tag.innerHTML = `${value} <button onclick="removeTag('${value}', '${dropdownName}', this.closest('.dropdown-container'))">✕</button>`;
+                    dropdownHeader.appendChild(tag);
+                });
+            }
+
+            if (hiddenInput) {
+                hiddenInput.value = selectedValuesMap[dropdownName].join(',');
+            }
+        }
+
+        function updateOptionsState(dropdownName, container) {
+            const dropdownList = container.querySelector(".dropdown-list");
+            const options = dropdownList.querySelectorAll("div");
+            const isLimitReached = selectedValuesMap[dropdownName].length >= 5;
+
+            options.forEach(option => {
+                const value = option.getAttribute("data-value");
+                const isSelected = selectedValuesMap[dropdownName].includes(value);
+
+                if (isSelected) {
+                    option.style.pointerEvents = "none";
+                    option.style.opacity = "0.7";
+                    option.style.backgroundColor = "#e0e0e0"; // Optional: visual feedback
+                } else {
+                    option.style.pointerEvents = isLimitReached ? "none" : "auto";
+                    option.style.opacity = isLimitReached ? "0.5" : "1";
+                    option.style.backgroundColor = ""; // Reset
+                }
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", (e) => {
+            document.querySelectorAll(".dropdown-container").forEach(container => {
+                if (!container.contains(e.target)) {
+                    container.querySelector(".dropdown-list").classList.remove("active");
+                }
+            });
+        });
+    </script>
+    <script>
+        const addBtn = document.querySelector('.add_url_btn');
+        const wrapper = document.getElementById('video_inputs_wrapper');
+        const errorMsg = document.getElementById('error_message');
+
+        addBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const inputs = wrapper.querySelectorAll('.video_input');
+
+            if (inputs.length >= 3) {
+                errorMsg.style.display = 'block';
+                return;
+            } else {
+                errorMsg.style.display = 'none';
+            }
+
+            const newInputDiv = document.createElement('div');
+            newInputDiv.className = 'video_input d-flex align-items-center mb-2';
+
+            newInputDiv.innerHTML = `
                 <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
                 <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
                 `;
 
-                wrapper.appendChild(newInputDiv);
+            wrapper.appendChild(newInputDiv);
 
-                newInputDiv.querySelector('.remove_btn').addEventListener('click', () => {
-                    newInputDiv.remove();
-                    errorMsg.style.display = 'none';
-                });
+            newInputDiv.querySelector('.remove_btn').addEventListener('click', () => {
+                newInputDiv.remove();
+                errorMsg.style.display = 'none';
             });
-        </script>
-        <script>
-            document.querySelectorAll('.numbers_limit').forEach(function(input) {
-                input.addEventListener('input', function(e) {
-                    // Get digits only, no commas or non-numeric
-                    let value = e.target.value.replace(/\D/g, '');
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.numbers_limit').forEach(function(input) {
+            input.addEventListener('input', function(e) {
+                // Get digits only, no commas or non-numeric
+                let value = e.target.value.replace(/\D/g, '');
 
-                    // Limit to 6 digits
-                    if (value.length > 6) {
-                        value = value.substring(0, 6);
-                    }
-
-                    // Format with thousand separator
-                    e.target.value = value ? Number(value).toLocaleString() : '';
-                });
-            });
-        </script>
-        <script>
-            document.querySelectorAll('.thousand-separator').forEach(function(input) {
-                input.addEventListener('input', function(e) {
-                    let raw = e.target.value.replace(/[^0-9]/g, ''); // Strip non-numeric
-                    if (raw) {
-                        e.target.value = '$' + Number(raw).toLocaleString();
-                    } else {
-                        e.target.value = '';
-                    }
-                });
-            });
-        </script>
-        <script>
-            document.querySelectorAll('.price-input').forEach(function(input) {
-                input.addEventListener('focus', function() {
-                    this.value = this.value.replace(/[^0-9]/g, ''); // remove $ and commas
-                });
-
-                input.addEventListener('blur', function() {
-                    let raw = this.value.replace(/[^0-9]/g, '');
-                    if (raw) {
-                        this.value = '$' + Number(raw).toLocaleString();
-                    } else {
-                        this.value = '';
-                    }
-                });
-            });
-        </script>
-        <script>
-            document.querySelectorAll('.experience-input').forEach(input => {
-                input.addEventListener('input', function() {
-                    const value = parseInt(this.value.replace(/^0+/, '')) || 0; // Remove leading 0s and parse number
-                    const label = this.parentElement.querySelector('.experience-label');
-
-                    if (value === 1) {
-                        label.textContent = "Year Experience";
-                    } else {
-                        label.textContent = "Years Experience";
-                    }
-                });
-            });
-        </script>
-        <script>
-            function formatPhoneNumber(input) {
-                let value = input.value.replace(/\D/g, "");
-
-                if (value.length > 10) {
-                    value = value.slice(0, 10);
+                // Limit to 6 digits
+                if (value.length > 6) {
+                    value = value.substring(0, 6);
                 }
 
-                let formatted = "";
-                if (value.length > 0) {
-                    formatted += "(" + value.substring(0, 3);
+                // Format with thousand separator
+                e.target.value = value ? Number(value).toLocaleString() : '';
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.thousand-separator').forEach(function(input) {
+            input.addEventListener('input', function(e) {
+                let raw = e.target.value.replace(/[^0-9]/g, ''); // Strip non-numeric
+                if (raw) {
+                    e.target.value = '$' + Number(raw).toLocaleString();
+                } else {
+                    e.target.value = '';
                 }
-                if (value.length >= 4) {
-                    formatted += ") " + value.substring(3, 6);
-                }
-                if (value.length >= 7) {
-                    formatted += "-" + value.substring(6, 10);
-                }
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.price-input').forEach(function(input) {
+            input.addEventListener('focus', function() {
+                this.value = this.value.replace(/[^0-9]/g, ''); // remove $ and commas
+            });
 
-                input.value = formatted;
+            input.addEventListener('blur', function() {
+                let raw = this.value.replace(/[^0-9]/g, '');
+                if (raw) {
+                    this.value = '$' + Number(raw).toLocaleString();
+                } else {
+                    this.value = '';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.experience-input').forEach(input => {
+            input.addEventListener('input', function() {
+                const value = parseInt(this.value.replace(/^0+/, '')) || 0; // Remove leading 0s and parse number
+                const label = this.parentElement.querySelector('.experience-label');
+
+                if (value === 1) {
+                    label.textContent = "Year Experience";
+                } else {
+                    label.textContent = "Years Experience";
+                }
+            });
+        });
+    </script>
+    <script>
+        function formatPhoneNumber(input) {
+            let value = input.value.replace(/\D/g, "");
+
+            if (value.length > 10) {
+                value = value.slice(0, 10);
             }
 
-            // Attach to all inputs with class 'phone-input'
-            document.querySelectorAll('.phone-input').forEach(input => {
-                input.addEventListener('input', function() {
-                    formatPhoneNumber(this);
-                });
-            });
-        </script>
-
-        <script>
-            jQuery(document).ready(function() {
-                initCustomImageUpload();
-            });
-
-            function initCustomImageUpload() {
-                let customImgArray = [];
-
-                $('#customImageInput').on('change', function(e) {
-                    const files = e.target.files;
-                    const filesArr = Array.prototype.slice.call(files);
-                    const maxImages = 10;
-                    const customErrorMsg = $('#customErrorMsg');
-                    const customImgBoxes = $('#customUploadImagesContainer .custom-upload-img-box');
-
-                    // Clear error
-                    customErrorMsg.text('');
-
-                    filesArr.forEach(function(file) {
-                        if (!file.type.match('image.*')) return;
-
-                        if (customImgArray.length >= maxImages) {
-                            customErrorMsg.text('You can only upload up to 3 images.');
-                            return;
-                        }
-
-                        // Find first empty image box
-                        const nextBox = customImgBoxes.filter(function() {
-                            return !$(this).find('img').hasClass('uploaded');
-                        }).first();
-
-                        if (!nextBox.length) {
-                            customErrorMsg.text('You can only upload up to 10 images.');
-                            return;
-                        }
-
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const imgTag = nextBox.find('img');
-                            imgTag.attr('src', e.target.result);
-                            imgTag.addClass('uploaded');
-                            nextBox.find('.custom-remove-btn').show();
-
-                            // Store file name for deletion
-                            imgTag.attr('data-file-name', file.name);
-                            customImgArray.push(file.name);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-
-                    // Reset input
-                    $(this).val('');
-                });
-
-                // Remove image
-                $('#customUploadImagesContainer').on('click', '.custom-remove-btn', function() {
-                    const box = $(this).closest('.custom-upload-img-box');
-                    const imgTag = box.find('img');
-                    const fileName = imgTag.attr('data-file-name');
-
-                    // Remove from array
-                    customImgArray = customImgArray.filter(f => f !== fileName);
-
-                    // Reset image
-                    imgTag.attr('src', 'https://img.icons8.com/m_rounded/512/plus.png');
-                    imgTag.removeClass('uploaded').removeAttr('data-file-name');
-                    $(this).hide();
-                });
+            let formatted = "";
+            if (value.length > 0) {
+                formatted += "(" + value.substring(0, 3);
             }
-        </script>
+            if (value.length >= 4) {
+                formatted += ") " + value.substring(3, 6);
+            }
+            if (value.length >= 7) {
+                formatted += "-" + value.substring(6, 10);
+            }
 
-        <script>
-            // PROFILE UPLOAD
-            jQuery(document).ready(function() {
-                initProfilePicUploader();
+            input.value = formatted;
+        }
+
+        // Attach to all inputs with class 'phone-input'
+        document.querySelectorAll('.phone-input').forEach(input => {
+            input.addEventListener('input', function() {
+                formatPhoneNumber(this);
             });
+        });
+    </script>
 
-            function initProfilePicUploader() {
-                let profilePicFile = null;
+    <script>
+        jQuery(document).ready(function() {
+            initCustomImageUpload();
+        });
 
-                const input = $('#profilePicInput');
-                const preview = $('#profilePicPreview');
-                const removeBtn = $('#profileRemoveBtn');
-                const errorMsg = $('#profilePicError');
+        function initCustomImageUpload() {
+            let customImgArray = [];
 
-                // Open file dialog when image clicked
-                $('.profile-pic-wrapper').on('click', function() {
-                    input.click();
-                });
+            $('#customImageInput').on('change', function(e) {
+                const files = e.target.files;
+                const filesArr = Array.prototype.slice.call(files);
+                const maxImages = 10;
+                const customErrorMsg = $('#customErrorMsg');
+                const customImgBoxes = $('#customUploadImagesContainer .custom-upload-img-box');
 
-                // On file selected
-                input.on('change', function(e) {
-                    const file = e.target.files[0];
-                    errorMsg.text('');
+                // Clear error
+                customErrorMsg.text('');
 
-                    if (!file) return;
+                filesArr.forEach(function(file) {
+                    if (!file.type.match('image.*')) return;
 
-                    if (!file.type.match('image.*')) {
-                        errorMsg.text('Please select a valid image.');
+                    if (customImgArray.length >= maxImages) {
+                        customErrorMsg.text('You can only upload up to 3 images.');
+                        return;
+                    }
+
+                    // Find first empty image box
+                    const nextBox = customImgBoxes.filter(function() {
+                        return !$(this).find('img').hasClass('uploaded');
+                    }).first();
+
+                    if (!nextBox.length) {
+                        customErrorMsg.text('You can only upload up to 10 images.');
                         return;
                     }
 
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        preview.attr('src', e.target.result);
-                        profilePicFile = file.name;
-                        removeBtn.show();
+                        const imgTag = nextBox.find('img');
+                        imgTag.attr('src', e.target.result);
+                        imgTag.addClass('uploaded');
+                        nextBox.find('.custom-remove-btn').show();
+
+                        // Store file name for deletion
+                        imgTag.attr('data-file-name', file.name);
+                        customImgArray.push(file.name);
                     };
                     reader.readAsDataURL(file);
-
-                    // Reset input so same file can be selected again if needed
-                    input.val('');
                 });
 
-                // Remove image
-                removeBtn.on('click', function(e) {
-                    e.stopPropagation(); // prevent triggering file input
-                    preview.attr('src', 'https://img.icons8.com/ios-glyphs/90/user--v1.png');
-                    profilePicFile = null;
-                    removeBtn.hide();
-                    errorMsg.text('');
-                });
-            }
-        </script>
-    @endsection
+                // Reset input
+                $(this).val('');
+            });
+
+            // Remove image
+            $('#customUploadImagesContainer').on('click', '.custom-remove-btn', function() {
+                const box = $(this).closest('.custom-upload-img-box');
+                const imgTag = box.find('img');
+                const fileName = imgTag.attr('data-file-name');
+
+                // Remove from array
+                customImgArray = customImgArray.filter(f => f !== fileName);
+
+                // Reset image
+                imgTag.attr('src', 'https://img.icons8.com/m_rounded/512/plus.png');
+                imgTag.removeClass('uploaded').removeAttr('data-file-name');
+                $(this).hide();
+            });
+        }
+    </script>
+
+    <script>
+        // PROFILE UPLOAD
+        jQuery(document).ready(function() {
+            initProfilePicUploader();
+        });
+
+        function initProfilePicUploader() {
+            let profilePicFile = null;
+
+            const input = $('#profilePicInput');
+            const preview = $('#profilePicPreview');
+            const removeBtn = $('#profileRemoveBtn');
+            const errorMsg = $('#profilePicError');
+
+            // Open file dialog when image clicked
+            $('.profile-pic-wrapper').on('click', function() {
+                input.click();
+            });
+
+            // On file selected
+            input.on('change', function(e) {
+                const file = e.target.files[0];
+                errorMsg.text('');
+
+                if (!file) return;
+
+                if (!file.type.match('image.*')) {
+                    errorMsg.text('Please select a valid image.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.attr('src', e.target.result);
+                    profilePicFile = file.name;
+                    removeBtn.show();
+                };
+                reader.readAsDataURL(file);
+
+                // Reset input so same file can be selected again if needed
+                input.val('');
+            });
+
+            // Remove image
+            removeBtn.on('click', function(e) {
+                e.stopPropagation(); // prevent triggering file input
+                preview.attr('src', 'https://img.icons8.com/ios-glyphs/90/user--v1.png');
+                profilePicFile = null;
+                removeBtn.hide();
+                errorMsg.text('');
+            });
+        }
+    </script>
+
+    <script>
+
+const checkboxes = document.querySelectorAll('.form-check-input');
+
+// IDs of checkboxes to disable when Varying Price per Service is checked
+const priceCheckboxes = ['ph_p', 'ps_p', 'pp_p', 'pm_p'];
+const vppsCheckbox = document.getElementById('vpps_p');
+
+// Your additional price input
+const pkgPriceInput = document.querySelector('input[name="pkg_price"]');
+
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    const relatedInputBox = document.getElementById('input_' + checkbox.id);
+
+    // Handle regular input visibility (except Varying Price per Service)
+    if (checkbox.id !== 'vpps_p') {
+      if (checkbox.checked) {
+        relatedInputBox && (relatedInputBox.style.display = 'block');
+
+        // If any price checkbox is checked, uncheck Varying Price
+        if (vppsCheckbox.checked) {
+          vppsCheckbox.checked = false;
+          enablePkgPriceInput();
+        }
+      } else {
+        relatedInputBox && (relatedInputBox.style.display = 'none');
+      }
+    }
+
+    // Handle "Varying Price per Service"
+    if (checkbox.id === 'vpps_p') {
+      priceCheckboxes.forEach(id => {
+        const cb = document.getElementById(id);
+        const input = document.getElementById('input_' + id);
+        if (cb) {
+          if (checkbox.checked) {
+            cb.checked = false;
+            cb.disabled = true;
+            if (input) input.style.display = 'none';
+          } else {
+            cb.disabled = false;
+          }
+        }
+      });
+
+      // Disable or enable pkg_price input
+      if (checkbox.checked) {
+        disablePkgPriceInput();
+      } else {
+        enablePkgPriceInput();
+      }
+    }
+  });
+});
+
+// Disable / Enable functions
+function disablePkgPriceInput() {
+  pkgPriceInput.value = "";
+  pkgPriceInput.disabled = true;
+  pkgPriceInput.classList.add("disabled");
+}
+
+function enablePkgPriceInput() {
+  pkgPriceInput.disabled = false;
+  pkgPriceInput.classList.remove("disabled");
+}
+
+// Handle cross buttons (close input + uncheck)
+const removeBtns = document.querySelectorAll('.price-input-box .remove-btn');
+removeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const inputBox = btn.parentElement;
+    inputBox.style.display = 'none';
+    const id = inputBox.id.replace('input_', '');
+    document.getElementById(id).checked = false;
+  });
+});
+
+</script>
+@endsection

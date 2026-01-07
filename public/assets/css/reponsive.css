@@ -1,0 +1,278 @@
+@media only screen and (min-width: 1800px){
+    .container{
+        max-width: 1700px;
+    }
+}
+
+@media(max-width:1700px){
+    .equestrian_real_estate_card {
+        display: flex;
+        gap: 5px;
+        position: relative;
+        padding: 10px 10px 50px 10px;
+        border-radius: 10px;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    }
+
+
+}
+
+@media(max-width:1700px){
+    section.hero_banner {
+        height: 510px;
+    }
+    .top_bar .container {
+        max-width: 1260px!important;
+    }
+    .hero_banner .heading65px {
+        font-size: 42px;
+    }
+    .hero_banner .heading44px {
+        font-size: 25px;
+        margin-bottom: 0;
+    }
+    .hero_banner .subtitle {
+        max-width: 760px;
+        font-size: 14px;
+    }
+
+    .search_icon {
+        font-size: 16px;
+        height: 40px;
+    }
+    select.minimal {
+        background-position: calc(100% - 20px) calc(1em + 3px);
+    }
+    section.hero_banner .caption {
+        top: 125px;
+    }
+    .price_filter .price_filter_flex {
+        max-width: 270px;
+    }
+    .price_filter_flex input {
+        padding: 10px 8px;
+    }
+        .select_group.absolute_group select.minimal {
+            padding: 10px;
+            padding-right: 40px;
+        }
+        .select_group.absolute_group select.minimal {
+        background-position: calc(100% - 10px) calc(1em + 3px);
+    }
+    .select_group.absolute_group {
+            max-width: 240px;
+        }
+        .select_group.absolute_group.location_group {
+        max-width: 140px;
+    }
+   .search_bar {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    max-width: 1120px;
+}
+    .select_group select, .select_group input, .price_filter {
+        height: 40px;
+        font-size: 14px;
+    }
+    .price_filter h3 {
+    font-size: 15px;
+}
+   header .top_bar {
+        padding: 15px 0px 10px 0px;
+        height: 145px;
+    }
+    .nav_bar {
+        padding: 12px 0px;
+    }
+    .logo {
+        width: 357px;
+        transform: translateY(35px);
+    }
+    .view_detail_page {
+        padding: 60px 0px!important;
+    }
+   .top_bar_flex_right a {
+        width: 32px;
+        height: 32px;
+    }
+    .login_btn_flex ul li a {
+        font-size: 14px;
+        padding: 7px 15px;
+    }
+
+}
+
+@media(max-width:1399px){
+    .heading80px {font-size: 70px; }
+    .heading44px {font-size: 34px; }
+    .subtitle {font-size: 16px; }
+    .border_btn {padding: 8px 38px; font-size: 18px; }
+    .product_clm .border_btn, .product_clm .border_btn2, section.events .border_btn {
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+    .service_new_section {
+        padding: 70px 0px;
+    }
+    section.faqs_section {
+        padding: 70px 0px 0;
+    }
+
+    .horse_list_card_btn_flex {
+        flex-wrap: wrap;
+    }
+    .horse_list_card .text_box .top_list li {
+        font-size: 14px;
+    }
+    .equestrian_col {
+        width: 100%!important;
+    }
+    .footer img.footer_logo {
+        height: 200px;
+    }
+
+
+
+
+    .inner_small_box p {
+        font-size: 14px!important;
+    }
+    .mega_logo_box {
+        max-width: 40px!important;
+        top: 6px!important;
+        left: 6px!important;
+    }
+    .mega_menu_blue_strip p {
+        font-size: 15px!important;
+    }
+
+    .service_card_new p {
+        font-size: 27px;
+    }
+
+    .service_card_new {
+        height: 240px;
+    }
+    .service_card_new.service_card_new_lg {
+    height: 504px;
+    }
+    .heading65px h1 {
+        font-size: 54px;
+    }
+    .tabs_sec ul#pills-tab li button {
+        font-size: 16px;
+        margin: 0 10px;
+    }
+   .tabs_sec ul#pills-tab li button.active {
+        transform: scale(1.8) translateY(2px);
+        font-size: 11px;
+    }
+    .tabs_sec .horse_list_card .img_box {
+        height: 250px;
+    }
+    section.best_selling.best_selling_two.best_selling_three .horse_list_card .img_box {
+        height: 250px;
+    }
+
+    .tabs_sec .info_list li {
+        font-size: 11px;
+    }
+    .herd_box {
+        max-width: 380px;
+        right: 50px;
+            padding: 20px;
+    }
+    .herd_box.herd_box_type_one {
+        max-width: 600px;
+        height: 100%;
+        right: 0;
+    }
+    h2.cta_sec_heading {
+        font-size: 40px;
+        left: 50px;
+    }
+    .herd_box p {
+        font-size: 16px!important;
+    }
+
+    .filter_side_bar .heading44px {
+        font-size: 24px!important;
+    }
+    .hero_banner .heading44px {
+        font-size: 20px;
+    }
+}
+
+
+@media(max-width: 1280px) {
+   
+}
+
+
+
+
+@media screen and (max-width: 1199px) {
+    .heading80px {font-size: 60px; }
+    .heading44px {font-size: 30px; }
+    header ul {column-gap: 15px; }
+    header nav ul li a {font-size: 13px; }
+    .product_clm .btn_set {gap: 8px; } 
+    .product_clm .btn_set .border_btn, .product_clm .btn_set .border_btn2 {padding: 8px 15px; font-size: 14px; }
+    .heading24px {font-size: 17px; }
+    .heading22px {font-size: 17px; }
+    form.newsletter button.submit {padding: 10px 14px; }
+   
+}
+
+@media screen and (max-width: 991px) {
+    section.about {text-align: center; }
+    section.best_selling {text-align: center; }
+    section.best_selling .btn_set {justify-content: center; }
+    section.hero_banner .caption {text-align: center; }
+    section.hero_banner .caption .subtitle {padding-right: 0; }
+
+    
+}
+
+@media screen and (max-width: 767px) {
+    body {font-size: 14px; } 
+    h1 {font-size: 36px; } 
+    h2 {font-size: 28px; } 
+    h3 {font-size: 22px; } 
+    h4 {font-size: 18px; } 
+    h5 {font-size: 14px; } 
+    h6 {font-size: 14px; } 
+    p{font-size: 14px;/* color: #303030; */} 
+    br{display: none; } 
+    img.logo {max-width: 113px !important; } .copyright {text-align: center; } 
+    .footer ul.f_links {column-count: 1; } 
+    .responsive_menu {width: 240px; }
+    ul#pills-tab li button {width: 100%; padding: 10px 0; font-size: 15px; } 
+    ul#pills-tab li {width: 100%; margin: 5px 20px; } 
+    .footer {padding: 40px 0 20px; } 
+    .copyright .btn_set {justify-content: center; } 
+    /*.btn_set a {margin-bottom: 10px; font-size: 14px !important; } 
+    .btn_set a:last-child{margin-bottom: 0; }*/ 
+    .inner_page_banner {padding: 50px 0 40px; } 
+    header nav {padding: 15px 20px; }
+    .call_btn span {display: none; } 
+    .call_btn, header a.cart_btn {display: inline-block; width: 35px; height: 35px; background-color: var(--primeColor); display: flex; justify-content: center; align-items: center; border-radius: 50%; font-size: 22px; color: #000; padding-top: 3px; }
+    header a.cart_btn .mobile_cart {position: absolute; right: -6px; font-size: 12px; top: -6px; background-color: #fff; /* display: inline-block; */ width: 17px; height: 17px; display: flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%; text-align: center; }
+    header a.cart_btn {font-size: 17px; }
+}
+
+@media screen and (max-width: 575px) {
+    .heading80px {font-size: 50px; }
+
+}
+
+
+
+@media screen and (max-width: 480px) {
+
+}
+
+
+
+

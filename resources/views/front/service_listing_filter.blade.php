@@ -548,8 +548,8 @@
                     <div class="form-section">
                         <div class="section-title">Distance Range</div>
                         <div class="distance-controls">
-                            <input type="number" class="distance-input form-control" placeholder="MIN" />
-                            <input type="number" class="distance-input form-control" placeholder="MAX" />
+                            <input type="number" class="distance-input form-control thousand-separator" placeholder="MIN" />
+                            <input type="number" class="distance-input form-control thousand-separator" placeholder="MAX" />
                         </div>
                         <div class="unit-label mt-3">
                             <div class="checkbox-item justify-content-start gap-3">
@@ -768,6 +768,32 @@
             });
         });
     </script>
+
+    <script>
+        document.querySelectorAll('.thousand-separator').forEach(input => {
+            input.addEventListener('input', function(e) {
+                // cursor position store karna zaroori hai
+                const cursorPosition = e.target.selectionStart;
+                const rawValue = e.target.value.replace(/,/g, '').replace(/[^\d]/g, '');
+
+                // agar empty hai to kuch na dikhaye
+                if (!rawValue) {
+                    e.target.value = '';
+                    return;
+                }
+
+                // regex se thousand separator lagana
+                const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                e.target.value = formattedValue;
+
+                // cursor ko end par le jao (simple fix)
+                e.target.setSelectionRange(formattedValue.length, formattedValue.length);
+            });
+        });
+    </script>
+
+
 
 
 

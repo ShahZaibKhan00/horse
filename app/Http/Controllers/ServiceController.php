@@ -47,11 +47,11 @@ class ServiceController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if ($usertype == '1') {
-            return view('admin.add_service', compact('username', 'userprofile', 'Logo', 'Web_name', 'categories'));
-        } else {
-            return redirect('/');
-        }
+        // if ($usertype == '1') {
+            return view('admin.add_service', compact('username', 'usertype', 'userprofile', 'Logo', 'Web_name', 'categories'));
+        // } else {
+        //     return redirect('/');
+        // }
     }
 
     /**
@@ -59,8 +59,6 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
             'full_name' => 'required',
             'number' => 'required',
@@ -69,14 +67,13 @@ class ServiceController extends Controller
             'number.required' => 'The Service Email field is required.',
         ]);
 
-
         $pro_images = [];
 
         if ($request->hasFile('ser_gallery')) {
             foreach ($request->file('ser_gallery') as $image) {
                 $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
                 $image->storeAs('uploads/services', $filename, 'public');
-                $pro_images[] = $filename; // Only storing the name
+                $pro_images[] = $filename;
             }
         }
         $data = new Service;
@@ -99,7 +96,9 @@ class ServiceController extends Controller
         $data->state = $request->state;
         $data->per_bio = $request->per_bio;
         $data->experience = $request->experience;
-        $data->Languages = $request->Languages;
+        $data->Languages = $request->languages;
+        $data->business_name1 = $request->business_name1;
+        $data->business_location1 = $request->business_location1;
         if ($request->hasFile('certifications')) {
             $images = $request->file('certifications');
             $destinationPath = public_path('/certification_images');
@@ -119,31 +118,18 @@ class ServiceController extends Controller
         $data->services_offered = implode(',', $request->services_offered);
         $data->service_desc = $request->service_desc;
         $data->service_location = implode(',', $request->service_location);
-        $data->pkg_price = $request->pkg_price;
+        $data->pkg_price = $request->pkg_price ?? '$0';
         $data->pricing_type = $request->pricing_type;
         $data->payment_method = $request->payment_method;
         $data->ser_gallery = json_encode($pro_images);
-        // if ($request->hasFile('ser_gallery')) {
-        //     $images = $request->file('ser_gallery');
-        //     $destinationPath = public_path('/gallery_images');
-        //     $imageNames = [];
-
-        //     foreach ($images as $image) {
-        //         if ($image) {
-        //             $extension = $image->getClientOriginalExtension();
-        //             $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-        //             $image->move($destinationPath, $imageName);
-        //             $imageNames[] = $imageName;
-        //         }
-        // }
-
-        // }
 
         $data->demo_link = implode(',', $request->demo_link);
         $data->User_id = Auth::user()->id;
 
         $data->save();
-        return redirect('/manage_service');
+        return redirect()->back();
+
+        // return redirect('/manage_service');
     }
 
     /**
@@ -166,12 +152,12 @@ class ServiceController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if ($usertype == '1') {
+        // if ($usertype == '1') {
             $data = Service::where('id', '=', $id)->get();
-            return view('admin.edit_service', compact('username', 'data', 'userprofile', 'Logo', 'Web_name', 'categories'));
-        } else {
-            return redirect('/');
-        }
+            return view('admin.edit_service', compact('username', 'usertype', 'data', 'userprofile', 'Logo', 'Web_name', 'categories'));
+        // } else {
+        //     return redirect('/');
+        // }
     }
 
     /**
@@ -179,7 +165,6 @@ class ServiceController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request->all());
         $id = $request->id;
         $data = Service::find($id);
 
@@ -197,8 +182,10 @@ class ServiceController extends Controller
         $data->number = $request->number;
         $data->website_url = $request->website_url;
         $data->Address = $request->Address;
-        $data->city = $request->city;
+        $data->city = $request->city ?? "";
         $data->state = $request->state;
+        $data->business_name1 = $request->business_name1;
+        $data->business_location1 = $request->business_location1;
         $data->per_bio = $request->per_bio;
         $data->experience = $request->experience;
         $data->Languages = implode(',', $request->Languages ?? []);
@@ -221,7 +208,7 @@ class ServiceController extends Controller
         $data->services_offered = implode(',', $request->services_offered);
         $data->service_desc = $request->service_desc;
         $data->service_location = implode(',', $request->service_location ?? []);
-        $data->pkg_price = $request->pkg_price;
+        $data->pkg_price = $request->pkg_price ?? '$0';
         $data->pricing_type = $request->pricing_type;
         $data->payment_method = $request->payment_method;
         if ($request->hasFile('ser_gallery')) {
@@ -243,7 +230,9 @@ class ServiceController extends Controller
         $data->demo_link = implode(',', $request->demo_link);
 
         $data->save();
-        return redirect('/manage_service');
+        return redirect()->back();
+
+        // return redirect('/manage_service');
     }
 
     /**
@@ -253,6 +242,7 @@ class ServiceController extends Controller
     {
         $data = Service::find($id);
         $data->delete();
-        return redirect('/manage_service');
+        return redirect()->back();
+        // return redirect('/manage_service');
     }
 }

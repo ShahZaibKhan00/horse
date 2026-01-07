@@ -48,11 +48,11 @@ class RealstateController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if($usertype == '1'){
-            return view('admin.add_realstate' , compact('username' , 'userprofile' , 'Logo'  , 'Web_name' , 'categories'));
-        }else{
-            return redirect('/');
-        }
+        // if($usertype == '1'){
+            return view('admin.add_realstate' , compact('username' ,'usertype',  'userprofile' , 'Logo'  , 'Web_name' , 'categories'));
+        // }else{
+        //     return redirect('/');
+        // }
     }
 
     /**
@@ -67,7 +67,7 @@ class RealstateController extends Controller
             'first_name.required' => 'The Real state name field is required.',
             'last_name.required' => 'The Real State Price field is required.',
         ]);
-        
+
         $data = new Realstate;
 
         $data->ad_type = $request->ad_type;
@@ -86,7 +86,9 @@ class RealstateController extends Controller
         $data->real_farm_name = $request->real_farm_name;
         $data->real_garage = $request->real_garage;
         $data->num_spaces = $request->num_spaces;
-        $data->garage_type = implode(',' , $request->garage_type);
+        $data->garage_type = isset($request->garage_type) && is_array($request->garage_type)
+    ? implode(',', $request->garage_type)
+    : null;
         $data->barn_type = $request->barn_type;
         $data->num_stalls = $request->num_stalls;
         $data->num_barn = $request->num_barn;
@@ -197,7 +199,9 @@ class RealstateController extends Controller
         $data->User_id = Auth::user()->id;
 
         $data->save();
-        return redirect('/manage_realstate');
+        return redirect()->back();
+
+        // return redirect('/manage_realstate');
     }
 
     /**
@@ -220,12 +224,12 @@ class RealstateController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if($usertype == '1'){
+        // if($usertype == '1'){
             $data = Realstate::where('id', '=', $id)->get();
-            return view('admin.edit_realstate' , compact('username' , 'data' , 'userprofile' , 'Logo'  , 'Web_name' , 'categories'));
-        }else{
-            return redirect('/');
-        }
+            return view('admin.edit_realstate' , compact('username' , 'usertype', 'data' , 'userprofile' , 'Logo'  , 'Web_name' , 'categories'));
+        // }else{
+        //     return redirect('/');
+        // }
     }
 
     /**
@@ -359,8 +363,10 @@ class RealstateController extends Controller
         $data->youtube = $request->youtube;
         $data->zillow = $request->zillow;
         $data->amenities = $request->amenities;
+
         $data->save();
-        return redirect('/manage_realstate');
+        return redirect()->back();
+        // return redirect('/manage_realstate');
     }
 
     /**
@@ -370,6 +376,8 @@ class RealstateController extends Controller
     {
         $data = Realstate::find($id);
         $data->delete();
-        return redirect('/manage_realstate');
+        return redirect()->back();
+
+        // return redirect('/manage_realstate');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Addon;
+use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use App\Models\Contact;
 use App\Models\General;
@@ -17,15 +18,14 @@ use App\Models\Testimonial;
 use Illuminate\Support\Str;
 use App\Mail\CashAdminEmail;
 use Illuminate\Http\Request;
-use App\Models\HorseFavorite;
 use App\Mail\PaymentConfirmation;
-use App\Models\RealStateFavorite;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CashPaymentConfirmation;
+use App\Models\HorseFavorite;
+use App\Models\RealStateFavorite;
 use Illuminate\Support\Facades\Crypt;
 
 class FrontController extends Controller
@@ -338,9 +338,11 @@ class FrontController extends Controller
         $listed_horses = request('listed_horses');
         $auction_horses = request('auction_horses');
         $lease_horses = request('lease_horses');
+        $at_stud = request('at_stud');
+        $sort = $request->input('sort');
 
         \Log::info($listed_horses);
-        // $breed = $request['breed'];
+        $breed = $request['breed'];
         $from = request('from');
         $to = request('to');
         $breed = request('breed');
@@ -348,15 +350,13 @@ class FrontController extends Controller
         $name = request('name');
 
         $skill = $request->query('skill', null);
-        $rider = (array) request('rider');
-        $rider = array_filter($rider);
-        // dd($rider);
+        $rider = request('rider');
         $selectedColor = request('selectedColor', "");
         $selectedGender = $request->query('selectedGender', "");
         $selectedDiscipline = $request->query('selectedDiscipline', "");
         $age_min = $request->query('age_min');
         $age_max = $request->query('age_max');
-        $age_unit = $request->query('age_unit'); // 'years' or 'months'
+        $age_unit = $request->query('age_unit');
 
         $height_min = request('height_min');
         $height_max = request('height_max');
@@ -385,120 +385,93 @@ class FrontController extends Controller
             $excludeTypes[] = 'For Sale';
         }
 
-        // At Auction
         if ($auction_horses === 'At Auction') {
             $includeTypes[] = 'At Auction';
         } elseif ($auction_horses === 'not-at-auction') {
             $excludeTypes[] = 'At Auction';
         }
 
-        // Sold
-        // if ($sold_horses === 'Sold') {
-        //     $includeTypes[] = 'Sold';
-        // } elseif ($sold_horses === 'not-sold') {
-        //     $excludeTypes[] = 'Sold';
-        // }
-
-        // For Lease
         if ($lease_horses === 'For Lease') {
             $includeTypes[] = 'For Lease';
         } elseif ($lease_horses === 'not-for-lease') {
             $excludeTypes[] = 'For Lease';
         }
 
-        // Apply ad type logic
+        if ($at_stud === 'At Stud') {
+            $includeTypes[] = 'At Stud';
+        } elseif ($at_stud === 'not-for-stud') {
+            $excludeTypes[] = 'At Stud';
+        }
+
         if (!empty($includeTypes) && empty($excludeTypes)) {
-            // Only include selected types
             $query->whereIn('pro_ad_type', $includeTypes);
         } elseif (empty($includeTypes) && !empty($excludeTypes)) {
-            // Exclude selected types
             $query->whereNotIn('pro_ad_type', $excludeTypes);
         } elseif (!empty($includeTypes) && !empty($excludeTypes)) {
-            // Include some, but exclude others → combine
             $allowed = array_diff($includeTypes, $excludeTypes);
             if (!empty($allowed)) {
                 $query->whereIn('pro_ad_type', $allowed);
             } else {
-                // Edge case: conflict → show nothing or all? Let's show nothing.
                 $query->whereRaw('1 = 0');
             }
         }
-        // Price range
         if ($from !== null && $to !== null) {
             $query->whereBetween('pro_reg_price', [$from,$to]);
         }
 
-        // Breed - multi-select
         if (!empty($breed)) {
             $query->whereIn('pro_breed', (array)$breed);
         }
 
-        // // Skill - multi-select (CSV in DB)
         if (!empty($skill)) {
-            $query->whereRaw("FIND_IN_SET(?, pro_skill)", [$skill]);
+            $query->whereRaw("FIND_IN_SET(?, pro_rider_level)", [$skill]);
         }
-        // if (!empty($skill)) {
-        //     $query->where(function ($q) use ($skill) {
-        //         foreach ($skill as $s) {
-        //             $q->orWhereRaw("FIND_IN_SET(?, pro_skill)", [$s]);
-        //         }
-        //     });
-        // }
 
-        // // Rider Level - multi-select
-        // if (!empty($rider)) {
-        //     $query->where(function ($q) use ($rider) {
-        //         foreach ($rider as $s) {
-        //             $q->whereRaw("FIND_IN_SET(?, pro_rider_level)", [$s]);
-        //         }
-        //     });
-        // }
-
-        if (count($rider) > 0) {
-            $query->where(function ($q) use ($rider) {
-                foreach ($rider as $index => $s) {
-                    if ($index === 0) {
-                        $q->whereRaw("FIND_IN_SET(?, pro_rider_level)", [$s]);
-                    } else {
-                        $q->orWhereRaw("FIND_IN_SET(?, pro_rider_level)", [$s]);
-                    }
-                }
-            });
+        if (!empty($rider)) {
+            $query->whereRaw("FIND_IN_SET(?, pro_skill)", [$rider]);
         }
-        // // Color - single-select
+
         if (!empty($selectedColor)) {
             $query->where('pro_color', $selectedColor);
         }
 
-        // // Gender - single-select
         if (!empty($selectedGender)) {
             $query->where('pro_gender', $selectedGender);
         }
 
-        // // Age range
-        // Only apply age filter if both min and max are provided
         if (!empty($age_min) && !empty($age_max)) {
             if ($age_unit === 'months') {
-                // Filter by pro_age_month column
                 $query->whereBetween('pro_age_month', [(int)$age_min, (int)$age_max]);
             } else {
-                // Default to years (or if 'years' is selected)
                 $query->whereBetween('pro_age_year', [(int)$age_min, (int)$age_max]);
             }
         }
-        // if (!empty($age_min) && !empty($age_max)) {
-        //     $query->whereBetween('pro_age_year', [$age_min, $age_max]);
-        // }
 
-        // // Height range
         if (!empty($height_min) && !empty($height_max)) {
-            $query->whereBetween('pro_height', [$height_min, $height_max]);
+            $query->whereBetween('pro_height', [(float)$height_min, (float)$height_max]);
+        }
+   // dd($sort);
+        switch ($sort) {
+            case 'price_desc':
+                $query->orderBy('pro_reg_price', 'DESC');
+                break;
+            case 'price_asc':
+                $query->orderBy('pro_reg_price', 'ASC');
+                break;
+            case 'price_high':
+                $query->where('pro_reg_price', '>=', 1000)->orderBy('pro_reg_price', 'DESC');
+                break;
+            case 'price_low':
+                $query->where('pro_reg_price', '<=', 500)->orderBy('pro_reg_price', 'ASC');
+                break;
+            default:
+                $query->orderBy('id', 'DESC');
         }
 
-        // Finally, get results
-        $products = $query->orderBy('id', 'Desc')->get();
+        $products = $query->get();
+        // $products = $query->orderBy('id', 'DESC')->get();
 
-        return view('front.horse_listing_filter' , compact('selectedColor', 'age_min', 'age_max', 'height_min', 'height_max',
+        return view('front.horse_listing_filter' , compact('selectedColor', 'age_min', 'age_max', 'height_min', 'sort', 'height_max',
             'products','selectedGender', 'from', 'to', 'breed', 'skill', 'rider', 'Logo' , 'Number' , 'Email' , 'Address'));
     }
 
@@ -526,7 +499,7 @@ class FrontController extends Controller
     {
         $amenities = DB::table('realstates')
             ->select('amenities')
-            ->distinct() // sirf unique values layega
+            ->distinct()
             ->get();
         $logoquery = General::where('id', 1)->first();
         $Logo = $logoquery->G_logo;
@@ -538,7 +511,6 @@ class FrontController extends Controller
         $price_max = request('price_max');
         $acre_min = request('acre_min');
         $acre_max = request('acre_max');
-        // dd($acre_max, $acre_min);
         $bedrooms_min = request('bedrooms_min');
         $bedrooms_max = request('bedrooms_max');
         $bathrooms_min = request('bathrooms_min');
@@ -550,6 +522,7 @@ class FrontController extends Controller
         $has_outdoor_ring = request('has_outdoor_ring');
         $fenced_grass = request('fenced_grass');
         $fencing = request('fencing');
+        $sort = request('sort');
 
         $query = Realstate::query();
         if (!empty($location)) {
@@ -557,12 +530,18 @@ class FrontController extends Controller
         }
 
         if (!empty($price_min) && !empty($price_max)) {
-            $query->whereBetween('real_price', [$price_min, $price_max]);
+            $query->whereBetween('real_price', ['$'.$price_min, '$'.$price_max]);
         }
+
+        // if (!empty($acre_min) && !empty($acre_max)) {
+        //     $query->where('real_acres', '>=', $acre_min)
+        //         ->where('real_acres', '<=', $acre_max);
+        // }
+
         if (!empty($acre_min) && !empty($acre_max)) {
-            $query->where('real_acres', '>=', $acre_min)
-                ->where('real_acres', '<=', $acre_max);
+            $query->whereBetween('real_acres', [$acre_min, $acre_max]);
         }
+
 
         if (!empty($bedrooms_min) && !empty($bedrooms_max)) {
             $query->whereBetween('real_bedroom', [$bedrooms_min, $bedrooms_max]);
@@ -590,16 +569,33 @@ class FrontController extends Controller
             });
         }
 
-        $req_amenities = (array) request('amenitie'); // Always cast to array
+        $req_amenities = (array) request('amenitie');
 
         if (!empty($req_amenities)) {
             $query->whereIn('amenities', $req_amenities);
         }
 
-        // dd($query->count());
+         switch ($sort) {
+            case 'price_desc':
+                $query->orderBy('real_price', 'DESC');
+                break;
+            case 'price_asc':
+                $query->orderBy('real_price', 'ASC');
+                break;
+            // case 'price_high':
+            //     $query->where('real_price', '>=', 1000)->orderBy('real_price', 'DESC');
+            //     break;
+            // case 'price_low':
+            //     $query->where('real_price', '<=', 500)->orderBy('real_price', 'ASC');
+            //     break;
+            default:
+                $query->orderBy('id', 'DESC');
+        }
+
+        $products = $query->get();
         $states = $query->orderBy('id', 'DESC')->get();
 
-        return view('front.realestate_listing_filter', compact('Logo', 'states', 'amenities', 'Number', 'Email', 'Address'));
+        return view('front.realestate_listing_filter', compact('Logo', 'states', 'amenities', 'Number', 'Email', 'Address', 'sort'));
     }
 
     public function service_details($id)
@@ -610,9 +606,15 @@ class FrontController extends Controller
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
         $data = Service::join('users', 'services.User_id', '=', 'users.id')
-            ->select('services.*', 'users.*', 'users.Address as user_address')
+            ->select(
+                'services.*',
+                'services.Address as service_address',
+                'users.*',
+                'users.Address as user_address'
+            )
             ->where('services.id', Crypt::decrypt($id))
             ->firstOrFail();
+
         return view('front.service_details', compact('Logo', 'data', 'Number', 'Email', 'Address'));
     }
 
@@ -685,7 +687,6 @@ class FrontController extends Controller
             return back()->with('error', 'Invalid ID.');
         }
 
-        // Check if already favorite
         $alreadyFavorite = RealStateFavorite::where('user_id', Auth::id())
             ->where('realstate_id', $realstateId)
             ->exists();
@@ -694,7 +695,6 @@ class FrontController extends Controller
             return back()->with('error', 'This property is already in your favorites.');
         }
 
-        // Save new favorite
         $realnew = new RealStateFavorite();
         $realnew->user_id = Auth::id();
         $realnew->realstate_id = $realstateId;
@@ -713,7 +713,6 @@ class FrontController extends Controller
             return back()->with('error', 'Invalid ID.');
         }
 
-        // Check if already favorite
         $alreadyFavorite = HorseFavorite::where('user_id', Auth::id())
             ->where('product_id', $realstateId)
             ->exists();
@@ -722,7 +721,6 @@ class FrontController extends Controller
             return back()->with('error', 'This Horse is already in your favorites.');
         }
 
-        // Save new favorite
         $realnew = new HorseFavorite();
         $realnew->user_id = Auth::id();
         $realnew->product_id = $realstateId;
@@ -730,4 +728,6 @@ class FrontController extends Controller
 
         return back()->with('success', 'Added to your favorites.');
     }
+
+    
 }

@@ -12,90 +12,45 @@
 
     <!-- favicon -->
     <link rel="icon" type="image/png" href="{{ getenv('APP_URL') }}/assets/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ getenv('APP_URL') }}/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ getenv('APP_URL') }}/assets/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{{ getenv('APP_URL') }}/assets/css/all.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/simplebar/simplebar.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/assets/js/config.js"></script>
-
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
-    <link href="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/simplebar/simplebar.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="user_admin_asstes/unicons.iconscout.com/release/v4.0.0/css/line.css"> -->
-    <link href="{{ getenv('APP_URL') }}/user_admin_asstes/assets/css/theme-rtl.min.css" type="text/css" rel="stylesheet" id="style-rtl">
-    <link href="{{ getenv('APP_URL') }}/user_admin_asstes/assets/css/theme.min.css" type="text/css" rel="stylesheet" id="style-default">
-    <link href="{{ getenv('APP_URL') }}/user_admin_asstes/assets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="user-style-rtl">
-    <link href="{{ getenv('APP_URL') }}/user_admin_asstes/assets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/assets/js/chart.min.js"></script>
-    <script>
-        var phoenixIsRTL = window.config.config.phoenixIsRTL;
-        if (phoenixIsRTL) {
-            var linkDefault = document.getElementById('style-default');
-            var userLinkDefault = document.getElementById('user-style-default');
-            linkDefault.setAttribute('disabled', true);
-            userLinkDefault.setAttribute('disabled', true);
-            document.querySelector('html').setAttribute('dir', 'rtl');
-        } else {
-            var linkRTL = document.getElementById('style-rtl');
-            var userLinkRTL = document.getElementById('user-style-rtl');
-            linkRTL.setAttribute('disabled', true);
-            userLinkRTL.setAttribute('disabled', true);
-        }
-    </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSRGFXM6ZT"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-KSRGFXM6ZT');
-    </script>
 </head>
 
 <body>
-    <main class="main" id="top">
-        <div class="container-fluid px-0" data-layout="container">
-            @include('layouts.user_menu')
-
-            @yield('content')
-            <footer class="footer position-absolute">
-                <div class="row g-0 justify-content-between align-items-center h-100">
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 mt-2 mt-sm-0 text-900">Copyright <span class="text-primary">{{ $Web_name }}</span>. All Rights Reserved</p>
-                    </div>
-                </div>
-            </footer>
-        </div>
-        </div>
-    </main>
+    <section class="user_dashboard">
+        @include('layouts.user_menu')
+        @yield('content')
+    </section>
 
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/popper/popper.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/bootstrap/bootstrap.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/anchorjs/anchor.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/is/is.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/fontawesome/all.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/lodash/lodash.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/list.js/list.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/feather-icons/feather.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/dayjs/dayjs.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/assets/js/phoenix.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/vendors/echarts/echarts.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/unpkg.com/%40googlemaps/markerclusterer%402.0.15/dist/index.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbaQGvhe7Af-uOMJz68NWHnO34UjjE7Lo&amp;callback=revenueMapInit" async></script>
-    <script src="{{ getenv('APP_URL') }}/user_admin_asstes/assets/js/ecommerce-dashboard.js"></script>
+    <script src="{{ getenv('APP_URL') }}/assets/js/bootstrap.min.js"></script>
+    <script src="{{ getenv('APP_URL') }}/assets/js/jquery-3.6.3.min.js"></script>
+    <script src="{{ getenv('APP_URL') }}/assets/js/swiper-bundle.min.js"></script>
+    <script src="{{ getenv('APP_URL') }}/assets/js/custom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+    @if (Session::has('alert-success'))
+        <script>
+            swal(@json(Session::get('alert-success')['title']), @json(Session::get('alert-success')['detail']), "success");
+        </script>
+    @endif
+
+    @if (Session::has('alert-danger'))
+        <script>
+            swal(@json(Session::get('alert-danger')['title']), @json(Session::get('alert-danger')['detail']), "Error");
+        </script>
+    @endif
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -137,6 +92,174 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.custom_tab_btn_min');
+        const tabContents = document.querySelectorAll('.tab_content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.user_gen_card_one').forEach((card) => {
+            const slider = card.querySelector('.user_card_slider');
+            const nextBtn = card.querySelector('.user_arrow_right');
+            const prevBtn = card.querySelector('.user_arrow_left');
+
+            new Swiper(slider, {
+                loop: true,
+                navigation: {
+                    nextEl: nextBtn,
+                    prevEl: prevBtn,
+                },
+            });
+        });
+    </script>
+
+    <script>
+        const horseSoldRadio = document.getElementById('horseSold');
+        const withdrawRadio = document.getElementById('withdraw');
+        const salePriceDiv = document.getElementById('salePrice');
+        const withdrawReasonDiv = document.getElementById('withdrawReason');
+
+        horseSoldRadio.addEventListener('change', function() {
+            if (this.checked) {
+                salePriceDiv.style.display = 'flex';
+                withdrawReasonDiv.style.display = 'none';
+            }
+        });
+
+        withdrawRadio.addEventListener('change', function() {
+            if (this.checked) {
+                salePriceDiv.style.display = 'none';
+                withdrawReasonDiv.style.display = 'block';
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const deleteModal = document.getElementById("deleteModal");
+
+            // Open modal (supports multiple delete buttons)
+            document.addEventListener("click", function(e) {
+                if (e.target.closest(".dlt_btn")) {
+                    e.preventDefault();
+                    deleteModal.classList.add("active");
+                    document.body.style.overflow = "hidden";
+                }
+
+                // Cancel button
+                if (e.target.closest(".btn-cancel-delete")) {
+                    closeDeleteModal();
+                }
+
+                // Overlay click
+                if (e.target === deleteModal) {
+                    closeDeleteModal();
+                }
+            });
+
+            function closeDeleteModal() {
+                deleteModal.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const openBtns = document.querySelectorAll(".withdraw_btn");
+            const modal = document.getElementById("customModal");
+
+            if (!modal || openBtns.length === 0) {
+                console.error("Modal or withdraw buttons not found");
+                return;
+            }
+
+            // Open modal from ANY withdraw button
+            openBtns.forEach(btn => {
+                btn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    modal.classList.add("active");
+                    document.body.style.overflow = "hidden";
+                });
+            });
+
+            // Close on overlay click
+            modal.addEventListener("click", function(e) {
+                if (e.target === modal || e.target.classList.contains("btn-cancel")) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                modal.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        });
+    </script>
+
+    <script>
+        const currentPage = window.location.pathname.split("/").pop();
+
+        document.querySelectorAll(".side_menu_navs a").forEach(link => {
+            const linkPage = link.getAttribute("href");
+
+            if (linkPage === currentPage) {
+                link.classList.add("active");
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const timers = document.querySelectorAll(".countdown_user_timer");
+
+            function updateCountdown(timer) {
+                const endTime = new Date(timer.dataset.endTime).getTime();
+                const now = new Date().getTime();
+                const distance = endTime - now;
+
+                if (distance <= 0) {
+                    timer.querySelector(".days").textContent = 0;
+                    timer.querySelector(".hours").textContent = 0;
+                    timer.querySelector(".minutes").textContent = 0;
+                    timer.querySelector(".seconds").textContent = 0;
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timer.querySelector(".days").textContent = days;
+                timer.querySelector(".hours").textContent = hours;
+                timer.querySelector(".minutes").textContent = minutes;
+                timer.querySelector(".seconds").textContent = seconds;
+            }
+
+            timers.forEach(timer => {
+                updateCountdown(timer);
+                setInterval(() => updateCountdown(timer), 1000);
+            });
+
         });
     </script>
 
