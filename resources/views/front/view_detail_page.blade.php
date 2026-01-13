@@ -535,7 +535,7 @@ ul#pills-tab li button {
     background: #1d2139;
 	color: #fff;
 	border-color: #1d2139;
-} 
+}
 .nav-tabs {
     border-bottom: 0px;
 }
@@ -1286,7 +1286,7 @@ ul#pills-tab li button {
                                     <div class="relative_img_box">
                                         <div class="swiper horse_swiper_one">
                                             <div class="swiper-wrapper">
-                                                <div class="swiper-slide"><img src="{{ asset('Featured_image/' . $data->pro_Fimg) }}" alt="img" class="img-fluid w-100 img_radius_one" /></div>
+                                                <div class="swiper-slide"><img src="{{ asset(path: 'Featured_image/' . $data->pro_Fimg) }}" alt="img" class="img-fluid w-100 img_radius_one" /></div>
                                             </div>
                                             <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
                                             <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
@@ -1340,7 +1340,7 @@ ul#pills-tab li button {
                                     <div class="horser_information_box type_one">
                                         <h3 class="heading30px price_Text mb-2">PRICE : ${{ $data->pro_reg_price }}</h3>
 
-                                        
+
 
                                         <div class="horse_list_card_btn_flex_new bottom_row mb-2">
                                             <a href="#!" class="horser_action_info_btn action_btn w-50">Seller Profile</a>
@@ -1412,7 +1412,7 @@ ul#pills-tab li button {
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                    @else 
+                                                    @else
                                                         <div class="col-12 mb-4">
                                                             <div class="border_box_one text-center blank_box">
                                                                 <h3 class="heading44px fw_700">We’re sorry!</h3>
@@ -1486,8 +1486,8 @@ ul#pills-tab li button {
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                
-                                            
+
+
                                         </div>
                                         <div class="tab-pane fade" id="v-pills-detail_4" role="tabpanel" aria-labelledby="v-pills-detail_4-tab">
                                             <div class="mb-4">
@@ -1675,7 +1675,7 @@ ul#pills-tab li button {
                                             </div>
                                             <!-- end Sire -->
 
-                                            
+
 
                                             <div class="mb-4">
                                                 <div class="heading65px monte_carlo fw_400 mb-4">
@@ -1830,12 +1830,12 @@ ul#pills-tab li button {
                                                     <div class="social_icons">
                                                         <a href="tel:0000000000"><img src="/assets/images/call.png" alt="img" class="img-fluid" /></a>
                                                         <a href="mailto:seller@abcd.com"><img src="/assets/images/email.png" alt="img" class="img-fluid" /></a>
-                                                
+
                                                 </div>
                                                 </div>
                                             </div>
-                                            
-                                            
+
+
 
                                             <ul class="nav nav-tabs seller_action_btn_flex d-flex gap-2 mb-4" id="horseTabs" role="tablist">
                                                 <li class="nav-item" role="presentation">
@@ -2353,7 +2353,7 @@ ul#pills-tab li button {
                                                 </div>
                                             </div>
 
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -2926,7 +2926,7 @@ ul#pills-tab li button {
                                     <div class="tab-pane fade seller_tab" id="v-pills-detail_8_ex_34" role="tabpanel" aria-labelledby="v-pills-detail_8_ex_34-tab">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <h3 class="heading44px fw_700 m-0">ABOUT THE SELLER:</h3>
-                                             <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a> 
+                                             <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a>
                                         </div>
 
                                         <div class="row mb-4">
@@ -3807,7 +3807,7 @@ ul#pills-tab li button {
                                     <div class="tab-pane fade seller_tab" id="v-pills-detail_8_sold_34" role="tabpanel" aria-labelledby="v-pills-detail_8_sold_34-tab">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <h3 class="heading44px fw_700 m-0">ABOUT THE SELLER:</h3>
-                                            <!-- <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a> 
+                                            <!-- <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a>
                                         </div>
 
                                         <div class="row mb-4">

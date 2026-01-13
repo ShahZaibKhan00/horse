@@ -16,12 +16,18 @@
                     <img src="assets/images/search.png" alt="" class="search_icon">
                 </div>
                 <div class="custom_tabs">
-                    <a href="{{ route('add_service') }}" class="custom_tab_btn custom_tab_btn_one">Create A NEW Service AD</a>
+                    @if (!empty($data) && $data->created_at < \Carbon\Carbon::parse($data->created_at)->addMonth())
+                        <a href="{{ route('add_service') }}" class="custom_tab_btn custom_tab_btn_one">Create A NEW Service AD</a>
+                    @else
+                        <a href="javascript:;" class="custom_tab_btn custom_tab_btn_one" data-bs-toggle="modal" data-bs-target="#packageWarningModal">Create A NEW Service AD</a>
+                    @endif
                     <a href="#!" class="custom_tab_btn_min active" data-tab="all">All</a>
                     <a href="#!" class="custom_tab_btn_min" data-tab="active">Active</a>
                     <a href="#!" class="custom_tab_btn_min" data-tab="sold">Sold</a>
                     <a href="#!" class="custom_tab_btn_min" data-tab="withdrawn">Withdrawn</a>
                 </div>
+                
+
             </div>
             <div class="tab_content_wrapper">
                 <div class="tab_content active" id="all">

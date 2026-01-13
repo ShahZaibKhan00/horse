@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="{{ getenv('APP_URL') }}/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ getenv('APP_URL') }}/assets/css/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ getenv('APP_URL') }}/assets/css/all.css">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
@@ -29,7 +30,36 @@
         @include('layouts.user_menu')
         @yield('content')
     </section>
-
+    <div class="modal fade" id="packageWarningModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title">Action Required</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- Body -->
+                <div class="modal-body text-center">
+                    <p class="mb-3">
+                        <strong>You haven't purchased any package.</strong>
+                    </p>
+                    <p>
+                        Before proceeding, please purchase a package.<br>
+                        Thank you.
+                    </p>
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer justify-content-center">
+                    <a href="{{ url('/list-management') }}" class="btn btn-primary">
+                        Purchase Package
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
@@ -37,9 +67,10 @@
     <script src="{{ getenv('APP_URL') }}/assets/js/jquery-3.6.3.min.js"></script>
     <script src="{{ getenv('APP_URL') }}/assets/js/swiper-bundle.min.js"></script>
     <script src="{{ getenv('APP_URL') }}/assets/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+
     @if (Session::has('alert-success'))
         <script>
             swal(@json(Session::get('alert-success')['title']), @json(Session::get('alert-success')['detail']), "success");

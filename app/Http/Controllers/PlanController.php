@@ -115,8 +115,6 @@ class PlanController extends Controller
             ->select('subscriptions.*', 'subscribed.*')
             ->orderBy('subscriptions.created_at', 'desc')
             ->get();
-
-        // dd($plans);
         return view('admin.membership', compact('username' , 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
     }
 

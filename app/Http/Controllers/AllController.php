@@ -38,16 +38,24 @@ class AllController extends Controller
         $plans = DB::table('products')
             ->join('categories', 'products.cate_id', '=', 'categories.id')
             ->where('products.user_id', Auth::id())
+            ->where('pro_status', 'Published')
+            ->where('status', 1)
             ->select(
                 'products.*',
                 'categories.cate_name as category_name'
             )
+            ->orderBy('id', 'DESC')
             ->get();
+        $data = DB::table('subscriptions')
+            ->where('useer_id', Auth::id())
+            ->orderByDesc('id')
+            ->first();
 
+        // dd($data);
         if (empty($plans->count())) {
             return redirect('list-management?label=horse');
         }
-        return view('admin.horse-listing', compact('username' , 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
+        return view('admin.horse-listing', compact('username', 'data', 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
     }
 
     function reals() {
@@ -59,10 +67,14 @@ class AllController extends Controller
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
         $plans = DB::table('realstates')->where('user_id', Auth::id())->get();
+        $data = DB::table('subscriptions')
+            ->where('useer_id', Auth::id())
+            ->orderByDesc('id')
+            ->first();
         if (empty($plans->count())) {
             return redirect('list-management?label=realestates');
         }
-        return view('admin.realstate-listing', compact('username' , 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
+        return view('admin.realstate-listing', compact('username', 'data', 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
     }
     function ser() {
         $usertype = Auth::user()->usertype;
@@ -73,10 +85,14 @@ class AllController extends Controller
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
         $plans = DB::table('services')->where('user_id', Auth::id())->get();
+        $data = DB::table('subscriptions')
+            ->where('useer_id', Auth::id())
+            ->orderByDesc('id')
+            ->first();
         if (empty($plans->count())) {
             return redirect('list-management?label=services');
         }
-        return view('admin.service-listing', compact('username' , 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
+        return view('admin.service-listing', compact('username', 'data', 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
     }
 
     function payment($id) {
@@ -109,6 +125,7 @@ class AllController extends Controller
                 // 👇 Pass all user data as metadata (Stripe will send it to webhook)
             'metadata' => [
                 'plan_id' => $plan->id,
+                'payment_type' => 'Stripe',
             ],
         ]);
         return redirect($session->url);
@@ -140,6 +157,8 @@ class AllController extends Controller
                     'package_price' => $plan->price,
                     'package_usage' => $plan->quantity,
                     'purchased_at'  => now(),
+                    'payment_type'  => $meta->payment_type ?? 'Credit',
+                    'pacakge_status'  => 'Active', // Active ya Expired
                     'created_at'    => now(),
                     'updated_at'    => now(),
                 ]);

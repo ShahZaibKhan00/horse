@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use App\Models\General;
 use App\Models\Category;
 use App\Models\Realstate;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RealstateController extends Controller
 {
@@ -67,7 +68,22 @@ class RealstateController extends Controller
             'first_name.required' => 'The Real state name field is required.',
             'last_name.required' => 'The Real State Price field is required.',
         ]);
-
+        $latestSubscription = DB::table('subscriptions')
+            ->where('useer_id', auth()->id())
+            ->where('pacakge_status', 'Active')
+            ->orderBy('created_at', 'desc')
+            ->first();
+        if ($latestSubscription) {
+            DB::table('subscribed')
+                ->where('subscription_id', $latestSubscription->id)
+                ->where('remaining_token', '>', 0)          // optional safety
+                ->decrement('remaining_token', 1);
+        }
+        else {
+            $messages = ['title' => 'Data Saved!!', 'detail' => 'Please Purchase the Subscription Before this process.'];
+            Session()->flash('alert-danger', $messages);
+            return redirect()->back();
+        }
         $data = new Realstate;
 
         $data->ad_type = $request->ad_type;

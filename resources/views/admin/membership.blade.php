@@ -26,7 +26,7 @@
                             </div>
                             <div class="detail-row">
                                 <strong>Status:</strong> <span class="status-badge">
-                                    @if (isset($plan[0]->status) == 1)
+                                    @if (isset($plans[0]->status) == 1)
                                         Active
                                     @else
                                         Inactive
@@ -42,10 +42,6 @@
                                 {{ data_get($plans, '0.created_at') ? \Carbon\Carbon::parse(data_get($plans, '0.created_at'))->addMonth()->format('F d, Y') : 'N/A' }}
                             </div>
                         </div>
-                        {{-- <div class="subscription-action-buttons">
-                            <button class="action-button action-button-gold">Change Plan</button>
-                            <button class="action-button action-button-dark">Update Payment</button>
-                        </div> --}}
                     </div>
 
                     <div class="payment-info-box">

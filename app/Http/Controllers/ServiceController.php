@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\General;
-use App\Models\Category;
 use App\Models\Service;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -66,6 +67,22 @@ class ServiceController extends Controller
             'full_name.required' => 'The Service Full Name field is required.',
             'number.required' => 'The Service Email field is required.',
         ]);
+        $latestSubscription = DB::table('subscriptions')
+            ->where('useer_id', auth()->id())
+            ->where('pacakge_status', 'Active')
+            ->orderBy('created_at', 'desc')
+            ->first();
+        if ($latestSubscription) {
+            DB::table('subscribed')
+                ->where('subscription_id', $latestSubscription->id)
+                ->where('remaining_token', '>', 0)          // optional safety
+                ->decrement('remaining_token', 1);
+        }
+        else {
+            $messages = ['title' => 'Data Saved!!', 'detail' => 'Please Purchase the Subscription Before this process.'];
+            Session()->flash('alert-danger', $messages);
+            return redirect()->back();
+        }
 
         $pro_images = [];
 
@@ -76,6 +93,7 @@ class ServiceController extends Controller
                 $pro_images[] = $filename;
             }
         }
+
         $data = new Service;
 
         $ser_profile = $request->ser_profile;

@@ -361,7 +361,7 @@ class FrontController extends Controller
         $height_min = request('height_min');
         $height_max = request('height_max');
 
-        $query = Product::query();
+        $query = Product::query()->where('status', 1);
 
         if (!empty($name)) {
             $query->where('pro_name', 'LIKE', "%{$name}%");
@@ -729,5 +729,5 @@ class FrontController extends Controller
         return back()->with('success', 'Added to your favorites.');
     }
 
-    
+
 }

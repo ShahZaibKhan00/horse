@@ -16,7 +16,11 @@
                     <img src="assets/images/search.png" alt="" class="search_icon">
                 </div>
                 <div class="custom_tabs">
-                    <a href="{{ route('add_realstate') }}" class="custom_tab_btn custom_tab_btn_one">Create New Real Estate AD</a>
+                    @if (!empty($data) && $data->created_at < \Carbon\Carbon::parse($data->created_at)->addMonth())
+                        <a href="{{ route('add_realstate') }}" class="custom_tab_btn custom_tab_btn_one">Create New Real Estate AD</a>
+                    @else
+                        <a href="javascript:;" class="custom_tab_btn custom_tab_btn_one" data-bs-toggle="modal" data-bs-target="#packageWarningModal">Create New Real Estate AD</a>
+                    @endif
                     <a href="#!" class="custom_tab_btn_min active" data-tab="all">All</a>
                     <a href="#!" class="custom_tab_btn_min" data-tab="active">Active</a>
                     <a href="#!" class="custom_tab_btn_min" data-tab="sold">Sold</a>
@@ -112,7 +116,8 @@
                                     <div class="management-panel">
                                         <div class="control-row">
                                             <button class="clickable-box solid-style">VIEW DETAILS</button>
-                                            <a href="{{ url('/edit_realstate') }}/{{$state->id}}" class="clickable-box hollow-style">EDIT <span class="edit-symbol"><img src="assets/images/edit.png" alt=""></span></a>
+                                            <a href="{{ url('/edit_realstate') }}/{{ $state->id }}" class="clickable-box hollow-style">EDIT <span class="edit-symbol"><img src="assets/images/edit.png"
+                                                        alt=""></span></a>
                                         </div>
                                         <div class="control-row">
                                             <button class="clickable-box hollow-style">Mark Pending</button>

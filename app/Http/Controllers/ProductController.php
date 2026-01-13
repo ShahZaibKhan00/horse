@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\General;
 use App\Models\Product;
@@ -85,203 +86,242 @@ class ProductController extends Controller
             'pro_Fimg.mimes' => 'The featured image must be a file of type: jpeg, png, jpg, svg.',
             'pro_Fimg.max' => 'The featured image may not be greater than 5MB.',
         ]);
+
+        $latestSubscription = DB::table('subscriptions')
+                ->where('useer_id', auth()->id())
+                ->where('pacakge_status', 'Active')
+                ->orderBy('created_at', 'desc')
+                ->first();
+            if ($latestSubscription) {
+                DB::table('subscribed')
+                    ->where('subscription_id', $latestSubscription->id)
+                    ->where('remaining_token', '>', 0)          // optional safety
+                    ->decrement('remaining_token', 1);
+            }
+            else {
+                $messages = ['title' => 'Data Saved!!', 'detail' => 'Please Purchase the Subscription Before this process.'];
+                Session()->flash('alert-danger', $messages);
+                return redirect()->back();
+            }
         try {
 
-        $product = new Product;
+            // DB::beginTransaction();
+            $product = new Product;
 
-        $SKU = 'PROSKU' . md5(Str::random(8));
+            $SKU = 'PROSKU' . md5(Str::random(8));
 
-        $product->pro_sku = $SKU;
-        // Handle featured image upload
-        // if ($request->hasFile('pro_Fimg')) {
-        //     $featuredImage = $request->file('pro_Fimg');
-        //     $featuredImageName = 'Featured_' . time() . '_' . Str::random(10) . '.' . $featuredImage->getClientOriginalExtension();
+            $product->pro_sku = $SKU;
+            // Handle featured image upload
+            // if ($request->hasFile('pro_Fimg')) {
+            //     $featuredImage = $request->file('pro_Fimg');
+            //     $featuredImageName = 'Featured_' . time() . '_' . Str::random(10) . '.' . $featuredImage->getClientOriginalExtension();
 
-        //     // Store using local disk
-        //     $featuredImagePath = $featuredImage->storeAs('Featured_image', $featuredImageName, 'local');
-        //     $product->pro_Fimg = $featuredImagePath;
-        // }
+            //     // Store using local disk
+            //     $featuredImagePath = $featuredImage->storeAs('Featured_image', $featuredImageName, 'local');
+            //     $product->pro_Fimg = $featuredImagePath;
+            // }
 
-        if ($request->hasFile('pro_Fimg')) {
-            $featuredImage = $request->file('pro_Fimg');
-            $featuredImageName = 'Featured_' . time() . '_' . Str::random(10) . '.' . $featuredImage->getClientOriginalExtension();
+            if ($request->hasFile('pro_Fimg')) {
+                $featuredImage = $request->file('pro_Fimg');
+                $featuredImageName = 'Featured_' . time() . '_' . Str::random(10) . '.' . $featuredImage->getClientOriginalExtension();
 
-            // Move the file to the public folder manually
-            $featuredImage->move(public_path('Featured_image'), $featuredImageName);
+                // Move the file to the public folder manually
+                $featuredImage->move(public_path('Featured_image'), $featuredImageName);
 
-            // Save only the filename in the database
-            $product->pro_Fimg = $featuredImageName;
-        }
-
-
-
-        // dd($destinationPathone);
-        // if ($request->hasFile('pro_Fimg')) {
-        //     $image = $request->file('pro_Fimg');
-        //     $destinationPathone = public_path('/Featured_image');
-        //     $imageNameone = 'Featured_' . time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move($destinationPathone, $imageNameone);
-
-        //     $product->pro_Fimg = $imageNameone;
-        // }
-
-
-        $pro_images = [];
-
-        if ($request->hasFile('pro_imgs')) {
-            foreach ($request->file('pro_imgs') as $image) {
-                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('uploads/products', $filename, 'public');
-                $pro_images[] = $filename; // Only storing the name
+                // Save only the filename in the database
+                $product->pro_Fimg = $featuredImageName;
             }
-        }
 
-        if ($request->hasFile('pro_reg_file')) {
-            $images = $request->file('pro_reg_file');
-            $destinationPath = public_path('/Product_images');
-            $imageNames = [];
 
-            foreach ($images as $image) {
-                if ($image) {
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-                    $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
+
+            // dd($destinationPathone);
+            // if ($request->hasFile('pro_Fimg')) {
+            //     $image = $request->file('pro_Fimg');
+            //     $destinationPathone = public_path('/Featured_image');
+            //     $imageNameone = 'Featured_' . time() . '.' . $image->getClientOriginalExtension();
+            //     $image->move($destinationPathone, $imageNameone);
+
+            //     $product->pro_Fimg = $imageNameone;
+            // }
+
+
+            $pro_images = [];
+
+            if ($request->hasFile('pro_imgs')) {
+                foreach ($request->file('pro_imgs') as $image) {
+                    $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('uploads/products', $filename, 'public');
+                    $pro_images[] = $filename; // Only storing the name
                 }
             }
 
-            $product->pro_reg_file = json_encode($imageNames);
-        }
+            if ($request->hasFile('pro_reg_file')) {
+                $images = $request->file('pro_reg_file');
+                $destinationPath = public_path('/Product_images');
+                $imageNames = [];
 
-        if ($request->hasFile('ppe_file')) {
-            $images = $request->file('ppe_file');
-            $destinationPath = public_path('/Product_images');
-            $imageNames = [];
-
-            foreach ($images as $image) {
-                if ($image) {
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-                    $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
+                foreach ($images as $image) {
+                    if ($image) {
+                        $extension = $image->getClientOriginalExtension();
+                        $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+                        $image->move($destinationPath, $imageName);
+                        $imageNames[] = $imageName;
+                    }
                 }
+
+                $product->pro_reg_file = json_encode($imageNames);
             }
 
-            $product->ppe_file = json_encode($imageNames);
-        }
+            if ($request->hasFile('ppe_file')) {
+                $images = $request->file('ppe_file');
+                $destinationPath = public_path('/Product_images');
+                $imageNames = [];
 
-        if ($request->hasFile('xray_file')) {
-            $images = $request->file('xray_file');
-            $destinationPath = public_path('/Product_images');
-            $imageNames = [];
-
-            foreach ($images as $image) {
-                if ($image) {
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-                    $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
+                foreach ($images as $image) {
+                    if ($image) {
+                        $extension = $image->getClientOriginalExtension();
+                        $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+                        $image->move($destinationPath, $imageName);
+                        $imageNames[] = $imageName;
+                    }
                 }
+
+                $product->ppe_file = json_encode($imageNames);
             }
 
-            $product->xray_file = json_encode($imageNames);
-        }
+            if ($request->hasFile('xray_file')) {
+                $images = $request->file('xray_file');
+                $destinationPath = public_path('/Product_images');
+                $imageNames = [];
 
-            //  if ($request->hasFile('pro_video_url')) {
-            //     $images = $request->file('pro_video_url');
-            //     $destinationPath = public_path('/pro_video');
-            //     $imageNames = [];
+                foreach ($images as $image) {
+                    if ($image) {
+                        $extension = $image->getClientOriginalExtension();
+                        $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+                        $image->move($destinationPath, $imageName);
+                        $imageNames[] = $imageName;
+                    }
+                }
 
-            //     foreach ($images as $image) {
-            //         if ($image) {
-            //             $extension = $image->getClientOriginalExtension();
-            //             $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-            //             $image->move($destinationPath, $imageName);
-            //             $imageNames[] = $imageName;
-            //         }
+                $product->xray_file = json_encode($imageNames);
+            }
+
+                //  if ($request->hasFile('pro_video_url')) {
+                //     $images = $request->file('pro_video_url');
+                //     $destinationPath = public_path('/pro_video');
+                //     $imageNames = [];
+
+                //     foreach ($images as $image) {
+                //         if ($image) {
+                //             $extension = $image->getClientOriginalExtension();
+                //             $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+                //             $image->move($destinationPath, $imageName);
+                //             $imageNames[] = $imageName;
+                //         }
+                //     }
+
+                //     $product->pro_video_url = json_encode($imageNames);
+                //  } else {
+                //     $product->pro_video_url = implode(',', $request->pro_video_url);
+                //  }
+
+            if ($request->hasFile('pro_video_url')) {
+                foreach ($request->file('pro_video_url') as $video) {
+                    if ($video && $video->isValid()) {
+                        $extension = $video->getClientOriginalExtension();
+                        $videoName = time() . '_' . uniqid() . '.' . $extension;
+                        $video->move(public_path('/pro_video'), $videoName);
+                        $videoNames[] = $videoName;
+                    }
+                }
+                $product->pro_video_url = json_encode($videoNames);
+            }
+
+
+            $product->pro_name = $request->pro_name;
+            $product->pro_reg_price = str_replace('$', '', $request->pro_reg_price);
+            $product->about_price = implode(',' , $request->about_price);
+            $product->pro_height = $request->pro_height;
+            $product->pro_color = $request->pro_color;
+            $product->pro_skill = $request->pro_address;
+            $product->pro_breed = $request->pro_breed;
+            $product->pro_ad_type = $request->pro_ad_type;
+            $product->pro_gender = $request->pro_gender;
+            $product->pro_reg_name = $request->pro_reg_name;
+            $product->pro_reg_association = $request->pro_reg_association;
+            $product->pro_reg_number = $request->pro_reg_number;
+            $product->pro_rider_level = $request->pro_rider_level;
+            $product->gaited = $request->gaited;
+            $product->pro_city = $request->pro_city;
+            $product->pro_state = $request->pro_state;
+            $product->pro_address = $request->pro_address;
+            $product->per_phone = $request->per_phone;
+            $product->per_email = $request->per_email;
+            $product->per_state = $request->per_state;
+            $product->per_zip = $request->per_zip;
+            $product->per_address = $request->per_address;
+            $product->per_website = $request->per_website;
+            $product->pro_facebook = $request->pro_facebook;
+            $product->pro_youtube = $request->pro_youtube;
+            $product->pro_insta = $request->pro_insta;
+            $product->pro_tiktok = $request->pro_tiktok;
+            $product->pro_desc = $request->pro_desc;
+            $product->pro_stock = $request->pro_stock;
+            $product->registerd_horse = $request->registerd_horse;
+            $product->pro_imgs = json_encode($pro_images);
+
+            $product->bid_amount = str_replace('$', '', $request->bid_amount);
+            $product->reserve_amount = str_replace('$', '', $request->reserve_amount);
+            $product->auc_start_date = $request->auc_start_date;
+            $product->auc_end_date = $request->auc_end_date;
+            $product->auc_link = $request->auc_link;
+            $product->trial_period = $request->trial_period;
+            $product->pro_age_year = $request->pro_age_year;
+            $product->pro_age_month = $request->pro_age_month;
+            $product->pro_sire = $request->pro_sire;
+            $product->pro_dam = $request->pro_dam;
+            $product->pro_grand_sire = implode(',' , $request->pro_grand_sire);
+            $product->pro_grand_dam = implode(',' , $request->pro_grand_dam);
+            $product->pro_great_grand_sire = implode(',' , $request->pro_great_grand_sire);
+            $product->pro_great_grand_dam = implode(',' , $request->pro_great_grand_dam);
+            $product->pro_twogreat_grand_sire = implode(',' , $request->pro_twogreat_grand_sire);
+            $product->pro_twogreat_grand_dam = implode(',' , $request->pro_twogreat_grand_dam);
+
+            $product->cate_id = "1";
+            $product->pro_status = "Published";
+            $product->user_id = Auth::user()->id;
+            $product->save();
+
+            // if ($product) {
+            //     $latestSubscription = DB::table('subscriptions')
+            //         ->where('user_id', auth()->id())
+            //         ->where('pacakge_status', 'Active')
+            //         ->orderBy('created_at', 'desc')
+            //         ->first();
+            //     if ($latestSubscription) {
+            //         DB::table('subscribed')
+            //             ->where('subscription_id', $latestSubscription->id)
+            //             ->where('remaining_token', '>', 0)          // optional safety
+            //             ->decrement('remaining_token', 1);
             //     }
+            //     else {
+            //         $messages = ['title' => 'Data Saved!!', 'detail' => 'Please Purchase the Subscription Before this process.'];
+            //         Session()->flash('alert-danger', $messages);
+            //         return redirect()->back();
+            //     }
+            // }
 
-            //     $product->pro_video_url = json_encode($imageNames);
-            //  } else {
-            //     $product->pro_video_url = implode(',', $request->pro_video_url);
-            //  }
-
-        if ($request->hasFile('pro_video_url')) {
-            foreach ($request->file('pro_video_url') as $video) {
-                if ($video && $video->isValid()) {
-                    $extension = $video->getClientOriginalExtension();
-                    $videoName = time() . '_' . uniqid() . '.' . $extension;
-                    $video->move(public_path('/pro_video'), $videoName);
-                    $videoNames[] = $videoName;
-                }
+            if($usertype == '1'){
+                return redirect("/products/$request->cate_id_name");
+            } else {
+                $messages = ['title' => 'Data Saved!!', 'detail' => 'Record has been added successfully.'];
+                Session()->flash('alert-success', $messages);
+                return redirect('/horse-listing');
             }
-            $product->pro_video_url = json_encode($videoNames);
+        } catch (\Exception $e) {
+            \Log::info($e->getMessage());
+            return back()->withInput()->with('error', 'Error: ' . $e->getMessage());
         }
-
-
-        $product->pro_name = $request->pro_name;
-        $product->pro_reg_price = str_replace('$', '', $request->pro_reg_price);
-        $product->about_price = implode(',' , $request->about_price);
-        $product->pro_height = $request->pro_height;
-        $product->pro_color = $request->pro_color;
-        $product->pro_skill = $request->pro_address;
-        $product->pro_breed = $request->pro_breed;
-        $product->pro_ad_type = $request->pro_ad_type;
-        $product->pro_gender = $request->pro_gender;
-        $product->pro_reg_name = $request->pro_reg_name;
-        $product->pro_reg_association = $request->pro_reg_association;
-        $product->pro_reg_number = $request->pro_reg_number;
-        $product->pro_rider_level = $request->pro_rider_level;
-        $product->gaited = $request->gaited;
-        $product->pro_city = $request->pro_city;
-        $product->pro_state = $request->pro_state;
-        $product->pro_address = $request->pro_address;
-        $product->per_phone = $request->per_phone;
-        $product->per_email = $request->per_email;
-        $product->per_state = $request->per_state;
-        $product->per_zip = $request->per_zip;
-        $product->per_address = $request->per_address;
-        $product->per_website = $request->per_website;
-        $product->pro_facebook = $request->pro_facebook;
-        $product->pro_youtube = $request->pro_youtube;
-        $product->pro_insta = $request->pro_insta;
-        $product->pro_tiktok = $request->pro_tiktok;
-        $product->pro_desc = $request->pro_desc;
-        $product->pro_stock = $request->pro_stock;
-        $product->registerd_horse = $request->registerd_horse;
-        $product->pro_imgs = json_encode($pro_images);
-
-        $product->bid_amount = str_replace('$', '', $request->bid_amount);
-        $product->reserve_amount = str_replace('$', '', $request->reserve_amount);
-        $product->auc_start_date = $request->auc_start_date;
-        $product->auc_end_date = $request->auc_end_date;
-        $product->auc_link = $request->auc_link;
-        $product->trial_period = $request->trial_period;
-        $product->pro_age_year = $request->pro_age_year;
-        $product->pro_age_month = $request->pro_age_month;
-        $product->pro_sire = $request->pro_sire;
-        $product->pro_dam = $request->pro_dam;
-        $product->pro_grand_sire = implode(',' , $request->pro_grand_sire);
-        $product->pro_grand_dam = implode(',' , $request->pro_grand_dam);
-        $product->pro_great_grand_sire = implode(',' , $request->pro_great_grand_sire);
-        $product->pro_great_grand_dam = implode(',' , $request->pro_great_grand_dam);
-        $product->pro_twogreat_grand_sire = implode(',' , $request->pro_twogreat_grand_sire);
-        $product->pro_twogreat_grand_dam = implode(',' , $request->pro_twogreat_grand_dam);
-
-        $product->cate_id = "1";
-        $product->pro_status = "Published";
-        $product->user_id = Auth::user()->id;
-
-        $product->save();
-        if($usertype == '1'){
-            return redirect("/products/$request->cate_id_name");
-        } else {
-            return redirect()->back();
-        }
-    } catch (\Exception $e) {
-        \Log::info($e->getMessage());
-        return back()->withInput()->with('error', 'Error: ' . $e->getMessage());
-    }
     }
 
 

@@ -25,6 +25,7 @@ use App\Http\Controllers\PlanController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
 
 Route::get('migrate/data', function() {
