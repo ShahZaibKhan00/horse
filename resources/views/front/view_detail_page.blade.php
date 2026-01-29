@@ -1267,13 +1267,13 @@ ul#pills-tab li button {
                             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                                 <div class="detail_left">
                                     <div class="top_blue_strip_flex">
-                                        <h3 class="sale_tag">For Sale</h3>
+                                        <h3 class="sale_tag">{{ $data->pro_ad_type }}</h3>
                                         <div class="h_tages">
-                                                <p>Payment Options Available</p>
+                                                {{-- <p>Payment Options Available</p>
                                                 <span>|</span>
                                                 <p>May Trade</p>
                                                 <span>|</span>
-                                                <p>Negotiable</p>
+                                                <p>Negotiable</p> --}}
                                             </div>
                                         </div>
                                     <div class="top_blue_strip">
@@ -1295,29 +1295,10 @@ ul#pills-tab li button {
                                         <h2 class="breed_text">{{ $data->pro_breed }}</h2>
                                     </div>
                                     <div class="horser_information_box mb-0">
-                                        <!-- <div class="row">
-                                            <div class="col-6 pe-0">
-                                                <ul class="info_list_one">
-                                                    <li><span>{{ $data->pro_breed }}</span></li>
-                                                    <li><span>{{ $data->pro_age_year }} Years</span></li>
-                                                    <li><span>{{ $data->pro_height }}</span></li>
-                                                    <li class="mb-0"><span>{{ $data->pro_gender }}</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-6">
-                                                <ul class="info_list_one">
-                                                    <li><span>{{ $data->pro_color }}</span></li>
-                                                    <li><span>REGISTERED: {{$data->registerd_horse ?? "no" }}</span></li>
-                                                    <li><span>GAITED: {{ $data->gaited }}</span></li>
-                                                    <li class="mb-0"><span>{{ $data->pro_address . ' ' . $data->pro_city }}</span></li>
-                                                </ul>
-                                            </div>
-                                        </div> -->
-
                                         <div class="custome_listing_row">
                                             <div class="custome_listing_col">
                                                 <ul class="info_list">
-                                                    <li><span>{{ $data->pro_age_year }} Years</span></li>
+                                                    <li><span>{{ $data->pro_age_year }} Years {{ $data->pro_age_month }} Mo Old</span></li>
                                                     <li><span>{{ $data->pro_height }}</span></li>
                                                     <li><span>{{ $data->pro_gender }}</span></li>
                                                 </ul>

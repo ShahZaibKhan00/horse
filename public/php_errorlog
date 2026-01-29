@@ -1,0 +1,119 @@
+[28-Jan-2026 00:38:01 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 00:38:53 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 00:38:54 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 01:07:51 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 01:49:32 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 01:49:35 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 01:49:35 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 01:51:29 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 15:10:32 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 15:10:38 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 15:12:07 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 15:17:56 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 16:23:29 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 16:24:05 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 16:54:37 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 17:11:34 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22
+[28-Jan-2026 17:31:33 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.2.30. in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/autoload_real.php(25): require()
+#1 /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/autoload.php(22): ComposerAutoloaderInitf3081fe774d81325481f46499d5540c2::getLoader()
+#2 /home/customer/www/horse-dev.testlinkdev.com/public_html/public/index.php(34): require('/home/customer/...')
+#3 {main}
+  thrown in /home/customer/www/horse-dev.testlinkdev.com/public_html/vendor/composer/platform_check.php on line 22

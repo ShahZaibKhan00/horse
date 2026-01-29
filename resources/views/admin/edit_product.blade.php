@@ -564,6 +564,14 @@
             line-height: 100px;
         }
     </style>
+
+    {{-- STyling By Shahzaib --}}
+    <style>
+        .dropdown div.selected {
+            background: #007bff;
+            color: #fff;
+        }
+    </style>
     <div class="content user_main_content p-5">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -574,6 +582,7 @@
                 </ul>
             </div>
         @endif
+
         @foreach ($data as $data)
             <form class="mb-9" action="{{ route('update_product') }}" method="POST" enctype="multipart/form-data">
 
@@ -842,12 +851,66 @@
                                         ];
                                     @endphp
 
-                                    <select class="form-control gen_input mb-3" name="pro_state" required>
+                                    <select class="form-control gen_input mb-3" name="per_state">
+                                        <option disabled>Select your State</option>
+
+                                        <option value="alabama (AL)" {{ ($data->per_state ?? '') == 'alabama (AL)' ? 'selected' : '' }}>Alabama (AL)</option>
+                                        <option value="alaska (AK)" {{ ($data->per_state ?? '') == 'alaska (AK)' ? 'selected' : '' }}>Alaska (AK)</option>
+                                        <option value="arizona (AZ)" {{ ($data->per_state ?? '') == 'arizona (AZ)' ? 'selected' : '' }}>Arizona (AZ)</option>
+                                        <option value="arkansas (AR)" {{ ($data->per_state ?? '') == 'arkansas (AR)' ? 'selected' : '' }}>Arkansas (AR)</option>
+                                        <option value="california (CA)" {{ ($data->per_state ?? '') == 'california (CA)' ? 'selected' : '' }}>California (CA)</option>
+                                        <option value="colorado (CO)" {{ ($data->per_state ?? '') == 'colorado (CO)' ? 'selected' : '' }}>Colorado (CO)</option>
+                                        <option value="connecticut (CT)" {{ ($data->per_state ?? '') == 'connecticut (CT)' ? 'selected' : '' }}>Connecticut (CT)</option>
+                                        <option value="delaware (DE)" {{ ($data->per_state ?? '') == 'delaware (DE)' ? 'selected' : '' }}>Delaware (DE)</option>
+                                        <option value="florida (FL)" {{ ($data->per_state ?? '') == 'florida (FL)' ? 'selected' : '' }}>Florida (FL)</option>
+                                        <option value="georgia (GA)" {{ ($data->per_state ?? '') == 'georgia (GA)' ? 'selected' : '' }}>Georgia (GA)</option>
+                                        <option value="hawaii (HI)" {{ ($data->per_state ?? '') == 'hawaii (HI)' ? 'selected' : '' }}>Hawaii (HI)</option>
+                                        <option value="idaho (ID)" {{ ($data->per_state ?? '') == 'idaho (ID)' ? 'selected' : '' }}>Idaho (ID)</option>
+                                        <option value="illinois (IL)" {{ ($data->per_state ?? '') == 'illinois (IL)' ? 'selected' : '' }}>Illinois (IL)</option>
+                                        <option value="indiana (IN)" {{ ($data->per_state ?? '') == 'indiana (IN)' ? 'selected' : '' }}>Indiana (IN)</option>
+                                        <option value="iowa (IA)" {{ ($data->per_state ?? '') == 'iowa (IA)' ? 'selected' : '' }}>Iowa (IA)</option>
+                                        <option value="kansas (KS)" {{ ($data->per_state ?? '') == 'kansas (KS)' ? 'selected' : '' }}>Kansas (KS)</option>
+                                        <option value="kentucky (KY)" {{ ($data->per_state ?? '') == 'kentucky (KY)' ? 'selected' : '' }}>Kentucky (KY)</option>
+                                        <option value="louisiana (LA)" {{ ($data->per_state ?? '') == 'louisiana (LA)' ? 'selected' : '' }}>Louisiana (LA)</option>
+                                        <option value="maine (ME)" {{ ($data->per_state ?? '') == 'maine (ME)' ? 'selected' : '' }}>Maine (ME)</option>
+                                        <option value="maryland (MD)" {{ ($data->per_state ?? '') == 'maryland (MD)' ? 'selected' : '' }}>Maryland (MD)</option>
+                                        <option value="massachusetts (MA)" {{ ($data->per_state ?? '') == 'massachusetts (MA)' ? 'selected' : '' }}>Massachusetts (MA)</option>
+                                        <option value="michigan (MI)" {{ ($data->per_state ?? '') == 'michigan (MI)' ? 'selected' : '' }}>Michigan (MI)</option>
+                                        <option value="minnesota (MN)" {{ ($data->per_state ?? '') == 'minnesota (MN)' ? 'selected' : '' }}>Minnesota (MN)</option>
+                                        <option value="mississippi (MS)" {{ ($data->per_state ?? '') == 'mississippi (MS)' ? 'selected' : '' }}>Mississippi (MS)</option>
+                                        <option value="missouri (MO)" {{ ($data->per_state ?? '') == 'missouri (MO)' ? 'selected' : '' }}>Missouri (MO)</option>
+                                        <option value="montana (MT)" {{ ($data->per_state ?? '') == 'montana (MT)' ? 'selected' : '' }}>Montana (MT)</option>
+                                        <option value="nebraska (NE)" {{ ($data->per_state ?? '') == 'nebraska (NE)' ? 'selected' : '' }}>Nebraska (NE)</option>
+                                        <option value="nevada (NV)" {{ ($data->per_state ?? '') == 'nevada (NV)' ? 'selected' : '' }}>Nevada (NV)</option>
+                                        <option value="new hampshire (NH)" {{ ($data->per_state ?? '') == 'new hampshire (NH)' ? 'selected' : '' }}>New Hampshire (NH)</option>
+                                        <option value="new jersey (NJ)" {{ ($data->per_state ?? '') == 'new jersey (NJ)' ? 'selected' : '' }}>New Jersey (NJ)</option>
+                                        <option value="new mexico (NM)" {{ ($data->per_state ?? '') == 'new mexico (NM)' ? 'selected' : '' }}>New Mexico (NM)</option>
+                                        <option value="new york (NY)" {{ ($data->per_state ?? '') == 'new york (NY)' ? 'selected' : '' }}>New York (NY)</option>
+                                        <option value="north carolina (NC)" {{ ($data->per_state ?? '') == 'north carolina (NC)' ? 'selected' : '' }}>North Carolina (NC)</option>
+                                        <option value="north dakota (ND)" {{ ($data->per_state ?? '') == 'north dakota (ND)' ? 'selected' : '' }}>North Dakota (ND)</option>
+                                        <option value="ohio (OH)" {{ ($data->per_state ?? '') == 'ohio (OH)' ? 'selected' : '' }}>Ohio (OH)</option>
+                                        <option value="oklahoma (OK)" {{ ($data->per_state ?? '') == 'oklahoma (OK)' ? 'selected' : '' }}>Oklahoma (OK)</option>
+                                        <option value="oregon (OR)" {{ ($data->per_state ?? '') == 'oregon (OR)' ? 'selected' : '' }}>Oregon (OR)</option>
+                                        <option value="pennsylvania (PA)" {{ ($data->per_state ?? '') == 'pennsylvania (PA)' ? 'selected' : '' }}>Pennsylvania (PA)</option>
+                                        <option value="rhode island (RI)" {{ ($data->per_state ?? '') == 'rhode island (RI)' ? 'selected' : '' }}>Rhode Island (RI)</option>
+                                        <option value="south carolina (SC)" {{ ($data->per_state ?? '') == 'south carolina (SC)' ? 'selected' : '' }}>South Carolina (SC)</option>
+                                        <option value="south dakota (SD)" {{ ($data->per_state ?? '') == 'south dakota (SD)' ? 'selected' : '' }}>South Dakota (SD)</option>
+                                        <option value="tennessee (TN)" {{ ($data->per_state ?? '') == 'tennessee (TN)' ? 'selected' : '' }}>Tennessee (TN)</option>
+                                        <option value="texas (TX)" {{ ($data->per_state ?? '') == 'texas (TX)' ? 'selected' : '' }}>Texas (TX)</option>
+                                        <option value="utah (UT)" {{ ($data->per_state ?? '') == 'utah (UT)' ? 'selected' : '' }}>Utah (UT)</option>
+                                        <option value="vermont (VT)" {{ ($data->per_state ?? '') == 'vermont (VT)' ? 'selected' : '' }}>Vermont (VT)</option>
+                                        <option value="virginia (VA)" {{ ($data->per_state ?? '') == 'virginia (VA)' ? 'selected' : '' }}>Virginia (VA)</option>
+                                        <option value="washington (WA)" {{ ($data->per_state ?? '') == 'washington (WA)' ? 'selected' : '' }}>Washington (WA)</option>
+                                        <option value="west virginia (WV)" {{ ($data->per_state ?? '') == 'west virginia (WV)' ? 'selected' : '' }}>West Virginia (WV)</option>
+                                        <option value="wisconsin (WI)" {{ ($data->per_state ?? '') == 'wisconsin (WI)' ? 'selected' : '' }}>Wisconsin (WI)</option>
+                                        <option value="wyoming (WY)" {{ ($data->per_state ?? '') == 'wyoming (WY)' ? 'selected' : '' }}>Wyoming (WY)</option>
+                                    </select>
+                                    {{-- <select class="form-control gen_input mb-3" name="pro_state" required>
                                         <option value="" disabled {{ empty($data->pro_state) ? 'selected' : '' }}>Select your State</option>
                                         @foreach ($states as $key => $state)
                                             <option value="{{ $key }}" {{ $data->pro_state == $key ? 'selected' : '' }}>{{ $state }}</option>
                                         @endforeach
-                                    </select>
+                                    </select> --}}
                                 </div>
                             </div>
                         </div>
@@ -908,12 +971,6 @@
                                             <input class="form-check-input" name="pro_ad_type" type="radio" value="At Auction" {{ $data->pro_ad_type == 'At Auction' ? 'checked' : '' }} />At Auction
                                         </label>
                                     </div>
-                                    {{-- <div class="form-check">
-                                        <label>
-                                            <input class="form-check-input" name="pro_ad_type" type="radio" value="Private Treaty" {{ $data->pro_ad_type == 'Private Treaty' ? 'checked' : '' }} />
-                                            Private Treaty
-                                        </label>
-                                    </div> --}}
                                     <div class="form-check">
                                         <label>
                                             <input class="form-check-input" name="pro_ad_type" type="radio" value="For Lease" {{ $data->pro_ad_type == 'For Lease' ? 'checked' : '' }} /> For Lease
@@ -1174,6 +1231,7 @@
                                 'Liver Chestnut',
                                 'Other',
                                 'Overo',
+                                'Paint',
                                 'Paintaloosa',
                                 'Palomino',
                                 'Palomino Roan',
@@ -1245,7 +1303,7 @@
                     <div class="col-6">
                         <div class="border_box_one">
                             <h4 class="mb-3">Height <span class="asterisk">*</span></h4>
-                            <select class="form-control gen_input" name="pro_height" required>
+                            {{-- <select class="form-control gen_input" name="pro_height" required>
                                 @php
                                     $heights = [
                                         '5.0 hh (20in)',
@@ -1297,7 +1355,67 @@
                                     <option value="{{ $height }}" {{ $data->pro_height == $height ? 'selected' : '' }}>
                                         {{ $height }}
                                     </option>
+                                @endforeach --}}
+
+                            <select class="form-control gen_input" name="pro_height" required>
+                                <option value="" disabled {{ empty($data->pro_height) ? 'selected' : '' }}>
+                                    Select an Option
+                                </option>
+
+                                @php
+                                    $heights = [
+                                        '5.0' => '5.0 hh (20in)',
+                                        '6.0' => '6.0 hh (24in)',
+                                        '7.0' => '7.0 hh (28in)',
+                                        '8.0' => '8.0 hh (32in)',
+                                        '8.2' => '8.2 hh (34in)',
+                                        '9.0' => '9.0 hh (36in)',
+                                        '9.2' => '9.2 hh (38in)',
+                                        '10.0' => '10.0 hh (40in)',
+                                        '10.2' => '10.2 hh',
+                                        '11.0' => '11.0 hh (44in)',
+                                        '11.2' => '11.2 hh',
+                                        '12.0' => '12.0 hh (48in)',
+                                        '12.1' => '12.1 hh',
+                                        '12.2' => '12.2 hh',
+                                        '12.3' => '12.3 hh',
+                                        '13.0' => '13.0 hh (52in)',
+                                        '13.1' => '13.1 hh',
+                                        '13.2' => '13.2 hh',
+                                        '13.3' => '13.3 hh',
+                                        '14.0' => '14.0 hh (56in)',
+                                        '14.1' => '14.1 hh',
+                                        '14.2' => '14.2 hh',
+                                        '14.3' => '14.3 hh',
+                                        '15.0' => '15.0 hh (60in)',
+                                        '15.1' => '15.1 hh',
+                                        '15.2' => '15.2 hh',
+                                        '15.3' => '15.3 hh',
+                                        '16.0' => '16.0 hh (64in)',
+                                        '16.1' => '16.1 hh',
+                                        '16.2' => '16.2 hh',
+                                        '16.3' => '16.3 hh',
+                                        '17.0' => '17.0 hh (68in)',
+                                        '17.1' => '17.1 hh',
+                                        '17.2' => '17.2 hh',
+                                        '17.3' => '17.3 hh',
+                                        '18.0' => '18.0 hh (72in)',
+                                        '18.1' => '18.1 hh',
+                                        '18.2' => '18.2 hh',
+                                        '18.3' => '18.3 hh',
+                                        '19.0' => '19.0 hh (76in)',
+                                        '20.0' => '20.0 hh (80in)',
+                                        '21.0' => '21.0 hh (84in)',
+                                    ];
+                                @endphp
+
+                                @foreach ($heights as $value => $label)
+                                    <option value="{{ $value }}" {{ $data->pro_height == $value ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
                                 @endforeach
+                            </select>
+
                             </select>
                         </div>
                     </div>
@@ -1308,16 +1426,55 @@
                                 <div class="col-6">
                                     <!-- <h5 class="mb-3">Year</h5> -->
                                     <div class="age_input_group" id="yearGroup">
-                                        <input class="form-control gen_input" type="text" name="pro_age_year" value="{{ $data->pro_age_year }}" id="yearInput" maxlength="2"
-                                            placeholder="Year" />
+                                        <select class="form-control gen_input" name="pro_age_year" id="yearInput" required>
+                                            <option value="" disabled>Years</option>
+                                            <option value="1" {{ $data->pro_age_year == 1 ? 'selected' : '' }}>1</option>
+                                            <option value="2" {{ $data->pro_age_year == 2 ? 'selected' : '' }}>2</option>
+                                            <option value="3" {{ $data->pro_age_year == 3 ? 'selected' : '' }}>3</option>
+                                            <option value="4" {{ $data->pro_age_year == 4 ? 'selected' : '' }}>4</option>
+                                            <option value="5" {{ $data->pro_age_year == 5 ? 'selected' : '' }}>5</option>
+                                            <option value="6" {{ $data->pro_age_year == 6 ? 'selected' : '' }}>6</option>
+                                            <option value="7" {{ $data->pro_age_year == 7 ? 'selected' : '' }}>7</option>
+                                            <option value="8" {{ $data->pro_age_year == 8 ? 'selected' : '' }}>8</option>
+                                            <option value="9" {{ $data->pro_age_year == 9 ? 'selected' : '' }}>9</option>
+                                            <option value="10" {{ $data->pro_age_year == 10 ? 'selected' : '' }}>10</option>
+                                            <option value="11" {{ $data->pro_age_year == 11 ? 'selected' : '' }}>11</option>
+                                            <option value="12" {{ $data->pro_age_year == 12 ? 'selected' : '' }}>12</option>
+                                            <option value="13" {{ $data->pro_age_year == 13 ? 'selected' : '' }}>13</option>
+                                            <option value="14" {{ $data->pro_age_year == 14 ? 'selected' : '' }}>14</option>
+                                            <option value="15" {{ $data->pro_age_year == 15 ? 'selected' : '' }}>15</option>
+                                            <option value="16" {{ $data->pro_age_year == 16 ? 'selected' : '' }}>16</option>
+                                            <option value="17" {{ $data->pro_age_year == 17 ? 'selected' : '' }}>17</option>
+                                            <option value="18" {{ $data->pro_age_year == 18 ? 'selected' : '' }}>18</option>
+                                            <option value="19" {{ $data->pro_age_year == 19 ? 'selected' : '' }}>19</option>
+                                            <option value="20" {{ $data->pro_age_year == 20 ? 'selected' : '' }}>20</option>
+                                            <option value="21" {{ $data->pro_age_year == 21 ? 'selected' : '' }}>21</option>
+                                            <option value="22" {{ $data->pro_age_year == 22 ? 'selected' : '' }}>22</option>
+                                            <option value="23" {{ $data->pro_age_year == 23 ? 'selected' : '' }}>23</option>
+                                            <option value="24" {{ $data->pro_age_year == 24 ? 'selected' : '' }}>24</option>
+                                            <option value="25" {{ $data->pro_age_year == 25 ? 'selected' : '' }}>25</option>
+                                        </select>
                                         <span id="yearLabel">Years Old</span>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <!-- <h5 class="mb-3">Month</h5> -->
                                     <div class="age_input_group" id="monthGroup">
-                                        <input class="form-control gen_input" type="text" name="pro_age_month" value="{{ $data->pro_age_month }}" id="monthInput" maxlength="2"
-                                            placeholder="Month" />
+                                        <select class="form-control gen_input" name="pro_age_month" id="monthInput" required>
+                                            <option value="" disabled>Months</option>
+                                            <option value="0" {{ $data->pro_age_month == 0 ? 'selected' : '' }}>0</option>
+                                            <option value="1" {{ $data->pro_age_month == 1 ? 'selected' : '' }}>1</option>
+                                            <option value="2" {{ $data->pro_age_month == 2 ? 'selected' : '' }}>2</option>
+                                            <option value="3" {{ $data->pro_age_month == 3 ? 'selected' : '' }}>3</option>
+                                            <option value="4" {{ $data->pro_age_month == 4 ? 'selected' : '' }}>4</option>
+                                            <option value="5" {{ $data->pro_age_month == 5 ? 'selected' : '' }}>5</option>
+                                            <option value="6" {{ $data->pro_age_month == 6 ? 'selected' : '' }}>6</option>
+                                            <option value="7" {{ $data->pro_age_month == 7 ? 'selected' : '' }}>7</option>
+                                            <option value="8" {{ $data->pro_age_month == 8 ? 'selected' : '' }}>8</option>
+                                            <option value="9" {{ $data->pro_age_month == 9 ? 'selected' : '' }}>9</option>
+                                            <option value="10" {{ $data->pro_age_month == 10 ? 'selected' : '' }}>10</option>
+                                            <option value="11" {{ $data->pro_age_month == 11 ? 'selected' : '' }}>11</option>
+                                        </select>
                                         <span id="monthLabel">Months Old</span>
                                     </div>
                                 </div>
@@ -1465,10 +1622,10 @@
                         <div class="border_box_one">
                             <h4 class="mb-3">What type of rider level best suits your horse? </h4>
                             <div class="custom-multiselect" id="multiSelect">
-                                <div class="selected-tags" id="selectedTags">
+                                <div class="selected-tags" id=" selectedTags">
                                     <span class="placeholderOne">Select Level</span>
                                 </div>
-                                <div class="dropdown hidden" id="dropdown">
+                                {{-- <div class="dropdown hidden" id="dropdown">
                                     <div data-value="Beginner Riders - have minimal or no experience">Beginner Riders - have minimal or no experience</div>
                                     <div data-value="Novice Riders - have a basic understanding of riding and can perform basic gaits.">Novice Riders - have a basic understanding of riding and can
                                         perform basic gaits.</div>
@@ -1476,7 +1633,31 @@
                                         and can handle more challenging situations</div>
                                     <div data-value="Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level.">Advanced Riders - have a high level
                                         of skill and experience, often competing or riding at a professional level.</div>
+                                </div> --}}
+                                <div class="dropdown hidden" id="dropdown">
+
+                                    <div data-value="Beginner Riders - have minimal or no experience"
+                                        class="{{ in_array('Beginner Riders - have minimal or no experience', $selectedSkills) ? 'selected' : '' }}">
+                                        Beginner Riders - have minimal or no experience
+                                    </div>
+
+                                    <div data-value="Novice Riders - have a basic understanding of riding and can perform basic gaits."
+                                        class="{{ in_array('Novice Riders - have a basic understanding of riding and can perform basic gaits.', $selectedSkills) ? 'selected' : '' }}">
+                                        Novice Riders - have a basic understanding of riding and can perform basic gaits.
+                                    </div>
+
+                                    <div data-value="Intermediate Riders - are comfortable with all gaits and can handle more challenging situations"
+                                        class="{{ in_array('Intermediate Riders - are comfortable with all gaits and can handle more challenging situations', $selectedSkills) ? 'selected' : '' }}">
+                                        Intermediate Riders - are comfortable with all gaits and can handle more challenging situations
+                                    </div>
+
+                                    <div data-value="Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level."
+                                        class="{{ in_array('Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level.', $selectedSkills) ? 'selected' : '' }}">
+                                        Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level.
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -1708,9 +1889,9 @@
                                         {{-- @foreach ($videoUrls as $url)
                                             @if ($loop->index < 3)
                                                 <div class="video_input d-flex align-items-center mb-2"> --}}
-                                                    <input class="form-control gen_input" type="url" name="pro_youtube" value="{{ $data->pro_youtube }}"
-                                                        placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-                                                    {{-- @if (!$loop->first)
+                                        <input class="form-control gen_input" type="url" name="pro_youtube" value="{{ $data->pro_youtube }}"
+                                            placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                                        {{-- @if (!$loop->first)
                                                         <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
                                                     @endif
                                                 </div>
@@ -1731,7 +1912,6 @@
                                                 <i class="fas fa-video fa-2x text-primary"></i>
                                             </div>
                                         @endif
-
 
                                         <div class="upload__img-wrap"></div>
                                         <div class="upload__btn-box">

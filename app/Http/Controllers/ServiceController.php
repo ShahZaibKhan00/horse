@@ -145,6 +145,9 @@ class ServiceController extends Controller
         $data->User_id = Auth::user()->id;
 
         $data->save();
+
+        $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
+        Session()->flash('alert-success', $messages);
         return redirect()->back();
 
         // return redirect('/manage_service');
@@ -194,6 +197,8 @@ class ServiceController extends Controller
             $ser_profile->move($destinationPath, $servName);
             $data->ser_profile = $servName;
         }
+        // dd("a");
+
         $data->full_name = $request->full_name;
         $data->business_name = $request->business_name;
         $data->email = $request->email;
@@ -246,11 +251,10 @@ class ServiceController extends Controller
             $data->ser_gallery = json_encode($imageNames);
         }
         $data->demo_link = implode(',', $request->demo_link);
-
         $data->save();
-        return redirect()->back();
-
-        // return redirect('/manage_service');
+        $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Updated Successfully!'];
+        Session()->flash('alert-success', $messages);
+        return back();
     }
 
     /**

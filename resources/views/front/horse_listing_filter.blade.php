@@ -446,15 +446,39 @@
 
         .countdown {
             display: flex;
-            gap: 10px;
+            gap: 0px;
             align-items: center;
             justify-content: center;
+            position: absolute;
+            z-index: 999;
+            bottom: 28px;
+            right: 3px;
+            background: #1d2139db;
+            padding: 5px 10px 25px 10px;
+            border: 1px solid #ffffff54;
+            width: 295px;
+        }
+
+        .countdown p {
+            color: #fff;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            font-weight: bold;
+            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .circle-container {
             position: relative;
-            width: 68px;
-            height: 68px;
+            padding: 0px 10px;
+            border-right: 1px solid #c09956;
         }
 
         .progress-ring {
@@ -463,7 +487,8 @@
 
         .progress-ring circle {
             fill: none;
-            stroke-width: 4;
+            stroke-width: 3;
+            /* Reduced from 4 to maintain proportions */
         }
 
         .bg {
@@ -477,22 +502,31 @@
         }
 
         .circle-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             text-align: center;
             color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .circle-text span {
             font-size: 14px;
             font-weight: bold;
+            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .circle-text small {
-            font-size: 9px;
+            font-size: 14px;
+            /* Reduced from 9px */
             display: block;
+            font-weight: bold;
+            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .info_list li {
@@ -569,8 +603,7 @@
         .icon_heart {
             position: absolute;
             font-size: 30px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 15px;
             right: 24px;
             color: #fff;
             cursor: pointer;
@@ -668,9 +701,8 @@
         .horse_list_card_new .icon_heart {
             position: absolute;
             font-size: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 15px;
+            top: -23px;
+            right: 7px;
         }
 
         .horse_list_card_new .custome_listing_col .info_list li {
@@ -765,7 +797,9 @@
             }
 
             .countdown {
-                transform: scale(0.8);
+                transform: scale(0.7);
+                bottom: 18px;
+                right: -42px;
             }
 
             .choose-btn {
@@ -917,11 +951,11 @@
         }
 
         /* .scroller {
-       max-height: 1366px;
-       overflow-y: auto;
-       overflow-x: hidden;
-       }
-       */
+                                           max-height: 1366px;
+                                           overflow-y: auto;
+                                           overflow-x: hidden;
+                                           }
+                                           */
     </style>
 
     <section class="inner_page_banner membershipBanner">
@@ -1690,12 +1724,6 @@
                                 <option value="">1-44</option>
                                 <option value="">1-54</option>
                             </select>
-                            <!-- <select>
-                         <option value="">Price (High to Low)</option>
-                         <option value="">Price (Low to High)</option>
-                         <option value="">Price (High)</option>
-                         <option value="">Price (Low)</option>
-                      </select> -->
                             <select id="sort" name="sort" onchange="sortProducts(this.value)">
                                 <option value="" {{ $sort == '' ? 'selected' : '' }}>Default (Newest)</option>
                                 <option value="price_desc" {{ $sort == 'price_desc' ? 'selected' : '' }}>Price (Low to High)</option>
@@ -1712,9 +1740,6 @@
                                     <div class="blue_stripe">
                                         <p class="fs_tag">{{ $product->pro_ad_type }}</p>
                                         <ul class="top_list">
-                                            {{-- <li>Trail</li>
-                                            <li>Dressage</li>
-                                            <li>Beginner Safe</li> --}}
                                         </ul>
                                     </div>
                                     <div class="blue_stripe blue_stripe_new">
@@ -1750,14 +1775,51 @@
                                             <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                         </div>
                                         <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                        @if ($product->pro_ad_type == 'At Auction')
+                                            <div class="countdown" data-duration="259200000">
+                                                <div class="circle-container" data-type="days">
+                                                    <div class="circle-text">
+                                                        <span class="value">3</span>
+                                                        <small>Days</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container" data-type="hours">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Hrs</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container" data-type="minutes">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Mins</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container border-0" data-type="seconds">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Secs</small>
+                                                    </div>
+                                                </div>
+                                                <p>TILL END OF AUCTION</p>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="text_box">
                                         <div class="custome_listing_row">
                                             <div class="custome_listing_col">
                                                 <ul class="info_list">
                                                     <!-- <li>{{ $product->pro_breed }}</li> -->
-                                                    <li>{{ $product->pro_age_year }} Years {{ $product->pro_age_month }} Old</li>
-                                                    <li>{{ $product->pro_height }}</li>
+                                                    <li>
+                                                        @if ($product->pro_age_year > 0)
+                                                            {{ $product->pro_age_year }} Years
+                                                        @endif
+                                                        @if ($product->pro_age_month > 0)
+                                                            {{ $product->pro_age_month }} MO
+                                                        @endif
+                                                        Old
+                                                    </li>
+                                                    <li>{{ $product->pro_height }} HH</li>
                                                     <li>{{ $product->pro_gender }}</li>
                                                 </ul>
                                             </div>
@@ -1772,14 +1834,28 @@
                                         </div>
                                         <div class="custome_listing_col w-100">
                                             <ul class="info_list">
-                                                <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
-                                                    NJ
+                                                @php
+                                                    $state = $product->per_state ?? 'alabama (AL)';
+                                                    preg_match('/\((.*?)\)/', $state, $matches);
+                                                    $stateCode = $matches[1] ?? '';
+                                                @endphp
+
+                                                <li class="m-0 mb-2">
+                                                    {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
+                                                    {{ $stateCode }}
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="blue_wrapper">
                                             <div class="blue_stripe">
-                                                <h3>Price: ${{ $product->pro_reg_price }}</h3>
+                                                <h3>
+                                                    @if ($product->pro_ad_type == 'At Auction')
+                                                        Starting Bid:
+                                                    @else
+                                                        Price:
+                                                    @endif
+                                                    ${{ $product->pro_reg_price }}
+                                                </h3>
                                             </div>
                                             <div class="horse_list_card_btn_flex_new bottom_row">
                                                 <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
@@ -1792,154 +1868,16 @@
                                                 <a href="#!" class="horse_card_btn">Share</a>
                                                 <form class="horse_card_btn" action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" method="POST">
                                                     @csrf
-                                                    <button class="fvrt_btn" type="submit">
+                                                    <button class="fvrt_btn" type="submit" title="Add to favorite">
                                                         Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                                     </button>
                                                 </form>
-                                                {{-- <label class="fvrt_btn">
-                              <input type="checkbox" hidden />
-                              Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                              </label> --}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             @empty
                             @endforelse
-                            {{-- @forelse ($products as $product)
-                  <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                     <div class="horse_list_card">
-                        <div class="blue_stripe">
-                           <h2>{{ $product->pro_name }}</h2>
-                           <label class="heart_checkbox_wrapper d-block">
-                           <input type="checkbox" class="heartCheckbox" hidden />
-                           <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                           </label>
-                        </div>
-                        <div class="img_box">
-                           <div class="swiper horse_list_card_slider h-100 w-100">
-                              <div class="swiper-wrapper">
-                                 @php
-                                 $productImages = !empty($product->pro_imgs) ?
-                                 json_decode($product->pro_imgs) : [];
-                                 @endphp
-                                 @foreach ($productImages as $item)
-                                 <div class="swiper-slide">
-                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
-                                 </div>
-                                 @endforeach
-                              </div>
-                              <div class="swiper-pagination"></div>
-                           </div>
-                           <div class="arrow_flex">
-                              <button class="horse_arrow_left"><i class="fa fa-chevron-left"
-                                 aria-hidden="true"></i></button>
-                              <button class="horse_arrow_right"><i class="fa fa-chevron-right"
-                                 aria-hidden="true"></i></button>
-                           </div>
-                           <p class="fs_tag">{{$product->pro_ad_type}}</p>
-                        </div>
-                        <div class="text_box">
-                           <div class="row">
-                              <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                 <div class="row">
-                                    <div class="col-12 pe-0">
-                                       <ul class="info_list">
-                                          <li><strong>Breed:</strong> {{ $product->pro_breed ?? ' ' }}
-                                          </li>
-                                          <li><strong>Born at:</strong> {{ ($product->pro_age_month ?? '')
-                                             . ', ' . ($product->pro_age_year ?? '') }}
-                                          </li>
-                                          <li><strong>Height:</strong> {{ $product->pro_height ?? ' ' }}
-                                          </li>
-                                          <li><strong>Sex:</strong> {{ $product->pro_gender ?? ' ' }}</li>
-                                       </ul>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                 <div class="row">
-                                    <div class="col-12">
-                                       <ul class="info_list">
-                                          <li><strong>Color:</strong> {{ $product->pro_color ?? ' ' }}
-                                          </li>
-                                          <li><strong>Registered:</strong> {{
-                                             Str::ucfirst($product->registerd_horse ?? ' ') }}
-                                          </li>
-                                          <li><strong>Gaited:</strong> {{ $product->gaited }}</li>
-                                          <li><strong>Location:</strong> {{ Str::title($product->pro_state
-                                             . ', ' . $product->pro_city) }}
-                                          </li>
-                                       </ul>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="blue_wrapper">
-                              <div class="blue_stripe mb-2">
-                                 <h3>Price: ${{ $product->pro_reg_price }}</h3>
-                              </div>
-                              @if ($product->pro_ad_type == 'Auction')
-                              <div class="countdown" data-duration="9971000">
-                                 <!-- duration in ms (2h 46m 11s) -->
-                                 <div class="circle-container" data-type="days">
-                                    <svg class="progress-ring" width="68" height="68">
-                                       <circle class="bg" r="30" cx="34" cy="34" />
-                                       <circle class="progress" r="30" cx="34" cy="34" />
-                                    </svg>
-                                    <div class="circle-text">
-                                       <span class="value">0</span>
-                                       <small>Days</small>
-                                    </div>
-                                 </div>
-                                 <div class="circle-container" data-type="hours">
-                                    <svg class="progress-ring" width="68" height="68">
-                                       <circle class="bg" r="30" cx="34" cy="34" />
-                                       <circle class="progress" r="30" cx="34" cy="34" />
-                                    </svg>
-                                    <div class="circle-text">
-                                       <span class="value">0</span>
-                                       <small>Hours</small>
-                                    </div>
-                                 </div>
-                                 <div class="circle-container" data-type="minutes">
-                                    <svg class="progress-ring" width="68" height="68">
-                                       <circle class="bg" r="30" cx="34" cy="34" />
-                                       <circle class="progress" r="30" cx="34" cy="34" />
-                                    </svg>
-                                    <div class="circle-text">
-                                       <span class="value">0</span>
-                                       <small>Minutes</small>
-                                    </div>
-                                 </div>
-                                 <div class="circle-container" data-type="seconds">
-                                    <svg class="progress-ring" width="68" height="68">
-                                       <circle class="bg" r="30" cx="34" cy="34" />
-                                       <circle class="progress" r="30" cx="34" cy="34" />
-                                    </svg>
-                                    <div class="circle-text">
-                                       <span class="value">0</span>
-                                       <small>Seconds</small>
-                                    </div>
-                                 </div>
-                              </div>
-                              @endif
-                              <div class="horse_list_card_btn_flex mt-3">
-                                 <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                 <a href="#!" class="horse_card_btn">Chat with Seller</a>
-                                 <a href="{{ route('products_detail', $product->pro_sku) }}"
-                                    class="horse_card_btn">View Details</a>
-                                 <label class="fvrt_btn">
-                                 <input type="checkbox" hidden />
-                                 Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  @empty
-                  @endforelse --}}
                         </div>
                     </div>
                 </div>
@@ -2300,18 +2238,18 @@
    const tagsContainer = document.querySelector(".shortcuts_tags_flex");
    const form = document.getElementById("mainForm");
    const notification = document.getElementById("tagNotification");
-   
+
    // 🟢 Show notification for 5 seconds
    function showNotification(message) {
      notification.textContent = message;
      notification.classList.add("active");
      setTimeout(() => notification.classList.remove("active"), 3000);
    }
-   
+
    // 🟢 Create tag
    function createTag(label, value, key, showLabel = false) {
      if (!value || value.trim() === "" || value === "-") return;
-   
+
      // Avoid duplicates (same key)
      if ([...tagsContainer.children].some(tag => tag.dataset.key === key)) {
        const existing = tagsContainer.querySelector(`[data-key='${key}']`);
@@ -2319,27 +2257,27 @@
        showNotification(`Updated ${label} to ${value}`);
        return;
      }
-   
+
      const tag = document.createElement("div");
      tag.classList.add("shortcuts_tags_item");
      tag.dataset.key = key;
-   
+
      tag.innerHTML = `
        <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
        <a href="#!" class="remove-tag">
          <i class="fa fa-times-circle" aria-hidden="true"></i>
        </a>
      `;
-   
+
      tagsContainer.appendChild(tag);
      showNotification(`Your selection (${showLabel ? `${label}: ${value}` : value}) has been added to the top.`);
-   
-   
+
+
      // Remove tag
      // Inside createTag, replace the remove listener with:
      tag.querySelector(".remove-tag").addEventListener("click", () => {
      tag.remove();
-   
+
      // Clear associated inputs based on key
      if (key === "distance") {
          form.querySelectorAll(".distance-input").forEach(i => i.value = "");
@@ -2364,11 +2302,11 @@
          const input = form.querySelector(`[name="${key}"]`);
          if (input) input.value = "";
      }
-   
+
      showNotification(`${label || key} removed`);
      });
    }
-   
+
    // 🟡 Combine min-max values correctly
    function getRangeValue(inputs) {
      const min = inputs[0]?.value.trim() || "";
@@ -2378,7 +2316,7 @@
      if (max) return `Up to ${max}`;
      return "";
    }
-   
+
    // 🟢 Distance Range
    const distanceInputs = form.querySelectorAll(".distance-input");
    distanceInputs.forEach(input =>
@@ -2387,7 +2325,7 @@
        if (val) createTag("Distance Range", val, "distance", true);
      })
    );
-   
+
    // 🟢 Height Range
    const heightInputs = form.querySelectorAll("input[name^='height_']");
    heightInputs.forEach(input =>
@@ -2396,7 +2334,7 @@
        if (val) createTag("Height Range", val, "height", true);
      })
    );
-   
+
    // 🟢 Age Range
    const ageInputs = form.querySelectorAll("input[name^='age_']");
    ageInputs.forEach(input =>
@@ -2405,7 +2343,7 @@
        if (val) createTag("Age Range (Years)", val, "age", true);
      })
    );
-   
+
    // 🟢 Price Range
    const priceInputs = form.querySelectorAll("input[name='from'], input[name='to']");
    priceInputs.forEach(input =>
@@ -2414,7 +2352,7 @@
        if (val) createTag("Price Range ($)", val, "price", true);
      })
    );
-   
+
    // 🟢 Normal inputs (non-range)
    const normalInputs = form.querySelectorAll("input[type='text'], input[type='number']");
    normalInputs.forEach(input => {
@@ -2426,7 +2364,7 @@
        input.name === "to"
      )
        return;
-   
+
      // Tag create on blur (jab user doosri field me jaye)
      input.addEventListener("blur", () => {
        if (input.value.trim()) {
@@ -2434,7 +2372,7 @@
        }
      });
    });
-   
+
    // 🟢 Select fields — tag create jab doosra select start ho ya focus lose kare
    form.querySelectorAll("select").forEach(select => {
      select.addEventListener("change", () => {
@@ -2444,15 +2382,15 @@
        }
      });
    });
-   
-   
+
+
      function restoreTagsFromFormData() {
      const formData = new FormData(form);
-   
+
      // Helper: safely get value(s)
      const getVal = (name) => formData.get(name)?.trim() || null;
      const getAll = (name) => formData.getAll(name).filter(v => v.trim() !== "");
-   
+
      // --- Distance ---
      const distMin = getVal('distance_min');
      const distMax = getVal('distance_max');
@@ -2465,7 +2403,7 @@
          })();
          if (val) createTag("Distance Range", val, "distance", true);
      }
-   
+
      // --- Height ---
      const hMin = getVal('height_min');
      const hMax = getVal('height_max');
@@ -2478,7 +2416,7 @@
          })();
          if (val) createTag("Height Range", val, "height", true);
      }
-   
+
      // --- Age ---
      const ageMin = getVal('age_min');
      const ageMax = getVal('age_max');
@@ -2491,7 +2429,7 @@
          })();
          if (val) createTag("Age Range (Years)", val, "age", true);
      }
-   
+
      // --- Price ---
      const from = getVal('from');
      const to = getVal('to');
@@ -2504,7 +2442,7 @@
          })();
          if (val) createTag("Price Range ($)", val, "price", true);
      }
-   
+
      // --- Normal text/number inputs (non-range) ---
      const normalFields = ['name', 'breed', 'state', 'selectedColor', 'selectedGender', 'selectedDiscipline'];
      normalFields.forEach(name => {
@@ -2516,7 +2454,7 @@
          createTag(label, val, name, false);
          }
      });
-   
+
      // --- Select fields (multi-value possible) ---
      // Assuming your selects use names like "skill", "rider", etc.
      const selectFields = ['skill', 'rider'];
@@ -2531,7 +2469,7 @@
          }
          });
      });
-   
+
      // --- Radio-based filters (e.g., ad types) ---
      const adTypes = ['listed_horses', 'auction_horses', 'sold_horses', 'lease_horses'];
      adTypes.forEach(name => {
@@ -2541,12 +2479,12 @@
          }
      });
      }
-   
+
      // 🟢 Call it on page load
      document.addEventListener("DOMContentLoaded", () => {
      if (form) restoreTagsFromFormData();
      });
-   
+
 </script> --}}
     <script>
         const tagsContainer = document.querySelector(".shortcuts_tags_flex");

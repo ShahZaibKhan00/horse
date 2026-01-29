@@ -8,17 +8,26 @@ use Stripe\Customer;
 use App\Models\General;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Stripe\Checkout\Session as StripSession;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Session as ProjectSession;
 
 class AllController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
+
+        $this->middleware(function ($request, $next) {
+            if (auth()->user()->usertype != 0) {
+                abort(404, 'Page Not Found!!!');
+            }
+            return $next($request);
+        });
     }
 
     function index() {
@@ -52,7 +61,15 @@ class AllController extends Controller
             ->first();
 
         // dd($data);
-        if (empty($plans->count())) {
+        // if (empty($plans->count())) {
+        //     return redirect('list-management?label=horse');
+        // }
+        // $plan = DB::table('plans')
+        //     ->where('user_id', auth()->id())
+        //     ->where('status', 1)
+        //     ->first();
+
+        if (!$data) {
             return redirect('list-management?label=horse');
         }
         return view('admin.horse-listing', compact('username', 'data', 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
@@ -71,7 +88,7 @@ class AllController extends Controller
             ->where('useer_id', Auth::id())
             ->orderByDesc('id')
             ->first();
-        if (empty($plans->count())) {
+        if (!$data) {
             return redirect('list-management?label=realestates');
         }
         return view('admin.realstate-listing', compact('username', 'data', 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
@@ -89,13 +106,16 @@ class AllController extends Controller
             ->where('useer_id', Auth::id())
             ->orderByDesc('id')
             ->first();
-        if (empty($plans->count())) {
+        if (!$data) {
             return redirect('list-management?label=services');
         }
         return view('admin.service-listing', compact('username', 'data', 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
     }
 
     function payment($id) {
+        if (!Auth::check()) {
+            return redirect()->back()->with(    'error', 'Please Login to Subscribe Package.');
+        }
         $plan = DB::table('plans')->where('id', Crypt::decrypt($id))->first();
         $user = Auth::user();
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -180,5 +200,32 @@ class AllController extends Controller
             Log::error('Payment success error: ' . $e->getMessage());
             return redirect()->route('login')->with('error', 'Something went wrong. Please log in.');
         }
+    }
+
+    function invoice($encryptedId) {
+        try {
+        $subscriptionId = decrypt($encryptedId);
+    } catch (DecryptException $e) {
+        abort(404);
+    }
+
+    $plan = DB::table('subscriptions')
+        ->join('subscribed', 'subscriptions.id', '=', 'subscribed.subscription_id')
+        ->where('subscriptions.id', $subscriptionId)   // 👈 decrypted id
+        ->where('subscriptions.useer_id', Auth::id())   // 👈 security check
+        ->select(
+            'subscriptions.*',
+            'subscribed.*'
+        )
+        ->first();
+
+
+        if (!$plan) {
+            abort(403);
+        }
+
+        $pdf = Pdf::loadView('admin.invoice', ['plan' => $plan]);
+        return $pdf->stream(Auth::user()->name . '.pdf');
+        // return view('admin.invoice', compact('plan'));
     }
 }

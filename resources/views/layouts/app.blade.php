@@ -303,6 +303,9 @@
     .tiktok {
         filter: brightness(1) invert(1);
     }
+    real_estate_card_new .blue_stripe h2 {
+    font-size: 18px !important;
+}
 </style>
 <style>
     .toast-success {

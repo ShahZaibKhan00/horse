@@ -13,6 +13,7 @@ class PlanController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+
     function index() {
         $usertype = Auth::user()->usertype;
         $username = Auth::user()->name;
@@ -115,7 +116,11 @@ class PlanController extends Controller
             ->select('subscriptions.*', 'subscribed.*')
             ->orderBy('subscriptions.created_at', 'desc')
             ->get();
-        return view('admin.membership', compact('username' , 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
+        if ($usertype == 0) {
+            return view('admin.membership', compact('username' , 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
+        }
+        else
+            abort(404, 'Page Not Found!');
     }
 
     function listing() {

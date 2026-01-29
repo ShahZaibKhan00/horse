@@ -10,9 +10,10 @@ use App\Models\Contact;
 use App\Models\General;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use App\Models\HorseFavorite;
 use App\Models\RealStateFavorite;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -343,7 +344,10 @@ $user->services = $request->filled('pro_service_level') && $request->input('pro_
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        return view('admin.membership', compact('username' , 'userprofile' , 'Logo'  , 'Web_name', 'categories'));
+        $plans = DB::table('plans')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        return view('admin.membership', compact('username' , 'plans', 'userprofile' , 'Logo'  , 'Web_name', 'categories'));
     }
 
     function horse() {
@@ -370,6 +374,6 @@ $user->services = $request->filled('pro_service_level') && $request->input('pro_
     }
 
     public function dashboardU() {
-        
+
     }
 }

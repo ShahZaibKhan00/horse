@@ -546,10 +546,6 @@ section.video .pay_btn {left: 0;right: 0;margin: auto;top: 50%;transform: transl
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 5px;
-    white-space: nowrap;
-    width: 305px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .equestrian_service_sec .product_clm p {
     font-size: 20px;
@@ -1780,10 +1776,10 @@ select.minimal {
 
 
 .blue_stripe h2 {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     text-align: center;
-    margin: 0;
+    margin: 2px 0;
     color: white;
     text-shadow: -1px 0 0 #ba9148, 1px 0 0 #ba9148, 0 -1px 0 #ba9148, 0 1px 0 #ba9148, -1px -1px 0 #ba9148, 1px -1px 0 #ba9148, -1px 1px 0 #ba9148, 1px 1px 0 #ba9148;
 }

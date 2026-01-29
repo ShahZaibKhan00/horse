@@ -1,5 +1,5 @@
 @php
-    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+    $layout = Auth::user()->usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
 @endphp
 
 @extends($layout)
@@ -232,7 +232,7 @@
                             <div class="row mb-2">
                                 <div class="col-6 d-flex gap-5">
                                     <div class="form-check">
-                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Sale" />
+                                        <label><input class="form-check-input" name="ad_type" type="radio" value="Sale" required />
                                             Sale</label>
                                     </div>
                                     <div class="form-check">
@@ -308,7 +308,7 @@
                                 <div class="col-6">
                                     <h4 class="mb-3">Location <span class="asterisk">*</span></h4>
                                     {{-- <input class="form-control gen_input" type="text" name="real_location" placeholder="Property address" required /> --}}
-                                    <select class="form-control gen_input mb-3" name="real_location">
+                                    <select class="form-control gen_input mb-3" name="real_location" required>
                                         <option selected disabled>Select your State</option>
                                         <option value="alabama (AL)">Alabama (AL)</option>
                                         <option value="alaska (AK)">Alaska (AK)</option>
@@ -923,7 +923,7 @@
                                             <p>Drag your Image here<span class="or">OR</span> <span class="browse_option">Browse from
                                                     device</span>
                                             </p>
-                                            <input name="gallery_imgs[]" type="file" multiple="multiple" class="upload__inputfile" data-max_length="20">
+                                            <input name="gallery_imgs[]" type="file" multiple="multiple" class="upload__inputfile" data-max_length="20" required>
                                         </label>
                                     </div>
                                 </div>
@@ -990,7 +990,7 @@
                                 </div>
                                 <div class="col-6">
                                     <h5 class="mb-3">Website Link <small class="text-muted">(Optional)</small></h5>
-                                    <input class="form-control gen_input_one mb-3" type="url" name="website_link" placeholder="example@abcd.com" />
+                                    <input class="form-control gen_input_one mb-3" type="text" name="website_link" placeholder="example@abcd.com" />
                                 </div>
                             </div>
                             <h5 class="mb-3">Upload Your Photo <small class="text-muted mb-3">(Optional) </small></h5>

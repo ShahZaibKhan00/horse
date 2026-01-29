@@ -1,5 +1,5 @@
 @php
-    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+    $layout = Auth::user()->usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
 @endphp
 
 @extends($layout)
@@ -759,7 +759,7 @@
                                     </div>
                                     <div class="col-12">
                                         <h5 class="mb-2">Website URL (optional)</h5>
-                                        <input class="form-control gen_input_one   mb-3" type="url" name="website_url" value="{{ $data->website_url }}" placeholder="Website URL (optional)" />
+                                        <input class="form-control gen_input_one   mb-3" type="text" name="website_url" value="{{ $data->website_url }}" placeholder="Website URL (optional)" />
                                     </div>
                                 </div>
                             </div>
@@ -2244,12 +2244,10 @@
                     </div>
                     <div class="col-12 d-flex justify-content-center">
                         <div class="col-auto  d-flex justify-content-center gap-3">
-                            <a href="#!" class="btn submit_btn_one">Discard</a>
                             <button class="btn submit_btn_one" type="submit">Submit</button>
                             <a href="#!" class="btn submit_btn_one">Preview</a>
                         </div>
                     </div>
-
         </div>
         </form>
         @endforeach

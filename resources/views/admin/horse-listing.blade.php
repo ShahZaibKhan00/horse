@@ -93,15 +93,17 @@
                                             <button class="user_arrow_right"><img src="assets/images/arrow_ri8.png" alt=""></button>
                                         </div>
                                         <p>GYPSY VANNER CROSS</p>
-                                        <div class="countdown_user_timer" data-end-time="2025-12-31T23:59:59">
-                                            <h5>
-                                                <span class="days">1</span> Days |
-                                                <span class="hours">0</span> Hrs |
-                                                <span class="minutes">0</span> Mins |
-                                                <span class="seconds">0</span> Secs
-                                            </h5>
-                                            <h6>TILL END OF AUCTIONS</h6>
-                                        </div>
+                                        @if($data->pro_ad_type == 'At Auction')
+                                            <div class="countdown_user_timer" data-end-time="2025-12-31T23:59:59">
+                                                <h5>
+                                                    <span class="days">1</span> Days |
+                                                    <span class="hours">0</span> Hrs |
+                                                    <span class="minutes">0</span> Mins |
+                                                    <span class="seconds">0</span> Secs
+                                                </h5>
+                                                <h6>TILL END OF AUCTIONS</h6>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="user_card_info_box">
                                         <div class="cell_container">
@@ -115,7 +117,11 @@
                                     </div>
                                     <div class="bid-panel">
                                         <div class="bid-header">
-                                            <div class="bid-amount">STARTING BID: ${{ $data->pro_reg_price }}</div>
+                                            <div class="bid-amount">@if ($data->pro_ad_type == 'At Auction')
+                                                        Starting Bid:
+                                                    @else
+                                                        Price:
+                                                    @endif ${{ $data->pro_reg_price }}</div>
                                         </div>
                                         {{-- <button class="button button-full">VIEW ALL DETAILS</button> --}}
                                         <div class="button-row">
@@ -125,7 +131,7 @@
                                         <div class="button-row">
                                             <button class="button button-full">VIEW ALL DETAILS</button>
 
-                                            <button class="button mb-0">SHARE</button>
+                                            <button class="button">SHARE</button>
                                             {{-- <button class="button mb-0">FAVORITE <span
                                                     style="color: #B69455">❤</span></button> --}}
                                         </div>

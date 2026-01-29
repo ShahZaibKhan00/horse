@@ -560,9 +560,8 @@
         .horse_list_card_new .icon_heart {
             position: absolute;
             font-size: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 15px;
+            top: -21px;
+            right: 6px;
         }
 
         .horse_list_card_new .custome_listing_col .info_list li {
@@ -640,6 +639,12 @@
         .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
         .horse_list_card_new .horse_list_card_btn_flex_new .fvrt_btn {
             text-transform: uppercase;
+        }
+
+
+        button.fvrt_btn.add_to_fvrt {
+            background: #c09957;
+            border-color: #c09957;
         }
 
         @media (max-width: 1799px) {
@@ -798,16 +803,16 @@
                     </div>
                 </div>
                 <!-- <div class="col-4">
-                    <div class="select_group">
-                        <div class="price_filter">
-                            <h3>Distance:</h3>
-                            <div class="price_filter_flex">
-                                <input type="number" name="" placeholder="Min" />
-                                <input type="number" name="" placeholder="Max" />
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                                            <div class="select_group">
+                                                <div class="price_filter">
+                                                    <h3>Distance:</h3>
+                                                    <div class="price_filter_flex">
+                                                        <input type="number" name="" placeholder="Min" />
+                                                        <input type="number" name="" placeholder="Max" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
                 <div class="col-6">
                     <div class="select_group">
                         <div class="price_filter">
@@ -1080,22 +1085,18 @@
                     </div>
                 </div>
                 <!--<div class="col-12">
-                    <div class="select_group">
-                        <input type="text" placeholder="I'm Looking for...." />
-                        <div class="select_group absolute_group">
-                            <select class="minimal">
-                                <option value="" disabled selected>Search All in Horses for Sale</option>
-                                <option value="">Horses 01</option>
-                                <option value="">Horses 02</option>
-                            </select>
-                        </div>
-                    </div>
-                </div> -->
-                
-                
-                
-                
-                
+                                            <div class="select_group">
+                                                <input type="text" placeholder="I'm Looking for...." />
+                                                <div class="select_group absolute_group">
+                                                    <select class="minimal">
+                                                        <option value="" disabled selected>Search All in Horses for Sale</option>
+                                                        <option value="">Horses 01</option>
+                                                        <option value="">Horses 02</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
                 <div class="col-12 mt-1">
                     <div class="btn_group">
                         <button type="submit" class="search_icon">
@@ -1220,14 +1221,50 @@
                                         <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                     </div>
                                     <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                    @if ($product->pro_ad_type === 'At Auction')
+                                        <div class="countdown" data-duration="259200000">
+                                            <div class="circle-container" data-type="days">
+                                                <div class="circle-text">
+                                                    <span class="value">3</span>
+                                                    <small>Days</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container" data-type="hours">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Hrs</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container" data-type="minutes">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Mins</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container border-0" data-type="seconds">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Secs</small>
+                                                </div>
+                                            </div>
+                                            <p>TILL END OF AUCTION</p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="text_box">
                                     <div class="custome_listing_row">
                                         <div class="custome_listing_col">
                                             <ul class="info_list">
-                                                <!-- <li>{{ $product->pro_breed }}</li> -->
-                                                <li>{{ $product->pro_age_year }} Years {{ $product->pro_age_month }} Old</li>
-                                                <li>{{ $product->pro_height }}</li>
+                                                <li>
+                                                    @if ($product->pro_age_year > 0)
+                                                        {{ $product->pro_age_year }} Years
+                                                    @endif
+                                                    @if ($product->pro_age_month > 0)
+                                                        {{ $product->pro_age_month }} MO
+                                                    @endif
+                                                    Old
+                                                </li>
+                                                <li>{{ $product->pro_height }} HH</li>
                                                 <li>{{ $product->pro_gender }}</li>
                                             </ul>
                                         </div>
@@ -1236,18 +1273,32 @@
                                                 <li>{{ $product->pro_color ?? ' ' }}</li>
                                                 <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
                                                 <li>Gaited: {{ $product->gaited }}</li>
-                                                <!-- <li><strong>Ad Type:</strong> {{ $product->pro_ad_type }}</li> -->
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="custome_listing_col w-100">
                                         <ul class="info_list">
-                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li>
+                                            @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                                $stateCode = $matches[1] ?? '';
+                                            @endphp
+
+                                            <li class="m-0 mb-2">
+                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
+                                                {{ $stateCode }}
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="blue_wrapper">
                                         <div class="blue_stripe">
-                                            <h3>Price: ${{ $product->pro_reg_price }}</h3>
+                                            <h3>
+                                                @if ($product->pro_ad_type == 'At Auction')
+                                                    Starting Bid:
+                                                @else
+                                                    Price:
+                                                @endif: ${{ $product->pro_reg_price }}
+                                            </h3>
                                         </div>
                                         <div class="horse_list_card_btn_flex_new bottom_row">
                                             <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
@@ -1260,7 +1311,7 @@
                                             <a href="#!" class="horse_card_btn">Share</a>
                                             <form action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" class="horse_card_btn" method="POST">
                                                 @csrf
-                                                <button class="fvrt_btn" type="submit">
+                                                <button class="fvrt_btn" type="submit" title="Add to favorite">
                                                     Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </button>
                                             </form>
@@ -1279,9 +1330,6 @@
                                 <div class="blue_stripe">
                                     <p class="fs_tag">{{ $product->pro_ad_type }}</p>
                                     <ul class="top_list">
-                                        <li>Trail</li>
-                                        <li>Dressage</li>
-                                        <li>Beginner Safe</li>
                                     </ul>
                                 </div>
                                 <div class="blue_stripe blue_stripe_new">
@@ -1317,14 +1365,49 @@
                                         <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                     </div>
                                     <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                    @if ($product->pro_ad_type === 'At Auction')
+                                        <div class="countdown" data-duration="259200000">
+                                            <div class="circle-container" data-type="days">
+                                                <div class="circle-text">
+                                                    <span class="value">3</span>
+                                                    <small>Days</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container" data-type="hours">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Hrs</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container" data-type="minutes">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Mins</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container border-0" data-type="seconds">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Secs</small>
+                                                </div>
+                                            </div>
+                                            <p>TILL END OF AUCTION</p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="text_box">
                                     <div class="custome_listing_row">
                                         <div class="custome_listing_col">
                                             <ul class="info_list">
                                                 <!-- <li>{{ $product->pro_breed }}</li> -->
-                                                <li>{{ $product->pro_age_year }} Years {{ $product->pro_age_month }} Old</li>
-                                                <li>{{ $product->pro_height }}</li>
+                                                <li>
+                                                    {{ $product->pro_age_year }} Years
+                                                    @if ($product->pro_age_month > 0)
+                                                        {{ $product->pro_age_month }} MO
+                                                    @endif
+                                                    Old
+                                                </li>
+                                                <li>{{ $product->pro_height }} HH</li>
                                                 <li>{{ $product->pro_gender }}</li>
                                             </ul>
                                         </div>
@@ -1338,13 +1421,40 @@
                                         </div>
                                     </div>
                                     <div class="custome_listing_col w-100">
-                                        <ul class="info_list">
+                                        {{-- <ul class="info_list">
                                             <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li>
+                                        </ul> --}}
+                                        <ul class="info_list">
+                                            {{-- @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                                // echo $matches[1]; // AL
+                                            @endphp
+                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }}, @php
+                                                echo $matches[1];
+                                            @endphp</li> --}}
+                                            @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                                $stateCode = $matches[1] ?? '';
+                                            @endphp
+
+                                            <li class="m-0 mb-2">
+                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
+                                                {{ $stateCode }}
+                                            </li>
+                                            {{-- <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li> --}}
                                         </ul>
                                     </div>
                                     <div class="blue_wrapper">
                                         <div class="blue_stripe">
-                                            <h3>Price: ${{ $product->pro_reg_price }}</h3>
+                                            <h3>
+                                                @if ($product->pro_ad_type == 'At Auction')
+                                                    Starting Bid:
+                                                @else
+                                                    Price:
+                                                @endif: ${{ $product->pro_reg_price }}
+                                            </h3>
                                         </div>
                                         <div class="horse_list_card_btn_flex_new bottom_row">
                                             <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
@@ -1357,7 +1467,7 @@
                                             <a href="#!" class="horse_card_btn">Share</a>
                                             <form action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" class="horse_card_btn" method="POST">
                                                 @csrf
-                                                <button class="fvrt_btn" type="submit">
+                                                <button class="fvrt_btn" type="submit" title="Add to favorite">
                                                     Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </button>
                                             </form>
@@ -1377,9 +1487,9 @@
                                 <div class="blue_stripe">
                                     <p class="fs_tag">{{ $product->pro_ad_type }}</p>
                                     <ul class="top_list">
-                                        <li>Trail</li>
+                                        {{-- <li>Trail</li>
                                         <li>Dressage</li>
-                                        <li>Beginner Safe</li>
+                                        <li>Beginner Safe</li> --}}
                                     </ul>
                                 </div>
                                 <div class="blue_stripe blue_stripe_new">
@@ -1415,14 +1525,49 @@
                                         <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                     </div>
                                     <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                    @if ($product->pro_ad_type === 'At Auction')
+                                        <div class="countdown" data-duration="259200000">
+                                            <div class="circle-container" data-type="days">
+                                                <div class="circle-text">
+                                                    <span class="value">3</span>
+                                                    <small>Days</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container" data-type="hours">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Hrs</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container" data-type="minutes">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Mins</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container border-0" data-type="seconds">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Secs</small>
+                                                </div>
+                                            </div>
+                                            <p>TILL END OF AUCTION</p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="text_box">
                                     <div class="custome_listing_row">
                                         <div class="custome_listing_col">
                                             <ul class="info_list">
                                                 <!-- <li>{{ $product->pro_breed }}</li> -->
-                                                <li>{{ $product->pro_age_year }} Years {{ $product->pro_age_month }} Old</li>
-                                                <li>{{ $product->pro_height }}</li>
+                                                <li>
+                                                    {{ $product->pro_age_year }} Years
+                                                    @if ($product->pro_age_month > 0)
+                                                        {{ $product->pro_age_month }} MO
+                                                    @endif
+                                                    Old
+                                                </li>
+                                                <li>{{ $product->pro_height }} HH</li>
                                                 <li>{{ $product->pro_gender }}</li>
                                             </ul>
                                         </div>
@@ -1437,12 +1582,37 @@
                                     </div>
                                     <div class="custome_listing_col w-100">
                                         <ul class="info_list">
-                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li>
+                                            {{-- @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                            @endphp
+                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }}, @php
+                                                echo $matches[1];
+                                            @endphp</li> --}}
+                                            @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                                $stateCode = $matches[1] ?? '';
+                                            @endphp
+
+                                            <li class="m-0 mb-2">
+                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
+                                                {{ $stateCode }}
+                                            </li>
                                         </ul>
+                                        {{-- <ul class="info_list">
+                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li>
+                                        </ul> --}}
                                     </div>
                                     <div class="blue_wrapper">
                                         <div class="blue_stripe">
-                                            <h3>Price: ${{ $product->pro_reg_price }}</h3>
+                                            <h3>
+                                                @if ($product->pro_ad_type == 'At Auction')
+                                                    Starting Bid:
+                                                @else
+                                                    Price:
+                                                @endif: ${{ $product->pro_reg_price }}
+                                            </h3>
                                         </div>
                                         <div class="horse_list_card_btn_flex_new bottom_row">
                                             <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
@@ -1455,7 +1625,7 @@
                                             <a href="#!" class="horse_card_btn">Share</a>
                                             <form action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" class="horse_card_btn" method="POST">
                                                 @csrf
-                                                <button class="fvrt_btn" type="submit">
+                                                <button class="fvrt_btn" type="submit" title="Add to favorite">
                                                     Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </button>
                                             </form>
@@ -1465,556 +1635,6 @@
                             </div>
                         @empty
                         @endforelse
-                        <div class="horse_list_card horse_list_card_new">
-                            <div class="blue_stripe">
-                                <p class="fs_tag">At Auction</p>
-                                <ul class="top_list">
-                                    <li>Trail</li>
-                                    <li>Dressage</li>
-                                    <li>Beginner Safe</li>
-                                </ul>
-                            </div>
-                            <div class="blue_stripe">
-                                <h2>ZION</h2>
-                                <label class="heart_checkbox_wrapper d-block">
-                                    <input type="checkbox" class="heartCheckbox" hidden />
-                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                </label>
-                            </div>
-                            <div class="img_box">
-                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div class="swiper-pagination"></div>
-                                </div>
-                                <div class="arrow_flex">
-                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                </div>
-                                <div class="countdown" data-duration="259200000">
-                                    <div class="circle-container" data-type="days">
-                                        <div class="circle-text">
-                                            <span class="value">3</span>
-                                            <small>Days</small>
-                                        </div>
-                                    </div>
-                                    <div class="circle-container" data-type="hours">
-                                        <div class="circle-text">
-                                            <span class="value">0</span>
-                                            <small>Hrs</small>
-                                        </div>
-                                    </div>
-                                    <div class="circle-container" data-type="minutes">
-                                        <div class="circle-text">
-                                            <span class="value">0</span>
-                                            <small>Mins</small>
-                                        </div>
-                                    </div>
-                                    <div class="circle-container border-0" data-type="seconds">
-                                        <div class="circle-text">
-                                            <span class="value">0</span>
-                                            <small>Secs</small>
-                                        </div>
-                                    </div>
-                                    <p>TILL END OF AUCTION</p>
-                                </div>
-                                <h2 class="breed_text">Friesian Sport Horse</h2>
-                            </div>
-                            <div class="text_box">
-                                <div class="custome_listing_row">
-                                    <div class="custome_listing_col">
-                                        <ul class="info_list">
-                                            <li>1.5 Years Old</li>
-                                            <li>15 HH</li>
-                                            <li>Gelding</li>
-                                        </ul>
-                                    </div>
-                                    <div class="custome_listing_col">
-                                        <ul class="info_list">
-                                            <li>Silver Dapple</li>
-                                            <li>Registered: Yes</li>
-                                            <li>Gaited: No</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="custome_listing_col w-100">
-                                    <ul class="info_list">
-                                        <li class="m-0 mb-2">Las vegas, NV</li>
-                                    </ul>
-                                </div>
-                                <div class="blue_wrapper">
-                                    <div class="blue_stripe mb-2">
-                                        <h3>STARTING BID: $30,500</h3>
-                                    </div>
-                                    <div class="horse_list_card_btn_flex_new bottom_row">
-                                        <a href="#!" class="horse_card_btn w-100">View Details</a>
-                                    </div>
-                                    <div class="horse_list_card_btn_flex_new bottom_row">
-                                        <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                        <a href="#!" class="horse_card_btn">Chat with Seller</a>
-                                    </div>
-                                    <div class="horse_list_card_btn_flex_new bottom_row">
-                                        <a href="#!" class="horse_card_btn">Share</a>
-                                        <label class="fvrt_btn">
-                                            <input type="checkbox" hidden />
-                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="horse_list_card horse_list_card_new">
-                                <div class="blue_stripe">
-                                    <p class="fs_tag">At Auction</p>
-                                    <ul class="top_list">
-                                        <li>Trail</li>
-                                        <li>Dressage</li>
-                                        <li>Beginner Safe</li>
-                                    </ul>
-                                </div>
-                                <div class="blue_stripe">
-                                    <h2>ZION</h2>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="img_box">
-                                    <div class="swiper horse_list_card_slider h-100 w-100">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <div class="arrow_flex">
-                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="countdown" data-duration="259200000">
-                                        <div class="circle-container" data-type="days">
-                                            <div class="circle-text">
-                                                <span class="value">3</span>
-                                                <small>Days</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="hours">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Hrs</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="minutes">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Mins</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container border-0" data-type="seconds">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Secs</small>
-                                            </div>
-                                        </div>
-                                        <p>TILL END OF AUCTION</p>
-                                    </div>
-                                    <h2 class="breed_text">Friesian Sport Horse</h2>
-                                </div>
-                                <div class="text_box">
-                                    <div class="custome_listing_row">
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>1.5 Years Old</li>
-                                                <li>15 HH</li>
-                                                <li>Gelding</li>
-                                            </ul>
-                                        </div>
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>Silver Dapple</li>
-                                                <li>Registered: Yes</li>
-                                                <li>Gaited: No</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="custome_listing_col w-100">
-                                        <ul class="info_list">
-                                            <li class="m-0 mb-2">Las vegas, NV</li>
-                                        </ul>
-                                    </div>
-                                    <div class="blue_wrapper">
-                                        <div class="blue_stripe mb-2">
-                                            <h3>STARTING BID: $30,500</h3>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn w-100">View Details</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with Seller</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Share</a>
-                                            <label class="fvrt_btn">
-                                                <input type="checkbox" hidden />
-                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="horse_list_card horse_list_card_new">
-                                <div class="blue_stripe">
-                                    <p class="fs_tag">At Auction</p>
-                                    <ul class="top_list">
-                                        <li>Trail</li>
-                                        <li>Dressage</li>
-                                        <li>Beginner Safe</li>
-                                    </ul>
-                                </div>
-                                <div class="blue_stripe">
-                                    <h2>ZION</h2>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="img_box">
-                                    <div class="swiper horse_list_card_slider h-100 w-100">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <div class="arrow_flex">
-                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="countdown" data-duration="259200000">
-                                        <div class="circle-container" data-type="days">
-                                            <div class="circle-text">
-                                                <span class="value">3</span>
-                                                <small>Days</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="hours">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Hrs</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="minutes">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Mins</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container border-0" data-type="seconds">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Secs</small>
-                                            </div>
-                                        </div>
-                                        <p>TILL END OF AUCTION</p>
-                                    </div>
-                                    <h2 class="breed_text">Friesian Sport Horse</h2>
-                                </div>
-                                <div class="text_box">
-                                    <div class="custome_listing_row">
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>1.5 Years Old</li>
-                                                <li>15 HH</li>
-                                                <li>Gelding</li>
-                                            </ul>
-                                        </div>
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>Silver Dapple</li>
-                                                <li>Registered: Yes</li>
-                                                <li>Gaited: No</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="custome_listing_col w-100">
-                                        <ul class="info_list">
-                                            <li class="m-0 mb-2">Las vegas, NV</li>
-                                        </ul>
-                                    </div>
-                                    <div class="blue_wrapper">
-                                        <div class="blue_stripe mb-2">
-                                            <h3>STARTING BID: $30,500</h3>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn w-100">View Details</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with Seller</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Share</a>
-                                            <label class="fvrt_btn">
-                                                <input type="checkbox" hidden />
-                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="horse_list_card horse_list_card_new">
-                                <div class="blue_stripe">
-                                    <p class="fs_tag">At Auction</p>
-                                    <ul class="top_list">
-                                        <li>Trail</li>
-                                        <li>Dressage</li>
-                                        <li>Beginner Safe</li>
-                                    </ul>
-                                </div>
-                                <div class="blue_stripe">
-                                    <h2>ZION</h2>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="img_box">
-                                    <div class="swiper horse_list_card_slider h-100 w-100">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <div class="arrow_flex">
-                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="countdown" data-duration="259200000">
-                                        <div class="circle-container" data-type="days">
-                                            <div class="circle-text">
-                                                <span class="value">3</span>
-                                                <small>Days</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="hours">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Hrs</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="minutes">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Mins</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container border-0" data-type="seconds">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Secs</small>
-                                            </div>
-                                        </div>
-                                        <p>TILL END OF AUCTION</p>
-                                    </div>
-                                    <h2 class="breed_text">Friesian Sport Horse</h2>
-                                </div>
-                                <div class="text_box">
-                                    <div class="custome_listing_row">
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>1.5 Years Old</li>
-                                                <li>15 HH</li>
-                                                <li>Gelding</li>
-                                            </ul>
-                                        </div>
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>Silver Dapple</li>
-                                                <li>Registered: Yes</li>
-                                                <li>Gaited: No</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="custome_listing_col w-100">
-                                        <ul class="info_list">
-                                            <li class="m-0 mb-2">Las vegas, NV</li>
-                                        </ul>
-                                    </div>
-                                    <div class="blue_wrapper">
-                                        <div class="blue_stripe mb-2">
-                                            <h3>STARTING BID: $30,500</h3>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn w-100">View Details</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with Seller</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Share</a>
-                                            <label class="fvrt_btn">
-                                                <input type="checkbox" hidden />
-                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="horse_list_card horse_list_card_new">
-                                <div class="blue_stripe">
-                                    <p class="fs_tag">At Auction</p>
-                                    <ul class="top_list">
-                                        <li>Trail</li>
-                                        <li>Dressage</li>
-                                        <li>Beginner Safe</li>
-                                    </ul>
-                                </div>
-                                <div class="blue_stripe">
-                                    <h2>ZION</h2>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="img_box">
-                                    <div class="swiper horse_list_card_slider h-100 w-100">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <div class="arrow_flex">
-                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="countdown" data-duration="259200000">
-                                        <div class="circle-container" data-type="days">
-                                            <div class="circle-text">
-                                                <span class="value">3</span>
-                                                <small>Days</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="hours">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Hrs</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container" data-type="minutes">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Mins</small>
-                                            </div>
-                                        </div>
-                                        <div class="circle-container border-0" data-type="seconds">
-                                            <div class="circle-text">
-                                                <span class="value">0</span>
-                                                <small>Secs</small>
-                                            </div>
-                                        </div>
-                                        <p>TILL END OF AUCTION</p>
-                                    </div>
-                                    <h2 class="breed_text">Friesian Sport Horse</h2>
-                                </div>
-                                <div class="text_box">
-                                    <div class="custome_listing_row">
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>1.5 Years Old</li>
-                                                <li>15 HH</li>
-                                                <li>Gelding</li>
-                                            </ul>
-                                        </div>
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>Silver Dapple</li>
-                                                <li>Registered: Yes</li>
-                                                <li>Gaited: No</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="custome_listing_col w-100">
-                                        <ul class="info_list">
-                                            <li class="m-0 mb-2">Las vegas, NV</li>
-                                        </ul>
-                                    </div>
-                                    <div class="blue_wrapper">
-                                        <div class="blue_stripe mb-2">
-                                            <h3>STARTING BID: $30,500</h3>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn w-100">View Details</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with Seller</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Share</a>
-                                            <label class="fvrt_btn">
-                                                <input type="checkbox" hidden />
-                                                Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                     </div>
                 </div>
             </div>
@@ -2098,7 +1718,19 @@
                     <div class="horse_list_card horse_list_card_new real_estate_card_new">
                         <p class="fs_tag">{{ $state['ad_type'] }}</p>
                         <div class="blue_stripe blue_tripe_new">
-                            <h2>{{ $state['real_location'] }}</h2>
+                            @php
+                                // Original value
+                                $location = $state['real_location'];
+
+                                // Step 1: Agar value me bracket me abbreviation ha, to usko extract kro
+                                if (preg_match('/\(([^)]+)\)/', $location, $match)) {
+                                    $displayLocation = trim($match[1]); // sirf bracket ke andar wali value
+                                } else {
+                                    $displayLocation = ''; // agar nahi ha to empty
+                                }
+                            @endphp
+
+                            <h2>{{ $state['real_title'] }}, {{ $displayLocation }}</h2>
                             <label class="heart_checkbox_wrapper d-block">
                                 <input type="checkbox" class="heartCheckbox" hidden />
                                 <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
@@ -2176,7 +1808,7 @@
                                     <a href="#!" class="horse_card_btn">Share</a>
                                     <form action="{{ route('farm.favorite', Crypt::encrypt($state['id'])) }}" class="horse_card_btn" method="POST">
                                         @csrf
-                                        <button class="fvrt_btn" type="submit">
+                                        <button class="fvrt_btn" type="submit" title="Add favorite">
                                             Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                         </button>
                                     </form>

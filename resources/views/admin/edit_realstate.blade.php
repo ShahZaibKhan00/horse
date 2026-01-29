@@ -239,7 +239,7 @@
 
                                         <div class="form-check">
                                             <label>
-                                                <input class="form-check-input" name="ad_type" type="radio" value="Sale" {{ $ad_type == 'Sale' ? 'checked' : '' }} /> Sale
+                                                <input class="form-check-input" name="ad_type" type="radio" value="Sale" {{ $ad_type == 'Sale' ? 'checked' : '' }} required/> Sale
                                             </label>
                                         </div>
                                         <div class="form-check">
@@ -867,7 +867,7 @@
                                 <h4 class="mb-2">Property Overview <span class="asterisk">*</span></h4>
                                 <h4><small class="text-muted mb-3">( This area is for describing the property ONLY. Do not enter emails, website addresses, contact information, HTML, etc. All text not
                                         describing property will be removed.)</small></h4>
-                                <textarea class="textarea" name="property_overview" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Write property overview...">{{ $data->property_overview }}</textarea>
+                                <textarea class="textarea" name="property_overview" maxlength="300" style="width: 100%; height: 15rem;" placeholder="Write property overview..." required>{{ $data->property_overview }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">

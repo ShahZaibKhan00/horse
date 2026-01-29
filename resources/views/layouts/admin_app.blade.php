@@ -202,6 +202,11 @@
             swal(@json(Session::get('alert-success')['title']), @json(Session::get('alert-success')['detail']), "success");
         </script>
     @endif
+    @if (Session::has('alert-danger'))
+        <script>
+            swal(@json(Session::get('alert-danger')['title']), @json(Session::get('alert-danger')['detail']), "danger");
+        </script>
+    @endif
 
 </body>
 

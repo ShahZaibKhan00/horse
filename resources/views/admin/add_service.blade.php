@@ -746,7 +746,7 @@
 
                                 <div class="col-6">
                                     <h5 class="mb-2">Business Name (if applicable)</h5>
-                                    <input class="form-control gen_input_one   mb-3" type="text" name="business_name" placeholder="Business Name (if applicable)" />
+                                    <input class="form-control gen_input_one   mb-3" type="text" name="business_name" placeholder="Business Name (if applicable)" required />
                                 </div>
 
                                 <div class="col-6">
@@ -761,7 +761,7 @@
 
                                 <div class="col-12">
                                     <h5 class="mb-2">Website URL (optional)</h5>
-                                    <input class="form-control gen_input_one   mb-3" type="url" name="website_url" placeholder="Website URL (optional)" />
+                                    <input class="form-control gen_input_one mb-3" type="text" name="website_url" placeholder="Website URL (optional)" />
                                 </div>
                             </div>
                         </div>
@@ -773,7 +773,7 @@
                             <div class="row">
                                 <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" placeholder="Enter Your Town" /></div>
                                 <div class="col-6">
-                                    <select class="form-control gen_input mb-3" name="state">
+                                    <select class="form-control gen_input mb-3" name="state" required>
                                         <option value="">Select your State</option>
                                         <option value="alabama">Alabama</option>
                                         <option value="alaska">Alaska</option>
@@ -879,7 +879,7 @@
                                         <!-- HTML -->
                                         <div class="custom-multiselect" id="languageSelect">
                                             <div class="selected-tags" id="selectedLangTags">
-                                                <input type="text" id="langInput" class="multi-input"  placeholder="Select or type language..." />
+                                                <input type="text" id="langInput" class="multi-input" required placeholder="Select or type language..." />
                                             </div>
 
                                             <div class="dropdown hidden" id="langDropdown">
@@ -1678,7 +1678,7 @@
                         <div class="border_box_one">
                             <h3 class="mb-3">Service Details <small class="text-muted"> (What you offer, how it works, who's it for, etc.) </small></h3>
                             <div class="">
-                                <textarea class="textarea" name="service_desc"  style="width: 100%; height: 15rem;" placeholder="Write description here...."></textarea>
+                                <textarea class="textarea" name="service_desc"  style="width: 100%; height: 15rem;" placeholder="Write description here...." required></textarea>
                             </div>
                         </div>
                     </div>

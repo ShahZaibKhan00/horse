@@ -654,7 +654,10 @@ class FrontController extends Controller
         $Number = $logoquery->G_number;
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
-        return view('front.membership' , compact('Logo' , 'Number' , 'Email' , 'Address'));
+        $plans = DB::table('plans')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('front.membership' , compact('Logo', 'plans', 'Number' , 'Email' , 'Address'));
     }
 
     public function realestate()

@@ -18,6 +18,7 @@ class ProductController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -77,14 +78,14 @@ class ProductController extends Controller
         // dd($request->all());
         $request->validate([
             'pro_name' => 'required',
-            'pro_Fimg' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:5120',
+            'pro_Fimg' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:10240',
             'pro_imgs' => 'nullable',
         ], [
             'pro_name.required' => 'The Product Name field is required.',
             'pro_Fimg.required' => 'The Product Featured image field is required.',
             'pro_Fimg.image' => 'The featured image must be an image file.',
             'pro_Fimg.mimes' => 'The featured image must be a file of type: jpeg, png, jpg, svg.',
-            'pro_Fimg.max' => 'The featured image may not be greater than 5MB.',
+            'pro_Fimg.max' => 'The featured image may not be greater than 10MB.',
         ]);
 
         $latestSubscription = DB::table('subscriptions')
@@ -385,7 +386,6 @@ class ProductController extends Controller
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
         $id = $request->id;
-        // dd(1);
         $product = Product::find($id);
         $SKU = $request->pro_sku;
 

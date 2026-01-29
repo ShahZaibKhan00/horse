@@ -1,9 +1,8 @@
 @php
-    $layout = $usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+    $layout = Auth::user()->usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
 @endphp
 
 @extends($layout)
-{{-- @extends('layouts.admin_app') --}}
 
 @section('content')
     <style>
@@ -734,90 +733,62 @@
                             </div>
                             <h4 class="mb-2">Town / City<span class="asterisk">*</span> <small class="text-muted">(For Ad Purpose Only)</small></h4>
                             <div class="col-6">
-                                <input class="form-control gen_input mb-3" type="text" name="pro_city" placeholder="Enter Town" />
-                                <!--<select class="form-control gen_input mb-3" name="pro_city">
-                                        <option value="">Select your Town</option>
-                                        <option value="new_york">New York</option>
-                                        <option value="los_angeles">Los Angeles</option>
-                                        <option value="chicago">Chicago</option>
-                                        <option value="houston">Houston</option>
-                                        <option value="phoenix">Phoenix</option>
-                                        <option value="philadelphia">Philadelphia</option>
-                                        <option value="san_antonio">San Antonio</option>
-                                        <option value="san_diego">San Diego</option>
-                                        <option value="dallas">Dallas</option>
-                                        <option value="san_jose">San Jose</option>
-                                        <option value="austin">Austin</option>
-                                        <option value="jacksonville">Jacksonville</option>
-                                        <option value="san_francisco">San Francisco</option>
-                                        <option value="columbus">Columbus</option>
-                                        <option value="charlotte">Charlotte</option>
-                                        <option value="indianapolis">Indianapolis</option>
-                                        <option value="seattle">Seattle</option>
-                                        <option value="denver">Denver</option>
-                                        <option value="washington_dc">Washington D.C.</option>
-                                        <option value="boston">Boston</option>
-                                        <option value="las_vegas">Las Vegas</option>
-                                        <option value="miami">Miami</option>
-                                        <option value="atlanta">Atlanta</option>
-                                        <option value="orlando">Orlando</option>
-                                        <option value="new_orleans">New Orleans</option>
-                                    </select> -->
+                                <input class="form-control gen_input mb-3" type="text" name="pro_city" placeholder="Enter Town" required />
                             </div>
 
                             <div class="col-6">
-                                <select class="form-control gen_input mb-3" name="pro_state">
-                                    <option value="">Select your State</option>
-                                    <option value="alabama">Alabama</option>
-                                    <option value="alaska">Alaska</option>
-                                    <option value="arizona">Arizona</option>
-                                    <option value="arkansas">Arkansas</option>
-                                    <option value="california">California</option>
-                                    <option value="colorado">Colorado</option>
-                                    <option value="connecticut">Connecticut</option>
-                                    <option value="delaware">Delaware</option>
-                                    <option value="florida">Florida</option>
-                                    <option value="georgia">Georgia</option>
-                                    <option value="hawaii">Hawaii</option>
-                                    <option value="idaho">Idaho</option>
-                                    <option value="illinois">Illinois</option>
-                                    <option value="indiana">Indiana</option>
-                                    <option value="iowa">Iowa</option>
-                                    <option value="kansas">Kansas</option>
-                                    <option value="kentucky">Kentucky</option>
-                                    <option value="louisiana">Louisiana</option>
-                                    <option value="maine">Maine</option>
-                                    <option value="maryland">Maryland</option>
-                                    <option value="massachusetts">Massachusetts</option>
-                                    <option value="michigan">Michigan</option>
-                                    <option value="minnesota">Minnesota</option>
-                                    <option value="mississippi">Mississippi</option>
-                                    <option value="missouri">Missouri</option>
-                                    <option value="montana">Montana</option>
-                                    <option value="nebraska">Nebraska</option>
-                                    <option value="nevada">Nevada</option>
-                                    <option value="new_hampshire">New Hampshire</option>
-                                    <option value="new_jersey">New Jersey</option>
-                                    <option value="new_mexico">New Mexico</option>
-                                    <option value="new_york">New York</option>
-                                    <option value="north_carolina">North Carolina</option>
-                                    <option value="north_dakota">North Dakota</option>
-                                    <option value="ohio">Ohio</option>
-                                    <option value="oklahoma">Oklahoma</option>
-                                    <option value="oregon">Oregon</option>
-                                    <option value="pennsylvania">Pennsylvania</option>
-                                    <option value="rhode_island">Rhode Island</option>
-                                    <option value="south_carolina">South Carolina</option>
-                                    <option value="south_dakota">South Dakota</option>
-                                    <option value="tennessee">Tennessee</option>
-                                    <option value="texas">Texas</option>
-                                    <option value="utah">Utah</option>
-                                    <option value="vermont">Vermont</option>
-                                    <option value="virginia">Virginia</option>
-                                    <option value="washington">Washington</option>
-                                    <option value="west_virginia">West Virginia</option>
-                                    <option value="wisconsin">Wisconsin</option>
-                                    <option value="wyoming">Wyoming</option>
+                                <select class="form-control gen_input mb-3" name="real_location" required>
+                                    <option selected disabled>Select your State</option>
+                                    <option value="alabama (AL)">Alabama (AL)</option>
+                                    <option value="alaska (AK)">Alaska (AK)</option>
+                                    <option value="arizona (AZ)">Arizona (AZ)</option>
+                                    <option value="arkansas (AR)">Arkansas (AR)</option>
+                                    <option value="california (CA)">California (CA)</option>
+                                    <option value="colorado (CO)">Colorado (CO)</option>
+                                    <option value="connecticut (CT)">Connecticut (CT)</option>
+                                    <option value="delaware (DE)">Delaware (DE)</option>
+                                    <option value="florida (FL)">Florida (FL)</option>
+                                    <option value="georgia (GA)">Georgia (GA)</option>
+                                    <option value="hawaii (HI)">Hawaii (HI)</option>
+                                    <option value="idaho (ID)">Idaho (ID)</option>
+                                    <option value="illinois (IL)">Illinois (IL)</option>
+                                    <option value="indiana (IN)">Indiana (IN)</option>
+                                    <option value="iowa (IA)">Iowa (IA)</option>
+                                    <option value="kansas (KS)">Kansas (KS)</option>
+                                    <option value="kentucky (KY)">Kentucky (KY)</option>
+                                    <option value="louisiana (LA)">Louisiana (LA)</option>
+                                    <option value="maine (ME)">Maine (ME)</option>
+                                    <option value="maryland (MD)">Maryland (MD)</option>
+                                    <option value="massachusetts (MA)">Massachusetts (MA)</option>
+                                    <option value="michigan (MI)">Michigan (MI)</option>
+                                    <option value="minnesota (MN)">Minnesota (MN)</option>
+                                    <option value="mississippi (MS)">Mississippi (MS)</option>
+                                    <option value="missouri (MO)">Missouri (MO)</option>
+                                    <option value="montana (MT)">Montana (MT)</option>
+                                    <option value="nebraska (NE)">Nebraska (NE)</option>
+                                    <option value="nevada (NV)">Nevada (NV)</option>
+                                    <option value="new hampshire (NH)">New Hampshire (NH)</option>
+                                    <option value="new jersey (NJ)">New Jersey (NJ)</option>
+                                    <option value="new mexico (NM)">New Mexico (NM)</option>
+                                    <option value="new york (NY)">New York (NY)</option>
+                                    <option value="north carolina (NC)">North Carolina (NC)</option>
+                                    <option value="north dakota (ND)">North Dakota (ND)</option>
+                                    <option value="ohio (OH)">Ohio (OH)</option>
+                                    <option value="oklahoma (OK)">Oklahoma (OK)</option>
+                                    <option value="oregon (OR)">Oregon (OR)</option>
+                                    <option value="pennsylvania (PA)">Pennsylvania (PA)</option>
+                                    <option value="rhode island (RI)">Rhode Island (RI)</option>
+                                    <option value="south carolina (SC)">South Carolina (SC)</option>
+                                    <option value="south dakota (SD)">South Dakota (SD)</option>
+                                    <option value="tennessee (TN)">Tennessee (TN)</option>
+                                    <option value="texas (TX)">Texas (TX)</option>
+                                    <option value="utah (UT)">Utah (UT)</option>
+                                    <option value="vermont (VT)">Vermont (VT)</option>
+                                    <option value="virginia (VA)">Virginia (VA)</option>
+                                    <option value="washington (WA)">Washington (WA)</option>
+                                    <option value="west virginia (WV)">West Virginia (WV)</option>
+                                    <option value="wisconsin (WI)">Wisconsin (WI)</option>
+                                    <option value="wyoming (WY)">Wyoming (WY)</option>
                                 </select>
                             </div>
                         </div>
@@ -834,8 +805,8 @@
                             <div class="col-12">
                                 <div class="d-flex flex-column gap-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="about_price[]" {{ is_array(old('about_price')) && in_array('Firm', old('about_price')) ? 'checked' : '' }}
-                                            type="checkbox" value="Firm" id="firmCheck">
+                                        <input class="form-check-input" name="about_price[]" {{ is_array(old('about_price')) && in_array('Firm', old('about_price')) ? 'checked' : '' }} type="checkbox"
+                                            value="Firm" id="firmCheck">
                                         <label class="form-check-label" for="firmCheck">
                                             Firm
                                         </label>
@@ -848,15 +819,15 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="about_price[]" {{ is_array(old('about_price')) && in_array('Firm', old('about_price')) ? 'checked' : '' }}
-                                            type="checkbox" value="May Trade" id="tradeCheck">
+                                        <input class="form-check-input" name="about_price[]" {{ is_array(old('about_price')) && in_array('Firm', old('about_price')) ? 'checked' : '' }} type="checkbox"
+                                            value="May Trade" id="tradeCheck">
                                         <label class="form-check-label" for="tradeCheck">
                                             May Trade
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="about_price[]" {{ is_array(old('about_price')) && in_array('Firm', old('about_price')) ? 'checked' : '' }}
-                                            type="checkbox" value="Payment Options Available" id="poa-check">
+                                        <input class="form-check-input" name="about_price[]" {{ is_array(old('about_price')) && in_array('Firm', old('about_price')) ? 'checked' : '' }} type="checkbox"
+                                            value="Payment Options Available" id="poa-check">
                                         <label class="form-check-label" for="poa-check">
                                             Payment Options Available
                                         </label>
@@ -875,7 +846,7 @@
                         <div class="row">
                             <div class="col-5 d-flex flex-column gap-2">
                                 <div class="form-check">
-                                    <label><input class="form-check-input" name="pro_ad_type" type="radio" value="For Sale" />
+                                    <label><input class="form-check-input" name="pro_ad_type" type="radio" value="For Sale" required />
                                         For Sale</label>
                                 </div>
                                 <div class="form-check">
@@ -1214,6 +1185,7 @@
                             <option value="Liver Chestnut">Liver Chestnut</option>
                             <option value="Other">Other</option>
                             <option value="Overo">Overo</option>
+                            <option value="Paint">Paint</option>
                             <option value="Paintaloosa">Paintaloosa</option>
                             <option value="Palomino">Palomino</option>
                             <option value="Palomino Roan">Palomino Roan</option>
@@ -1375,69 +1347,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        <!-- <div class="row">
-                            <div class="col-3">
-                                <div class="age_grp">
-                                    <div class="age_input_group year_input">
-                                        <input
-                                        class="form-control gen_input w-100"
-                                        type="text"
-                                        maxlength="2"
-                                        placeholder="Year"
-                                        />
-                                    </div>
-                                    <div class="age_input_group month_input" style="display: none;">
-                                        <input
-                                        class="form-control gen_input w-100"
-                                        type="text"
-                                        maxlength="2"
-                                        placeholder="Month"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-9">
-                                <div class="d-flex flex-column justify-content-center gap-2">
-                                <div class="form-check m-0">
-                                    <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    value="Year"
-                                    id="gaited_year"
-                                    name="gaited"
-                                    checked
-                                    />
-                                    <label class="form-check-label" for="gaited_year">Year</label>
-                                </div>
-                                <div class="form-check m-0">
-                                    <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    value="Month"
-                                    id="gaited_month"
-                                    name="gaited"
-                                    />
-                                    <label class="form-check-label" for="gaited_month">Month</label>
-                                </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="row">
-                            <div class="col-6">
-                                <div class="age_input_group" id="yearGroup">
-                                    <input class="form-control gen_input" type="text" name="pro_age_year" id="yearInput" maxlength="2" placeholder="Year" />
-                                    <span id="yearLabel">Years Old</span>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="age_input_group" id="monthGroup">
-                                    <input class="form-control gen_input" type="text" name="pro_age_month" id="monthInput" maxlength="2" placeholder="Month" />
-                                    <span id="monthLabel">Months Old</span>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
 
@@ -1455,7 +1364,7 @@
                             <div class="dropdown-container">
                                 <div class="dropdown-header" id="dropdownHeader">
                                     <div class="tags" id="tagsContainer"></div>
-                                    <input type="text" id="searchInput" placeholder="Start typing or Select an Option from the drop down list." oninput="handleInput()"
+                                    <input type="text" id="searchInput" placeholder="Start typing or Select an Option from the drop down list." required oninput="handleInput()"
                                         onkeydown="handleKeyDown(event)" name="pro_rider_level_display" />
                                     <span class="dropdown-arrow" onclick="toggleDropdown()">▼</span>
                                 </div>
@@ -1724,15 +1633,15 @@
                         <div class="col-6">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <h5 class="">Video URL:</h5>
-                                 <a href="#!" class="add_url_btn">Add another video</a>
+                                <a href="#!" class="add_url_btn">Add another video</a>
                             </div>
                             <div id="video_inputs_wrapper">
                                 <div class="video_input d-flex align-items-center mb-2">
                                     <input class="form-control gen_input" type="url" name="pro_youtube" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
                                 </div>
                             </div>
-                             <p id="error_message" style="color: red; display: none;">You can only add up to 3 video
-                                    URLs.</p>
+                            <p id="error_message" style="color: red; display: none;">You can only add up to 3 video
+                                URLs.</p>
                         </div>
                         <div class="col-6">
                             <div class="upload__box">
@@ -1754,88 +1663,88 @@
                 </div>
             </div>
             <!--<div class="col-12 mb-4">
-                <h2 class="mb-3 text-white">Contact Details</h2>
-                <div class="border_box_one">
-                    <div class="row gy-4">
-                        <div class="col-6">
-                            <h4 class="mb-3">State:<span class="asterisk">*</span></h4>
-                            <select class="form-control gen_input_one" name="per_state">
-                                <option value="">Select your state</option>
-                                <option value="alabama">Alabama</option>
-                                <option value="alaska">Alaska</option>
-                                <option value="arizona">Arizona</option>
-                                <option value="arkansas">Arkansas</option>
-                                <option value="california">California</option>
-                                <option value="colorado">Colorado</option>
-                                <option value="connecticut">Connecticut</option>
-                                <option value="delaware">Delaware</option>
-                                <option value="florida">Florida</option>
-                                <option value="georgia">Georgia</option>
-                                <option value="hawaii">Hawaii</option>
-                                <option value="idaho">Idaho</option>
-                                <option value="illinois">Illinois</option>
-                                <option value="indiana">Indiana</option>
-                                <option value="iowa">Iowa</option>
-                                <option value="kansas">Kansas</option>
-                                <option value="kentucky">Kentucky</option>
-                                <option value="louisiana">Louisiana</option>
-                                <option value="maine">Maine</option>
-                                <option value="maryland">Maryland</option>
-                                <option value="massachusetts">Massachusetts</option>
-                                <option value="michigan">Michigan</option>
-                                <option value="minnesota">Minnesota</option>
-                                <option value="mississippi">Mississippi</option>
-                                <option value="missouri">Missouri</option>
-                                <option value="montana">Montana</option>
-                                <option value="nebraska">Nebraska</option>
-                                <option value="nevada">Nevada</option>
-                                <option value="new_hampshire">New Hampshire</option>
-                                <option value="new_jersey">New Jersey</option>
-                                <option value="new_mexico">New Mexico</option>
-                                <option value="new_york">New York</option>
-                                <option value="north_carolina">North Carolina</option>
-                                <option value="north_dakota">North Dakota</option>
-                                <option value="ohio">Ohio</option>
-                                <option value="oklahoma">Oklahoma</option>
-                                <option value="oregon">Oregon</option>
-                                <option value="pennsylvania">Pennsylvania</option>
-                                <option value="rhode_island">Rhode Island</option>
-                                <option value="south_carolina">South Carolina</option>
-                                <option value="south_dakota">South Dakota</option>
-                                <option value="tennessee">Tennessee</option>
-                                <option value="texas">Texas</option>
-                                <option value="utah">Utah</option>
-                                <option value="vermont">Vermont</option>
-                                <option value="virginia">Virginia</option>
-                                <option value="washington">Washington</option>
-                                <option value="west_virginia">West Virginia</option>
-                                <option value="wisconsin">Wisconsin</option>
-                                <option value="wyoming">Wyoming</option>
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="mb-3">Phone:<span class="text-danger">*</span></h4>
-                            <input class="form-control gen_input_one phone-input" type="tel" name="per_phone" placeholder="Enter Phone" />
-                        </div>
-                        <div class="col-6">
-                            <h4 class="mb-3">Zip:</h4>
-                            <input class="form-control gen_input_one" type="tel" name="per_zip" placeholder="Enter Zip code" />
-                        </div>
-                        <div class="col-6">
-                            <h4 class="mb-3">Email:</h4>
-                            <input class="form-control gen_input_one" type="email" name="per_email" placeholder="Enter email address" />
-                        </div>
-                        <div class="col-6">
-                            <h4 class="mb-3">Address:</h4>
-                            <input class="form-control gen_input_one" type="text" name="per_address" placeholder="Enter Address" />
-                        </div>
-                        <div class="col-6">
-                            <h4 class="mb-3">Website:</h4>
-                            <input class="form-control gen_input_one" type="url" name="per_website" placeholder="Enter website" />
+                    <h2 class="mb-3 text-white">Contact Details</h2>
+                    <div class="border_box_one">
+                        <div class="row gy-4">
+                            <div class="col-6">
+                                <h4 class="mb-3">State:<span class="asterisk">*</span></h4>
+                                <select class="form-control gen_input_one" name="per_state">
+                                    <option value="">Select your state</option>
+                                    <option value="alabama">Alabama</option>
+                                    <option value="alaska">Alaska</option>
+                                    <option value="arizona">Arizona</option>
+                                    <option value="arkansas">Arkansas</option>
+                                    <option value="california">California</option>
+                                    <option value="colorado">Colorado</option>
+                                    <option value="connecticut">Connecticut</option>
+                                    <option value="delaware">Delaware</option>
+                                    <option value="florida">Florida</option>
+                                    <option value="georgia">Georgia</option>
+                                    <option value="hawaii">Hawaii</option>
+                                    <option value="idaho">Idaho</option>
+                                    <option value="illinois">Illinois</option>
+                                    <option value="indiana">Indiana</option>
+                                    <option value="iowa">Iowa</option>
+                                    <option value="kansas">Kansas</option>
+                                    <option value="kentucky">Kentucky</option>
+                                    <option value="louisiana">Louisiana</option>
+                                    <option value="maine">Maine</option>
+                                    <option value="maryland">Maryland</option>
+                                    <option value="massachusetts">Massachusetts</option>
+                                    <option value="michigan">Michigan</option>
+                                    <option value="minnesota">Minnesota</option>
+                                    <option value="mississippi">Mississippi</option>
+                                    <option value="missouri">Missouri</option>
+                                    <option value="montana">Montana</option>
+                                    <option value="nebraska">Nebraska</option>
+                                    <option value="nevada">Nevada</option>
+                                    <option value="new_hampshire">New Hampshire</option>
+                                    <option value="new_jersey">New Jersey</option>
+                                    <option value="new_mexico">New Mexico</option>
+                                    <option value="new_york">New York</option>
+                                    <option value="north_carolina">North Carolina</option>
+                                    <option value="north_dakota">North Dakota</option>
+                                    <option value="ohio">Ohio</option>
+                                    <option value="oklahoma">Oklahoma</option>
+                                    <option value="oregon">Oregon</option>
+                                    <option value="pennsylvania">Pennsylvania</option>
+                                    <option value="rhode_island">Rhode Island</option>
+                                    <option value="south_carolina">South Carolina</option>
+                                    <option value="south_dakota">South Dakota</option>
+                                    <option value="tennessee">Tennessee</option>
+                                    <option value="texas">Texas</option>
+                                    <option value="utah">Utah</option>
+                                    <option value="vermont">Vermont</option>
+                                    <option value="virginia">Virginia</option>
+                                    <option value="washington">Washington</option>
+                                    <option value="west_virginia">West Virginia</option>
+                                    <option value="wisconsin">Wisconsin</option>
+                                    <option value="wyoming">Wyoming</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="mb-3">Phone:<span class="text-danger">*</span></h4>
+                                <input class="form-control gen_input_one phone-input" type="tel" name="per_phone" placeholder="Enter Phone" />
+                            </div>
+                            <div class="col-6">
+                                <h4 class="mb-3">Zip:</h4>
+                                <input class="form-control gen_input_one" type="tel" name="per_zip" placeholder="Enter Zip code" />
+                            </div>
+                            <div class="col-6">
+                                <h4 class="mb-3">Email:</h4>
+                                <input class="form-control gen_input_one" type="email" name="per_email" placeholder="Enter email address" />
+                            </div>
+                            <div class="col-6">
+                                <h4 class="mb-3">Address:</h4>
+                                <input class="form-control gen_input_one" type="text" name="per_address" placeholder="Enter Address" />
+                            </div>
+                            <div class="col-6">
+                                <h4 class="mb-3">Website:</h4>
+                                <input class="form-control gen_input_one" type="url" name="per_website" placeholder="Enter website" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>-->
+                </div>-->
             <div class="col-12 mb-4">
                 <h2 class="text-white mb-3">Social Profiles</h2>
                 <div class="border_box_one">
@@ -2029,8 +1938,6 @@
                 height: 37px;
             }
         </style>
-
-
 
         <script>
             jQuery(document).ready(function() {
@@ -2627,7 +2534,7 @@
                     }
                 });
             });
-        </script>--}}
+        </script> --}}
         <script>
             function formatPhoneNumber(input) {
                 let value = input.value.replace(/\D/g, "");
@@ -2937,7 +2844,5 @@
                 previewModal.show();
             });
         </script>
-
-
 
     @endsection

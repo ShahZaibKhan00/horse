@@ -19,37 +19,46 @@
                                 <strong>Plan:</strong>
                             </div>
                             <div class="detail-row">
-                                {{ $plans[0]->package_name ?? 'N/A' }}
+                                {{ $plans[0]->package_name ?? 'No active subscription yet' }}
                             </div>
                             <div class="detail-row">
-                                <strong>Price:</strong> ${{ isset($plans[0]->package_price) ? number_format($plans[0]->package_price, 2) : 'N/A' }} per month
+                                <strong>Price:</strong> ${{ isset($plans[0]->package_price) ? number_format($plans[0]->package_price, 2) : '0.00' }} per month
                             </div>
                             <div class="detail-row">
                                 <strong>Status:</strong> <span class="status-badge">
-                                    @if (isset($plans[0]->status) == 1)
+                                    @if (isset($plans[0]->status) && $plans[0]->status == 1)
                                         Active
                                     @else
-                                        Inactive
+                                        Not Active
                                     @endif
+
                                 </span>
                             </div>
                             <div class="detail-row">
-                                <strong>Active Ads:</strong>{{ data_get($plans, '0.created_at') ? \Carbon\Carbon::parse(data_get($plans, '0.created_at'))->format('F d, Y') : 'N/A' }}
+                                <strong>Remaining Ads:</strong> {{ $plans[0]->remaining_token ?? 'No ads available' }} Ads
+                            </div>
+                            <div class="detail-row">
+                                <strong>Active Ads:</strong>
+                                {{-- {{ optional($plans[0])->created_at ? \Carbon\Carbon::parse($plans[0]->created_at)->format('F d, Y') : 'Not started yet' }} --}}
+                                {{ optional($plans[0] ?? null)->created_at ? \Carbon\Carbon::parse($plans[0]->created_at)->format('F d, Y') : 'Not started yet' }}
 
                             </div>
                             <div class="detail-row">
                                 <strong>Next Billing:</strong>
-                                {{ data_get($plans, '0.created_at') ? \Carbon\Carbon::parse(data_get($plans, '0.created_at'))->addMonth()->format('F d, Y') : 'N/A' }}
+                                {{-- {{ optional($plans[0])->created_at ? \Carbon\Carbon::parse($plans[0]->created_at)->addMonth()->format('F d, Y') : 'Billing will start after subscription' }} --}}
+                                {{ optional($plans[0] ?? null)->created_at ? \Carbon\Carbon::parse(data_get($plans, '0.created_at'))->addMonth()->format('F d, Y') : 'Billing will start after subscription' }}
                             </div>
                         </div>
                     </div>
 
                     <div class="payment-info-box">
-                        <h2>Next Payment</h2>
+                        <h2>Payment</h2>
                         <div class="payment-info-content" style="margin-top: 20px;">
-                            <div class="payment-amount">${{ isset($plans[0]->package_price) ? number_format($plans[0]->package_price, 2) : 'N/A' }} <span>due</span></div>
+                            <div class="payment-amount">{{ isset($plans[0]->package_price) ? '$' . number_format($plans[0]->package_price, 2) : 'No payment' }}
+                                <span>due</span>
+                            </div>
                             <div class="payment-date">
-                                {{ data_get($plans, '0.created_at') ? \Carbon\Carbon::parse(data_get($plans, '0.created_at'))->addMonth()->format('F d, Y') : 'N/A' }}
+                                {{ optional($plans[0] ?? null)->created_at ? \Carbon\Carbon::parse(data_get($plans, '0.created_at'))->addMonth()->format('F d, Y') : 'No payment due' }}
                             </div>
                         </div>
                     </div>
@@ -68,16 +77,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($plans as $item)
+                            @forelse ($plans as $item)
                                 <tr>
-                                    <td class="history-table-cell">{{ \Carbon\Carbon::parse($item->created_at)->format('F d, Y') }}</td>
                                     <td class="history-table-cell">
-                                        {{ isset($item->package_usage) ? "Monthly Subscription - $item->package_usage Ads" : "Monthly Subscription - $item->package_usage Not Found Ads" }}</td>
-                                    <td class="history-table-cell">${{ isset($plans[0]->package_price) ? number_format($item->package_price, 2) : 'N/A' }}</td>
-                                    <td class="history-table-cell">Paid</td>
-                                    <td class="history-table-cell"><a href="#" class="receipt-download-link">Download Receipt</a></td>
+                                        {{ \Carbon\Carbon::parse($item->created_at)->format('F d, Y') }}
+                                    </td>
+                                    <td class="history-table-cell">
+                                        Monthly Subscription -
+                                        {{ $item->package_usage ?? 'N/A' }} Ads
+                                    </td>
+                                    <td class="history-table-cell">
+                                        ${{ number_format($item->package_price ?? 0, 2) }}
+                                    </td>
+                                    <td class="history-table-cell"><strong>Paid</strong></td>
+                                    <td class="history-table-cell">
+                                        <a href="{{ url('subscription/download/' . encrypt($item->id)) }}" target="_blank" class="receipt-download-link">Download Receipt</a>
+                                    </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-4">
+                                        You don’t have any payment history yet.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -76,7 +76,7 @@
                                             <button class="user_arrow_left"><img src="assets/images/arrow_lf8.png" alt=""></button>
                                             <button class="user_arrow_right"><img src="assets/images/arrow_ri8.png" alt=""></button>
                                         </div>
-                                        <div class="countdown_user_timer" data-end-time="2025-12-31T23:59:59">
+                                        {{-- <div class="countdown_user_timer" data-end-time="2025-12-31T23:59:59">
                                             <h5>
                                                 <span class="days">1</span> Days |
                                                 <span class="hours">0</span> Hrs |
@@ -84,7 +84,7 @@
                                                 <span class="seconds">0</span> Secs
                                             </h5>
                                             <h6>TILL END OF AUCTIONS</h6>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="user_card_info_box">
                                         <div class="cell_container">

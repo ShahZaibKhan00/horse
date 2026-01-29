@@ -9,7 +9,7 @@ html {
 }
 
 body {
-    font-family: "PPMori-Regular";
+    font-family: "Inter", sans-serif;
     overflow-x: hidden;
 }
 
@@ -139,7 +139,7 @@ body::-webkit-scrollbar-thumb {
     width: 250px;
     background: #1C2039;
     height: 100vh;
-    padding: 30px 20px;
+    padding: 30px 10px;
     position: fixed;
     top: 0;
     left: 0;
@@ -160,18 +160,22 @@ body::-webkit-scrollbar-thumb {
 .user_logo {
     display: block;
     text-align: center;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #03c992;
+    max-width: 200px;
+    margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .side_menu_navs li a {
-    font-size: 14px;
+    font-size: 13px;
     display: block;
     color: #fff;
     padding: 20px 18px;
     text-transform: uppercase;
     border-radius: 60px;
     line-height: 1;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .side_menu_navs li a.active {
@@ -203,6 +207,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .dark_bar h2 {
+    /* font-family: "PPMori-Regular"; */
     text-transform: uppercase;
     background: linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%);
     -webkit-background-clip: text;
@@ -219,7 +224,7 @@ body::-webkit-scrollbar-thumb {
     padding: 15px;
     width: fit-content;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     background: linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%);
     -webkit-background-clip: text;
@@ -248,16 +253,12 @@ body::-webkit-scrollbar-thumb {
     padding: 30px
 }
 
-.welcome-container {
-    background: white;
-    overflow: hidden;
-}
 
 .welcome-content {
     display: flex;
     gap: 20px;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .horse-image {
@@ -265,6 +266,7 @@ body::-webkit-scrollbar-thumb {
     height: 140px;
     object-fit: cover;
     flex-shrink: 0;
+    border-radius: 5px;
 }
 
 .text-content {
@@ -311,15 +313,12 @@ body::-webkit-scrollbar-thumb {
 }
 
 .data_box_top_bar h2 {
-    font-family: "Inter", sans-serif;
     font-size: 25px;
-    font-weight: 800;
+    font-weight: 600;
     color: #16213e;
-    text-transform: uppercase
 }
 
 .gold_btn {
-    font-family: "BebasKai";
     background: linear-gradient(180deg, #F0DA93 34.17%, #BEA15A 100%);
     border-radius: 8px;
     display: flex;
@@ -328,10 +327,17 @@ body::-webkit-scrollbar-thumb {
     width: fit-content;
     padding: 6px 25px;
     color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .gold_btn:hover {
     color: #000;
+    background: linear-gradient(180deg, #F7E3A8 34.17%, #C7B56F 100%);
+    /* Slightly brighter gold */
+    box-shadow: 0 4px 15px rgba(255, 223, 100, 0.4);
+    /* Subtle glow */
 }
 
 .count_boxs {
@@ -341,26 +347,24 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 10px;
+    padding: 40px 10px;
     border: 2px solid #1B2139;
     border-radius: 8px;
-    box-shadow: 0px 16.53px 16.53px 0px #CDCDCD4D;
 }
 
 .count_boxs .icon_box {
     height: 37px;
-    margin-bottom: 6px
 }
 
 .count_boxs p {
-    font-family: "BebasKai";
     font-size: 24px;
+    font-weight: 500;
     line-height: 1;
 }
 
 .count_boxs a {
     font-family: "Inter", sans-serif;
-    font-size: 10px;
+    font-size: 11.5px;
     font-weight: 600;
     color: #172C4A;
     position: absolute;
@@ -369,15 +373,50 @@ body::-webkit-scrollbar-thumb {
     text-decoration: underline;
 }
 
+.count_boxs_one {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px 10px 15px 10px;
+    border: 2px solid #1B2139;
+    border-radius: 8px;
+    height: 150px;
+}
+
+.count_boxs_one_wrap h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #16213e;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.count_boxs_one p {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.count_boxs_one_icon_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 .dashboard-container {
     width: 100%;
     max-width: 100%;
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
     background:
         linear-gradient(white, white) padding-box,
         linear-gradient(180deg, #B48942 -2.68%, #D5B970 87.5%) border-box;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 }
 
 .dashboard-grid {
@@ -471,7 +510,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 .add-btn {
-    font-family: "BebasKai";
     background: linear-gradient(180deg, #F0DA93 13.78%, #BEA15A 84.78%);
     border: none;
     padding: 8px 16px;
@@ -590,12 +628,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .user_pkg_card {
-    padding: 60px 30px 30px 30px;
+    padding: 60px 20px 30px 20px;
     text-align: center;
     border: 1px solid #1C2039;
     border-radius: 12px;
     position: relative;
-    height: 350px;
     flex-direction: column;
     display: flex;
     align-items: center;
@@ -612,7 +649,7 @@ body::-webkit-scrollbar-thumb {
 
 .user_pkg_card h3 {
     font-family: "Inter", sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: #152743;
     margin-bottom: 30px;
@@ -638,7 +675,7 @@ body::-webkit-scrollbar-thumb {
     font-size: 15.5px;
     color: #fff;
     width: 165px;
-    height: 40px;
+    height: 50px;
     border-radius: 6px;
     background: #15294C;
     margin: 0 auto;
@@ -988,7 +1025,7 @@ body::-webkit-scrollbar-thumb {
     flex-direction: column;
     gap: 12px;
     padding: 10px;
-    margin-top: 40px;
+    margin-top: 0px;
 }
 
 .control-row {
@@ -2164,4 +2201,186 @@ ul.side_menu_navs::-webkit-scrollbar-thumb:hover {
     .history-table-cell {
         padding: 8px;
     }
+}
+
+
+
+.dropdown_btnn {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Dropdown hidden by default */
+.dropdown_menu {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.35s ease;
+    padding-left: 20px;
+}
+
+.dropdown_menu.open {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.dropdown_btnn.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown links styling */
+.dropdown_menu a {
+    font-size: 12px !important;
+    padding: 20px 14px !important;
+}
+
+.dropdown_menu a:hover {
+    color: #6D24AA;
+}
+
+.blue_logo_bar {
+    width: 100%;
+    height: 9px;
+    background: #1B2139;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.blue_logo_bar img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -10px;
+    z-index: 999;
+}
+
+.icon_box_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.acc_review_card {
+    padding: 25px 20px;
+    background: #F8F8F8;
+    border-radius: 12px;
+}
+
+.name_bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.name_bar h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1C2039;
+}
+
+.acc_review_card .gold_btn {
+    width: 100%;
+    height: 45px;
+}
+
+.detail_col h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1C2039;
+}
+
+.details_row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #C3C3C3;
+    padding-bottom: 10px;
+}
+
+.detail_col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 20px;
+    border-right: 1px solid #C3C3C3;
+    width: 33.33%;
+}
+
+.detail_col p {
+    color: #1C2039;
+}
+
+.total_count_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px 35px 10px;
+}
+
+.total_count_box h4 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #1C2039;
+}
+
+.total_count_box p {
+    font-size: 20px;
+    color: #1C2039;
+}
+
+.view_btn {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0e1335;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
+    line-height: 1;
+}
+
+.view_btn:hover {
+    color: #0e1335;
+}
+
+.billing_box {
+    height: auto;
+    padding: 20px;
+}
+
+.billing_box h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 13px;
+}
+
+.billing_box p {
+    font-size: 18px;
+    margin-bottom: 13px;
+}
+
+.billing_box a {
+    height: 45px;
+    position: unset;
+    width: 100%;
+    font-size: 18px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.billing_wrap {
+    padding: 25px;
+    border-radius: 12px;
+    background: linear-gradient(white, white) padding-box, linear-gradient(180deg, #B48942 -2.68%, #D5B970 87.5%) border-box;
+    border: 2px solid transparent;
 }

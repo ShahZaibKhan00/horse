@@ -50,6 +50,7 @@ Route::get('/contacts', [HomeController::class, 'contacts'])->name('contacts');
 Route::get('favorite-horses', [HomeController::class, 'horse'])->name('horse');
 Route::get('favorite-realstate', [HomeController::class, 'realstate'])->name('realstate');
 Route::get('subscription', [PlanController::class, 'package'])->name('package');
+Route::get('subscription/download/{id}', [AllController::class, 'invoice'])->name('package.download');
 Route::get('list-management', [PlanController::class, 'listing'])->name('listing');
 Route::get('payment/page/{id}', [AllController::class, 'payment'])->name('payment.link');
 Route::get('sucess/payment', [AllController::class, 'sucess'])->name('payment.sucess');
@@ -140,8 +141,8 @@ Route::get('admin/plan', [PlanController::class, 'index'])->name('admin.plan');
 Route::get('admin/add-plan', [PlanController::class, 'create'])->name('admin.add-plan');
 Route::post('admin/post-plan', [PlanController::class, 'store'])->name('admin.add-plan');
 
-// Route::get('/plans/create', [PlanController::class, 'create'])->name('admin.plans.create');
-// Route::post('/plans', [PlanController::class, 'store'])->name('admin.plans.store');
+Route::get('/plans/create', [PlanController::class, 'create'])->name('admin.plans.create');
+Route::post('/plans', [PlanController::class, 'store'])->name('admin.plans.store');
 
 Route::get('/plans/{id}/edit', [PlanController::class, 'edit'])->name('admin.plans.edit');
 Route::put('/plans/{id}', [PlanController::class, 'update'])->name('admin.plans.update');

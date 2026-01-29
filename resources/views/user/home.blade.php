@@ -4,237 +4,270 @@
         <div class="dark_bar">
             <h2>Horse Listings</h2>
             <a href="#!" class="points_btn">
-                <img src="{{ getenv('APP_URL') }}/assets/images/points_icon.png" alt="" class="img-fluid mb-2">
+                <img src="{{ asset('assets/images/points_icon.png') }}" alt="" class="img-fluid mb-2">
                 Show Points
             </a>
         </div>
         <div class="inner_content_wrapper">
             <div class="welcome-container">
                 <div class="welcome-content">
-                    <img src="{{ getenv('APP_URL') }}/assets/images/welcome_img.png" alt="Horse" class="horse-image">
+                    <img src="{{ asset('assets/images/welcome_img.png')}}" alt="Horse" class="horse-image">
                     <div class="text-content">
-                        <div class="welcome-title">Welcome back, Caitlin! ✨ 🐎</div>
+                        <div class="welcome-title">Welcome back, {{ $username }}!</div>
                         <div class="welcome-message">
                             We're so happy to see you again! You've arrived at your stable of tools and insights —
-                            everything you need is right at your fingertips! Have a blessed day! 😊 🔔
-                        </div>
-                    </div>
-                </div>
-                <a href="#!" class="saves-bar">YOUR SAVES</a>
-            </div>
-            <div class="row mt-4 mb-4">
-                <div class="col-md-6 pe-4">
-                    <div class="data_box">
-                        <div class="data_box_top_bar mb-3">
-                            <h2>Saved Ads</h2>
-                            <a href="#!" class="gold_btn">+ Add New Saved AD</a>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="count_boxs">
-                                    <div class="icon_box">
-                                        <img src="{{ getenv('APP_URL') }}/assets/images/count_icon_1.png" alt="" class="img-fluid">
-                                    </div>
-                                    <p>12</p>
-                                    <p>Horse</p>
-                                    <a href="#!">View All</a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="count_boxs">
-                                    <div class="icon_box">
-                                        <img src="{{ getenv('APP_URL') }}/assets/images/count_icon_2.png" alt="" class="img-fluid">
-                                    </div>
-                                    <p>5</p>
-                                    <p>Services</p>
-                                    <a href="#!">View All</a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="count_boxs">
-                                    <div class="icon_box">
-                                        <img src="{{ getenv('APP_URL') }}/assets/images/count_icon_3.png" alt="" class="img-fluid">
-                                    </div>
-                                    <p>3</p>
-                                    <p>Real Estate</p>
-                                    <a href="#!">View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ps-4">
-                    <div class="data_box">
-                        <div class="data_box_top_bar mb-3">
-                            <h2>Saved Searches </h2>
-                            <a href="#!" class="gold_btn">+ Add New Search</a>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="count_boxs">
-                                    <div class="icon_box">
-                                        <img src="{{ getenv('APP_URL') }}/assets/images/count_icon_4.png" alt="" class="img-fluid">
-                                    </div>
-                                    <p>12</p>
-                                    <p>Horse</p>
-                                    <a href="#!">View All</a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="count_boxs">
-                                    <div class="icon_box">
-                                        <img src="{{ getenv('APP_URL') }}/assets/images/count_icon_5.png" alt="" class="img-fluid">
-                                    </div>
-                                    <p>5</p>
-                                    <p>Services</p>
-                                    <a href="#!">View All</a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="count_boxs">
-                                    <div class="icon_box">
-                                        <img src="{{ getenv('APP_URL') }}/assets/images/count_icon_6.png" alt="" class="img-fluid">
-                                    </div>
-                                    <p>3</p>
-                                    <p>Real Estate</p>
-                                    <a href="#!">View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="dashboard-container mb-4">
-                <div class="dashboard-grid">
-                    <!-- Show Points Available -->
-                    <div class="dashboard-item">
-                        <div class="icon-wrapper">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/info_icon_1.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="label">SHOW POINTS AVAILABLE</div>
-                        <div class="value">2</div>
-                    </div>
-                    <!-- Valid For -->
-                    <div class="dashboard-item">
-                        <div class="icon-wrapper">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/info_icon_2.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="label">VALID FOR</div>
-                        <div class="value" style="font-size: 16px; font-weight: 600; margin-top: 8px;">4 MONTHS
-                            REMAINING
-                        </div>
-                    </div>
-                    <!-- Current Package -->
-                    <div class="dashboard-item">
-                        <div class="icon-wrapper">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/info_icon_3.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="label">CURRENT PACKAGE</div>
-                        <div class="value" style="font-size: 16px; font-weight: 600; margin-top: 8px;">PADDOCK PASS
-                        </div>
-                    </div>
-                    <!-- Active Listings -->
-                    <div class="dashboard-item">
-                        <div class="icon-wrapper">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/info_icon_4.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="label">ACTIVE LISTINGS</div>
-                        <div class="value">8</div>
-                    </div>
-                    <!-- Next Billing -->
-                    <div class="dashboard-item next-billing">
-                        <div class="icon-wrapper">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/info_icon_5.png" alt="" class="img-fluid">
-                        </div>
-                        <div class="label">NEXT BILLING</div>
-                        <div class="value" style="font-size: 18px; font-weight: 600; margin-top: 8px;">FEB 15, 2026
-                        </div>
-                        <div class="sublabel">PADDOCK PASS (5 SHOW POINTS)</div>
-                        <div class="sublabel">$65</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table_container">
-                <!-- Horse Listings Card -->
-                <div class="card horse-card">
-                    <div class="card-header">
-                        <div class="header-left">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/table_icon_1.png" alt="Horse" class="icon">
-                            <span class="title">Horse Listings</span>
-                        </div>
-                        <button class="add-btn">+ ADD NEW</button>
-                    </div>
-                    <div class="stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Total Listings:</span>
-                            <span class="stat-value">5</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Active Listings:</span>
-                            <span class="stat-value">5</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Sold Listings:</span>
-                            <span class="stat-value">10</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Withdraw Listings:</span>
-                            <span class="stat-value">1</span>
+                            everything you need is <br> right at your fingertips! Have a blessed day!
                         </div>
                     </div>
                 </div>
 
-                <!-- Service Listings Card -->
-                <div class="card service-card">
-                    <div class="card-header">
-                        <div class="header-left">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/table_icon_2.png" alt="Service" class="icon">
-                            <span class="title">Service Listings</span>
+                <div class="blue_logo_bar">
+                    <img src="{{ asset('assets/images/user_logo_crop.png') }}" alt="" class="img-fluid">
+                </div>
+            </div>
+            <div class="data_box_top_bar mb-3" bis_skin_checked="1">
+                <h2>Your Saves</h2>
+            </div>
+            <div class="dashboard-container mb-5">
+                <div class="row gy-4">
+                    <div class="col-md-4">
+                        <div class="count_boxs">
+                            <p class="mb-3">Horse Your Watching</p>
+                            <div class="icon_box_flex">
+                                <div class="icon_box">
+                                    <img src="{{ asset('assets/images/count_icon_4.png') }}" alt="" class="img-fluid">
+                                </div>
+                                <p>12</p>
+                            </div>
+                            <a href="#!">View Favorite Properties</a>
                         </div>
-                        <button class="add-btn">+ ADD NEW</button>
                     </div>
-                    <div class="stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Total Listings:</span>
-                            <span class="stat-value">1</span>
+                    <div class="col-md-4">
+                        <div class="count_boxs">
+                            <p class="mb-3">Horse Your Watching</p>
+                            <div class="icon_box_flex">
+                                <div class="icon_box">
+                                    <img src="{{ asset('assets/images/count_icon_2.png') }}" alt="" class="img-fluid">
+                                </div>
+                                <p>5</p>
+                            </div>
+                            <a href="#!">View Favorite Properties</a>
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Active Listings:</span>
-                            <span class="stat-value">1</span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="count_boxs">
+                            <p class="mb-3">Properties on your Radar</p>
+                            <div class="icon_box_flex">
+                                <div class="icon_box">
+                                    <img src="{{ asset('assets/images/count_icon_3.png') }}" alt="" class="img-fluid">
+                                </div>
+                                <p>3</p>
+                            </div>
+                            <a href="#!">View Favorite Properties</a>
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Sold Listings:</span>
-                            <span class="stat-value">1</span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="count_boxs">
+                            <p class="mb-3">Horse Searches</p>
+                            <div class="icon_box_flex">
+                                <div class="icon_box">
+                                    <img src="{{ asset('assets/images/count_icon_4.png') }}" alt="" class="img-fluid">
+                                </div>
+                                <p>3</p>
+                            </div>
+                            <a href="#!">View Favorite Properties</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="count_boxs">
+                            <p class="mb-3">Service Searches</p>
+                            <div class="icon_box_flex">
+                                <div class="icon_box">
+                                    <img src="{{ asset('assets/images/count_icon_2.png') }}" alt="" class="img-fluid">
+                                </div>
+                                <p>5</p>
+                            </div>
+                            <a href="#!">View Favorite Properties</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="count_boxs">
+                            <p class="mb-3">Properties Searches</p>
+                            <div class="icon_box_flex">
+                                <div class="icon_box">
+                                    <img src="{{ asset('assets/images/count_icon_3.png') }}" alt="" class="img-fluid">
+                                </div>
+                                <p>3</p>
+                            </div>
+                            <a href="#!">View Favorite Properties</a>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Real Estate Listings Card -->
-                <div class="card realestate-card">
-                    <div class="card-header">
-                        <div class="header-left">
-                            <img src="{{ getenv('APP_URL') }}/assets/images/table_icon_3.png" alt="Real Estate" class="icon">
-                            <span class="title">Real Estate Listings</span>
+            <div class="data_box_top_bar mb-3" bis_skin_checked="1">
+                <h2>Your Plan at a Glance</h2>
+            </div>
+            <div class="dashboard-container mb-5">
+                <div class="row gy-4">
+                    <div class="col-md-3">
+                        <div class="count_boxs_one_wrap">
+                            <h2>Show Points Available</h2>
+                            <div class="count_boxs_one">
+                                <div class="count_boxs_one_icon_flex mb-4">
+                                    <img src="{{ asset('assets/images/info_icon_1_1.png') }}" alt="" class="img-fluid">
+                                    <p>0</p>
+                                </div>
+                                <a href="#!" class="gold_btn">Buy More Show Points</a>
+                            </div>
                         </div>
-                        <button class="add-btn">+ ADD NEW</button>
                     </div>
-                    <div class="stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Total Listings:</span>
-                            <span class="stat-value">10</span>
+                    <div class="col-md-3">
+                        <div class="count_boxs_one_wrap">
+                            <h2>Active Listings</h2>
+                            <div class="count_boxs_one">
+                                <div class="count_boxs_one_icon_flex mb-4">
+                                    <img src="{{ asset('assets/images/info_icon_4.png') }}" alt="" class="img-fluid">
+                                    <p>8</p>
+                                </div>
+                                <a href="#!" class="gold_btn">See Your Listings</a>
+                            </div>
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Active Listings:</span>
-                            <span class="stat-value">5</span>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="count_boxs_one_wrap">
+                            <h2>E-Credits Valid For</h2>
+                            <div class="count_boxs_one">
+                                <div class="count_boxs_one_icon_flex mb-4">
+                                    <img src="{{ asset('assets/images/info_icon_2.png') }}" alt="" class="img-fluid">
+                                    <p>6 Months</p>
+                                </div>
+                                <a href="#!" class="gold_btn">Create a New Listings</a>
+                            </div>
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Sold Listings:</span>
-                            <span class="stat-value">5</span>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="count_boxs_one_wrap">
+                            <h2>Current Package</h2>
+                            <div class="count_boxs_one">
+                                <div class="count_boxs_one_icon_flex mb-4">
+                                    <img src="{{ asset('assets/images/info_icon_3.png') }}" alt="" class="img-fluid">
+                                    <p>0</p>
+                                </div>
+                                <a href="#!" class="gold_btn">Change Package</a>
+                            </div>
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Withdraw Listings:</span>
-                            <span class="stat-value">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data_box_top_bar mb-3" bis_skin_checked="1">
+                <h2>Account Overview</h2>
+            </div>
+            <div class="dashboard-container mb-5">
+                <div class="row gy-4">
+                    <div class="col-md-4">
+                        <div class="acc_review_card">
+                            <div class="name_bar mb-3">
+                                <img src="{{ asset('assets/images/table_icon_1.png') }}" alt="" class="img-fluid">
+                                <h2>Horse Listings</h2>
+                            </div>
+                            <a href="#!" class="gold_btn mb-3">+ Add Horse Listings</a>
+
+                            <div class="details_row">
+                                <div class="detail_col">
+                                    <h3>5</h3>
+                                    <p>Active</p>
+                                </div>
+                                <div class="detail_col">
+                                    <h3>10</h3>
+                                    <p>Sold</p>
+                                </div>
+                                <div class="detail_col border-0">
+                                    <h3>5</h3>
+                                    <p>Withdrawn</p>
+                                </div>
+                            </div>
+                            <div class="total_count_box">
+                                <h4>20</h4>
+                                <p>Total</p>
+                            </div>
+                            <a href="#!" class="view_btn">View Horse Listing <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="acc_review_card">
+                            <div class="name_bar mb-3">
+                                <img src="{{ asset('assets/images/table_icon_2.png') }}" alt="" class="img-fluid">
+                                <h2>Services Listings</h2>
+                            </div>
+                            <a href="#!" class="gold_btn mb-3">+ Add Horse Listings</a>
+
+                            <div class="details_row">
+                                <div class="detail_col w-50">
+                                    <h3>1</h3>
+                                    <p>Active</p>
+                                </div>
+                                <div class="detail_col w-50 border-0">
+                                    <h3>1</h3>
+                                    <p>Removed</p>
+                                </div>
+                            </div>
+                            <div class="total_count_box">
+                                <h4>1</h4>
+                                <p>Total</p>
+                            </div>
+                            <a href="#!" class="view_btn">View Horse Listing <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="acc_review_card">
+                            <div class="name_bar mb-3">
+                                <img src="{{ asset('assets/images/table_icon_3.png') }}" alt="" class="img-fluid">
+                                <h2>Real Estate Listings</h2>
+                            </div>
+                            <a href="#!" class="gold_btn mb-3">+ Add Horse Listings</a>
+
+                            <div class="details_row">
+                                <div class="detail_col">
+                                    <h3>5</h3>
+                                    <p>Active</p>
+                                </div>
+                                <div class="detail_col">
+                                    <h3>10</h3>
+                                    <p>Sold</p>
+                                </div>
+                                <div class="detail_col border-0">
+                                    <h3>5</h3>
+                                    <p>Withdrawn</p>
+                                </div>
+                            </div>
+                            <div class="total_count_box">
+                                <h4>11</h4>
+                                <p>Total</p>
+                            </div>
+                            <a href="#!" class="view_btn">View Horse Listing <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data_box_top_bar mb-3" bis_skin_checked="1">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="{{ asset('assets/images/info_icon_5.png') }}" alt="" class="img-fluid">
+                    <h2>Next Billing Date</h2>
+                </div>
+            </div>
+            <div class="">
+                <div class="row gy-4">
+                    <div class="col-md-4">
+                        <div class="billing_wrap">
+                            <div class="count_boxs billing_box text-center">
+                                <p class="">Auto Renew On</p>
+                                <p class="">01-Mar-2026</p>
+                                <h2>Paddock Pass</h2>
+                                <a href="#!" class="gold_btn">Manage Package</a>
+                            </div>
                         </div>
                     </div>
                 </div>
