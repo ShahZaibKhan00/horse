@@ -4,8 +4,8 @@
     <div class="user_main_content">
         <div class="dark_bar">
             <h2>Horse Listings</h2>
-            <a href="#!" class="points_btn">
-                <img src="assets/front/images/points_icon.png" alt="" class="img-fluid mb-2">
+            <a href="javascript:;" class="points_btn">
+                <img src="assets/images/points_icon.png" alt="" class="img-fluid mb-2">
                 Show Points
             </a>
         </div>
@@ -26,12 +26,12 @@
                             </div>
                             <div class="detail-row">
                                 <strong>Status:</strong> <span class="status-badge">
-                                    @if (isset($plans[0]->status) && $plans[0]->status == 1)
+                                    {{ $plans[0]->pacakge_status ?? 'Not Active' }}
+                                    {{-- @if (isset($plans[0]->status) && $plans[0]->status == 1)
                                         Active
                                     @else
                                         Not Active
-                                    @endif
-
+                                    @endif --}}
                                 </span>
                             </div>
                             <div class="detail-row">
@@ -39,13 +39,11 @@
                             </div>
                             <div class="detail-row">
                                 <strong>Active Ads:</strong>
-                                {{-- {{ optional($plans[0])->created_at ? \Carbon\Carbon::parse($plans[0]->created_at)->format('F d, Y') : 'Not started yet' }} --}}
                                 {{ optional($plans[0] ?? null)->created_at ? \Carbon\Carbon::parse($plans[0]->created_at)->format('F d, Y') : 'Not started yet' }}
 
                             </div>
                             <div class="detail-row">
                                 <strong>Next Billing:</strong>
-                                {{-- {{ optional($plans[0])->created_at ? \Carbon\Carbon::parse($plans[0]->created_at)->addMonth()->format('F d, Y') : 'Billing will start after subscription' }} --}}
                                 {{ optional($plans[0] ?? null)->created_at ? \Carbon\Carbon::parse(data_get($plans, '0.created_at'))->addMonth()->format('F d, Y') : 'Billing will start after subscription' }}
                             </div>
                         </div>

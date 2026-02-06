@@ -1364,7 +1364,7 @@
                             <div class="dropdown-container">
                                 <div class="dropdown-header" id="dropdownHeader">
                                     <div class="tags" id="tagsContainer"></div>
-                                    <input type="text" id="searchInput" placeholder="Start typing or Select an Option from the drop down list." required oninput="handleInput()"
+                                    <input type="text" id="searchInput" placeholder="Start typing or Select an Option from the drop down list." oninput="handleInput()"
                                         onkeydown="handleKeyDown(event)" name="pro_rider_level_display" />
                                     <span class="dropdown-arrow" onclick="toggleDropdown()">▼</span>
                                 </div>

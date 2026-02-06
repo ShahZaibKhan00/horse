@@ -48,6 +48,22 @@ class ServiceController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
+        $plans = DB::table('subscriptions')
+            ->join('subscribed', 'subscriptions.id', '=', 'subscribed.subscription_id')
+            ->where('subscriptions.useer_id', Auth::id())
+            ->select('subscriptions.*', 'subscribed.*')
+            ->orderBy('subscriptions.created_at', 'desc')
+            ->get();
+        if(Auth::user()->usertype == '0'){
+            if ($plans[0]->remaining_token == 0) {
+                $messages = [
+                    'title' => 'Ads Finished!',
+                    'detail' => 'Your ads have been finished. Kindly recharge them.'
+                ];
+                Session()->flash('alert-danger', $messages);
+                return redirect()->back();
+            }
+        }
         // if ($usertype == '1') {
             return view('admin.add_service', compact('username', 'usertype', 'userprofile', 'Logo', 'Web_name', 'categories'));
         // } else {
@@ -67,22 +83,6 @@ class ServiceController extends Controller
             'full_name.required' => 'The Service Full Name field is required.',
             'number.required' => 'The Service Email field is required.',
         ]);
-        $latestSubscription = DB::table('subscriptions')
-            ->where('useer_id', auth()->id())
-            ->where('pacakge_status', 'Active')
-            ->orderBy('created_at', 'desc')
-            ->first();
-        if ($latestSubscription) {
-            DB::table('subscribed')
-                ->where('subscription_id', $latestSubscription->id)
-                ->where('remaining_token', '>', 0)          // optional safety
-                ->decrement('remaining_token', 1);
-        }
-        else {
-            $messages = ['title' => 'Data Saved!!', 'detail' => 'Please Purchase the Subscription Before this process.'];
-            Session()->flash('alert-danger', $messages);
-            return redirect()->back();
-        }
 
         $pro_images = [];
 
@@ -143,8 +143,19 @@ class ServiceController extends Controller
 
         $data->demo_link = implode(',', $request->demo_link);
         $data->User_id = Auth::user()->id;
-
         $data->save();
+
+        $latestSubscription = DB::table('subscriptions')
+            ->where('useer_id', auth()->id())
+            ->where('pacakge_status', 'Active')
+            ->orderBy('created_at', 'desc')
+            ->first();
+        if ($latestSubscription) {
+            DB::table('subscribed')
+                ->where('subscription_id', $latestSubscription->id)
+                ->where('remaining_token', '>', 0)          // optional safety
+                ->decrement('remaining_token', 1);
+        }
 
         $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
         Session()->flash('alert-success', $messages);

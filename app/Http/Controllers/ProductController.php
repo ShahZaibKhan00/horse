@@ -56,9 +56,23 @@ class ProductController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        // if($usertype == '1'){
-            return view('admin.add_product' , compact('username' , 'usertype', 'userprofile' , 'Logo' , 'categories' , 'Web_name' , 'name'));
-        // }else{
+        $plans = DB::table('subscriptions')
+            ->join('subscribed', 'subscriptions.id', '=', 'subscribed.subscription_id')
+            ->where('subscriptions.useer_id', Auth::id())
+            ->select('subscriptions.*', 'subscribed.*')
+            ->orderBy('subscriptions.created_at', 'desc')
+            ->get();
+        if(Auth::user()->usertype == '0'){
+            if ($plans[0]->remaining_token == 0) {
+                $messages = [
+                    'title'  => 'Ads Finished!',
+                    'detail' => 'Your ads have been finished. Kindly recharge them.'
+                ];
+                Session()->flash('alert-danger', $messages);
+                return redirect()->back();
+            }
+        }
+        return view('admin.add_product' , compact('username' , 'usertype', 'userprofile' , 'Logo' , 'categories' , 'Web_name' , 'name'));
         //     return view('user.add_product' , compact('username' , 'userprofile' , 'Logo' , 'categories' , 'Web_name' , 'name'));
         // }
     }
@@ -88,22 +102,6 @@ class ProductController extends Controller
             'pro_Fimg.max' => 'The featured image may not be greater than 10MB.',
         ]);
 
-        $latestSubscription = DB::table('subscriptions')
-                ->where('useer_id', auth()->id())
-                ->where('pacakge_status', 'Active')
-                ->orderBy('created_at', 'desc')
-                ->first();
-            if ($latestSubscription) {
-                DB::table('subscribed')
-                    ->where('subscription_id', $latestSubscription->id)
-                    ->where('remaining_token', '>', 0)          // optional safety
-                    ->decrement('remaining_token', 1);
-            }
-            else {
-                $messages = ['title' => 'Data Saved!!', 'detail' => 'Please Purchase the Subscription Before this process.'];
-                Session()->flash('alert-danger', $messages);
-                return redirect()->back();
-            }
         try {
 
             // DB::beginTransaction();
@@ -132,8 +130,6 @@ class ProductController extends Controller
                 // Save only the filename in the database
                 $product->pro_Fimg = $featuredImageName;
             }
-
-
 
             // dd($destinationPathone);
             // if ($request->hasFile('pro_Fimg')) {
@@ -293,32 +289,25 @@ class ProductController extends Controller
             $product->user_id = Auth::user()->id;
             $product->save();
 
-            // if ($product) {
-            //     $latestSubscription = DB::table('subscriptions')
-            //         ->where('user_id', auth()->id())
-            //         ->where('pacakge_status', 'Active')
-            //         ->orderBy('created_at', 'desc')
-            //         ->first();
-            //     if ($latestSubscription) {
-            //         DB::table('subscribed')
-            //             ->where('subscription_id', $latestSubscription->id)
-            //             ->where('remaining_token', '>', 0)          // optional safety
-            //             ->decrement('remaining_token', 1);
-            //     }
-            //     else {
-            //         $messages = ['title' => 'Data Saved!!', 'detail' => 'Please Purchase the Subscription Before this process.'];
-            //         Session()->flash('alert-danger', $messages);
-            //         return redirect()->back();
-            //     }
-            // }
-
-            if($usertype == '1'){
-                return redirect("/products/$request->cate_id_name");
-            } else {
-                $messages = ['title' => 'Data Saved!!', 'detail' => 'Record has been added successfully.'];
-                Session()->flash('alert-success', $messages);
-                return redirect('/horse-listing');
+            $latestSubscription = DB::table('subscriptions')
+                ->where('useer_id', auth()->id())
+                ->where('pacakge_status', 'Active')
+                ->orderBy('created_at', 'desc')
+                ->first();
+            if ($latestSubscription) {
+                DB::table('subscribed')
+                    ->where('subscription_id', $latestSubscription->id)
+                    ->where('remaining_token', '>', 0)          // optional safety
+                    ->decrement('remaining_token', 1);
             }
+
+            $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
+            Session()->flash('alert-success', $messages);
+
+            if($usertype == '1')
+                return redirect("/products/$request->cate_id_name");
+            else
+                return redirect('/horse-listing');
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
             return back()->withInput()->with('error', 'Error: ' . $e->getMessage());

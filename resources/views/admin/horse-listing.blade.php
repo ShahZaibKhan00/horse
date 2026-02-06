@@ -45,16 +45,11 @@
                                     </div>
                                     <div class="user_img_box">
                                         <div class="swiper user_card_slider swiper-wrapper">
-                                            {{-- @php
-                                                $productImages = !empty($data->pro_imgs) ? json_decode($data->pro_imgs, true) : [];
-                                            @endphp --}}
                                             @php
                                                 $productImages = [];
 
                                                 if (!empty($data->pro_imgs)) {
                                                     $productImages = json_decode($data->pro_imgs, true);
-
-                                                    // second decode if still string
                                                     if (is_string($productImages)) {
                                                         $productImages = json_decode($productImages, true);
                                                     }

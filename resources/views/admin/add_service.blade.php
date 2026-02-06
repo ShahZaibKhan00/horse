@@ -879,7 +879,7 @@
                                         <!-- HTML -->
                                         <div class="custom-multiselect" id="languageSelect">
                                             <div class="selected-tags" id="selectedLangTags">
-                                                <input type="text" id="langInput" class="multi-input" required placeholder="Select or type language..." />
+                                                <input type="text" id="langInput" class="multi-input" placeholder="Select or type language..." />
                                             </div>
 
                                             <div class="dropdown hidden" id="langDropdown">
@@ -1752,7 +1752,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="border_box_one">
-                                    <input class="form-control gen_input thousand-separator numbers_limit price-input" name="pkg_price" type="text" placeholder="Enter price" required />
+                                    <input class="form-control gen_input thousand-separator numbers_limit price-input" name="pkg_price" type="text" placeholder="Enter price" />
                                 </div>
                             </div>
                         </div>
@@ -2154,7 +2154,7 @@
                     }
                 });
             });
-        </script> -->
+        </script>
 
         <script>
             const addBtn = document.querySelector('.add_url_btn');

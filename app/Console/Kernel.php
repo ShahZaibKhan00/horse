@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ConvertUnusedTokensToCredits;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +13,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('listings:deactivate-old')->dailyAt('00:00')->runInBackground()
+        ->withoutOverlapping(); // Har raat thek 12 baje
+        $schedule->command(ConvertUnusedTokensToCredits::class)->dailyAt('00:00')->runInBackground()
+        ->withoutOverlapping(); // Har raat thek 12 baje
     }
 
     /**

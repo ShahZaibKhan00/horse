@@ -334,7 +334,7 @@
 
     @if (Session::has('alert-danger'))
         <script>
-            swal(@json(Session::get('alert-danger')['title']), @json(Session::get('alert-danger')['detail']), "Error");
+            swal(@json(Session::get('alert-danger')['title']), @json(Session::get('alert-danger')['detail']), "error");
         </script>
     @endif
     <script>

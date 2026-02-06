@@ -178,7 +178,6 @@
             <div class="inner-container-one">
                 <div class="row">
                     @foreach ($plans as $item)
-                        <!-- Single Stall Pass -->
                         <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                             <div class="mem_card_new active">
                                 <div class="mem_card_top">
@@ -188,7 +187,16 @@
                                     <p>{{ $item->quantity }} show Point</p>
                                     <h3>${{ $item->price }} <span>/month</span></h3>
                                     <p>{{ $item->description }}</p>
-                                    <a href="{{ route('payment.link', Crypt::encrypt($item->id)) }}" class="choose-btn">Buy Now</a>
+                                    @guest
+                                        <a href="{{ route('login', ['from' => 'payment']) }}" class="choose-btn">
+                                            Buy Now
+                                        </a>
+                                    @endguest
+                                    @auth
+                                        <a href="{{ route('payment.link', Crypt::encrypt($item->id)) }}" class="choose-btn">
+                                            Buy Now
+                                        </a>
+                                    @endauth
                                 </div>
                             </div>
                         </div>

@@ -41,14 +41,20 @@ class FrontController extends Controller
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
         $cate_data = Category::orderBy('id', 'desc')->take(2)->get();
-        $pro_data = Product::orderBy('id', 'desc')->take(8)->get();
+        $pro_data = Product::where('pro_status', 'Published')
+            ->where('status', 1)
+            ->orderBy('id', 'desc')->take(8)->get();
         $pro_data_sale = Product::where('pro_ad_type', 'For Sale')
+            ->where('pro_status', 'Published')
+            ->where('status', 1)
             ->orderBy('id', 'desc')
             ->take(4)
             ->get();
 
         // Clone 2: Where pro_ad_type = 'Auction'
         $pro_data_auction = Product::where('pro_ad_type', 'At Auction')
+            ->where('pro_status', 'Published')
+            ->where('status', 1)
             ->orderBy('id', 'desc')
             ->take(4)
             ->get();
@@ -681,7 +687,7 @@ class FrontController extends Controller
 
     function farmFavorite($id) {
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect()->route('login')->with('error', 'Please log in to add this item to your favorites.');
         }
 
         try {
@@ -707,9 +713,9 @@ class FrontController extends Controller
     }
 
     function horseFavorite($id) {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
+        if (!Auth::check())
+            return redirect()->route('login')->with('error', 'Please log in to add this item to your favorites.');
+
         try {
             $realstateId = Crypt::decrypt($id);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
@@ -719,10 +725,8 @@ class FrontController extends Controller
         $alreadyFavorite = HorseFavorite::where('user_id', Auth::id())
             ->where('product_id', $realstateId)
             ->exists();
-
-        if ($alreadyFavorite) {
+        if ($alreadyFavorite)
             return back()->with('error', 'This Horse is already in your favorites.');
-        }
 
         $realnew = new HorseFavorite();
         $realnew->user_id = Auth::id();

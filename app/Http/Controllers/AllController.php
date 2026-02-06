@@ -6,6 +6,7 @@ use Exception;
 use Stripe\Stripe;
 use Stripe\Customer;
 use App\Models\General;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Crypt;
 use Stripe\Checkout\Session as StripSession;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Session as ProjectSession;
+use Stripe\Balance;
 
 class AllController extends Controller
 {
@@ -31,10 +33,7 @@ class AllController extends Controller
     }
 
     function index() {
-        if (ProjectSession::has('referer_url')) {
-            $messages = ['title' => 'Data Saved!!', 'detail' => 'Payment You Proceed has been Cancelled. Please Try Again.'];
-            Session()->flash('alert-danger', $messages);
-        }
+        // dd(now()->subDays(30)->format('d F Y'));
         $usertype = Auth::user()->usertype;
         $username = Auth::user()->name;
         $userprofile = Auth::user()->Profile_img;
@@ -60,18 +59,8 @@ class AllController extends Controller
             ->orderByDesc('id')
             ->first();
 
-        // dd($data);
-        // if (empty($plans->count())) {
-        //     return redirect('list-management?label=horse');
-        // }
-        // $plan = DB::table('plans')
-        //     ->where('user_id', auth()->id())
-        //     ->where('status', 1)
-        //     ->first();
-
-        if (!$data) {
+        if (!$data)
             return redirect('list-management?label=horse');
-        }
         return view('admin.horse-listing', compact('username', 'data', 'usertype', 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
     }
 
@@ -114,7 +103,7 @@ class AllController extends Controller
 
     function payment($id) {
         if (!Auth::check()) {
-            return redirect()->back()->with(    'error', 'Please Login to Subscribe Package.');
+            return redirect()->route('login')->with('error', 'Please Login Your Account to Add into Favorite');
         }
         $plan = DB::table('plans')->where('id', Crypt::decrypt($id))->first();
         $user = Auth::user();
@@ -162,40 +151,146 @@ class AllController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         try {
             $session = StripSession::retrieve($request->query('session_id'));
-            if ($session->payment_status !== 'paid') {
+            if ($session->payment_status !== 'paid')
                 return redirect()->route('login')->with('error', 'Payment not completed.');
-            }
+
             $meta = $session->metadata;
 
-            $plan = DB::table('plans')->where('id', $meta->plan_id)->first();
-            DB::transaction(function () use ($plan) {
+            $product = Product::where('user_id', Auth::id())
+                ->where('pro_status', 'Published')
+                ->where('status', 1)
+                ->count();
 
-                // 1️⃣ Insert into subscriptions table
+            $plan = DB::table('plans')->where('id', $meta->plan_id)->first();
+            // DB::transaction(function () use ($plan, $product) {
+            //     // 1️⃣ Insert into subscriptions table
+            //     $subscriptionId = DB::table('subscriptions')->insertGetId([
+            //         'useer_id'        => Auth::id(),
+            //         'package_name'  => $plan->name,
+            //         'package_price' => $plan->price,
+            //         'package_usage' => $plan->quantity,
+            //         'purchased_at'  => now(),
+            //         'payment_type'  => $meta->payment_type ?? 'Credit',
+            //         'pacakge_status'  => 'Active', // Active ya Expired
+            //         'created_at'    => now(),
+            //         'updated_at'    => now(),
+            //     ]);
+            //     // 2️⃣ Insert into subscribed table
+            //     $subscribed = DB::table('subscribed')->insert([
+            //         'subscription_id'   =>      $subscriptionId,
+            //         'remaining_token'   =>      $plan->quantity,
+            //         'created_at'        =>      now(),
+            //         'updated_at'        =>      now(),
+            //     ]);
+            //     if ($subscriptionId && $subscribed && $product > 0) {
+            //         $usedTokens = min($product, $plan->quantity);
+
+            //         DB::table('subscribed')
+            //             ->where('subscription_id', $subscriptionId)
+            //             ->update([
+            //                 'remaining_token' => $plan->quantity - $usedTokens,
+            //                 'updated_at'      => now(),
+            //             ]);
+            //     }
+            // });
+            DB::transaction(function () use ($plan, $meta, $session) {
+                //  Step 1: Create subscription
                 $subscriptionId = DB::table('subscriptions')->insertGetId([
                     'useer_id'        => Auth::id(),
-                    'package_name'  => $plan->name,
-                    'package_price' => $plan->price,
-                    'package_usage' => $plan->quantity,
-                    'purchased_at'  => now(),
-                    'payment_type'  => $meta->payment_type ?? 'Credit',
-                    'pacakge_status'  => 'Active', // Active ya Expired
-                    'created_at'    => now(),
-                    'updated_at'    => now(),
+                    'package_name'    => $plan->name,
+                    'package_price'   => $plan->price,
+                    'package_usage'   => $plan->quantity,
+                    'purchased_at'    => now(),
+                    'stripe_id'       => $session->id,
+                    'payment_type'    => $meta->payment_type ?? 'Credit',
+                    'pacakge_status'  => 'Active',
+                    'created_at'      => now(),
+                    'updated_at'      => now(),
                 ]);
 
-                // 2️⃣ Insert into subscribed table
+                //  Step 2: Initialize subscribed with full tokens
                 DB::table('subscribed')->insert([
-                    'subscription_id'   =>      $subscriptionId,
-                    'remaining_token'   =>      $plan->quantity,
-                    'created_at'        =>      now(),
-                    'updated_at'        =>      now(),
+                    'subscription_id' => $subscriptionId,
+                    'remaining_token' => $plan->quantity,
+                    'created_at'      => now(),
+                    'updated_at'      => now(),
                 ]);
+
+                // 🎯 Step 3: Fetch ALL eligible records from 3 tables (but limit total!)
+                $userId = Auth::id();
+                $maxRecords = $plan->quantity;
+
+                // Get published products
+                $products = DB::table('products')
+                    ->where('user_id', $userId)
+                    ->where('pro_status', 'Published')
+                    ->where('status', 1)
+                    ->select('id', DB::raw("'product' as type"))
+                    ->get();
+
+                // Get published realstates
+                $realstates = DB::table('realstates')
+                    ->where('user_id', $userId)
+                    ->where('re_status', 'Published') // adjust field name if different
+                    ->where('status', 1)
+                    ->select('id', DB::raw("'realstate' as type"))
+                    ->get();
+
+                // Get published services
+                $services = DB::table('services')
+                    ->where('user_id', $userId)
+                    ->where('status', 1)
+                    ->select('id', DB::raw("'service' as type"))
+                    ->get();
+
+                // Merge all
+                $allRecords = $products->concat($realstates)->concat($services);
+
+                // ⚠️ Only take up to $plan->quantity records
+                $recordsToProcess = $allRecords->take($maxRecords);
+                $usedTokens = $recordsToProcess->count();
+
+                // 🔁 Step 4: Process each record (update status or link to subscription)
+                foreach ($recordsToProcess as $record) {
+                    switch ($record->type) {
+                        case 'product':
+                            DB::table('products')
+                                ->where('id', $record->id)
+                                ->where('user_id', $userId)
+                                ->update(['status' => 1]); // or any other logic
+                            break;
+
+                        case 'realstate':
+                            DB::table('realstates')
+                                ->where('id', $record->id)
+                                ->where('user_id', $userId)
+                                ->update(['status' => 1]);
+                            break;
+
+                        case 'service':
+                            DB::table('services')
+                                ->where('id', $record->id)
+                                ->where('user_id', $userId)
+                                ->update(['status' => 1]);
+                            break;
+                    }
+                }
+
+                // 🔄 Step 5: Update remaining tokens
+                if ($usedTokens > 0) {
+                    DB::table('subscribed')
+                        ->where('subscription_id', $subscriptionId)
+                        ->update([
+                            'remaining_token' => $plan->quantity - $usedTokens,
+                            'updated_at'      => now(),
+                        ]);
+                }
             });
             ProjectSession::forget('referer_url');
             // return "Success";
             $messages = ['title' => 'Data Saved!!', 'detail' => "You have Sucessfully Subscribed the package and You have `{$plan->quantity}` show Point"];
-            Session()->flash('alert-danger', $messages);
-            return redirect('list-management');
+            Session()->flash('alert-success', $messages);
+            return redirect('subscription');
         } catch (Exception $e) {
             Log::error('Payment success error: ' . $e->getMessage());
             return redirect()->route('login')->with('error', 'Something went wrong. Please log in.');
@@ -204,25 +299,22 @@ class AllController extends Controller
 
     function invoice($encryptedId) {
         try {
-        $subscriptionId = decrypt($encryptedId);
-    } catch (DecryptException $e) {
-        abort(404);
-    }
-
-    $plan = DB::table('subscriptions')
-        ->join('subscribed', 'subscriptions.id', '=', 'subscribed.subscription_id')
-        ->where('subscriptions.id', $subscriptionId)   // 👈 decrypted id
-        ->where('subscriptions.useer_id', Auth::id())   // 👈 security check
-        ->select(
-            'subscriptions.*',
-            'subscribed.*'
-        )
-        ->first();
-
-
-        if (!$plan) {
-            abort(403);
+            $subscriptionId = decrypt($encryptedId);
+        } catch (DecryptException $e) {
+            abort(404);
         }
+
+        $plan = DB::table('subscriptions')
+            ->join('subscribed', 'subscriptions.id', '=', 'subscribed.subscription_id')
+            ->where('subscriptions.id', $subscriptionId)   // 👈 decrypted id
+            ->where('subscriptions.useer_id', Auth::id())   // 👈 security check
+            ->select(
+                'subscriptions.*',
+                'subscribed.*'
+            )->first();
+
+        if (!$plan)
+            abort(403);
 
         $pdf = Pdf::loadView('admin.invoice', ['plan' => $plan]);
         return $pdf->stream(Auth::user()->name . '.pdf');

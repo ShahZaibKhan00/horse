@@ -89,7 +89,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
+    {{-- <script>
         console.log(typeof toastr);
 
         @if (session('success'))
@@ -99,7 +99,21 @@
             toastr.error("{{ session('error') }}");
             console.log("running error");
         @endif
+    </script> --}}
+    <script>
+        @if (request('from') === 'payment')
+            toastr.info("Please login to continue payment");
+        @endif
+
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
     </script>
+
     <script>
         let showHide = document.querySelector('.showHide');
         let passwordInput = document.querySelector('.passwordInput');
