@@ -1690,7 +1690,7 @@
                                 <p>{{ $service->number }}</p>
                                 <a href="{{ $service->website_url }}" target="_blank" class="webLink">{{ $service->website_url }}</a>
                                 <div class="btn_set mt-3">
-                                    <a href="#!" class="horse_card_btn">View Detail</a>
+                                    <a href="{{ url('service_details/' . Crypt::encrypt($service->id)) }}" class="horse_card_btn">View Detail</a>
                                     <label class="fvrt_btn">
                                         <input type="checkbox" hidden />
                                         Favorite <i class="fa fa-heart" aria-hidden="true"></i>

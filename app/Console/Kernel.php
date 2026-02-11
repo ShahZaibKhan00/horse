@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('listings:deactivate-old')->dailyAt('00:00')->runInBackground()
         ->withoutOverlapping(); // Har raat thek 12 baje
-        $schedule->command(ConvertUnusedTokensToCredits::class)->dailyAt('00:00')->runInBackground()
+        $schedule->command('credits:convert-unuse')->dailyAt('00:00')->runInBackground()
         ->withoutOverlapping(); // Har raat thek 12 baje
     }
 

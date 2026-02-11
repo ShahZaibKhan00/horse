@@ -28,10 +28,10 @@ class ConvertUnusedTokensToCredits extends Command
     {
         $cutoffDate = now()->subDays(30);
         $expiredSubIds = DB::table('subscriptions')
-            ->where('purchased_at', '<=', $cutoffDate)
+            ->where('purchased_at', '<', $cutoffDate)
             ->where('pacakge_status', 'Active')
             ->pluck('id');
-
+        \Log::info($expiredSubIds);
         if ($expiredSubIds->isEmpty()) {
             return; // Nothing to do
         }
@@ -71,6 +71,7 @@ class ConvertUnusedTokensToCredits extends Command
             }
 
         });
+        $this->info('Completed');
 
 
         // $creditSubs = DB::table('subscribed')

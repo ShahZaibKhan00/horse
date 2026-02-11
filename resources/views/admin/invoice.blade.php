@@ -77,7 +77,12 @@
                 </p>
             </div>
             <div class="amount">
-                {{ number_format($plan->package_price, 2) ?? 'N/A' }} Due
+                @if (is_numeric($plan->package_price ?? null))
+                    {{ number_format((float) $plan->package_price, 2) }} Due
+                @else
+                    {{ $plan->package_price ?? '0.00' }}
+                @endif
+                {{-- {{ number_format($plan->package_price, 2) ?? 'N/A' }} Due --}}
             </div>
         </div>
 
@@ -93,13 +98,26 @@
                 <tr>
                     <td>{{ $plan->package_name ?? 'N/A' }}</td>
                     <td>Monthly</td>
-                    <td>${{ number_format($plan->package_price, 2) ?? 'N/A' }}</td>
+                    <td>
+                        {{-- ${{ number_format($plan->package_price, 2) ?? 'N/A' }} --}}
+                        @if (is_numeric($plan->package_price ?? null))
+                            ${{ number_format((float) $plan->package_price, 2) }}
+                        @else
+                            {{ $plan->package_price ?? '0.00' }}
+                        @endif
+                    </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="total">
-            Total Due: ${{ number_format($plan->package_price, 2) ?? 'N/A' }} USD
+            Total Due: $
+            {{-- {{ number_format($plan->package_price, 2) ?? 'N/A' }}  --}}
+            @if (is_numeric($plan->package_price ?? null))
+                ${{ number_format((float) $plan->package_price, 2) }} USD
+            @else
+                {{ $plan->package_price ?? '0.00' }}
+            @endif
         </div>
 
         <div class="footer">

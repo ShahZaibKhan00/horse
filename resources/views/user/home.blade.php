@@ -3,15 +3,17 @@
     <div class="user_main_content">
         <div class="dark_bar">
             <h2>Horse Listings</h2>
-            <a href="#!" class="points_btn">
+            <a href="#!" class="points_btn" data-bs-toggle="modal" data-bs-target="#pointsModal">
                 <img src="{{ asset('assets/images/points_icon.png') }}" alt="" class="img-fluid mb-2">
                 Show Points
             </a>
+
+            <x-credit-modal />
         </div>
         <div class="inner_content_wrapper">
             <div class="welcome-container">
                 <div class="welcome-content">
-                    <img src="{{ asset('assets/images/welcome_img.png')}}" alt="Horse" class="horse-image">
+                    <img src="{{ asset('assets/images/welcome_img.png') }}" alt="Horse" class="horse-image">
                     <div class="text-content">
                         <div class="welcome-title">Welcome back, {{ $username }}!</div>
                         <div class="welcome-message">

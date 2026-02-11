@@ -156,43 +156,8 @@ class AllController extends Controller
 
             $meta = $session->metadata;
 
-            $product = Product::where('user_id', Auth::id())
-                ->where('pro_status', 'Published')
-                ->where('status', 1)
-                ->count();
-
             $plan = DB::table('plans')->where('id', $meta->plan_id)->first();
-            // DB::transaction(function () use ($plan, $product) {
-            //     // 1️⃣ Insert into subscriptions table
-            //     $subscriptionId = DB::table('subscriptions')->insertGetId([
-            //         'useer_id'        => Auth::id(),
-            //         'package_name'  => $plan->name,
-            //         'package_price' => $plan->price,
-            //         'package_usage' => $plan->quantity,
-            //         'purchased_at'  => now(),
-            //         'payment_type'  => $meta->payment_type ?? 'Credit',
-            //         'pacakge_status'  => 'Active', // Active ya Expired
-            //         'created_at'    => now(),
-            //         'updated_at'    => now(),
-            //     ]);
-            //     // 2️⃣ Insert into subscribed table
-            //     $subscribed = DB::table('subscribed')->insert([
-            //         'subscription_id'   =>      $subscriptionId,
-            //         'remaining_token'   =>      $plan->quantity,
-            //         'created_at'        =>      now(),
-            //         'updated_at'        =>      now(),
-            //     ]);
-            //     if ($subscriptionId && $subscribed && $product > 0) {
-            //         $usedTokens = min($product, $plan->quantity);
 
-            //         DB::table('subscribed')
-            //             ->where('subscription_id', $subscriptionId)
-            //             ->update([
-            //                 'remaining_token' => $plan->quantity - $usedTokens,
-            //                 'updated_at'      => now(),
-            //             ]);
-            //     }
-            // });
             DB::transaction(function () use ($plan, $meta, $session) {
                 //  Step 1: Create subscription
                 $subscriptionId = DB::table('subscriptions')->insertGetId([
@@ -224,7 +189,7 @@ class AllController extends Controller
                 $products = DB::table('products')
                     ->where('user_id', $userId)
                     ->where('pro_status', 'Published')
-                    ->where('status', 1)
+                    ->where('status', 0)
                     ->select('id', DB::raw("'product' as type"))
                     ->get();
 
@@ -232,14 +197,14 @@ class AllController extends Controller
                 $realstates = DB::table('realstates')
                     ->where('user_id', $userId)
                     ->where('re_status', 'Published') // adjust field name if different
-                    ->where('status', 1)
+                    ->where('status', 0)
                     ->select('id', DB::raw("'realstate' as type"))
                     ->get();
 
                 // Get published services
                 $services = DB::table('services')
                     ->where('user_id', $userId)
-                    ->where('status', 1)
+                    ->where('status', 0)
                     ->select('id', DB::raw("'service' as type"))
                     ->get();
 
@@ -249,7 +214,7 @@ class AllController extends Controller
                 // ⚠️ Only take up to $plan->quantity records
                 $recordsToProcess = $allRecords->take($maxRecords);
                 $usedTokens = $recordsToProcess->count();
-
+                // dd($recordsToProcess, $usedTokens);
                 // 🔁 Step 4: Process each record (update status or link to subscription)
                 foreach ($recordsToProcess as $record) {
                     switch ($record->type) {
@@ -319,5 +284,121 @@ class AllController extends Controller
         $pdf = Pdf::loadView('admin.invoice', ['plan' => $plan]);
         return $pdf->stream(Auth::user()->name . '.pdf');
         // return view('admin.invoice', compact('plan'));
+    }
+
+    function useCredit() {
+        $credits = DB::table('user_credits')
+            ->where('user_id', Auth::id())
+            ->first();
+        if (!$credits) {
+            throw new Exception("No credits found for user.");
+        }
+
+        DB::transaction(function () use ($credits) {
+            //  Step 1: Create subscription
+            $subscriptionId = DB::table('subscriptions')->insertGetId([
+                'useer_id'        => Auth::id(),
+                'package_name'    => "Used Credits",
+                'package_price'   => "Used Credits",
+                'package_usage'   => $credits->credits_balance,
+                'purchased_at'    => now(),
+                'stripe_id'       => "Not Generated",
+                'payment_type'    => 'Reamaining Credits',
+                'pacakge_status'  => 'Active',
+                'created_at'      => now(),
+                'updated_at'      => now(),
+            ]);
+
+            //  Step 2: Initialize subscribed with full tokens
+            DB::table('subscribed')->insert([
+                'subscription_id' => $subscriptionId,
+                'remaining_token' => $credits->credits_balance,
+                'created_at'      => now(),
+                'updated_at'      => now(),
+            ]);
+
+            // 🎯 Step 3: Fetch ALL eligible records from 3 tables (but limit total!)
+            $userId = Auth::id();
+            $maxRecords = $credits->credits_balance;
+
+            // Get published products
+            $products = DB::table('products')
+                ->where('user_id', $userId)
+                ->where('pro_status', 'Published')
+                ->where('status', 0)
+                ->select('id', DB::raw("'product' as type"))
+                ->get();
+
+            // Get published realstates
+            $realstates = DB::table('realstates')
+                ->where('user_id', $userId)
+                ->where('re_status', 'Published') // adjust field name if different
+                ->where('status', 0)
+                ->select('id', DB::raw("'realstate' as type"))
+                ->get();
+
+            // Get published services
+            $services = DB::table('services')
+                ->where('user_id', $userId)
+                ->where('status', 0)
+                ->select('id', DB::raw("'service' as type"))
+                ->get();
+
+            // Merge all
+            $allRecords = $products->concat($realstates)->concat($services);
+
+            // ⚠️ Only take up to $plan->quantity records
+            $recordsToProcess = $allRecords->take($maxRecords);
+            $usedTokens = $recordsToProcess->count();
+
+            // 🔁 Step 4: Process each record (update status or link to subscription)
+            foreach ($recordsToProcess as $record) {
+                switch ($record->type) {
+                    case 'product':
+                        DB::table('products')
+                            ->where('id', $record->id)
+                            ->where('user_id', $userId)
+                            ->update(['status' => 1]); // or any other logic
+                        break;
+
+                    case 'realstate':
+                        DB::table('realstates')
+                            ->where('id', $record->id)
+                            ->where('User_id', $userId)
+                            ->update(['status' => 1]);
+                        break;
+
+                    case 'service':
+                        DB::table('services')
+                            ->where('id', $record->id)
+                            ->where('User_id', $userId)
+                            ->update(['status' => 1]);
+                        break;
+                }
+            }
+
+            // 🔄 Step 5: Update remaining tokens
+            if ($usedTokens > 0) {
+                DB::table('subscribed')
+                    ->where('subscription_id', $subscriptionId)
+                    ->update([
+                        'remaining_token' => $credits->credits_balance - $usedTokens,
+                        'updated_at'      => now(),
+                    ]);
+            }
+
+            // 🔐 Step 6: Set user credits to 0 (because credits are now consumed)
+            DB::table('user_credits')
+                ->where('user_id', Auth::id())
+                ->update([
+                    'credits_balance' => 0,
+                    'updated_at'      => now(),
+                ]);
+
+        });
+
+        $messages = ['title' => 'Data Saved!!', 'detail' => "You have Sucessfully used Your Credit without paying any amount."];
+        Session()->flash('alert-success', $messages);
+        return redirect('/subscription');
     }
 }

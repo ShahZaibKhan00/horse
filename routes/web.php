@@ -55,6 +55,7 @@ Route::get('list-management', [PlanController::class, 'listing'])->name('listing
 Route::get('payment/page/{id}', [AllController::class, 'payment'])->name('payment.link');
 Route::get('sucess/payment', [AllController::class, 'sucess'])->name('payment.sucess');
 Route::get('cancel/payment', [AllController::class, 'cancel'])->name('payment.cancel');
+Route::post('use-credits', [AllController::class, 'useCredit'])->name('payment.cancel');
 
 // Front Controller
 Route::get('/', [FrontController::class, 'index'])->name('/');

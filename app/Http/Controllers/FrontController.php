@@ -58,8 +58,13 @@ class FrontController extends Controller
             ->orderBy('id', 'desc')
             ->take(4)
             ->get();
-        $services = Service::orderBy('id', 'desc')->take(8)->get();
-        $states = Realstate::orderBy('id', 'desc')->take(8)->get();
+        $services = Service::orderBy('id', 'desc')
+            ->where('status', 1)
+            ->take(8)->get();
+        $states = Realstate::orderBy('id', 'desc')
+            ->where('re_status', 'Published')
+            ->where('status', 1)
+            ->take(8)->get();
         return view('front.index' , compact('Logo', 'pro_data_sale', 'pro_data_auction', 'states' , 'Number' , 'Email', 'services', 'Address' , 'pro_data' , 'cate_data'));
     }
 
