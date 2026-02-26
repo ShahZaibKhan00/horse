@@ -1298,7 +1298,12 @@ ul#pills-tab li button {
                                         <div class="custome_listing_row">
                                             <div class="custome_listing_col">
                                                 <ul class="info_list">
-                                                    <li><span>{{ $data->pro_age_year }} Years {{ $data->pro_age_month }} Mo Old</span></li>
+                                                    <li><span> @if ($data->pro_age_year > 0)
+                                                            {{ $data->pro_age_year }} Years
+                                                        @endif @if ($data->pro_age_month > 0)
+                                                            {{ $data->pro_age_month }} MO
+                                                        @endif
+                                                        Old</span></li>
                                                     <li><span>{{ $data->pro_height }}</span></li>
                                                     <li><span>{{ $data->pro_gender }}</span></li>
                                                 </ul>
@@ -1668,13 +1673,13 @@ ul#pills-tab li button {
                                                     <h1 class="heading18px text-center">REGISTRATION #: MU-9497947472973</h1>
                                                     <div class="row mb-4 justify-content-center">
                                                         <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                                                            <a href="/assets/images/certificate_1.png" data-fancybox="certificate">
-                                                                <img src="/assets/images/certificate_1.png" alt="img" class="img-fluid" />
+                                                            <a href="/assets/images/placeholder.png" data-fancybox="certificate">
+                                                                <img src="/assets/images/placeholder.png" alt="img" class="img-fluid" />
                                                             </a>
                                                         </div>
                                                         <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                                                            <a href="/assets/images/certificate_1.png" data-fancybox="certificate">
-                                                                <img src="/assets/images/certificate_1.png" alt="img" class="img-fluid" />
+                                                            <a href="/assets/images/placeholder.png" data-fancybox="certificate">
+                                                                <img src="/assets/images/placeholder.png" alt="img" class="img-fluid" />
                                                             </a>
                                                         </div>
                                                     </div>

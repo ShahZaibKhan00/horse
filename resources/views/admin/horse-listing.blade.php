@@ -1,6 +1,32 @@
 @extends('layouts.user_app')
 
 @section('content')
+<style>
+.top__bar {
+    padding: 35px 10px 5px 10px;
+}
+.top__bar h2 {
+    font-size: 24px;
+}
+.cell {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.bid-panel .button {
+    padding: 10px 5px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.solid-style:hover {
+    color: #fff;
+}
+.bid-amount {
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+</style>
     <div class="user_main_content">
         <div class="dark_bar">
             <h2>Horse Listings</h2>
@@ -36,12 +62,12 @@
                                     <div class="top__bar">
                                         <h2>{{ $data->pro_name }}</h2>
                                         <p class="user_tag">{{ $data->pro_ad_type }}</p>
-                                        <label class="heart-label">
+                                        <!-- <label class="heart-label">
                                             <input type="checkbox" class="heart-input">
                                             <svg class="heart-icon" viewBox="0 0 24 24">
                                                 <path d="M12 21s-7-4.35-9.5-8.28C.4 9.36 2.28 5 6.5 5c2.54 0 3.57 1.93 5.5 3.5C13.93 6.93 14.96 5 17.5 5c4.22 0 6.1 4.36 4 7.72C19 16.65 12 21 12 21z" />
                                             </svg>
-                                        </label>
+                                        </label> -->
                                     </div>
                                     <div class="user_img_box">
                                         <div class="swiper user_card_slider swiper-wrapper">
@@ -88,7 +114,7 @@
                                             <button class="user_arrow_right"><img src="assets/images/arrow_ri8.png" alt=""></button>
                                         </div>
                                         <p>GYPSY VANNER CROSS</p>
-                                        @if($data->pro_ad_type == 'At Auction')
+                                        @if ($data->pro_ad_type == 'At Auction')
                                             <div class="countdown_user_timer" data-end-time="2025-12-31T23:59:59">
                                                 <h5>
                                                     <span class="days">1</span> Days |
@@ -102,7 +128,15 @@
                                     </div>
                                     <div class="user_card_info_box">
                                         <div class="cell_container">
-                                            <div class="cell">{{ $data->pro_age_year }} YEARS OLD</div>
+                                            <div class="cell">
+                                                @if ($data->pro_age_year > 0)
+                                                    {{ $data->pro_age_year }} Years
+                                                @endif
+                                                @if ($data->pro_age_month > 0)
+                                                    {{ $data->pro_age_month }} Mo
+                                                @endif
+                                                Old
+                                            </div>
                                             <div class="cell">{{ $data->pro_color }}</div>
                                             <div class="cell">{{ $data->pro_height }} HH</div>
                                             <div class="cell">REGISTERED: {{ Str::upper($data->registerd_horse ?? 'no') }}</div>
@@ -112,11 +146,13 @@
                                     </div>
                                     <div class="bid-panel">
                                         <div class="bid-header">
-                                            <div class="bid-amount">@if ($data->pro_ad_type == 'At Auction')
-                                                        Starting Bid:
-                                                    @else
-                                                        Price:
-                                                    @endif ${{ $data->pro_reg_price }}</div>
+                                            <div class="bid-amount">
+                                                @if ($data->pro_ad_type == 'At Auction')
+                                                    Starting Bid:
+                                                @else
+                                                    Price:
+                                                @endif ${{ $data->pro_reg_price }}
+                                            </div>
                                         </div>
                                         {{-- <button class="button button-full">VIEW ALL DETAILS</button> --}}
                                         <div class="button-row">
@@ -124,7 +160,7 @@
                                             <button class="button">CHAT WITH SELLER</button> --}}
                                         </div>
                                         <div class="button-row">
-                                            <button class="button button-full">VIEW ALL DETAILS</button>
+                                            <a href="{{ route('products_detail', $data->pro_sku) }}" class="button button-full">VIEW ALL DETAILS</a>
 
                                             <button class="button">SHARE</button>
                                             {{-- <button class="button mb-0">FAVORITE <span
@@ -133,13 +169,13 @@
                                     </div>
                                     <div class="management-panel">
                                         <div class="control-row">
-                                            <button class="clickable-box solid-style">VIEW DETAILS</button>
+                                            <a href="{{ route('products_detail', $data->pro_sku) }}" class="clickable-box solid-style">VIEW DETAILS</a>
                                             <a href="{{ url('edit_list') }}/{{ $data->id }}/{{ str_replace(' ', '-', $data->category_name) }}" class="clickable-box hollow-style">EDIT <span
                                                     class="edit-symbol"><img src="assets/images/edit.png" alt=""></span></a>
                                         </div>
                                         <div class="control-row">
-                                            <button class="clickable-box hollow-style">Mark Pending</button>
-                                            <button class="clickable-box hollow-style withdraw_btn">Mark Sold/ withdrawn</button>
+                                            <button class="clickable-box hollow-style">Mark Sold</button>
+                                            <button class="clickable-box hollow-style withdraw_btn">Mark Withdrawn</button>
                                         </div>
                                         <div class="analytics-bar">
                                             <div class="data-point">Views: 250</div>

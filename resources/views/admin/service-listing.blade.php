@@ -26,7 +26,7 @@
                     <a href="#!" class="custom_tab_btn_min" data-tab="sold">Sold</a>
                     <a href="#!" class="custom_tab_btn_min" data-tab="withdrawn">Withdrawn</a>
                 </div>
-                
+
 
             </div>
             <div class="tab_content_wrapper">
@@ -43,7 +43,7 @@
                                     <p>{{ $data->number }}</p>
                                     <a href="#!" target="_blank" class="webLink">{{ $data->website_url }}</a>
                                     <div class="btn_set mt-4">
-                                        <a href="#!" class="horse_card_btn">View Detail</a>
+                                        <a href="{{ url('service_details/' . Crypt::encrypt($data->id)) }}" class="horse_card_btn">View Detail</a>
                                         <a href="{{ url('edit_service') }}/{{ $data->id }}" class="fvrt_btn">Edit <span class="edit-symbol"><img src="assets/images/edit.png" alt=""></span></a>
                                         <a href="#!" class="dlt_btn"><img src="assets/images/dlt.png" alt=""></a>
                                     </div>

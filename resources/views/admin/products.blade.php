@@ -380,7 +380,7 @@
                                             <input type="checkbox" hidden="" />
                                             Favorite <i class="fa fa-heart" aria-hidden="true"></i>
                                         </label>
-                                        <a href="javascript:;" class="horse_card_btn">View Details</a>
+                                        <a href="{{ route('products_detail', $list->pro_sku) }}" class="horse_card_btn">View Details</a>
                                     </div>
                                 </div>
                             </div>

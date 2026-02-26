@@ -1,9 +1,7 @@
 @php
     $layout = Auth::user()->usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
 @endphp
-
 @extends($layout)
-
 @section('content')
     <style>
         .asterisk {
@@ -14,6 +12,7 @@
             background: #f5eeee;
             padding: 30px;
             border-radius: 20px;
+            margin-top: 20px;
         }
 
         .hidden_box_four_flex {
@@ -217,13 +216,596 @@
             line-height: 100px;
         }
     </style>
+    <style>
+        img.f_img_preview {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+            border-radius: 7px;
+            border: 1px solid #00000036;
+        }
+
+        .prodict_Color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .removeBtn svg {
+            color: red;
+        }
+
+        .checkbox_wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .category_check {
+            display: block;
+            position: relative;
+            /* padding-left: 35px; */
+            /* margin-bottom: 12px; */
+            cursor: pointer;
+            /* font-size: 22px; */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .category_check input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .categoryMark {
+            /* position: absolute; */
+            top: 0;
+            left: 0;
+            /* height: 25px; */
+            /* width: 25px; */
+            background-color: #ccc;
+            transition: .5s;
+            color: #fff;
+            font-size: 13px;
+            text-transform: capitalize;
+            padding: 10px 10px;
+            display: inline-block;
+            border-radius: 8px;
+        }
+
+        .category_check:hover input~.categoryMark {
+            background-color: #ccc;
+        }
+
+        .category_check input:checked~.categoryMark {
+            background-color: #b22033;
+        }
+
+        .formWrapper form {
+            width: 50%;
+            position: relative;
+        }
+
+        .formWrapper .fields__clm {
+            width: 100%;
+            background-color: #00000012;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .formWrapper .inputField {
+            width: 100%;
+            margin: 0 0 15px 0;
+            border: 1px solid #0000001a;
+            padding: 15px 15px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none !important;
+        }
+
+        .formWrapper .inputField:last-child {
+            margin-bottom: 0;
+        }
+
+        .formWrapper textarea.inputField {
+            height: 150px;
+        }
+
+        .addBtn {
+            background-color: #00d600;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: 700;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .minusBtn {
+            background-color: red;
+            width: 30px;
+            height: 30px;
+            font-size: 32px;
+            font-weight: 100;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #fff;
+            line-height: 23px;
+            text-align: center;
+        }
+
+        .btnWrapper {
+            display: flex;
+            column-gap: 7px;
+            margin-top: 15px;
+        }
+
+        .choose_color {
+            padding: 0;
+            overflow: hidden;
+            height: 37px;
+        }
+    </style>
+
+    <style>
+        .fsm-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            margin: 0;
+        }
+
+        .fsm-overlay.is-visible {
+            display: flex;
+        }
+
+        .fsm-dialog {
+            background: #fff;
+            width: 100%;
+            max-width: 1344px;
+            padding: 30px;
+            position: relative;
+            border-radius: 8px;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .fsm-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+
+        .detail_left {
+            width: 100%;
+            background: #fff;
+            z-index: 1;
+            position: relative;
+        }
+
+        .sale_tag {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 8px 25px;
+            background: #bf9855;
+            background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
+            position: absolute;
+            top: 55px;
+            left: 0;
+            width: fit-content;
+            text-transform: uppercase;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 0;
+            z-index: 999;
+            color: #1d2139;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+
+        .top_blue_strip {
+            background: #1d2139;
+            padding: 15px 5px 10px 5px;
+            position: relative;
+        }
+
+        .text_border {
+            font-size: 30px;
+            text-shadow: -1px 0 0 #ba9148, 1px 0 0 #ba9148, 0 -1px 0 #ba9148, 0 1px 0 #ba9148, -1px -1px 0 #ba9148, 1px -1px 0 #ba9148, -1px 1px 0 #ba9148, 1px 1px 0 #ba9148;
+            line-height: 1;
+        }
+
+        .top_blue_strip .heading44px {
+            color: white;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .relative_img_box {
+            position: relative;
+            padding: 0;
+            border-bottom: 0;
+        }
+
+        .img_radius_one {
+            border-radius: 0px;
+            overflow: hidden;
+            height: 270px;
+            object-fit: cover;
+        }
+
+        .horser_information_box.mb-0 {
+            background: #fff;
+            border-bottom: 0;
+            border: 0;
+            padding: 10px 0px;
+            border-radius: 0px;
+        }
+
+        .custome_listing_row {
+            display: flex;
+            width: 100%;
+            gap: 5px;
+        }
+
+        .custome_listing_col {
+            width: 50%;
+        }
+
+        .horser_information_box ul li {
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 6px;
+            font-size: 15px;
+            list-style: none;
+            border: 1px solid #1d2139;
+            padding: 8px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .horser_information_box .info_list_one li {
+            color: #1d2139;
+            font-size: 14px;
+        }
+
+        .horser_information_box .info_list_one li span {
+            margin-left: 6px;
+            font-style: normal;
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+
+        .horser_information_box {
+            background: #1d2139;
+            border-radius: 0px;
+            border: 2px solid #1d2139;
+        }
+
+        .horser_information_box.type_one {
+            padding: 5px;
+        }
+
+        .price_Text {
+            /* font-family: "AvenirLTStd-Book"; */
+            font-size: 32px;
+            margin: 0;
+            background: linear-gradient(to right, #e5dbc2 40%, #c19b59 75%, #c3ad72 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-align: center;
+            padding: 0px;
+        }
+
+        .horser_information_box .heading44px,
+        .horser_information_box .heading30px {
+            color: white;
+        }
+
+        .horser_information_btn_flex {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .horser_action_info_btn,
+        .horser_action_info_btn:focus {
+            width: 48%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #fff;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.25s;
+        }
+
+        .real_icon_box img {
+            max-width: 20px;
+            margin-right: 10px;
+        }
+
+        .fvrt_btn {
+            width: 130px;
+            padding: 0px 20px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1d2139;
+            border: 1px solid #1d2139;
+            background: transparent;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .horse_info_btn,
+        .horse_info_btn:focus {
+            width: 50%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #fff;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.25s;
+        }
+
+        .horser_action_info_btn.action_btn,
+        .horse_info_btn.fvrt_btn.action_btn {
+            width: 28%;
+            font-size: 15.5px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+
+        .image-grid a {
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .image-grid img {
+            width: 100%;
+            height: 284px;
+            object-fit: cover;
+        }
+
+        .cus_col {
+            margin-bottom: 30px;
+        }
+
+        .videoplay_box {
+            position: relative;
+        }
+
+        .video-play-button {
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            box-sizing: content-box;
+            display: block;
+            width: 32px;
+            height: 44px;
+            /* background: #eb2055; */
+            border-radius: 50%;
+            padding: 18px 20px 18px 28px;
+        }
+
+        .video-play-button:before {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            display: block;
+            width: 95px;
+            height: 95px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: pulse-border 2s ease-out infinite;
+        }
+
+        .video-play-button:after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            display: block;
+            width: 95px;
+            height: 95px;
+            background: #1d2139;
+            border-radius: 50%;
+            transition: all 200ms;
+        }
+
+        .video-play-button span {
+            display: block;
+            position: relative;
+            z-index: 3;
+            width: 0;
+            height: 0;
+            border-left: 19px solid #fff;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            top: 10px;
+            left: 5px;
+        }
+
+
+        .fw_700 {
+            font-weight: 700;
+        }
+
+        .heading65px {
+            color: #ab8d35;
+            background: #1d2139;
+            text-align: center;
+            padding: 5px 20px;
+            position: relative;
+        }
+
+        .view_detail_page .heading65px img {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 20px;
+            max-width: 60px;
+        }
+
+        .view_detail_page .heading65px h1 {
+            font-size: 40px;
+            margin: 0;
+            background: linear-gradient(to right, #ae8e3b 40%, #ffffff 75%, #ae8e3b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 300;
+        }
+
+        .view_detail_page .border_box_one {
+            border: 3px solid #1d2139;
+            padding: 20px;
+            border-radius: 0;
+        }
+
+        .barn-table {
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+            border: 2px solid #b18d61;
+            table-layout: fixed;
+        }
+
+        .barn-table tr:nth-child(odd) {
+            background-color: #fff;
+            color: #1d2139;
+        }
+
+        .barn-table tr:nth-child(even) {
+            background-color: #1d2139;
+            color: #fff;
+        }
+
+        .barn-table td {
+            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            vertical-align: top;
+            border: 1px solid #b18d61;
+            word-wrap: break-word;
+        }
+
+        .seller_img {
+            width: 100%;
+            height: 300px;
+        }
+
+        .seller_img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .heading18px {
+            font-size: 18px;
+            color: var(--primeColor);
+        }
+
+        .social_icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social_icons a {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #1d2139;
+            border-radius: 15px;
+        }
+
+        .social_icons a.web_btn {
+            width: 90px;
+            color: var(--primeColor);
+            font-weight: 700;
+            border-radius: 12px;
+        }
+
+        .social_icons a img {
+            max-width: 20px;
+        }
+
+        .fsm-close {
+            position: absolute;
+            top: -3px;
+            right: 2px;
+            font-size: 30px;
+            line-height: 1;
+            color: #000;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: color 0.2s;
+        }
+        video.img-fluid {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+        }
+    </style>
+
     <div class="content user_main_content p-5">
         <div class="pb-5">
-            <div class="box_top">
-                <h2 class="mb-2 main_heading_dashboard">Real Estate Ad <br /> Property Information</h2>
-                <!-- <h5 class="text-700 fw-semi-bold">Here’s what’s going on at your business right now</h5> -->
-            </div>
             <form method="POST" action="{{ url('/realstate_store') }}" enctype="multipart/form-data" novalidate class="row g-3 mb-6">
+                <div class="box_top">
+                    <h2 class="mb-2 main_heading_dashboard">Real Estate Ad <br /> Property Information</h2>
+                    <!-- <h5 class="text-700 fw-semi-bold">Here’s what’s going on at your business right now</h5> -->
+                </div>
                 @csrf
                 <div class="row gy-4">
                     <div class="col-12">
@@ -235,7 +817,7 @@
                                         <label><input class="form-check-input" name="ad_type" type="radio" value="Sale" required />
                                             Sale</label>
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check d-none">
                                         <label><input class="form-check-input" name="ad_type" type="radio" value="Auction" />
                                             Auction</label>
                                     </div>
@@ -273,41 +855,42 @@
                         </div>
                     </div>
                     {{--
-         <div class="col-6">
-            <div class="border_box_one">
-               <h4 class="mb-3">Property Type <span class="asterisk">*</span></h4>
-               <select class="form-control gen_input gen_input" name="property_type" required>
-                  <option disabled selected>Select Property Type:</option>
-                  <option value="Home with Acreage">Home with Acreage</option>
-                  <option value="Equestrian Facility">Equestrian Facility</option>
-                  <option value="Pasture land">Pasture land</option>
-                  <option value="Raw Land">Raw Land</option>
-                  <option value="Residential">Residential</option>
-                  <option value="Comercial">Comercial</option>
-               </select>
-            </div>
-         </div>
-         <div class="col-6">
-            <div class="border_box_one">
-               <h4 class="mb-3">Property Type <span class="asterisk">*</span></h4>
-               <select class="form-control gen_input gen_input" name="property_type" required>
-                  <option disabled selected>Select Property Type:</option>
-                  <option value="Home with Acreage">Home with Acreage</option>
-                  <option value="Equestrian Facility">Equestrian Facility</option>
-                  <option value="Pasture land">Pasture land</option>
-                  <option value="Raw Land">Raw Land</option>
-                  <option value="Residential">Residential</option>
-                  <option value="Comercial">Comercial</option>
-               </select>
-            </div>
-         </div>
-         --}}
+                <div class="col-6">
+                    <div class="border_box_one">
+                        <h4 class="mb-3">Property Type <span class="asterisk">*</span></h4>
+                        <select class="form-control gen_input gen_input" name="property_type" required>
+                            <option disabled selected>Select Property Type:</option>
+                            <option value="Home with Acreage">Home with Acreage</option>
+                            <option value="Equestrian Facility">Equestrian Facility</option>
+                            <option value="Pasture land">Pasture land</option>
+                            <option value="Raw Land">Raw Land</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Comercial">Comercial</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="border_box_one">
+                        <h4 class="mb-3">Property Type <span class="asterisk">*</span></h4>
+                        <select class="form-control gen_input gen_input" name="property_type" required>
+                            <option disabled selected>Select Property Type:</option>
+                            <option value="Home with Acreage">Home with Acreage</option>
+                            <option value="Equestrian Facility">Equestrian Facility</option>
+                            <option value="Pasture land">Pasture land</option>
+                            <option value="Raw Land">Raw Land</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Comercial">Comercial</option>
+                        </select>
+                    </div>
+                </div>
+                --}}
                     <div class="col-12">
                         <div class="border_box_one">
                             <div class="row">
                                 <div class="col-6">
                                     <h4 class="mb-3">Location <span class="asterisk">*</span></h4>
-                                    {{-- <input class="form-control gen_input" type="text" name="real_location" placeholder="Property address" required /> --}}
+                                    {{-- <input class="form-control gen_input" type="text" name="real_location"
+                                    placeholder="Property address" required /> --}}
                                     <select class="form-control gen_input mb-3" name="real_location" required>
                                         <option selected disabled>Select your State</option>
                                         <option value="alabama (AL)">Alabama (AL)</option>
@@ -365,7 +948,8 @@
                                 <div class="col-6">
                                     <h4 class="mb-3">
                                         Town <span class="asterisk">*</span>
-                                        {{-- <small class="text-muted">(Attractive title to capture potential buyers)</small> --}}
+                                        {{-- <small class="text-muted">(Attractive title to capture potential
+                                        buyers)</small> --}}
                                     </h4>
                                     <input class="form-control gen_input mb-3" type="text" name="real_title" placeholder="Enter Town" required />
                                 </div>
@@ -392,10 +976,8 @@
                                     <input class="form-control gen_input mb-3 thousand-separator price-input" type="text" name="real_price" placeholder="Enter Price" required />
                                 </div>
                             </div>
-
                             <h4 class="mb-3">Basic Information:</h4>
                             <div class="row">
-
                                 <div class="col-6">
                                     <h5 class="mb-2">Acres <span class="asterisk">*</span></h5>
                                     <input class="form-control gen_input mb-3" type="text" name="real_acres" placeholder="Enter Acres" required />
@@ -434,19 +1016,19 @@
                                             <div class="col-3">
                                                 <div class="d-flex gap-1 flex-column">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="Detached" id="detached" name="garage_type[]">
+                                                        <input class="form-check-input" type="radio" value="Detached" id="detached" name="garage_type[]">
                                                         <label class="form-check-label" for="detached">Detached</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="Attached" id="attached" name="garage_type[]">
+                                                        <input class="form-check-input" type="radio" value="Attached" id="attached" name="garage_type[]">
                                                         <label class="form-check-label" for="attached">Attached</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="Tandem" id="tandem" name="garage_type[]">
+                                                        <input class="form-check-input" type="radio" value="Tandem" id="tandem" name="garage_type[]">
                                                         <label class="form-check-label" for="tandem">Tandem</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="oversized" id="oversized" name="garage_type[]">
+                                                        <input class="form-check-input" type="radio" value="oversized" id="oversized" name="garage_type[]">
                                                         <label class="form-check-label" for="oversized">Oversized</label>
                                                     </div>
                                                 </div>
@@ -454,19 +1036,21 @@
                                             <div class="col-3">
                                                 <div class="d-flex gap-1 flex-column">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="Breezeway" id="breezeway" name="garage_type[]">
+                                                        <input class="form-check-input" type="radio" value="Breezeway" id="breezeway" name="garage_type[]">
                                                         <label class="form-check-label" for="breezeway">Breezeway</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="Garage Workshop" id="garage_ws" name="garage_type[]">
-                                                        <label class="form-check-label" for="garage_ws">Garage Workshop</label>
+                                                        <input class="form-check-input" type="radio" value="Garage Workshop" id="garage_ws" name="garage_type[]">
+                                                        <label class="form-check-label" for="garage_ws">Garage
+                                                            Workshop</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="Garage Apartment" id="garage_a" name="garage_type[]">
-                                                        <label class="form-check-label" for="garage_a">Garage Apartment</label>
+                                                        <input class="form-check-input" type="radio" value="Garage Apartment" id="garage_a" name="garage_type[]">
+                                                        <label class="form-check-label" for="garage_a">Garage
+                                                            Apartment</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="Carport" id="carport" name="garage_type[]">
+                                                        <input class="form-check-input" type="radio" value="Carport" id="carport" name="garage_type[]">
                                                         <label class="form-check-label" for="carport">Carport</label>
                                                     </div>
                                                 </div>
@@ -477,37 +1061,21 @@
                             </div>
                         </div>
                     </div>
-                    <!---<div class="col-12">
-                <div class="border_box_one">
-                   <h4 class="mb-3">Stable/Barn Facilities/ Amenities:</h4>
-                   <div class="row">
-                      <div class="col-6">
-                         <input class="form-control gen_input mb-3" type="text" name="barn_type"
-                            placeholder="Type of Barn " />
-                      </div>
-                      <div class="col-6">
-                         <input class="form-control gen_input mb-3" type="text" name="num_stalls"
-                            placeholder="# of Stalls" />
-                      </div>
-                      <div class="col-6">
-                         <input class="form-control gen_input" type="text" name="num_barn" placeholder="# of Barns" />
-                      </div>
-                      <div class="col-6">
-                         <input class="form-control gen_input mb-3" type="text" name="num_sheds"
-                            placeholder="# of Run-in Sheds" />
-                      </div>
-                      <div class="col-6">
-                         <input class="form-control gen_input mb-3" type="text" name="amenities"
-                            placeholder="Enter Amenities" />
-                      </div>
-                   </div>
-                </div>
-             </div>--->
                     <div class="col-12">
                         <div class="border_box_one">
                             <div class="row gy-4">
                                 <div class="col-6">
                                     <h5 class="mb-3">Barn flooring </h5>
+                                    <div class="form-check other_flooring_box p-0 mb-4">
+                                        <div class="form-check  ps-0">
+                                            <input class="form-control gen_input_one" type="text" id="barn" name="num_barn">
+                                            <label class="form-check-label" for="barn">Total Barn</label>
+                                        </div>
+                                        <div class="form-check ps-0">
+                                            <input class="form-control gen_input_one" type="text" id="stalls" name="num_stalls">
+                                            <label class="form-check-label" for="stalls">No. of Stalls</label>
+                                        </div>
+                                    </div>
                                     <div class="d-flex gap-1 flex-column">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" value="Rubber" id="rubber_flooring" name="barn_flooring" />
@@ -577,11 +1145,11 @@
                                             <h5 class="mb-3">Wash Stall </h5>
                                             <div class="d-flex gap-1 flex-column mb-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Hay loft" id="wash_stall_yes" name="wash_stall">
+                                                    <input class="form-check-input" type="radio" value="yes" id="wash_stall_yes" name="wash_stall">
                                                     <label class="form-check-label" for="wash_stall_yes">Yes</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Hay room" id="wash_stall_no" name="wash_stall">
+                                                    <input class="form-check-input" type="radio" value="no" id="wash_stall_no" name="wash_stall">
                                                     <label class="form-check-label" for="wash_stall_no">No</label>
                                                 </div>
                                             </div>
@@ -629,7 +1197,8 @@
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="Additional hay barn" id="ahay_barn" name="hay_storage[]">
-                                                    <label class="form-check-label" for="ahay_barn">Additional hay barn</label>
+                                                    <label class="form-check-label" for="ahay_barn">Additional hay
+                                                        barn</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -827,7 +1396,8 @@
                     <div class="col-12">
                         <div class="border_box_one mb-0">
                             <h4 class="mb-2">Additional Write up</h4>
-                            <h4><small class="text-muted mb-3">( Please include anything additional you want to add)</small></h4>
+                            <h4><small class="text-muted mb-3">( Please include anything additional you want to add)</small>
+                            </h4>
                             <textarea class="textarea" name="ad_write_up" style="width: 100%; height: 15rem;" placeholder="Additional Write up"></textarea>
                         </div>
                     </div>
@@ -943,7 +1513,8 @@
                                             <input class="form-control gen_input" type="url" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
                                         </div>
                                     </div>
-                                    <p id="error_message" style="color: red; display: none;">You can only add up to 3 video URLs.
+                                    <p id="error_message" style="color: red; display: none;">You can only add up to 3 video
+                                        URLs.
                                     </p>
                                 </div>
                                 <div class="col-6">
@@ -954,7 +1525,8 @@
                                                 <p>
                                                     Drag your Video here
                                                     <span class="text-800 px-1">or</span>
-                                                    <button class="btn btn-link p-0" type="button">Browse from device</button>
+                                                    <button class="btn btn-link p-0" type="button">Browse from
+                                                        device</button>
                                                 </p>
                                                 <input name="pro_video_url[]" type="file" multiple class="upload__inputfile" accept="video/*">
                                             </label>
@@ -977,7 +1549,8 @@
                                     <input class="form-control gen_input_one mb-3" type="text" name="last_name" placeholder="Last Name" required />
                                 </div>
                                 <div class="col-6">
-                                    <h5 class="mb-3">If Agent - Brokerage Name <small class="text-muted">(Optional)</small></h5>
+                                    <h5 class="mb-3">If Agent - Brokerage Name <small class="text-muted">(Optional)</small>
+                                    </h5>
                                     <input class="form-control gen_input_one mb-3" type="text" name="agent_name" placeholder="If Agent - Brokerage Name" />
                                 </div>
                                 <div class="col-6">
@@ -998,7 +1571,8 @@
                                 <div class="upload__img-wrap"></div>
                                 <div class="upload__btn-box">
                                     <label class="upload__btn">
-                                        <p>Drag your image here<span class="or">OR</span> <span class="browse_option">Browse from
+                                        <p>Drag your image here<span class="or">OR</span> <span class="browse_option">Browse
+                                                from
                                                 device</span>
                                         </p>
                                         <input name="per_pic[]" type="file" multiple="multiple" class="upload__inputfile">
@@ -1033,227 +1607,336 @@
                                     <h5 class="mb-2">Zillow </h5>
                                     <input class="form-control gen_input_one mb-3" type="url" name="zillow" placeholder="Paste link here" />
                                 </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="tc_agree">
+                                        <label class="form-check-label" for="tc_agree">
+                                            I have read and agree to the website <a href="#!">terms</a> and <a href="#!">conditons</a>.
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="tc_agree">
-                            <label class="form-check-label" for="tc_agree">
-                                I have read and agree to the website terms and conditons.
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-6 ">
+                    <div class="col-12">
                         <div class="col-auto d-flex justify-content-end gap-3">
-                            <a href="{{ url('products') }}/{{ last(request()->segments()) }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                            @if (Auth::user()->usertype == 1)
+                                <a href="{{ url('manage_realstate') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                            @else
+                                <a href="{{ url('realstate-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                            @endif
+                            {{-- <a href="{{ url('products') }}/{{ last(request()->segments()) }}"
+                            class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a> --}}
                             <button class="btn submit_btn_one" type="submit">Submit</button>
-                            <a href="#!" class="btn submit_btn_one">Preview</a>
+                            <button type="button" id="previewBtn" class="btn submit_btn_one">Preview</button>
                         </div>
                     </div>
             </form>
+
+            
         </div>
-        <!-- <div class="row">
-          <div class="col-xl-12">
-              @if ($errors->any())
-    <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-    @endforeach
-                    </ul>
-                </div>
-    @endif
-            <form method="POST" action="{{ url('/realstate_store') }}" enctype="multipart/form-data" class="row g-3 mb-6">
-              @csrf
-              <div class="col-sm-6 col-md-6">
-                <div class="form-floating"><input class="form-control gen_input" name="real_name" id="floatingInputGrid" type="text" placeholder="Enter Property Name"><label for="floatingInputGrid">Enter Property Name</label></div>
-              </div>
-              <div class="col-sm-6 col-md-6">
-                <div class="form-floating"><input class="form-control gen_input" name="real_price" id="floatingInputGrid" type="text" placeholder="Enter Property Price"><label for="floatingInputGrid">Enter Property Price</label></div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="form-floating"><input class="form-control gen_input" name="real_size" id="floatingInputGrid" type="text" placeholder="Enter Property Size"><label for="floatingInputGrid">Enter Property Size</label></div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="form-floating"><input class="form-control gen_input" name="real_bedrooms" id="floatingInputGrid" type="text" placeholder="Enter How Many Bedrooms"><label for="floatingInputGrid">Enter How Many Bedrooms</label></div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="form-floating"><input class="form-control gen_input" name="real_bathrooms" id="floatingInputGrid" type="text" placeholder="Enter How Many Bathrooms"><label for="floatingInputGrid">Enter How Many Bathrooms</label></div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="form-floating"><input class="form-control gen_input" name="real_garage" id="floatingInputGrid" type="text" placeholder="Enter How Many Garage"><label for="floatingInputGrid">Enter How Many Garage</label></div>
-              </div>
-              <div class="col-sm-6 col-md-6">
-                <div class="mb-0">
-                    <h4 class="mb-3">About Property</h4>
-                    <textarea class="tinymce" name="real_about" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-6">
-                <h5 class="mb-2">Real State images</h5>
-                <div class="col-12 mb-3">
-                    <div class="upload__box">
-                        <div class="upload__img-wrap"></div>
-                        <div class="upload__btn-box">
-                            <label class="upload__btn">
-                            <p>Drag your Real State Images here <span class="or">OR</span> <span class="browse_option">Browse From the device</span></p>
-                            <input name="real_file[]" type="file" multiple="multiple" class="upload__inputfile">
-                            </label>
+        <div id="fsmOverlay" class="fsm-overlay">
+                <div class="fsm-dialog">
+                    <button class="fsm-close" aria-label="Close modal">×</button>
+                    <div class="fsm-content">
+                        <div class="cus_col view_detail_page">
+                            <div class="row">
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                                <div class="detail_left">
+                                    <h3 class="sale_tag">Sale</h3>
+                                    <div class="top_blue_strip">
+                                        <h3 class="heading44px fw_700 text_border">new jersey (NJ) </h3>
+                                    </div>
+                                    <div class="relative_img_box">
+                                        <div class="swiper horse_swiper_one">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide"><img src="/assets/images/farm_3.jpg" alt="img" class="img-fluid w-100 img_radius_one"></div>
+                                        </div>
+                                        <div class="swiper-pagination"></div>
+                                        </div>
+                                    </div>
+                                    <div class="horser_information_box mb-0">
+                                        <div class="custome_listing_row">
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list_one">
+                                                <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_1.png" alt="img" class="img-fluid"></span> <span>99 Acres</span></li>
+                                                <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_2.png" alt="img" class="img-fluid"></span> <span>4 Bedrooms </span></li>
+                                                <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_3.png" alt="img" class="img-fluid"></span> <span>3 Baths </span></li>
+                                                <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid"></span> <span>2 Detached</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list_one">
+                                                <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_5.png" alt="img" class="img-fluid"></span> <span>0 Barn</span></li>
+                                                <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_6.png" alt="img" class="img-fluid"></span> <span>0 Stalls </span></li>
+                                                <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_7.png" alt="img" class="img-fluid"></span> <span>Indoor : yes </span></li>
+                                                <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_8.png" alt="img" class="img-fluid"></span> <span>Pastures: 10</span></li>
+                                            </ul>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="horser_information_box type_one">
+                                        <h3 class="heading30px price_Text">PRICE : $1,000,000</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                                <div class="content_scroll detail_right ">
+                                    <div class="image-grid">
+                                        <a href="#!"><img src="https://horse-dev.testlinkdev.com/Gallery_imgs/1771474496_88.png" alt="img"></a>
+                                        <a href="#!"><img src="https://horse-dev.testlinkdev.com/Gallery_imgs/1771474496_88.png" alt="img"></a>
+                                        <a href="#!"><img src="https://horse-dev.testlinkdev.com/Gallery_imgs/1771474496_88.png" alt="img"></a>
+                                        <a href="#!"><img src="https://horse-dev.testlinkdev.com/Gallery_imgs/1771474496_88.png" alt="img"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
+                        <div class="cus_col view_detail_page">
+                            <div class="mb-4 border_box_one">
+                            <h3 class="heading44px fw_700 about_horse_heading">About Farm:</h3>
+                            <p>Tgreat propertyTHis is a great propertyTHis is a great property</p>
+                            </div>
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>ADDITIONAL INFORMATION</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="mb-4 border_box_one">
+                            <p>Tgreat propertyTHis is a great propertyTHis is a great property</p>
+                            </div>
+                        </div>
+                        <div class="cus_col view_detail_page">
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>FACILITY AMENITIES</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="border_box_one p-3">
+                            <table class="barn-table">
+                                <tbody>
+                                    <tr>
+                                        <td>BARN TYPE :</td>
+                                        <td colspan="1">Center Aisle Barn</td>
+                                    </tr>
+                                    <tr>
+                                        <td># OF BARNS:</td>
+                                        <td>1</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td># OF STALLS:</td>
+                                        <td>20</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>RUBBER MATS IN STALLS:</td>
+                                        <td>yes</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>BARN FLOORING:</td>
+                                        <td>vinyl</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TACK ROOM:</td>
+                                        <td>yes</td>
+                                        <td>Heated: no</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>WASH STALL:</td>
+                                        <td>Hay loft</td>
+                                        <td>Cold Water: yes</td>
+                                        <td>Hot Water: no</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AIR CONDITIONED BARN:</td>
+                                        <td>no</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>HEATED BARN:</td>
+                                        <td>no</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td># OF RUN-IN SHEDS:</td>
+                                        <td>3</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td># OF DRY LOTS:</td>
+                                        <td>yes</td>
+                                        <td>5</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td># OF GRASS PASTURES:</td>
+                                        <td>yes</td>
+                                        <td>10</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>FENCING TYPE:</td>
+                                        <td>Electric</td>
+                                        <td>Vinyl</td>
+                                        <td>Wood</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OUTDOOR RIDING RING:</td>
+                                        <td>yes</td>
+                                        <td>×</td>
+                                        <td>Watering System: no</td>
+                                    </tr>
+                                    <tr>
+                                        <td>INDOOR RIDING RING:</td>
+                                        <td>yes</td>
+                                        <td>×</td>
+                                        <td>Watering System: no</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ROUND PEN:</td>
+                                        <td>yes</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRAILS ON PROPERTY:</td>
+                                        <td>No</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRAIL ACCESS:</td>
+                                        <td>No</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>HAY FIELDS:</td>
+                                        <td>No</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        <div class="cus_col view_detail_page">
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>PROPERTY AMENITIES</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="border_box_one p-3">
+                            <table class="barn-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="label">HOUSE TYPE :</td>
+                                        <td>Home with Acreage</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">ACREAGE:</td>
+                                        <td>99 Acres</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"># OF BEDROOMS:</td>
+                                        <td>4</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"># OF BATHROOMS:</td>
+                                        <td>3</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">GARAGE:</td>
+                                        <td>2</td>
+                                        <td>Detached, Attached, Tandem, Oversized</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">HOT TUB:</td>
+                                        <td>No</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">POOL:</td>
+                                        <td>No</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        <div class="cus_col view_detail_page">
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>DOCUMENTS</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="border_box_one">
+                            <div class="row mb-4 gy-4">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <div class="col-4">
+                                        <a href="#!" class="d-block w-100">
+                                        <img src="/assets/images/pdf.png" alt="img" class="img-fluid w-100">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="cus_col view_detail_page">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="heading44px fw_700 m-0">ABOUT THE AGENT | SELLER:</h3>
+                            <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a>
+                            </div>
+                            <div class="row mb-4">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                <div class="seller_img">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="img" class="img-fluid">
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                                <h1 class="heading18px mb-2">Social Links</h1>
+                                <div class="social_icons mb-3">
+                                    <a href="javascript:;" target="_blank" title="Website Link" class="web_btn">Website</a>
+                                    <a href="#" target="_blank"><img src="/assets/images/facebook.png" alt="img" class="img-fluid"></a>
+                                    <a href="#" target="_blank"><img src="/assets/images/youtube.png" alt="img" class="img-fluid"></a>
+                                    <a href="#" target="_blank"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid"></a>
+                                    <a href="#" target="_blank"><img src="/assets/images/instagram.png" alt="img" class="img-fluid"></a>
+                                </div>
+                                <h1 class="heading18px mb-2">Contact</h1>
+                                <div class="social_icons">
+                                    <a href="tel:(908) 892-7515"><img src="/assets/images/call.png" alt="img" class="img-fluid"></a>
+                                    <a href="mailto:cait3221@gmail.com"><img src="/assets/images/email.png" alt="img" class="img-fluid"></a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                         <div class="cus_col view_detail_page">
+                         <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>VIDEO</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                             <video class="img-fluid" loop playsinline controls>
+                                <source src="/assets/videos/your-video.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                         </div>
                     </div>
                 </div>
-              </div>
-              <div class="col-12 gy-6">
-                <div class="row g-3 justify-content-end">
-                  <div class="col-auto"><a href="{{ url('/manage_realstate') }}" class="btn px-5" style="border: 1px solid #000;">Cancel</a></div>
-                  <div class="col-auto"><button type="submit" class="btn btn-primary px-5 px-sm-15">Create Category</button></div>
-                </div>
-              </div>
-            </form>
-          </div>
-          </div> -->
+            </div>
     </div>
-    <style>
-        img.f_img_preview {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 10px;
-            border-radius: 7px;
-            border: 1px solid #00000036;
-        }
 
-        .prodict_Color {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-        }
-
-        .removeBtn svg {
-            color: red;
-        }
-
-        .checkbox_wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-
-        .category_check {
-            display: block;
-            position: relative;
-            /* padding-left: 35px; */
-            /* margin-bottom: 12px; */
-            cursor: pointer;
-            /* font-size: 22px; */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .category_check input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-
-        .categoryMark {
-            /* position: absolute; */
-            top: 0;
-            left: 0;
-            /* height: 25px; */
-            /* width: 25px; */
-            background-color: #ccc;
-            transition: .5s;
-            color: #fff;
-            font-size: 13px;
-            text-transform: capitalize;
-            padding: 10px 10px;
-            display: inline-block;
-            border-radius: 8px;
-        }
-
-        .category_check:hover input~.categoryMark {
-            background-color: #ccc;
-        }
-
-        .category_check input:checked~.categoryMark {
-            background-color: #b22033;
-        }
-
-        .formWrapper form {
-            width: 50%;
-            position: relative;
-        }
-
-        .formWrapper .fields__clm {
-            width: 100%;
-            background-color: #00000012;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-
-        .formWrapper .inputField {
-            width: 100%;
-            margin: 0 0 15px 0;
-            border: 1px solid #0000001a;
-            padding: 15px 15px;
-            border-radius: 6px;
-            box-sizing: border-box;
-            outline: none !important;
-        }
-
-        .formWrapper .inputField:last-child {
-            margin-bottom: 0;
-        }
-
-        .formWrapper textarea.inputField {
-            height: 150px;
-        }
-
-        .addBtn {
-            background-color: #00d600;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 25px;
-            font-weight: 700;
-            border-radius: 50%;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        .minusBtn {
-            background-color: red;
-            width: 30px;
-            height: 30px;
-            font-size: 32px;
-            font-weight: 100;
-            border-radius: 50%;
-            cursor: pointer;
-            color: #fff;
-            line-height: 23px;
-            text-align: center;
-        }
-
-        .btnWrapper {
-            display: flex;
-            column-gap: 7px;
-            margin-top: 15px;
-        }
-
-        .choose_color {
-            padding: 0;
-            overflow: hidden;
-            height: 37px;
-        }
-    </style>
     <script>
         $(document).ready(function() {
             $(".variant_btn input[type='checkbox']").on("change", function() {
@@ -1317,13 +2000,13 @@
                             }
 
                             var html = `
-            <div class='upload__img-box'>
-              <div class='${iconClass}' style='${style}' data-number='${$(".upload__img-close").length}' data-file='${f.name}'>
-                ${iconContent ? `<div class='file-icon-text'>${iconContent}</div>` : ""}
-                <div class='upload__img-close'>×</div>
-              </div>
-            </div>
-          `;
+                    <div class='upload__img-box'>
+                        <div class='${iconClass}' style='${style}' data-number='${$(".upload__img-close").length}' data-file='${f.name}'>
+                        ${iconContent ? `<div class='file-icon-text'>${iconContent}</div>` : ""}
+                        <div class='upload__img-close'>×</div>
+                        </div>
+                    </div>
+                    `;
                             imgWrap.append(html);
                         };
 
@@ -1348,6 +2031,7 @@
             });
         }
     </script>
+
     <script>
         function toggleInput(checkboxId, inputDivId) {
             const checkbox = document.getElementById(checkboxId);
@@ -1363,6 +2047,7 @@
             }
         }
     </script>
+
     <script>
         const addBtn = document.querySelector('.add_url_btn');
         const wrapper = document.getElementById('video_inputs_wrapper');
@@ -1383,9 +2068,9 @@
             newInputDiv.className = 'video_input d-flex align-items-center mb-2';
 
             newInputDiv.innerHTML = `
-      <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-      <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
-    `;
+           <input class="form-control gen_input" type="text" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+           <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+       `;
 
             wrapper.appendChild(newInputDiv);
 
@@ -1395,6 +2080,7 @@
             });
         });
     </script>
+
     <script>
         document.querySelectorAll('.thousand-separator').forEach(function(input) {
             input.addEventListener('input', function(e) {
@@ -1407,6 +2093,7 @@
             });
         });
     </script>
+
     <script>
         document.querySelectorAll('.price-input').forEach(function(input) {
             input.addEventListener('focus', function() {
@@ -1423,7 +2110,8 @@
             });
         });
     </script>
-    <script>
+
+    <!-- <script>
         // Auction Bid Box Toggle
         const auctionRadioButtons = document.querySelectorAll('input[name="ad_type"]');
         const bidBox = document.querySelector('.bid_box');
@@ -1443,7 +2131,8 @@
 
         // Initial state
         document.addEventListener("DOMContentLoaded", toggleBidBox);
-    </script>
+    </script> -->
+
     <script>
         $(document).ready(function() {
             function toggleHiddenBox() {
@@ -1542,6 +2231,7 @@
             $('input[name="real_garage"]').on('change', toggleHiddenBoxNine);
         });
     </script>
+
     <script>
         function formatPhoneNumber(input) {
             let value = input.value.replace(/\D/g, "");
@@ -1571,4 +2261,219 @@
             });
         });
     </script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const overlay = document.getElementById("fsmOverlay");
+        const previewBtn = document.getElementById("previewBtn");
+        const closeBtn = overlay.querySelector(".fsm-close");
+        const placeholderImg = "/assets/images/placeholder.png";
+
+        // Utility: Get Value from Input or Select
+        const getVal = (name, isSelect = false) => {
+            const el = document.querySelector(`${isSelect ? 'select' : 'input'}[name="${name}"]`);
+            return el && el.value ? el.value : "N/A";
+        };
+
+        // Utility: Get Radio Value
+        const getRadioVal = (name) => {
+            const checked = document.querySelector(`input[name="${name}"]:checked`);
+            return checked ? checked.value : "no";
+        };
+
+        // Utility: Get Checkbox Values (Comma Separated)
+        const getCheckboxVals = (name) => {
+            const checked = Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+            return checked.length > 0 ? checked.join(', ') : "None";
+        }
+
+        previewBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            // 1. TOP SECTION (Ad Type & Header Location)
+            overlay.querySelector('.sale_tag').textContent = getRadioVal('ad_type');
+            const topLocation = overlay.querySelector('.text_border');
+            if(topLocation) {
+                topLocation.textContent = getVal('real_location', true);
+            }
+            overlay.querySelector('.price_Text').textContent = "PRICE : " + getVal('real_price');
+
+            // 2. INFO LIST (Acres, Beds, Barns etc.)
+            const infoList = overlay.querySelectorAll('.info_list_one');
+            if (infoList.length >= 2) {
+                const leftItems = infoList[0].querySelectorAll('li span:last-child');
+                leftItems[0].textContent = getVal('real_acres') + " Acres";
+                leftItems[1].textContent = getVal('real_bedroom') + " Bedrooms";
+                leftItems[2].textContent = getVal('real_bathroom') + " Baths";
+                leftItems[3].textContent = getVal('num_spaces') + " " + getCheckboxVals('garage_type[]');
+
+                const rightItems = infoList[1].querySelectorAll('li span:last-child');
+                rightItems[0].textContent = (getVal('num_barn') === "N/A" ? "0" : getVal('num_barn')) + " Barn";
+                rightItems[1].textContent = (getVal('num_stalls') === "N/A" ? "0" : getVal('num_stalls')) + " Stalls";
+                rightItems[2].textContent = "Indoor: " + getRadioVal('in_ride_ring');
+                rightItems[3].textContent = "Pastures: " + (getVal('num_fenced_grass') === "N/A" ? "0" : getVal('num_fenced_grass'));
+            }
+
+            // 3. IMAGE GALLERY & SWIPER
+            const mainSwiperWrapper = overlay.querySelector('.horse_swiper_one .swiper-wrapper');
+            const gridWrapper = overlay.querySelector('.image-grid');
+            const galleryFiles = document.querySelector('input[name="gallery_imgs[]"]').files;
+
+            mainSwiperWrapper.innerHTML = '';
+            gridWrapper.innerHTML = '';
+
+            if (galleryFiles && galleryFiles.length > 0) {
+                Array.from(galleryFiles).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        if(index === 0) {
+                            mainSwiperWrapper.innerHTML = `<div class="swiper-slide"><img src="${e.target.result}" class="img-fluid w-100 img_radius_one"></div>`;
+                        }
+                        gridWrapper.insertAdjacentHTML('beforeend', `<a href="#!"><img src="${e.target.result}" alt="img"></a>`);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                mainSwiperWrapper.innerHTML = `<div class="swiper-slide"><img src="${placeholderImg}" class="img-fluid w-100 img_radius_one"></div>`;
+                gridWrapper.innerHTML = `<a href="#!"><img src="${placeholderImg}"></a>`.repeat(4);
+            }
+
+            // 4. DOCUMENTS PREVIEW (Images/PDF/Docs) - UPDATED logic
+            const docRow = overlay.querySelector('.cus_col.view_detail_page .border_box_one .row.mb-4.gy-4');
+            const docFiles = document.querySelector('input[name="property_document[]"]').files;
+            docRow.innerHTML = ''; 
+
+            if (docFiles && docFiles.length > 0) {
+                Array.from(docFiles).forEach(file => {
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            docRow.insertAdjacentHTML('beforeend', `
+                                <div class="col-lg-3 col-md-4 col-6 text-center">
+                                    <div style="height: 100px; background: #f8f8f8; border-radius: 8px; overflow: hidden; margin-bottom:5px;">
+                                        <img src="${e.target.result}" class="img-fluid" style="height:100%; width:100%; object-fit:cover;">
+                                    </div>
+                                    <p style="font-size:12px; color:#000; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${file.name}</p>
+                                </div>`);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        // PDF or Word detection
+                        let iconPath = "/assets/images/pdf.png"; 
+                        let label = "PDF";
+                        if (file.type.includes('word') || file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+                            iconPath = "/assets/images/docx.png";
+                            label = "DOC";
+                        }
+                        docRow.insertAdjacentHTML('beforeend', `
+                            <div class="col-lg-3 col-md-4 col-6 text-center">
+                                <div style="height: 100px; background: #f8f8f8; border-radius: 8px; display:flex; align-items:center; justify-content:center; margin-bottom:5px;">
+                                    <img src="${iconPath}" class="img-fluid" style="max-height:60px;">
+                                </div>
+                                <p style="font-size:12px; color:#000; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${label}: ${file.name}</p>
+                            </div>`);
+                    }
+                });
+            } else {
+                docRow.innerHTML = '<p class="text-muted w-100 text-center">No documents uploaded.</p>';
+            }
+
+            // 5. TEXT AREAS (Overview & Writeup)
+            const textBoxes = overlay.querySelectorAll('.view_detail_page .border_box_one p');
+            if(textBoxes.length >= 2) {
+                textBoxes[0].textContent = document.querySelector('textarea[name="property_overview"]').value || "N/A";
+                textBoxes[1].textContent = document.querySelector('textarea[name="ad_write_up"]').value || "N/A";
+            }
+
+            // 6. FACILITY TABLE MAPPING
+            const table = overlay.querySelector('.barn-table');
+            if (table) {
+                const rows = table.rows;
+                rows[0].cells[1].innerText = getVal('property_type', true);
+                rows[1].cells[1].innerText = getVal('num_barn');
+                rows[2].cells[1].innerText = getVal('num_stalls');
+                rows[3].cells[1].innerText = getRadioVal('rubber_matts');
+                rows[4].cells[1].innerText = getVal('barn_flooring');
+                rows[5].cells[1].innerText = getRadioVal('tack_room');
+                rows[5].cells[2].innerText = "Heated: " + getRadioVal('heated_not');
+                rows[6].cells[1].innerText = getCheckboxVals('hay_storage[]'); 
+                rows[6].cells[2].innerText = "Cold Water: " + getRadioVal('cold_water');
+                rows[6].cells[3].innerText = "Hot Water: " + getRadioVal('hot_water');
+            }
+
+            // 7. AGENT SECTION
+            const agentHeader = overlay.querySelector('.view_detail_page h3.heading44px:not(.about_horse_heading)');
+            if(agentHeader) {
+                agentHeader.textContent = "" + getVal('real_location', true);
+            }
+            
+            const sellerImg = overlay.querySelector('.seller_img img');
+            const perPicInput = document.querySelector('input[name="per_pic[]"]');
+            
+            if (perPicInput.files && perPicInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => sellerImg.src = e.target.result;
+                reader.readAsDataURL(perPicInput.files[0]);
+            } else {
+                sellerImg.src = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
+            }
+
+            // 8. VIDEO PREVIEW (NEW LOGIC)
+            const videoInput = document.querySelector('input[name="pro_video_url[]"]');
+            const videoElement = overlay.querySelector("video");
+            const videoSection = videoElement.closest('.cus_col'); // Video's parent container
+
+            if (videoInput && videoInput.files && videoInput.files[0]) {
+                const file = videoInput.files[0];
+                const fileURL = URL.createObjectURL(file);
+                
+                videoElement.src = fileURL;
+                videoSection.style.display = "block"; // Show section
+                videoElement.load(); // Reload to play the new source
+            } else {
+                videoSection.style.display = "none"; // Hide if no video
+            }
+
+            // SOCIAL & CONTACT LINKS
+            const socialLinks = overlay.querySelectorAll('.social_icons a');
+            if(socialLinks.length > 0) {
+                socialLinks[0].href = getVal('website_link') !== "N/A" ? getVal('website_link') : "#!";
+                socialLinks[1].href = getVal('facebook') !== "N/A" ? getVal('facebook') : "#!";
+                socialLinks[2].href = getVal('youtube') !== "N/A" ? getVal('youtube') : "#!";
+                socialLinks[3].href = getVal('tiktok') !== "N/A" ? getVal('tiktok') : "#!";
+                socialLinks[4].href = getVal('insta') !== "N/A" ? getVal('insta') : "#!";
+            }
+
+            const contactLinks = overlay.querySelectorAll('.social_icons:last-child a');
+            if(contactLinks.length >= 2) {
+                contactLinks[0].href = "tel:" + getVal('number');
+                contactLinks[1].href = "mailto:" + getVal('email');
+            }
+
+            // Show Modal
+            overlay.classList.add("is-visible");
+            document.body.style.overflow = "hidden";
+        });
+
+        // Close Modal
+        closeBtn.addEventListener("click", () => {
+            overlay.classList.remove("is-visible");
+            document.body.style.overflow = "";
+            
+            // Stop video on close
+            const videoElement = overlay.querySelector("video");
+            if(videoElement) videoElement.pause();
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove("is-visible");
+                document.body.style.overflow = "";
+                const videoElement = overlay.querySelector("video");
+                if(videoElement) videoElement.pause();
+            }
+        });
+    });
+</script>
 @endsection

@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-5 gy-4">
             @foreach ($data as $data)
               <div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
                 <div class="product_clm admin_service_card">

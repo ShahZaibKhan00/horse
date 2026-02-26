@@ -452,7 +452,7 @@
         }
 
         .blue_stripe h2 {
-            font-size: 25px;
+            font-size: 22px;
             text-transform: uppercase;
             padding: 5px 0px;
         }
@@ -1139,7 +1139,7 @@
                                                     </li>
                                                     <li class="mb-1">
                                                         <span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span>
-                                                        {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
+                                                        {{ $state['num_spaces'] }} {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1149,7 +1149,7 @@
                                                 <h3>Price: {{ $state['real_price'] }}</h3>
                                             </div>
                                             <div class="horse_list_card_btn_flex_new bottom_row">
-                                                <a href="#!" class="horse_card_btn w-100">View All Details</a>
+                                                <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn w-100">View All Details</a>
                                             </div>
                                             <div class="horse_list_card_btn_flex_new bottom_row">
                                                 <a href="javascript:;" class="horse_card_btn">Seller Profile</a>

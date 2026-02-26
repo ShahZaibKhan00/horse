@@ -84,7 +84,6 @@ class RealstateController extends Controller
             'first_name.required' => 'The Real state name field is required.',
             'last_name.required' => 'The Real State Price field is required.',
         ]);
-
         $data = new Realstate;
 
         $data->ad_type = $request->ad_type;
@@ -228,12 +227,16 @@ class RealstateController extends Controller
                 ->where('remaining_token', '>', 0)          // optional safety
                 ->decrement('remaining_token', 1);
         }
+        $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
+        Session()->flash('alert-success', $messages);
+        $usertype = Auth::user()->usertype;
 
         $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
         Session()->flash('alert-success', $messages);
-        return redirect()->back();
-
-        // return redirect('/manage_realstate');
+        if($usertype == '1')
+            return redirect('/manage_realstate');
+        else
+            return redirect("/realstate-listing");
     }
 
     /**
@@ -267,10 +270,35 @@ class RealstateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-     public function update(Request $request)
+    public function update(Request $request)
     {
         $id = $request->id;
+        // dd($request->hasFile('pro_video_url'));
+        // DB::beginTransaction();
         $data = Realstate::find($id);
+        if ($request->hasFile('pro_video_url')) {
+            // 🔥 Purani videos delete karo
+            if (! empty($data->pro_video_url)) {
+                $oldVideos = explode(',', $data->pro_video_url);
+                foreach ($oldVideos as $oldVideo) {
+                    $oldPath = public_path('service-videos/'.$oldVideo);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
+            }
+            // 🔥 Nayi videos upload karo
+            $videos = $request->file('pro_video_url');
+            $videoNames = [];
+
+            foreach ($videos as $video) {
+                $extension = $video->getClientOriginalExtension();
+                $videoName = time().'_'.rand(100, 999).'.'.$extension;
+                $video->move(public_path('service-videos'), $videoName);
+                $videoNames[] = $videoName;
+            }
+            $data->pro_video_url = implode(',', $videoNames);
+        }
         $data->ad_type = $request->ad_type;
         $data->bid_amount = $request->bid_amount;
         $data->reserve_amount = $request->reserve_amount;
@@ -287,7 +315,7 @@ class RealstateController extends Controller
         $data->real_farm_name = $request->real_farm_name;
         $data->real_garage = $request->real_garage;
         $data->num_spaces = $request->num_spaces;
-        $data->garage_type = implode(',' , $request->garage_type);
+        $data->garage_type = isset($request->garage_type) && is_array($request->garage_type) ? implode(',', $request->garage_type) : null;
         $data->barn_type = $request->barn_type;
         $data->num_stalls = $request->num_stalls;
         $data->num_barn = $request->num_barn;
@@ -397,8 +425,14 @@ class RealstateController extends Controller
         $data->amenities = $request->amenities;
 
         $data->save();
-        return redirect()->back();
-        // return redirect('/manage_realstate');
+        // dd($data);
+        $usertype = Auth::user()->usertype;
+        $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
+        Session()->flash('alert-success', $messages);
+        if($usertype == '0')
+            return redirect("/realstate-listing");
+        else
+            return redirect('/manage_realstate');
     }
 
     /**

@@ -31,7 +31,7 @@ Route::get('/register', [RegisterController::class, 'create'])->name('register')
 Route::get('migrate/data', function() {
     Artisan::call('migrate:fresh');
 });
-// Route::view('abc', 'admin.membership');
+// Route::view('abc', 'front.view_detail');
 Auth::routes();
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
@@ -56,6 +56,7 @@ Route::get('payment/page/{id}', [AllController::class, 'payment'])->name('paymen
 Route::get('sucess/payment', [AllController::class, 'sucess'])->name('payment.sucess');
 Route::get('cancel/payment', [AllController::class, 'cancel'])->name('payment.cancel');
 Route::post('use-credits', [AllController::class, 'useCredit'])->name('payment.cancel');
+Route::get('realstate-detail/{id}', [FrontController::class, 'realstateDetail'])->name('realstate.detail');
 
 // Front Controller
 Route::get('/', [FrontController::class, 'index'])->name('/');

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\General;
 use App\Models\Service;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -93,7 +94,6 @@ class ServiceController extends Controller
                 $pro_images[] = $filename;
             }
         }
-
         $data = new Service;
 
         $ser_profile = $request->ser_profile;
@@ -104,6 +104,19 @@ class ServiceController extends Controller
             $ser_profile->move($destinationPath, $servName);
             $data->ser_profile = $servName;
         }
+        if ($request->hasFile('pro_video_url')) {
+            $videos = $request->file('pro_video_url');
+            $videoNames = [];
+            foreach ($videos as $video) {
+                $extension = $video->getClientOriginalExtension();
+                $videoName = time() . '_' . rand(100,999) . '.' . $extension;
+                $video->move(public_path('service-videos'), $videoName);
+                $videoNames[] = $videoName;
+            }
+            $data->pro_video_url = implode(',', $videoNames);
+        }
+
+
         $data->full_name = $request->full_name;
         $data->business_name = $request->business_name;
         $data->email = $request->email;
@@ -113,6 +126,13 @@ class ServiceController extends Controller
         $data->city = $request->city ?? "";
         $data->state = $request->state;
         $data->per_bio = $request->per_bio;
+        $data->facebook = $request->facebook;
+        $data->insta = $request->insta;
+        $data->tiktok = $request->tiktok;
+        $data->linkedin = $request->linkedin;
+        $data->youtube = $request->youtube;
+        $data->zillow = $request->zillow;
+
         $data->experience = $request->experience;
         $data->Languages = $request->languages;
         $data->business_name1 = $request->business_name1;
@@ -144,7 +164,6 @@ class ServiceController extends Controller
         $data->demo_link = implode(',', $request->demo_link);
         $data->User_id = Auth::user()->id;
         $data->save();
-
         $latestSubscription = DB::table('subscriptions')
             ->where('useer_id', auth()->id())
             ->where('pacakge_status', 'Active')
@@ -159,6 +178,13 @@ class ServiceController extends Controller
 
         $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
         Session()->flash('alert-success', $messages);
+        $usertype = Auth::user()->usertype;
+        $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
+        Session()->flash('alert-success', $messages);
+        if($usertype == '1')
+            return redirect('/manage_realstate');
+        else
+            return redirect("/service-listing");
         return redirect()->back();
 
         // return redirect('/manage_service');
@@ -198,16 +224,57 @@ class ServiceController extends Controller
     public function update(Request $request)
     {
         $id = $request->id;
+        // DB::beginTransaction();
         $data = Service::find($id);
 
+        // $ser_profile = $request->ser_profile;
+        // if ($ser_profile != "") {
+        //     $destinationPath = public_path('/service-profile');
+        //     $extension = $ser_profile->getClientOriginalExtension();
+        //     $servName = time() . '_' . rand(10, 100) . '.' . $extension;
+        //     $ser_profile->move($destinationPath, $servName);
+        //     $data->ser_profile = $servName;
+        // }
         $ser_profile = $request->ser_profile;
+        if ($request->hasFile('pro_video_url')) {
+            // 🔥 Purani videos delete karo
+            if (!empty($data->pro_video_url)) {
+                $oldVideos = explode(',', $data->pro_video_url);
+                foreach ($oldVideos as $oldVideo) {
+                    $oldPath = public_path('service-videos/' . $oldVideo);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
+            }
+            // 🔥 Nayi videos upload karo
+            $videos = $request->file('pro_video_url');
+            $videoNames = [];
+            foreach ($videos as $video) {
+                $extension = $video->getClientOriginalExtension();
+                $videoName = time() . '_' . rand(100,999) . '.' . $extension;
+                $video->move(public_path('service-videos'), $videoName);
+                $videoNames[] = $videoName;
+            }
+            $data->pro_video_url = implode(',', $videoNames);
+        }
+
         if ($ser_profile != "") {
+
+            // 🔥 Purani image delete
+            if ($data->ser_profile != "" && file_exists(public_path('/service-profile/'.$data->ser_profile))) {
+                unlink(public_path('/service-profile/'.$data->ser_profile));
+            }
+
             $destinationPath = public_path('/service-profile');
             $extension = $ser_profile->getClientOriginalExtension();
             $servName = time() . '_' . rand(10, 100) . '.' . $extension;
+
             $ser_profile->move($destinationPath, $servName);
+
             $data->ser_profile = $servName;
         }
+
         // dd("a");
 
         $data->full_name = $request->full_name;
@@ -218,6 +285,13 @@ class ServiceController extends Controller
         $data->Address = $request->Address;
         $data->city = $request->city ?? "";
         $data->state = $request->state;
+        $data->facebook = $request->facebook;
+        $data->insta = $request->insta;
+        $data->tiktok = $request->tiktok;
+        $data->linkedin = $request->linkedin;
+        $data->youtube = $request->youtube;
+        $data->zillow = $request->zillow;
+
         $data->business_name1 = $request->business_name1;
         $data->business_location1 = $request->business_location1;
         $data->per_bio = $request->per_bio;
@@ -245,26 +319,57 @@ class ServiceController extends Controller
         $data->pkg_price = $request->pkg_price ?? '$0';
         $data->pricing_type = $request->pricing_type;
         $data->payment_method = $request->payment_method;
-        if ($request->hasFile('ser_gallery')) {
-            $images = $request->file('ser_gallery');
-            $destinationPath = public_path('/gallery_images');
-            $imageNames = [];
+        // if ($request->hasFile('ser_gallery')) {
+        //     $images = $request->file('ser_gallery');
+        //     $destinationPath = public_path('/gallery_images');
+        //     $imageNames = [];
 
-            foreach ($images as $image) {
-                if ($image) {
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-                    $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
+        //     foreach ($images as $image) {
+        //         if ($image) {
+        //             $extension = $image->getClientOriginalExtension();
+        //             $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+        //             $image->move($destinationPath, $imageName);
+        //             $imageNames[] = $imageName;
+        //         }
+        //     }
+
+        //     $data->ser_gallery = json_encode($imageNames);
+        // }
+        if ($request->hasFile('ser_gallery')) {
+
+            // 🔴 Pehle purani images delete karo (agar mojood hain)
+            if (!empty($data->ser_gallery)) {
+                $oldImages = json_decode($data->ser_gallery, true);
+
+                if (is_array($oldImages)) {
+                    foreach ($oldImages as $oldImage) {
+                        Storage::disk('public')->delete('uploads/services/' . $oldImage);
+                    }
                 }
             }
 
-            $data->ser_gallery = json_encode($imageNames);
+            // 🟢 Ab new images upload karo (same as create function)
+            $pro_images = [];
+
+            foreach ($request->file('ser_gallery') as $image) {
+                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('uploads/services', $filename, 'public');
+                $pro_images[] = $filename;
+            }
+
+            // Save new images in database
+            $data->ser_gallery = json_encode($pro_images);
         }
-        $data->demo_link = implode(',', $request->demo_link);
+        $data->demo_link = implode(',', $request->video_url);
         $data->save();
         $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Updated Successfully!'];
         Session()->flash('alert-success', $messages);
+        // dd($data);
+        $usertype = Auth::user()->usertype;
+        if($usertype == '1')
+            return redirect('/manage_realstate');
+        else
+            return redirect("/service-listing");
         return back();
     }
 

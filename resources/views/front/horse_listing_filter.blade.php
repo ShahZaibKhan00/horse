@@ -451,7 +451,7 @@
             justify-content: center;
             position: absolute;
             z-index: 999;
-            bottom: 28px;
+            bottom: 50px;
             right: 3px;
             background: #1d2139db;
             padding: 5px 10px 25px 10px;
@@ -732,8 +732,8 @@
             padding: 5px;
         }
 
-        ..horse_list_card.horse_list_card_new .blue_stripe h3 {
-            font-size: 35px;
+        .horse_list_card.horse_list_card_new .blue_stripe h3 {
+            font-size: 30px;
             text-transform: uppercase;
         }
 
@@ -746,7 +746,7 @@
             height: 45px;
             z-index: 9;
             text-align: center;
-            font-size: 25px;
+            font-size: 22px;
             font-weight: 500;
             margin: 0;
             display: flex;

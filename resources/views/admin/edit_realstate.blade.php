@@ -13,6 +13,7 @@
             background: #f5eeee;
             padding: 30px;
             border-radius: 20px;
+            margin-top: 20px;
         }
 
         .hidden_box_four_flex {
@@ -215,15 +216,21 @@
             text-align: center;
             line-height: 100px;
         }
+
+        .test {
+            display: flex;
+            gap: 10px;
+        }
     </style>
     @foreach ($data as $data)
         <div class="content user_main_content p-5">
             <div class="pb-5">
-                <div class="box_top">
-                    <h2 class="mb-2 main_heading_dashboard">Edit <br /> Real Estate Ad Property Information</h2>
-                    <!-- <h5 class="text-700 fw-semi-bold">Here’s what’s going on at your business right now</h5> -->
-                </div>
+
                 <form method="POST" action="{{ url('/update_property') }}" enctype="multipart/form-data" class="row g-3 mb-6">
+                    <div class="box_top">
+                        <h2 class="mb-2 main_heading_dashboard">Edit <br /> Real Estate Ad Property Information</h2>
+                        <!-- <h5 class="text-700 fw-semi-bold">Here’s what’s going on at your business right now</h5> -->
+                    </div>
                     @csrf
                     <input type="hidden" value="{{ $data->id }}" name="id">
                     <div class="row gy-4">
@@ -239,10 +246,10 @@
 
                                         <div class="form-check">
                                             <label>
-                                                <input class="form-check-input" name="ad_type" type="radio" value="Sale" {{ $ad_type == 'Sale' ? 'checked' : '' }} required/> Sale
+                                                <input class="form-check-input" name="ad_type" type="radio" value="Sale" {{ $ad_type == 'Sale' ? 'checked' : '' }} required /> Sale
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check d-none">
                                             <label>
                                                 <input class="form-check-input" name="ad_type" type="radio" value="Auction" {{ $ad_type == 'Auction' ? 'checked' : '' }} /> Auction
                                             </label>
@@ -260,8 +267,7 @@
                                 <div class="row gy-4">
                                     <div class="col-6">
                                         <h5 class="mb-3">Starting Bid Amount</h5>
-                                        <input class="form-control gen_input thousand-separator price-input" type="text" name="bid_amount" value="{{ $data->bid_amount }}" placeholder="Start bid"
-                                            required />
+                                        <input class="form-control gen_input thousand-separator price-input" type="text" name="bid_amount" value="{{ $data->bid_amount }}" placeholder="Start bid" />
                                     </div>
                                     <div class="col-6">
                                         <h5 class="mb-3">Reserve Amount (Optional) </h5>
@@ -270,11 +276,11 @@
                                     </div>
                                     <div class="col-6">
                                         <h5 class="mb-3">Start Date</h5>
-                                        <input class="form-control gen_input" type="date" name="start_date" placeholder="Start bid" value="{{ $data->start_date }}" required />
+                                        <input class="form-control gen_input" type="date" name="start_date" placeholder="Start bid" value="{{ $data->start_date }}" />
                                     </div>
                                     <div class="col-6">
                                         <h5 class="mb-3">End Date</h5>
-                                        <input class="form-control gen_input" type="date" name="end_date" placeholder="Reserve Amount" value="{{ $data->end_date }}" required />
+                                        <input class="form-control gen_input" type="date" name="end_date" placeholder="Reserve Amount" value="{{ $data->end_date }}" />
                                     </div>
                                     <div class="col-12">
                                         <h5 class="mb-3">Auction Link</h5>
@@ -368,7 +374,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="garage_box">
-                                            <input class="form-control gen_input mb-3" type="text" name="num_spaces" value="{{ $data->num_spaces }}" placeholder="# of spaces" required />
+                                            <input class="form-control gen_input mb-3" type="text" name="num_spaces" value="{{ $data->num_spaces }}" placeholder="# of spaces" />
                                             @php
                                                 $garage_type = explode(',', $data->garage_type ?? '');
                                             @endphp
@@ -428,7 +434,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <div class="border_box_one">
                                 <h4 class="mb-3">Stable/Barn Facilities/ Amenities:</h4>
                                 <div class="row">
@@ -449,7 +455,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-12">
                             <div class="border_box_one">
                                 <div class="row gy-4">
@@ -460,8 +466,15 @@
                                             $predefined_floorings = ['Rubber', 'Concrete', 'Dirt'];
                                             $is_other = !in_array($barn_flooring, $predefined_floorings);
                                         @endphp
-
                                         <div class="d-flex gap-1 flex-column">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="text" id="barn" name="num_barn" {{ $data->num_barn }}>
+                                                <label class="form-check-label" for="barn">Total Barn</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="text" id="stalls" name="num_stalls" {{ $data->num_stalls }}>
+                                                <label class="form-check-label" for="stalls">Total Barn</label>
+                                            </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="Rubber" id="rubber_flooring" name="barn_flooring"
                                                     {{ $barn_flooring == 'Rubber' ? 'checked' : '' }} />
@@ -946,11 +959,28 @@
                         </div>
                         <div class="col-12">
                             <div class="border_box_one">
+                                <?php
+                                // In your controller
+                                $existingImages = json_decode($data->property_document) ?? [];
+                                $maxImages = 3; // Match your JavaScript limit
+                                ?>
                                 <h4 class="mb-2">Documents </h4>
                                 <h4 class="mb-3"><small class="text-muted mb-3">Please upload any relevant documents you want to provide to prospective buyers. This includes surveys, disclosures, and
                                         any other important documents. </small></h4>
                                 <div class="col-12">
                                     <div class="upload__box">
+                                        @for ($i = 0; $i < $maxImages; $i++)
+                                            <div class="custom-upload-img-box">
+                                                @if (isset($existingImages[$i]))
+                                                    <img src="{{ asset('Property_documents/' . $existingImages[$i]) }}" class="img-fluid uploaded existing" data-image-index="{{ $i }}"
+                                                        alt="Existing image" width="100" height="100">
+                                                    {{-- <span class="custom-remove-btn">&times;</span> --}}
+                                                    {{-- @else --}}
+                                                    {{-- <img src="https://img.icons8.com/m_rounded/512/plus.png" class="img-fluid" alt="Add image">
+                                                    <span class="custom-remove-btn" style="display: none">&times;</span> --}}
+                                                @endif
+                                            </div>
+                                        @endfor
                                         <div class="upload__img-wrap"></div>
                                         <div class="upload__btn-box">
                                             <label class="upload__btn">
@@ -965,11 +995,30 @@
                         <div class="col-12">
                             <h3 class="text-white">Media Uploads</h3>
                         </div>
+                        <?php
+                        // In your controller
+                        $existingImages = json_decode($data->gallery_imgs) ?? [];
+                        $maxImages = 3; // Match your JavaScript limit
+                        ?>
                         <div class="col-12 mt-3">
                             <div class="border_box_one">
                                 <h5 class="mb-2">Image Gallery</h5>
                                 <div class="col-12">
                                     <div class="upload__box">
+                                        <div class="test">
+                                            @for ($i = 0; $i < $maxImages; $i++)
+                                                <div class="custom-upload-img-box">
+                                                    @if (isset($existingImages[$i]))
+                                                        <img src="{{ asset('Gallery_imgs/' . $existingImages[$i]) }}" class="img-fluid uploaded existing" data-image-index="{{ $i }}"
+                                                            alt="Existing image" width="100" height="100">
+                                                        {{-- <span class="custom-remove-btn">&times;</span> --}}
+                                                        {{-- @else --}}
+                                                        {{-- <img src="https://img.icons8.com/m_rounded/512/plus.png" class="img-fluid" alt="Add image">
+                                                    <span class="custom-remove-btn" style="display: none">&times;</span> --}}
+                                                    @endif
+                                                </div>
+                                            @endfor
+                                        </div>
                                         <div class="upload__img-wrap"></div>
                                         <div class="upload__btn-box">
                                             <label class="upload__btn">
@@ -987,15 +1036,38 @@
                                     <div class="col-6">
                                         <div class="d-flex align-items-center justify-content-between mb-3">
                                             <h5 class="">Video URL:</h5>
-                                            <a href="#!" class="add_url_btn">Add another video</a>
+                                            <a href="javascript:;" class="add_url_btn">Add another video</a>
                                         </div>
+                                        @php
+                                            $videoUrls = explode(',', $data->video_url);
+                                        @endphp
                                         <div id="video_inputs_wrapper">
-                                            <div class="video_input d-flex align-items-center mb-2">
-                                                <input class="form-control gen_input" type="url" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-                                            </div>
+                                            @if (count($videoUrls) > 0)
+                                                @foreach ($videoUrls as $url)
+                                                    <div class="video_input d-flex align-items-center mb-2">
+                                                        <input class="form-control gen_input" type="text" name="video_url[]" value="{{ $url }}"
+                                                            placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                                                        <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <div class="video_input d-flex align-items-center mb-2">
+                                                    <input class="form-control gen_input" type="text" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                                                </div>
+                                            @endif
                                         </div>
                                         <p id="error_message" style="color: red; display: none;">You can only add up to 3 video URLs.</p>
                                     </div>
+                                    @php
+                                        $videos = !empty($data->pro_video_url) ? explode(',', $data->pro_video_url) : [];
+                                    @endphp
+                                    @foreach ($videos as $video)
+                                        <div class="mb-3">
+                                            <video width="200" controls>
+                                                <source src="{{ asset('service-videos/' . $video) }}" type="video/mp4">
+                                            </video>
+                                        </div>
+                                    @endforeach
                                     <div class="col-6">
                                         <div class="upload__box">
                                             <div class="upload__img-wrap"></div>
@@ -1006,7 +1078,7 @@
                                                         <span class="text-800 px-1">or</span>
                                                         <button class="btn btn-link p-0" type="button">Browse from device</button>
                                                     </p>
-                                                    <input name="pro_video_url[]" type="file" multiple class="upload__inputfile" accept="video/*">
+                                                    <input name="pro_video_url[]" type="file" multiple class="upload__inputfile">
                                                 </label>
                                             </div>
                                         </div>
@@ -1049,9 +1121,25 @@
                                         <input class="form-control gen_input_one mb-3" type="url" name="website_link" value="{{ $data->website_link }}" placeholder="example@abcd.com" />
                                     </div>
                                 </div>
-
+                                <?php
+                                // In your controller
+                                $existingImages = json_decode($data->per_pic) ?? [];
+                                $maxImages = 3; // Match your JavaScript limit
+                                ?>
                                 <h5 class="mb-3">Upload Your Photo <small class="text-muted mb-3">(Optional) </small></h5>
                                 <div class="upload__box">
+                                    @for ($i = 0; $i < $maxImages; $i++)
+                                        <div class="custom-upload-img-box">
+                                            @if (isset($existingImages[$i]))
+                                                <img src="{{ asset('Personal_pictures/' . $existingImages[$i]) }}" class="img-fluid uploaded existing" data-image-index="{{ $i }}"
+                                                    alt="Existing image" width="100" height="100">
+                                                {{-- <span class="custom-remove-btn">&times;</span> --}}
+                                                {{-- @else --}}
+                                                {{-- <img src="https://img.icons8.com/m_rounded/512/plus.png" class="img-fluid" alt="Add image">
+                                                    <span class="custom-remove-btn" style="display: none">&times;</span> --}}
+                                            @endif
+                                        </div>
+                                    @endfor
                                     <div class="upload__img-wrap"></div>
                                     <div class="upload__btn-box">
                                         <label class="upload__btn">
@@ -1102,9 +1190,13 @@
                         </div>
                         <div class="col-6 ">
                             <div class="col-auto d-flex justify-content-end gap-3">
-                                <a href="javascript:;" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
-                                <button class="btn submit_btn_one" type="submit">Submit</button>
-                                <a href="#!" class="btn submit_btn_one">Preview</a>
+                                @if (Auth::user()->usertype == 1)
+                                    <a href="{{ url('manage_realstate') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Bakc</a>
+                                @else
+                                    <a href="{{ url('realstate-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Bakc</a>
+                                @endif
+                                <button class="btn submit_btn_one" type="submit">Update</button>
+                                {{-- <a href="#!" class="btn submit_btn_one">Preview</a> --}}
                             </div>
                         </div>
                     </div>
@@ -1371,6 +1463,7 @@
 
         addBtn.addEventListener('click', function(e) {
             e.preventDefault();
+
             const inputs = wrapper.querySelectorAll('.video_input');
 
             if (inputs.length >= 3) {
@@ -1384,9 +1477,45 @@
             newInputDiv.className = 'video_input d-flex align-items-center mb-2';
 
             newInputDiv.innerHTML = `
-      <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-      <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
-    `;
+                <input class="form-control gen_input" type="url" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+            `;
+
+            wrapper.appendChild(newInputDiv);
+        });
+
+        // ✅ EVENT DELEGATION (important part)
+        wrapper.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove_btn')) {
+                e.target.closest('.video_input').remove();
+                errorMsg.style.display = 'none';
+            }
+        });
+    </script>
+
+    {{-- <script>
+        const addBtn = document.querySelector('.add_url_btn');
+        const wrapper = document.getElementById('video_inputs_wrapper');
+        const errorMsg = document.getElementById('error_message');
+
+        addBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const inputs = wrapper.querySelectorAll('.video_input');
+
+            if (inputs.length >= 3) {
+                errorMsg.style.display = 'block';
+                return;
+            } else {
+                errorMsg.style.display = 'none';
+            }
+
+            const newInputDiv = document.createElement('div');
+            newInputDiv.className = 'video_input d-flex align-items-center mb-2';
+
+            newInputDiv.innerHTML = `
+                <input class="form-control gen_input" type="text" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+            `;
 
             wrapper.appendChild(newInputDiv);
 
@@ -1395,7 +1524,7 @@
                 errorMsg.style.display = 'none';
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         document.querySelectorAll('.thousand-separator').forEach(function(input) {

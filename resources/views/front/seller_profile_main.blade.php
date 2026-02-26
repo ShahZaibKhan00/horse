@@ -1414,7 +1414,7 @@
                     <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
                 </div>
 
-                <h1>{{ $data->business_name }}</h1>
+                <h1>{{ $data->business_name ?? '' }}</h1>
 
                 <a href="#!" class="seller_chat_btn">CHAT WITH SERVICE PROVIDER</a>
             </div>

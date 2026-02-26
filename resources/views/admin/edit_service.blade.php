@@ -605,44 +605,44 @@
             margin-bottom: 1rem;
         }
 
-        .custom-multiselect{
+        .custom-multiselect {
             position: relative;
             width: 100%;
-            }
+        }
 
-           .selected-tags {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                flex-wrap: wrap;
-                min-height: 44px;
-                padding: 4px 8px;
-                border: 1px solid #ccc;
-                border-radius: 6px;
-                background: #fff;
-                cursor: text;
-                height: 55px !important;
-                border: 2px solid #1d2139;
-                border-radius: 8px !important;
-            }
+        .selected-tags {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            min-height: 44px;
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+            cursor: text;
+            height: 55px !important;
+            border: 2px solid #1d2139;
+            border-radius: 8px !important;
+        }
 
-           .selected-tags .tag {
-                    background-color: #e0e5e9;
-                    padding: 10px 12px;
-                    border-radius: 8px;
-                    display: flex;
-                    align-items: center;
-                    font-size: 0.8rem;
-                    gap: 8px;
-                }
+        .selected-tags .tag {
+            background-color: #e0e5e9;
+            padding: 10px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            gap: 8px;
+        }
 
-            .selected-tags .tag .remove {
+        .selected-tags .tag .remove {
             cursor: pointer;
             font-weight: 700;
             padding-left: 4px;
-            }
+        }
 
-            .multi-input{
+        .multi-input {
             min-width: 140px;
             border: none;
             outline: none;
@@ -650,9 +650,9 @@
             padding: 6px 4px;
             flex: 1 0 140px;
             background: transparent;
-            }
+        }
 
-            .custom-multiselect .dropdown {
+        .custom-multiselect .dropdown {
             position: absolute;
             top: calc(100% + 6px);
             left: 0;
@@ -664,34 +664,36 @@
             z-index: 999;
             border-radius: 4px;
             padding: 6px 0;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-            }
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
 
-            .custom-multiselect .dropdown div {
+        .custom-multiselect .dropdown div {
             padding: 8px 12px;
             cursor: pointer;
             font-size: 13px;
             color: #000;
-            }
+        }
 
-            .custom-multiselect .dropdown div:hover {
+        .custom-multiselect .dropdown div:hover {
             background-color: #f0f0f0;
-            }
+        }
 
-            .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
 
-            /* small hint style when no results */
-            .dropdown .no-results {
+        /* small hint style when no results */
+        .dropdown .no-results {
             padding: 8px 12px;
             color: #777;
             font-size: 13px;
-            }
-
+        }
 
         .price-input-box {
             position: relative;
             margin-bottom: 10px;
         }
+
         .remove-btn {
             position: absolute;
             right: 10px;
@@ -730,13 +732,73 @@
                                         <h3 class="mb-5 heading__lg">Basic Information</h3>
                                     </div>
                                     <div class="col-6">
-                                        <div class="file-main-box">
+                                        {{-- <div class="file-main-box">
                                             <h3 class="mb-3 ">Service Provider Image</h3>
                                             <div class="file-wrapper">
                                                 <input type="file" name="ser_profile" accept="image/*" />
                                                 <div class="close-btn">×</div>
                                             </div>
+                                        </div> --}}
+                                        <style>
+                                            .file-wrapper {
+                                                position: relative;
+                                                width: 150px;
+                                                height: 150px;
+                                                cursor: pointer;
+                                            }
+
+                                            .preview-img {
+                                                width: 100%;
+                                                height: 100%;
+                                                object-fit: cover;
+                                                border: 2px solid #ddd;
+                                                border-radius: 8px;
+                                            }
+
+                                            #image-input {
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                opacity: 0;
+                                                cursor: pointer;
+                                            }
+                                        </style>
+                                        <div class="file-main-box">
+                                            <h3 class="mb-3">Upload new Image</h3>
+                                            <div class="file-wrapper">
+                                                <!-- Old Image Preview -->
+                                                <img id="preview-image" src="{{ $data->ser_profile ? asset('service-profile/' . $data->ser_profile) : asset('no-image.png') }}" width="148"
+                                                    height="147">
+                                                <!-- File Input -->
+                                                <input type="file" name="ser_profile" id="image-input" accept="image/*" />
+                                                <div class="close-btn" onclick="removeImage()">×</div>
+                                            </div>
                                         </div>
+                                        <script>
+                                            document.getElementById('image-input').addEventListener('change', function() {
+                                                const [file] = this.files;
+                                                if (file) {
+                                                    document.getElementById('preview-image').src = URL.createObjectURL(file);
+                                                }
+                                            });
+                                        </script>
+
+                                        <script>
+                                            document.getElementById('image-input').addEventListener('change', function(e) {
+                                                const [file] = this.files;
+                                                if (file) {
+                                                    document.getElementById('preview-image').src = URL.createObjectURL(file);
+                                                }
+                                            });
+
+                                            function removeImage() {
+                                                document.getElementById('preview-image').src = "";
+                                                document.getElementById('image-input').value = "";
+                                            }
+                                        </script>
+
                                     </div>
                                 </div>
                                 <div class="row">
@@ -763,12 +825,12 @@
                                     </div>
                                 </div>
                             </div>
-                           <div class="border_box_one mb-3">
+                            <div class="border_box_one mb-3">
                                 <h3 class="mb-2">Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h3>
                                 <h4 class="mb-3"><small class="text-muted">(Kindly provide your address to include your business in our map feature, which will assist potential clients in locating your
                                         services more easily.)</small></h4>
                                 <div class="row">
-                                        <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
+                                    <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
                                     <div class="col-6">
                                         <select class="form-control gen_input mb-3" name="state">
                                             <option value="">Select your State</option>
@@ -834,74 +896,73 @@
                                 </div>
                             </div>
                             <!--<div class="row">
-                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
-                                <div class="col-6">
-                                    @php
-                                        $states = [
-                                            'alabama' => 'Alabama',
-                                            'alaska' => 'Alaska',
-                                            'arizona' => 'Arizona',
-                                            'arkansas' => 'Arkansas',
-                                            'california' => 'California',
-                                            'colorado' => 'Colorado',
-                                            'connecticut' => 'Connecticut',
-                                            'delaware' => 'Delaware',
-                                            'florida' => 'Florida',
-                                            'georgia' => 'Georgia',
-                                            'hawaii' => 'Hawaii',
-                                            'idaho' => 'Idaho',
-                                            'illinois' => 'Illinois',
-                                            'indiana' => 'Indiana',
-                                            'iowa' => 'Iowa',
-                                            'kansas' => 'Kansas',
-                                            'kentucky' => 'Kentucky',
-                                            'louisiana' => 'Louisiana',
-                                            'maine' => 'Maine',
-                                            'maryland' => 'Maryland',
-                                            'massachusetts' => 'Massachusetts',
-                                            'michigan' => 'Michigan',
-                                            'minnesota' => 'Minnesota',
-                                            'mississippi' => 'Mississippi',
-                                            'missouri' => 'Missouri',
-                                            'montana' => 'Montana',
-                                            'nebraska' => 'Nebraska',
-                                            'nevada' => 'Nevada',
-                                            'new_hampshire' => 'New Hampshire',
-                                            'new_jersey' => 'New Jersey',
-                                            'new_mexico' => 'New Mexico',
-                                            'new_york' => 'New York',
-                                            'north_carolina' => 'North Carolina',
-                                            'north_dakota' => 'North Dakota',
-                                            'ohio' => 'Ohio',
-                                            'oklahoma' => 'Oklahoma',
-                                            'oregon' => 'Oregon',
-                                            'pennsylvania' => 'Pennsylvania',
-                                            'rhode_island' => 'Rhode Island',
-                                            'south_carolina' => 'South Carolina',
-                                            'south_dakota' => 'South Dakota',
-                                            'tennessee' => 'Tennessee',
-                                            'texas' => 'Texas',
-                                            'utah' => 'Utah',
-                                            'vermont' => 'Vermont',
-                                            'virginia' => 'Virginia',
-                                            'washington' => 'Washington',
-                                            'west_virginia' => 'West Virginia',
-                                            'wisconsin' => 'Wisconsin',
-                                            'wyoming' => 'Wyoming',
-                                        ];
-                                    @endphp
+                                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
+                                                <div class="col-6">
+                                                    @php
+                                                        $states = [
+                                                            'alabama' => 'Alabama',
+                                                            'alaska' => 'Alaska',
+                                                            'arizona' => 'Arizona',
+                                                            'arkansas' => 'Arkansas',
+                                                            'california' => 'California',
+                                                            'colorado' => 'Colorado',
+                                                            'connecticut' => 'Connecticut',
+                                                            'delaware' => 'Delaware',
+                                                            'florida' => 'Florida',
+                                                            'georgia' => 'Georgia',
+                                                            'hawaii' => 'Hawaii',
+                                                            'idaho' => 'Idaho',
+                                                            'illinois' => 'Illinois',
+                                                            'indiana' => 'Indiana',
+                                                            'iowa' => 'Iowa',
+                                                            'kansas' => 'Kansas',
+                                                            'kentucky' => 'Kentucky',
+                                                            'louisiana' => 'Louisiana',
+                                                            'maine' => 'Maine',
+                                                            'maryland' => 'Maryland',
+                                                            'massachusetts' => 'Massachusetts',
+                                                            'michigan' => 'Michigan',
+                                                            'minnesota' => 'Minnesota',
+                                                            'mississippi' => 'Mississippi',
+                                                            'missouri' => 'Missouri',
+                                                            'montana' => 'Montana',
+                                                            'nebraska' => 'Nebraska',
+                                                            'nevada' => 'Nevada',
+                                                            'new_hampshire' => 'New Hampshire',
+                                                            'new_jersey' => 'New Jersey',
+                                                            'new_mexico' => 'New Mexico',
+                                                            'new_york' => 'New York',
+                                                            'north_carolina' => 'North Carolina',
+                                                            'north_dakota' => 'North Dakota',
+                                                            'ohio' => 'Ohio',
+                                                            'oklahoma' => 'Oklahoma',
+                                                            'oregon' => 'Oregon',
+                                                            'pennsylvania' => 'Pennsylvania',
+                                                            'rhode_island' => 'Rhode Island',
+                                                            'south_carolina' => 'South Carolina',
+                                                            'south_dakota' => 'South Dakota',
+                                                            'tennessee' => 'Tennessee',
+                                                            'texas' => 'Texas',
+                                                            'utah' => 'Utah',
+                                                            'vermont' => 'Vermont',
+                                                            'virginia' => 'Virginia',
+                                                            'washington' => 'Washington',
+                                                            'west_virginia' => 'West Virginia',
+                                                            'wisconsin' => 'Wisconsin',
+                                                            'wyoming' => 'Wyoming',
+                                                        ];
+                                                    @endphp
 
-                                    <select class="form-control gen_input mb-3" name="state" required>
-                                        <option value="" disabled {{ empty($data->state) ? 'selected' : '' }}>Select your State</option>
-                                        @foreach ($states as $key => $state)
-                                            <option value="{{ $key }}" {{ $data->state == $key ? 'selected' : '' }}>{{ $state }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>-->
+                                                    <select class="form-control gen_input mb-3" name="state" required>
+                                                        <option value="" disabled {{ empty($data->state) ? 'selected' : '' }}>Select your State</option>
+                                                        @foreach ($states as $key => $state)
+    <option value="{{ $key }}" {{ $data->state == $key ? 'selected' : '' }}>{{ $state }}</option>
+    @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>-->
                         </div>
                     </div>
-
 
                     @php
                         $selected = explode(',', $data->service_location);
@@ -913,24 +974,21 @@
 
                             <div class="form-check">
                                 <label>
-                                    <input type="checkbox" name="service_location[]" value="At Provider’s Facility"
-                                        @if(in_array("At Provider’s Facility", $selected)) checked @endif >
+                                    <input type="checkbox" name="service_location[]" value="At Provider’s Facility" @if (in_array('At Provider’s Facility', $selected)) checked @endif>
                                     At Provider’s Facility
                                 </label>
                             </div>
 
                             <div class="form-check">
                                 <label>
-                                    <input type="checkbox" name="service_location[]" value="Mobile (I travel to client)"
-                                        @if(in_array("Mobile (I travel to client)", $selected)) checked @endif >
+                                    <input type="checkbox" name="service_location[]" value="Mobile (I travel to client)" @if (in_array('Mobile (I travel to client)', $selected)) checked @endif>
                                     Mobile (I travel to client)
                                 </label>
                             </div>
 
                             <div class="form-check">
                                 <label>
-                                    <input type="checkbox" name="service_location[]" value="Virtual / Online Coaching"
-                                        @if(in_array("Virtual / Online Coaching", $selected)) checked @endif >
+                                    <input type="checkbox" name="service_location[]" value="Virtual / Online Coaching" @if (in_array('Virtual / Online Coaching', $selected)) checked @endif>
                                     Virtual / Online Coaching
                                 </label>
                             </div>
@@ -1359,8 +1417,8 @@
                                             <label class="form-check-label" for="herbal_homeopathic">Herbal/homeopathic therapies</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('magnet_therapy', $values) ? 'checked' : '' }} value="magnet_therapy"
-                                                id="magnet_therapy">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('magnet_therapy', $values) ? 'checked' : '' }}
+                                                value="magnet_therapy" id="magnet_therapy">
                                             <label class="form-check-label" for="magnet_therapy">Magnet therapy</label>
                                         </div>
                                         <div class="form-check">
@@ -1419,8 +1477,8 @@
                                     <div class="service-category">
                                         <h5 class="category-title">Sales, Leasing & Auction</h5>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('auction_online', $values) ? 'checked' : '' }} value="auction_online"
-                                                id="auction_online">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('auction_online', $values) ? 'checked' : '' }}
+                                                value="auction_online" id="auction_online">
                                             <label class="form-check-label" for="auction_online">Auction - On-line</label>
                                         </div>
                                         <div class="form-check">
@@ -1495,8 +1553,8 @@
                                             <label class="form-check-label" for="grooming_services">Grooming services</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mane_tail_care', $values) ? 'checked' : '' }} value="mane_tail_care"
-                                                id="mane_tail_care">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('mane_tail_care', $values) ? 'checked' : '' }}
+                                                value="mane_tail_care" id="mane_tail_care">
                                             <label class="form-check-label" for="mane_tail_care">Mane & tail care</label>
                                         </div>
                                         <div class="form-check">
@@ -1513,8 +1571,8 @@
                                     <div class="service-category">
                                         <h5 class="category-title">Recreational & Community</h5>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('4h_ffa_support', $values) ? 'checked' : '' }} value="4h_ffa_support"
-                                                id="4h_ffa_support">
+                                            <input class="form-check-input" type="checkbox" name="services_offered[]" {{ in_array('4h_ffa_support', $values) ? 'checked' : '' }}
+                                                value="4h_ffa_support" id="4h_ffa_support">
                                             <label class="form-check-label" for="4h_ffa_support">4-H/FFA horse program support</label>
                                         </div>
                                         <div class="form-check">
@@ -2198,7 +2256,7 @@
                                                 @if (isset($existingImages[$i]))
                                                     <img src="{{ asset('storage/uploads/services/' . $existingImages[$i]) }}" class="img-fluid uploaded existing"
                                                         data-image-index="{{ $i }}" alt="Existing image">
-                                                    <span class="custom-remove-btn">&times;</span>
+                                                    {{-- <span class="custom-remove-btn">&times;</span> --}}
                                                 @else
                                                     <img src="https://img.icons8.com/metro/512/plus.png" class="img-fluid" alt="Add image">
                                                     <span class="custom-remove-btn" style="display:none">&times;</span>
@@ -2213,20 +2271,45 @@
                         <div class="col-12">
                             <div class="border_box_one">
                                 <div class="row">
+                                    @php
+                                        $videoUrls = explode(',', $data->demo_link);
+                                    @endphp
                                     <div class="col-6">
                                         <div class="d-flex align-items-center justify-content-between mb-3">
                                             <h4 class="">YouTube / Vimeo video link introduction (Optional)</h4>
-                                            <a href="#!" class="add_url_btn">Add another video</a>
+                                            <a href="javascript:;" class="add_url_btn">Add another video</a>
                                         </div>
                                         <div id="video_inputs_wrapper">
-                                            <div class="video_input d-flex align-items-center mb-2">
+                                            {{-- <div class="video_input d-flex align-items-center mb-2">
                                                 <input class="form-control gen_input" type="url" value="{{ $data->demo_link ?? '' }}" name="demo_link[]"
                                                     placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-                                            </div>
+                                            </div> --}}
+                                            @if (count($videoUrls) > 0)
+                                                @foreach ($videoUrls as $url)
+                                                    <div class="video_input d-flex align-items-center mb-2">
+                                                        <input class="form-control gen_input" type="text" name="video_url[]" value="{{ $url }}"
+                                                            placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                                                        <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <div class="video_input d-flex align-items-center mb-2">
+                                                    <input class="form-control gen_input" type="text" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                                                </div>
+                                            @endif
                                         </div>
                                         <p id="error_message" style="color: red; display: none;">You can only add up to 3 video URLs.</p>
                                     </div>
-
+                                    @php
+                                        $videos = !empty($data->pro_video_url) ? explode(',', $data->pro_video_url) : [];
+                                    @endphp
+                                    @foreach ($videos as $video)
+                                        <div class="mb-3">
+                                            <video width="200" controls>
+                                                <source src="{{ asset('service-videos/' . $video) }}" type="video/mp4">
+                                            </video>
+                                        </div>
+                                    @endforeach
                                     <div class="col-6">
                                         <div class="upload__box">
                                             <div class="upload__img-wrap"></div>
@@ -2242,10 +2325,52 @@
                             </div>
                         </div>
                     </div>
+                    <h2 class="text-white mb-3">Social Media Links</h2>
+                    <div class="border_box_one">
+                        <div class="row gy-3">
+                            <div class="col-6">
+                                <h5 class="mb-2">Facebook</h5>
+                                <input class="form-control gen_input_one mb-3" type="url" name="facebook" value="{{ $data->facebook }}" placeholder="Paste link here" />
+                            </div>
+
+                            <div class="col-6">
+                                <h5 class="mb-2">Instagram</h5>
+                                <input class="form-control gen_input_one mb-3" type="url" name="insta" value="{{ $data->insta }}" placeholder="Paste link here" />
+                            </div>
+
+                            <div class="col-6">
+                                <h5 class="mb-2">TikTok</h5>
+                                <input class="form-control gen_input_one mb-3" type="url" name="tiktok" value="{{ $data->tiktok }}" placeholder="Paste link here" />
+                            </div>
+
+                            <div class="col-6">
+                                <h5 class="mb-2">LinkedIn</h5>
+                                <input class="form-control gen_input_one mb-3" type="url" name="linkedin" value="{{ $data->linkedin }}" placeholder="Paste link here" />
+                            </div>
+
+                            <div class="col-6">
+                                <h5 class="mb-2">YouTube</h5>
+                                <input class="form-control gen_input_one mb-3" type="url" name="youtube" value="{{ $data->youtube }}" placeholder="Paste link here" />
+                            </div>
+
+                            <div class="col-6">
+                                <h5 class="mb-2">Zillow </h5>
+                                <input class="form-control gen_input_one mb-3" type="url" name="zillow" value="{{ $data->zillow }}" placeholder="Paste link here" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-12 d-flex justify-content-center">
                         <div class="col-auto  d-flex justify-content-center gap-3">
-                            <button class="btn submit_btn_one" type="submit">Submit</button>
-                            <a href="#!" class="btn submit_btn_one">Preview</a>
+                            <div class="col-auto  d-flex justify-content-center gap-3">
+                        @if (Auth::user()->usertype == 1)
+                            
+                            <a href="{{ url('manage_service') }} }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Back</a>
+                        @else
+                            <a href="{{ url('service-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Back</a>
+                            
+                        @endif
+                            <button class="btn submit_btn_one" type="submit">Update</button>
+                            {{-- <a href="#!" class="btn submit_btn_one">Preview</a> --}}
                         </div>
                     </div>
         </div>
@@ -2832,6 +2957,7 @@
 
         addBtn.addEventListener('click', function(e) {
             e.preventDefault();
+
             const inputs = wrapper.querySelectorAll('.video_input');
 
             if (inputs.length >= 3) {
@@ -2845,7 +2971,42 @@
             newInputDiv.className = 'video_input d-flex align-items-center mb-2';
 
             newInputDiv.innerHTML = `
-                <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                <input class="form-control gen_input" type="text" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+                <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+            `;
+
+            wrapper.appendChild(newInputDiv);
+        });
+
+        // ✅ EVENT DELEGATION (important part)
+        wrapper.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove_btn')) {
+                e.target.closest('.video_input').remove();
+                errorMsg.style.display = 'none';
+            }
+        });
+    </script>
+    {{-- <script>
+        const addBtn = document.querySelector('.add_url_btn');
+        const wrapper = document.getElementById('video_inputs_wrapper');
+        const errorMsg = document.getElementById('error_message');
+
+        addBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const inputs = wrapper.querySelectorAll('.video_input');
+
+            if (inputs.length >= 3) {
+                errorMsg.style.display = 'block';
+                return;
+            } else {
+                errorMsg.style.display = 'none';
+            }
+
+            const newInputDiv = document.createElement('div');
+            newInputDiv.className = 'video_input d-flex align-items-center mb-2';
+
+            newInputDiv.innerHTML = `
+                <input class="form-control gen_input" type="url" name="video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
                 <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
                 `;
 
@@ -2856,7 +3017,7 @@
                 errorMsg.style.display = 'none';
             });
         });
-    </script>
+    </script> --}}
     <script>
         document.querySelectorAll('.numbers_limit').forEach(function(input) {
             input.addEventListener('input', function(e) {
@@ -3071,83 +3232,81 @@
     </script>
 
     <script>
+        const checkboxes = document.querySelectorAll('.form-check-input');
 
-const checkboxes = document.querySelectorAll('.form-check-input');
+        // IDs of checkboxes to disable when Varying Price per Service is checked
+        const priceCheckboxes = ['ph_p', 'ps_p', 'pp_p', 'pm_p'];
+        const vppsCheckbox = document.getElementById('vpps_p');
 
-// IDs of checkboxes to disable when Varying Price per Service is checked
-const priceCheckboxes = ['ph_p', 'ps_p', 'pp_p', 'pm_p'];
-const vppsCheckbox = document.getElementById('vpps_p');
+        // Your additional price input
+        const pkgPriceInput = document.querySelector('input[name="pkg_price"]');
 
-// Your additional price input
-const pkgPriceInput = document.querySelector('input[name="pkg_price"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const relatedInputBox = document.getElementById('input_' + checkbox.id);
 
-checkboxes.forEach(checkbox => {
-  checkbox.addEventListener('change', () => {
-    const relatedInputBox = document.getElementById('input_' + checkbox.id);
+                // Handle regular input visibility (except Varying Price per Service)
+                if (checkbox.id !== 'vpps_p') {
+                    if (checkbox.checked) {
+                        relatedInputBox && (relatedInputBox.style.display = 'block');
 
-    // Handle regular input visibility (except Varying Price per Service)
-    if (checkbox.id !== 'vpps_p') {
-      if (checkbox.checked) {
-        relatedInputBox && (relatedInputBox.style.display = 'block');
+                        // If any price checkbox is checked, uncheck Varying Price
+                        if (vppsCheckbox.checked) {
+                            vppsCheckbox.checked = false;
+                            enablePkgPriceInput();
+                        }
+                    } else {
+                        relatedInputBox && (relatedInputBox.style.display = 'none');
+                    }
+                }
 
-        // If any price checkbox is checked, uncheck Varying Price
-        if (vppsCheckbox.checked) {
-          vppsCheckbox.checked = false;
-          enablePkgPriceInput();
+                // Handle "Varying Price per Service"
+                if (checkbox.id === 'vpps_p') {
+                    priceCheckboxes.forEach(id => {
+                        const cb = document.getElementById(id);
+                        const input = document.getElementById('input_' + id);
+                        if (cb) {
+                            if (checkbox.checked) {
+                                cb.checked = false;
+                                cb.disabled = true;
+                                if (input) input.style.display = 'none';
+                            } else {
+                                cb.disabled = false;
+                            }
+                        }
+                    });
+
+                    // Disable or enable pkg_price input
+                    if (checkbox.checked) {
+                        disablePkgPriceInput();
+                    } else {
+                        enablePkgPriceInput();
+                    }
+                }
+            });
+        });
+
+        // Disable / Enable functions
+        function disablePkgPriceInput() {
+            pkgPriceInput.value = "";
+            pkgPriceInput.disabled = true;
+            pkgPriceInput.classList.add("disabled");
         }
-      } else {
-        relatedInputBox && (relatedInputBox.style.display = 'none');
-      }
-    }
 
-    // Handle "Varying Price per Service"
-    if (checkbox.id === 'vpps_p') {
-      priceCheckboxes.forEach(id => {
-        const cb = document.getElementById(id);
-        const input = document.getElementById('input_' + id);
-        if (cb) {
-          if (checkbox.checked) {
-            cb.checked = false;
-            cb.disabled = true;
-            if (input) input.style.display = 'none';
-          } else {
-            cb.disabled = false;
-          }
+        function enablePkgPriceInput() {
+            pkgPriceInput.disabled = false;
+            pkgPriceInput.classList.remove("disabled");
         }
-      });
 
-      // Disable or enable pkg_price input
-      if (checkbox.checked) {
-        disablePkgPriceInput();
-      } else {
-        enablePkgPriceInput();
-      }
-    }
-  });
-});
-
-// Disable / Enable functions
-function disablePkgPriceInput() {
-  pkgPriceInput.value = "";
-  pkgPriceInput.disabled = true;
-  pkgPriceInput.classList.add("disabled");
-}
-
-function enablePkgPriceInput() {
-  pkgPriceInput.disabled = false;
-  pkgPriceInput.classList.remove("disabled");
-}
-
-// Handle cross buttons (close input + uncheck)
-const removeBtns = document.querySelectorAll('.price-input-box .remove-btn');
-removeBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const inputBox = btn.parentElement;
-    inputBox.style.display = 'none';
-    const id = inputBox.id.replace('input_', '');
-    document.getElementById(id).checked = false;
-  });
-});
-
-</script>
+        // Handle cross buttons (close input + uncheck)
+        const removeBtns = document.querySelectorAll('.price-input-box .remove-btn');
+        removeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const inputBox = btn.parentElement;
+                inputBox.style.display = 'none';
+                const id = inputBox.id.replace('input_', '');
+                document.getElementById(id).checked = false;
+            });
+        });
+    </script>
 @endsection

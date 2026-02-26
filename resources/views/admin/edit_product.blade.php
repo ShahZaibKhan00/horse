@@ -9,6 +9,11 @@
 @section('content')
 
     <style>
+        form {
+            background: #1c2039;
+            padding: 30px;
+        }
+
         .asterisk {
             color: red;
         }
@@ -463,8 +468,8 @@
         }
 
         .custom-upload-img-box {
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             border: 2px dashed #ccc;
             display: flex;
             align-items: center;
@@ -472,6 +477,7 @@
             cursor: default;
             position: relative;
             border-radius: 8px;
+            padding: 10px;
         }
 
         .custom-remove-btn {
@@ -499,6 +505,9 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            max-width: 960px;
+            margin: 0 auto;
+            justify-content: center;
         }
 
         .custom-relative-box {
@@ -520,8 +529,7 @@
         }
 
         .custom-upload-img-box.inactive {
-            filter: blur(2px);
-            opacity: 0.5;
+            display: none;
         }
 
         .upload__img-close {
@@ -564,12 +572,741 @@
             line-height: 100px;
         }
     </style>
-
-    {{-- STyling By Shahzaib --}}
     <style>
-        .dropdown div.selected {
-            background: #007bff;
+        /* Only what's needed - no reset here so it plays nice with other frameworks */
+        .fsm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            background: rgb(0 0 0 / 54%);
+            z-index: 9999;
+            align-items: center;
+            backdrop-filter: blur(2px);
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .fsm-overlay.is-visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .fsm-dialog {
+            background: #fff;
+            padding: 20px;
+            border-radius: 1rem;
+            max-width: 1180px;
+            max-height: 100vh;
+            width: 100%;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.7);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+            /* Firefox scrollbar */
+            scrollbar-width: thin;
+            /* Makes it thinner */
+            scrollbar-color: #888 #f1f1f1;
+            /* thumb color, track color */
+        }
+
+        /* WebKit browsers */
+        .fsm-dialog::-webkit-scrollbar {
+            width: 5px;
+            /* width of the scrollbar */
+        }
+
+        .fsm-dialog::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            /* track color */
+            border-radius: 10px;
+        }
+
+        .fsm-dialog::-webkit-scrollbar-thumb {
+            background: #888;
+            /* thumb color */
+            border-radius: 10px;
+        }
+
+        .fsm-dialog::-webkit-scrollbar-thumb:hover {
+            background: #555;
+            /* thumb color on hover */
+        }
+
+        .fsm-overlay.is-visible .fsm-dialog {
+            transform: scale(1);
+        }
+
+        .fsm-close {
+            position: absolute;
+            top: -3px;
+            right: 2px;
+            font-size: 30px;
+            line-height: 1;
+            color: #000;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .fsm-close:hover,
+        .fsm-close:focus {
+            color: #000;
+            outline: none;
+        }
+    </style>
+    <style>
+        .fsm-content {
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .detail_left {
+            width: 100%;
+            background: #fff;
+            z-index: 1;
+            position: relative;
+        }
+
+        .top_blue_strip_flex {
+            display: flex;
+            background: #1d2139;
+            position: relative;
+            justify-content: flex-end;
+        }
+
+        .sale_tag {
+            font-size: 16px;
+            font-weight: 700;
+            padding: 8px 15px;
+            background: #bf9855;
+            background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            width: fit-content;
+            text-transform: uppercase;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 0;
+            z-index: 999;
+            color: #1d2139;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+
+        .h_tages {
+            display: flex;
+            align-items: center;
+            gap: 0px;
+            justify-content: center;
+            font-weight: 700;
+            padding-top: 4px;
+        }
+
+        .top_blue_strip {
+            background: #1d2139;
+            padding: 15px 5px 10px 5px;
+            position: relative;
+        }
+
+        .heading44px {
+            font-size: 40px;
+            color: var(--primeColor);
+        }
+
+        .top_blue_strip .heading44px {
+            color: white;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .text_border {
+            font-size: 30px;
+            text-shadow: -1px 0 0 #ba9148, 1px 0 0 #ba9148, 0 -1px 0 #ba9148, 0 1px 0 #ba9148, -1px -1px 0 #ba9148, 1px -1px 0 #ba9148, -1px 1px 0 #ba9148, 1px 1px 0 #ba9148;
+            line-height: 1;
+        }
+
+        .relative_img_box {
+            position: relative;
+            padding: 0;
+            border-bottom: 0;
+        }
+
+        .img_radius_one {
+            border-radius: 0px;
+            overflow: hidden;
+            height: 270px;
+            object-fit: cover;
+        }
+
+        .horse_arrow {
+            background: transparent !important;
+            border: 0 !important;
+            font-size: 20px !important;
+            background: linear-gradient(to right, #ae8e3b 40%, #ffffff 75%, #ae8e3b 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 9999 !important;
+            width: 30px !important;
+            height: 30px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .horse_arrow.right {
+            right: 10px;
+        }
+
+        .breed_text {
+            background: #1d2139;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            z-index: 9;
+            text-align: center;
+            font-size: 25px;
+            font-weight: 600;
             color: #fff;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        .horser_information_box.mb-0 {
+            background: #fff;
+            border-bottom: 0;
+            border: 0;
+            padding: 0px 0px;
+        }
+
+        .custome_listing_row {
+            display: flex;
+            width: 100%;
+            gap: 5px;
+        }
+
+        .custome_listing_col {
+            width: 50%;
+        }
+
+        .custome_listing_col .info_list {
+            margin: 0;
+            padding-left: 0;
+        }
+
+        .info_list {
+            list-style: none;
+            margin: 15px 0px;
+        }
+
+        .horser_information_box ul li {
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            list-style: none;
+            border: 2px solid #1d2139;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .custome_listing_col .info_list li {
+            font-size: 17px;
+            margin: 5px 0px;
+            padding: 2px 10px;
+            text-transform: uppercase;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #1d2139;
+            border-width: 1px;
+        }
+
+        .horser_information_box {
+            background: #1d2139;
+            border-radius: 0px;
+            border: 2px solid #1d2139;
+        }
+
+        .horser_information_box.type_one {
+            padding: 5px 5px;
+        }
+
+        .heading30px {
+            font-size: 30px;
+            color: var(--primeColor);
+        }
+
+        .price_Text {
+            font-size: 30px;
+            margin: 0;
+            background: linear-gradient(to right, #e5dbc2 40%, #c19b59 75%, #c3ad72 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .horser_information_box .heading44px,
+        .horser_information_box .heading30px {
+            color: white;
+        }
+
+        .horse_list_card_btn_flex_new.bottom_row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .horser_action_info_btn,
+        .horser_action_info_btn:focus {
+            width: 48%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #fff;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.25s;
+        }
+
+        a:visited {
+            text-decoration: none;
+            outline: 0;
+        }
+
+        .horser_action_info_btn.action_btn,
+        .horse_info_btn.fvrt_btn.action_btn {
+            width: 28%;
+            font-size: 15.5px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .image-grid div {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 10px;
+        }
+
+        .image-grid div img {
+            transition: filter 0.3s ease;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .image-grid a::after {
+            content: "\f06e";
+            font-family: "FontAwesome";
+            font-size: 34px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .heading65px {
+            font-size: 65px;
+            color: #ab8d35;
+            background: #1d2139;
+            text-align: center;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        .view_detail_page .heading65px h1 {
+            font-size: 30px;
+            margin: 0;
+            background: linear-gradient(to right, #ae8e3b 40%, #ffffff 75%, #ae8e3b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .view_detail_page .heading65px img {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 20px;
+            max-width: 60px;
+        }
+
+        .border_box_one {
+            border: 3px solid #1d2139;
+            padding: 20px;
+        }
+
+        .border_box_one.p-1 {
+            border: 0;
+            padding: 0px;
+        }
+
+        .gen_list_flex {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            column-gap: 5px;
+            row-gap: 5px;
+        }
+
+        .border_box_one ul li {
+            font-size: 13px;
+            color: #1d2139;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            /* margin: 5px; */
+            padding: 20px 30px;
+            width: 307px;
+            box-shadow: rgba(50, 50, 93, 0.1) 0px 20px 40px -12px inset, rgba(0, 0, 0, 0.1) 0px 12px 24px -18px inset;
+            border: 2px solid #1d2139;
+        }
+
+        .border_box_one ul li:last-child {
+            margin: 0;
+        }
+
+        .border_box_one ul li span img {
+            max-width: 35px;
+        }
+
+        .border_box_one.ppe_border_box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .ppe_xray_box {
+            text-align: center;
+            max-width: 288px;
+            margin: 0 auto;
+        }
+
+        .pedigree_box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #000;
+        }
+
+        .pedigree_box_1 {
+            width: 25%;
+            height: 200px;
+            border: 1px solid #000;
+        }
+
+        .pedigree_box_2 {
+            width: 100%;
+            height: 100px;
+        }
+
+        .border_btm {
+            border-bottom: 2px solid #000;
+        }
+
+        .pedigree_box_3 {
+            width: 100%;
+            height: 50px;
+        }
+
+        .pedigree_box_4 {
+            width: 100%;
+            height: 25px;
+        }
+
+        .xy_center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pedigree_box p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .colord_box {
+            background: #e4dfdf;
+        }
+
+        .border_box_one iframe {
+            width: 100%;
+            height: 320px;
+        }
+
+        .reg {
+            font-size: 22px;
+        }
+
+        .heading18px {
+            font-size: 18px;
+            color: var(--primeColor);
+        }
+
+        .heading44px {
+            font-size: 35px;
+        }
+
+        .seller_img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .seller_img {
+            width: 100%;
+            height: 300px;
+        }
+
+        .seller_desc {
+            font-size: 14px;
+            margin: 0 !important;
+            margin-bottom: 10px !important;
+            height: 105px;
+            overflow-y: auto;
+        }
+
+        .social_icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social_icons a {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #1d2139;
+            border-radius: 15px;
+        }
+
+        .social_icons a.web_btn {
+            width: 90px;
+            color: var(--primeColor);
+            font-weight: 700;
+            border-radius: 12px;
+        }
+
+        .social_icons a img {
+            max-width: 26px;
+        }
+
+        .horse_slider {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .horse_slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .horse_slide {
+            min-width: 100%;
+        }
+
+        .horse_arrow.left {
+            left: 10px;
+        }
+
+        .horse_arrow.right {
+            right: 10px;
+        }
+
+        .horse_pagination {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .horse_pagination span {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .horse_pagination span.active {
+            background: #000;
+        }
+    </style>
+    <style>
+        img.f_img_preview {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 7px;
+            border: 1px solid #00000036;
+        }
+
+        .prodict_Color {
+            width: 50px;
+            height: 30px;
+            border-radius: 4px;
+        }
+
+        .removeBtn svg {
+            color: red;
+        }
+
+        .checkbox_wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .category_check {
+            display: block;
+            position: relative;
+            /* padding-left: 35px; */
+            /* margin-bottom: 12px; */
+            cursor: pointer;
+            /* font-size: 22px; */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .category_check input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .categoryMark {
+            /* position: absolute; */
+            top: 0;
+            left: 0;
+            /* height: 25px; */
+            /* width: 25px; */
+            background-color: #ccc;
+            transition: .5s;
+            color: #fff;
+            font-size: 13px;
+            text-transform: capitalize;
+            padding: 10px 10px;
+            display: inline-block;
+            border-radius: 8px;
+        }
+
+        .category_check:hover input~.categoryMark {
+            background-color: #ccc;
+        }
+
+        .category_check input:checked~.categoryMark {
+            background-color: #b22033;
+        }
+
+        .formWrapper form {
+            width: 50%;
+            position: relative;
+        }
+
+        .formWrapper .fields__clm {
+            width: 100%;
+            background-color: #00000012;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .formWrapper .inputField {
+            width: 100%;
+            margin: 0 0 15px 0;
+            border: 1px solid #0000001a;
+            padding: 15px 15px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none !important;
+        }
+
+        .formWrapper .inputField:last-child {
+            margin-bottom: 0;
+        }
+
+        .formWrapper textarea.inputField {
+            height: 150px;
+        }
+
+        .addBtn {
+            background-color: #00d600;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: 700;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .minusBtn {
+            background-color: red;
+            width: 30px;
+            height: 30px;
+            font-size: 32px;
+            font-weight: 100;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #fff;
+            line-height: 23px;
+            text-align: center;
+        }
+
+        .btnWrapper {
+            display: flex;
+            column-gap: 7px;
+            margin-top: 15px;
+        }
+
+        .choose_color {
+            padding: 0;
+            overflow: hidden;
+            height: 37px;
         }
     </style>
     <div class="content user_main_content p-5">
@@ -1843,8 +2580,8 @@
                                                 @endfor
                                                 {{-- </div> --}}
                                                 <!-- Optional: locked images -->
+                                                {{-- <p>To add more pictures click to <a href="javascript:void(0)">upgrade</a></p> --}}
                                                 <div class="custom-relative-box">
-                                                    <p>To add more pictures click to <a href="javascript:void(0)">upgrade</a></p>
                                                     <div class="custom-upload-images-flex">
                                                         <div class="custom-upload-img-box inactive">
                                                             <img src="https://img.icons8.com/m_rounded/512/plus.png" class="img-fluid" alt="">
@@ -2051,8 +2788,13 @@
                     </div>
                     <div class="col-6 ">
                         <div class="col-auto d-flex justify-content-end gap-3">
-                            <a href="{{ url('products') }}/{{ last(request()->segments()) }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
-                            <button class="btn submit_btn_one" type="submit">Submit</button>
+                            @if (Auth::user()->usertype == 1)
+                                <a href="{{ url('products') }}/{{ last(request()->segments()) }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Back</a>
+                            @else
+                                <a href="{{ url('horse-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Back</a>
+                            @endif
+                            {{-- <a href="{{ url('products') }}/{{ last(request()->segments()) }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a> --}}
+                            <button class="btn submit_btn_one" type="submit">Update</button>
                             {{-- <a href="#!" class="btn submit_btn_one">Preview</a> --}}
                         </div>
                     </div>

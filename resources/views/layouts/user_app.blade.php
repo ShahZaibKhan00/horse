@@ -198,6 +198,13 @@
         top: 0;
         left: 0;
     }
+button.btn.btn-primary.mt-3 {
+    background: linear-gradient(180deg, #F0DA93 34.17%, #BEA15A 100%);
+    color: #000;
+    border: 0;
+    padding: 10px 30px;
+    font-weight: 600;
+}
 </style>
 
 <body>

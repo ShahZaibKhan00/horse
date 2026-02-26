@@ -1,5 +1,7 @@
 @extends('layouts.user_app')
 @section('content')
+
+
     <div class="user_main_content">
         <div class="dark_bar">
             <h2>Horse Listings</h2>
@@ -8,8 +10,9 @@
                 Show Points
             </a>
 
-            <x-credit-modal />
+            
         </div>
+        <x-credit-modal />
         <div class="inner_content_wrapper">
             <div class="welcome-container">
                 <div class="welcome-content">

@@ -1,6 +1,32 @@
 @extends('layouts.user_app')
 
 @section('content')
+<style>
+.top__bar {
+    padding: 35px 10px 5px 10px;
+}
+.top__bar h2 {
+    font-size: 24px;
+}
+.cell {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.bid-panel .button {
+    padding: 10px 5px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.solid-style:hover {
+    color: #fff;
+}
+.bid-amount {
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+</style>
     <div class="user_main_content">
         <div class="dark_bar">
             <h2>Real Estate Listings</h2>
@@ -48,12 +74,12 @@
                                         <h2>{{ $state->real_title }}, {{ $displayLocation }}</h2>
                                         <p class="user_tag">For Sale</p>
 
-                                        <label class="heart-label">
+                                        <!--<label class="heart-label">
                                             <input type="checkbox" class="heart-input">
                                             <svg class="heart-icon" viewBox="0 0 24 24">
                                                 <path d="M12 21s-7-4.35-9.5-8.28C.4 9.36 2.28 5 6.5 5c2.54 0 3.57 1.93 5.5 3.5C13.93 6.93 14.96 5 17.5 5c4.22 0 6.1 4.36 4 7.72C19 16.65 12 21 12 21z" />
                                             </svg>
-                                        </label>
+                                        </label> -->
                                     </div>
                                     @php
                                         $images = !empty($state->gallery_imgs) ? json_decode($state->gallery_imgs, true) : [];
@@ -94,7 +120,7 @@
                                             <div class="cell"><span class="me-3"><img src="assets/images/estate_icon_3.png" alt=""></span>{{ $state->real_bedroom }} Bedrooms
                                             </div>
                                             <div class="cell"><span class="me-3"><img src="assets/images/estate_icon_4.png"
-                                                        alt=""></span>{{ implode(' | ', array_slice(explode(',', $state->garage_type), 0, 2)) }}</div>
+                                                        alt=""></span>{{ $state->num_spaces }} {{ implode(' | ', array_slice(explode(',', $state->garage_type), 0, 2)) }}</div>
                                         </div>
                                     </div>
                                     <div class="bid-panel">
@@ -115,13 +141,13 @@
                                     </div>
                                     <div class="management-panel">
                                         <div class="control-row">
-                                            <button class="clickable-box solid-style">VIEW DETAILS</button>
+                                            <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="clickable-box solid-style">VIEW DETAILS</a>
                                             <a href="{{ url('/edit_realstate') }}/{{ $state->id }}" class="clickable-box hollow-style">EDIT <span class="edit-symbol"><img src="assets/images/edit.png"
                                                         alt=""></span></a>
                                         </div>
                                         <div class="control-row">
-                                            <button class="clickable-box hollow-style">Mark Pending</button>
-                                            <button class="clickable-box hollow-style withdraw_btn">Mark Sold/ withdrawn</button>
+                                            <button class="clickable-box hollow-style">Mark Sold</button>
+                                            <button class="clickable-box hollow-style withdraw_btn">Mark withdrawn</button>
                                         </div>
                                         <div class="analytics-bar">
                                             <div class="data-point">Views: 250</div>

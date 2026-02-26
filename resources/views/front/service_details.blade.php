@@ -160,11 +160,11 @@
         }
 
         /* .horser_information_box_one  .horser_action_info_btn,
-                                                        .horser_information_box_one  .horser_action_info_btn:focus,
-                                                        .horser_information_box_one  .fvrt_btn {
-                                                            width: 30%;
-                                                            font-size: 12px;
-                                                        } */
+                                                                                .horser_information_box_one  .horser_action_info_btn:focus,
+                                                                                .horser_information_box_one  .fvrt_btn {
+                                                                                    width: 30%;
+                                                                                    font-size: 12px;
+                                                                                } */
         .horser_information_box.horser_information_box_one,
         .img_radius_ext {
             height: 340px;
@@ -1100,9 +1100,9 @@
             }
 
             /* .side_box_one {
-                    padding: 20px 20px 20.8px 85px;
-                    margin-bottom: 23px;
-                } */
+                                            padding: 20px 20px 20.8px 85px;
+                                            margin-bottom: 23px;
+                                        } */
             .side_box_one {
                 padding: 0px 10px 0px 70px;
             }
@@ -1379,9 +1379,9 @@
 
         @media (max-width: 1799px) {
             /* .side_box_one {
-                    min-height: 617px;
-                    margin-bottom: 8px;
-                } */
+                                            min-height: 617px;
+                                            margin-bottom: 8px;
+                                        } */
         }
 
         @media (max-width: 1399px) {
@@ -1440,11 +1440,11 @@
                                     <p>{{ $data->user_address }}</p>
 
                                     <div class="social_icons mt-4">
-                                        <a href="{{ $data->facebook_link }}" target="_blank" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->youtube_link }}" target="_blank" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->tiktok_link }}" target="_blank" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->insta_link }}" target="_blank" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->website_link }}" target="_blank" title="Website"><img src="/assets/images/website-icon-11.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->facebook }}" target="_blank" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->youtube }}" target="_blank" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->tiktok }}" target="_blank" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->insta }}" target="_blank" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->zillow }}" target="_blank" title="Website"><img src="/assets/images/website-icon-11.png" alt="img" class="img-fluid" /></a>
                                     </div>
                                 </div>
                             </div>
@@ -1562,16 +1562,34 @@
                                 <div class="address_tabs_sec">
                                     <!-- Text Section -->
                                     <div class="text-section">
-                                        <h2>Service Location:</h2>
-                                        <ul>
+                                        <h2 class="mb-2">BUSINESS LOCATION:</h2>
+                                        <p class="mb-4">
+                                            {{ $data->business_name1 . ', ' . $data->business_location1 }}
+                                        </p>
+                                        <h2 class="mb-2">Service Location:</h2>
+                                        <ul class="mb-4">
                                             <li>{{ $data->service_address }} , {{ $data->state }}</li>
                                         </ul>
 
+                                        <h2 class="mb-2">Service Area Coverd:</h2>
+                                        <div class="d-flex gap-5">
+                                            <ul class="mb-4">
+                                            <li>Sussex County</li>
+                                            <li>Morris County</li>
+                                            <li>Warren County</li>
+                                            <li>Lafayette</li>
+                                            <li>Newton</li>
+                                            </ul>
+                                            <ul class="mb-4">
+                                                <li>Morristown</li>
+                                                <li>Somerset County</li>
+                                                <li>Fredon</li>
+                                                <li>Branchville</li>
+                                                <li>Union County</li>
+                                            </ul>
+                                        </div>
 
-                                        <h2>BUSINESS LOCATION:</h2>
-                                        <p>
-                                            {{ $data->business_name1 . ', ' .$data->business_location1 }}
-                                        </p>
+                                        
                                     </div>
 
                                     <!-- Map Section -->
@@ -1599,12 +1617,29 @@
                                     @endif
                                 </div>
                             </div>
-
+                            @php
+                                $videos = !empty($data->pro_video_url) ? explode(',', $data->pro_video_url) : [];
+                            @endphp
                             <div class="tab-pane fade" id="v_pills_seller_5" role="tabpanel" aria-labelledby="v_pills_seller_5-tab" tabindex="0">
-                                <a data-fancybox="gallery" href="#!" class="videoplay_box d-block">
-                                    <img src="/assets/images/H_05.jpg" alt="Video Thumbnail" class="w-100" />
+                                @if (count($videos) > 0)
+                                    @foreach ($videos as $video)
+                                        <a data-fancybox="gallery" href="{{ asset('service-videos/' . $video) }}" class="videoplay_box d-block mb-3">
+                                            <!-- Custom Thumbnail -->
+                                            <img src="{{ asset('assets/images/H_05.jpg') }}" alt="Video Thumbnail" class="w-100" />
+
+                                            <span class="video-play-button">
+                                                <span></span>
+                                            </span>
+                                        </a>
+                                    @endforeach
+                                @else
+                                    <div class="text-center py-5">
+                                        <h5 class="text-muted">No videos available</h5>
+                                    </div>
+                                @endif
+                                {{-- <a data-fancybox="gallery" href="#!" class="videoplay_box d-block">
                                     <span class="video-play-button"><span></span></span>
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
 
@@ -1704,18 +1739,18 @@
         updateCountdown();
     </script>
     <script>
-    // Wait for DOM
-    document.addEventListener("DOMContentLoaded", function() {
-        const viewBtn = document.querySelector(".view_btn");
-        const tabEl = document.getElementById("v_pills_seller_2-tab");
+        // Wait for DOM
+        document.addEventListener("DOMContentLoaded", function() {
+            const viewBtn = document.querySelector(".view_btn");
+            const tabEl = document.getElementById("v_pills_seller_2-tab");
 
-        viewBtn.addEventListener("click", function(e) {
-            e.preventDefault(); // Prevent default anchor behavior
+            viewBtn.addEventListener("click", function(e) {
+                e.preventDefault(); // Prevent default anchor behavior
 
-            // Using Bootstrap 5 Tab API
-            const tab = new bootstrap.Tab(tabEl);
-            tab.show();
+                // Using Bootstrap 5 Tab API
+                const tab = new bootstrap.Tab(tabEl);
+                tab.show();
+            });
         });
-    });
-</script>
+    </script>
 @endsection

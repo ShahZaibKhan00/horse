@@ -1,9 +1,7 @@
 @php
     $layout = Auth::user()->usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
 @endphp
-
 @extends($layout)
-
 @section('content')
     <style>
         .asterisk {
@@ -563,6 +561,751 @@
             line-height: 100px;
         }
     </style>
+    <style>
+        /* Only what's needed - no reset here so it plays nice with other frameworks */
+        .fsm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            background: rgb(0 0 0 / 54%);
+            z-index: 9999;
+            align-items: center;
+            backdrop-filter: blur(2px);
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .fsm-overlay.is-visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .fsm-dialog {
+            background: #fff;
+            padding: 20px;
+            border-radius: 1rem;
+            max-width: 1180px;
+            max-height: 100vh;
+            width: 100%;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.7);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+            /* Firefox scrollbar */
+            scrollbar-width: thin;
+            /* Makes it thinner */
+            scrollbar-color: #888 #f1f1f1;
+            /* thumb color, track color */
+        }
+
+        /* WebKit browsers */
+        .fsm-dialog::-webkit-scrollbar {
+            width: 5px;
+            /* width of the scrollbar */
+        }
+
+        .fsm-dialog::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            /* track color */
+            border-radius: 10px;
+        }
+
+        .fsm-dialog::-webkit-scrollbar-thumb {
+            background: #888;
+            /* thumb color */
+            border-radius: 10px;
+        }
+
+        .fsm-dialog::-webkit-scrollbar-thumb:hover {
+            background: #555;
+            /* thumb color on hover */
+        }
+
+        .fsm-overlay.is-visible .fsm-dialog {
+            transform: scale(1);
+        }
+
+        .fsm-close {
+            position: absolute;
+            top: -3px;
+            right: 2px;
+            font-size: 30px;
+            line-height: 1;
+            color: #000;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .fsm-close:hover,
+        .fsm-close:focus {
+            color: #000;
+            outline: none;
+        }
+    </style>
+    <style>
+        .fsm-content {
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .detail_left {
+            width: 100%;
+            background: #fff;
+            z-index: 1;
+            position: relative;
+        }
+
+        .top_blue_strip_flex {
+            display: flex;
+            background: #1d2139;
+            position: relative;
+            justify-content: flex-end;
+        }
+
+        .sale_tag {
+            font-size: 16px;
+            font-weight: 700;
+            padding: 8px 15px;
+            background: #bf9855;
+            background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            width: fit-content;
+            text-transform: uppercase;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 0;
+            z-index: 999;
+            color: #1d2139;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+
+        .h_tages {
+            display: flex;
+            align-items: center;
+            gap: 0px;
+            justify-content: center;
+            font-weight: 700;
+            padding-top: 4px;
+        }
+
+        .top_blue_strip {
+            background: #1d2139;
+            padding: 25px 5px 10px 5px;
+            position: relative;
+        }
+
+        .heading44px {
+            font-size: 40px;
+            color: var(--primeColor);
+        }
+
+        .top_blue_strip .heading44px {
+            color: white;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .text_border {
+            font-size: 30px;
+            text-shadow: -1px 0 0 #ba9148, 1px 0 0 #ba9148, 0 -1px 0 #ba9148, 0 1px 0 #ba9148, -1px -1px 0 #ba9148, 1px -1px 0 #ba9148, -1px 1px 0 #ba9148, 1px 1px 0 #ba9148;
+            line-height: 1;
+        }
+
+        .relative_img_box {
+            position: relative;
+            padding: 0;
+            border-bottom: 0;
+        }
+
+        .img_radius_one {
+            border-radius: 0px;
+            overflow: hidden;
+            height: 270px;
+            object-fit: cover;
+        }
+
+        .horse_arrow {
+            background: transparent !important;
+            border: 0 !important;
+            font-size: 20px !important;
+            background: linear-gradient(to right, #ae8e3b 40%, #ffffff 75%, #ae8e3b 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 9999 !important;
+            width: 30px !important;
+            height: 30px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .horse_arrow.right {
+            right: 10px;
+        }
+
+        .breed_text {
+            background: #1d2139;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            z-index: 9;
+            text-align: center;
+            font-size: 25px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        .horser_information_box.mb-0 {
+            background: #fff;
+            border-bottom: 0;
+            border: 0;
+            padding: 0px 0px;
+        }
+
+        .custome_listing_row {
+            display: flex;
+            width: 100%;
+            gap: 5px;
+        }
+
+        .custome_listing_col {
+            width: 50%;
+        }
+
+        .custome_listing_col .info_list {
+            margin: 0;
+            padding-left: 0;
+        }
+
+        .info_list {
+            list-style: none;
+            margin: 15px 0px;
+        }
+
+        .horser_information_box ul li {
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            list-style: none;
+            border: 2px solid #1d2139;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .custome_listing_col .info_list li {
+            font-size: 17px;
+            margin: 5px 0px;
+            padding: 2px 10px;
+            text-transform: uppercase;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #1d2139;
+            border-width: 1px;
+        }
+
+        .horser_information_box {
+            background: #1d2139;
+            border-radius: 0px;
+            border: 2px solid #1d2139;
+        }
+
+        .horser_information_box.type_one {
+            padding: 5px 5px;
+        }
+
+        .heading30px {
+            font-size: 30px;
+            color: var(--primeColor);
+        }
+
+        .price_Text {
+            font-size: 30px;
+            margin: 0;
+            background: linear-gradient(to right, #e5dbc2 40%, #c19b59 75%, #c3ad72 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .horser_information_box .heading44px,
+        .horser_information_box .heading30px {
+            color: white;
+        }
+
+        .horse_list_card_btn_flex_new.bottom_row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .horser_action_info_btn,
+        .horser_action_info_btn:focus {
+            width: 48%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #fff;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.25s;
+        }
+
+        a:visited {
+            text-decoration: none;
+            outline: 0;
+        }
+
+        .horser_action_info_btn.action_btn,
+        .horse_info_btn.fvrt_btn.action_btn {
+            width: 28%;
+            font-size: 15.5px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .image-grid div {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 10px;
+        }
+
+        .image-grid div img {
+            transition: filter 0.3s ease;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .image-grid a::after {
+            content: "\f06e";
+            font-family: "FontAwesome";
+            font-size: 34px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .heading65px {
+            font-size: 65px;
+            color: #ab8d35;
+            background: #1d2139;
+            text-align: center;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        .view_detail_page .heading65px h1 {
+            font-size: 30px;
+            margin: 0;
+            background: linear-gradient(to right, #ae8e3b 40%, #ffffff 75%, #ae8e3b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .view_detail_page .heading65px img {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 20px;
+            max-width: 60px;
+        }
+
+        .border_box_one {
+            border: 3px solid #1d2139;
+            padding: 20px;
+        }
+
+        .border_box_one.p-1 {
+            border: 0;
+            padding: 0px;
+        }
+
+        .gen_list_flex {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            column-gap: 5px;
+            row-gap: 5px;
+        }
+
+        .border_box_one ul li {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1d2139;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            /* margin: 5px; */
+            padding: 20px 30px;
+            width: 307px;
+            box-shadow: rgba(50, 50, 93, 0.1) 0px 20px 40px -12px inset, rgba(0, 0, 0, 0.1) 0px 12px 24px -18px inset;
+            border: 2px solid #1d2139;
+            flex-direction: column;
+        }
+
+        .border_box_one ul li:last-child {
+            margin: 0;
+        }
+
+       .border_box_one ul li span img {
+    max-width: 35px;
+    display: none;
+}
+
+        .border_box_one.ppe_border_box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .ppe_xray_box {
+            text-align: center;
+            max-width: 288px;
+            margin: 0 auto;
+        }
+
+        .pedigree_box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #000;
+        }
+
+        .pedigree_box_1 {
+            width: 25%;
+            height: 200px;
+            border: 1px solid #000;
+        }
+
+        .pedigree_box_2 {
+            width: 100%;
+            height: 100px;
+        }
+
+        .border_btm {
+            border-bottom: 2px solid #000;
+        }
+
+        .pedigree_box_3 {
+            width: 100%;
+            height: 50px;
+        }
+
+        .pedigree_box_4 {
+            width: 100%;
+            height: 25px;
+        }
+
+        .xy_center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pedigree_box p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .colord_box {
+            background: #e4dfdf;
+        }
+
+        .border_box_one iframe {
+            width: 100%;
+            height: 320px;
+        }
+
+        .reg {
+            font-size: 22px;
+        }
+
+        .heading18px {
+            font-size: 18px;
+            color: var(--primeColor);
+        }
+
+        .heading44px {
+            font-size: 35px;
+        }
+
+        .seller_img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .seller_img {
+            width: 100%;
+            height: 300px;
+        }
+
+        .seller_desc {
+            font-size: 14px;
+            margin: 0 !important;
+            margin-bottom: 10px !important;
+            height: 105px;
+            overflow-y: auto;
+        }
+
+        .social_icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social_icons a {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #1d2139;
+            border-radius: 15px;
+        }
+
+        .social_icons a.web_btn {
+            width: 90px;
+            color: var(--primeColor);
+            font-weight: 700;
+            border-radius: 12px;
+        }
+
+        .social_icons a img {
+            max-width: 26px;
+        }
+
+        .horse_slider {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .horse_slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .horse_slide {
+            min-width: 100%;
+        }
+
+        .horse_arrow.left {
+            left: 10px;
+        }
+
+        .horse_arrow.right {
+            right: 10px;
+        }
+
+        .horse_pagination {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .horse_pagination span {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .horse_pagination span.active {
+            background: #000;
+        }
+    </style>
+    <style>
+        img.f_img_preview {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 7px;
+            border: 1px solid #00000036;
+        }
+
+        .prodict_Color {
+            width: 50px;
+            height: 30px;
+            border-radius: 4px;
+        }
+
+        .removeBtn svg {
+            color: red;
+        }
+
+        .checkbox_wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .category_check {
+            display: block;
+            position: relative;
+            /* padding-left: 35px; */
+            /* margin-bottom: 12px; */
+            cursor: pointer;
+            /* font-size: 22px; */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .category_check input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .categoryMark {
+            /* position: absolute; */
+            top: 0;
+            left: 0;
+            /* height: 25px; */
+            /* width: 25px; */
+            background-color: #ccc;
+            transition: .5s;
+            color: #fff;
+            font-size: 13px;
+            text-transform: capitalize;
+            padding: 10px 10px;
+            display: inline-block;
+            border-radius: 8px;
+        }
+
+        .category_check:hover input~.categoryMark {
+            background-color: #ccc;
+        }
+
+        .category_check input:checked~.categoryMark {
+            background-color: #b22033;
+        }
+
+        .formWrapper form {
+            width: 50%;
+            position: relative;
+        }
+
+        .formWrapper .fields__clm {
+            width: 100%;
+            background-color: #00000012;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .formWrapper .inputField {
+            width: 100%;
+            margin: 0 0 15px 0;
+            border: 1px solid #0000001a;
+            padding: 15px 15px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none !important;
+        }
+
+        .formWrapper .inputField:last-child {
+            margin-bottom: 0;
+        }
+
+        .formWrapper textarea.inputField {
+            height: 150px;
+        }
+
+        .addBtn {
+            background-color: #00d600;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: 700;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .minusBtn {
+            background-color: red;
+            width: 30px;
+            height: 30px;
+            font-size: 32px;
+            font-weight: 100;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #fff;
+            line-height: 23px;
+            text-align: center;
+        }
+
+        .btnWrapper {
+            display: flex;
+            column-gap: 7px;
+            margin-top: 15px;
+        }
+
+        .choose_color {
+            padding: 0;
+            overflow: hidden;
+            height: 37px;
+        }
+        video.img-fluid {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+        }
+    </style>
     <div class="content user_main_content p-5">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -720,7 +1463,8 @@
                 <div class="col-12">
                     <div class="border_box_one">
                         <h4 class="mb-3">Horse Name: <span class="asterisk">*</span> <small class="text-muted">( to be
-                                displayed at the top of the ad)</small></h4>
+                                displayed at the top of the ad)</small>
+                        </h4>
                         <input class="form-control gen_input" type="text" name="pro_name" placeholder="Write title here..." value="{{ old('pro_name') }}" required />
                     </div>
                 </div>
@@ -735,7 +1479,6 @@
                             <div class="col-6">
                                 <input class="form-control gen_input mb-3" type="text" name="pro_city" placeholder="Enter Town" required />
                             </div>
-
                             <div class="col-6">
                                 <select class="form-control gen_input mb-3" name="real_location" required>
                                     <option selected disabled>Select your State</option>
@@ -794,7 +1537,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-12">
                     <div class="border_box_one">
                         <div class="mb-3">
@@ -835,7 +1577,6 @@
                                 </div>
                             </div>
                             <div class="col-9">
-
                             </div>
                         </div>
                     </div>
@@ -852,9 +1593,11 @@
                                 <div class="form-check">
                                     <label><input class="form-check-input" name="pro_ad_type" type="radio" value="At Auction" /> At Auction</label>
                                 </div>
-                                {{-- <div class="form-check">
-                                    <label><input class="form-check-input" name="pro_ad_type" type="radio" value="Private Treaty" /> Private Treaty</label>
-                                </div> --}}
+                                {{--
+                  <div class="form-check">
+                     <label><input class="form-check-input" name="pro_ad_type" type="radio" value="Private Treaty" /> Private Treaty</label>
+                  </div>
+                  --}}
                                 <div class="form-check">
                                     <label><input class="form-check-input" name="pro_ad_type" type="radio" value="For Lease" />
                                         For Lease</label>
@@ -888,7 +1631,6 @@
                             </label>
                         </div>
                     </div>
-
                     <div class="border_box_one">
                         <h4 class="mb-3">Registered</h4>
                         <div class="d-flex gap-3">
@@ -904,7 +1646,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="bid_box" style="display: none;">
+                    <div class="bid_box">
                         <h4 class="mb-5 text-1000">Will be shown on first picture of ad</h4>
                         <div class="row gy-4">
                             <div class="col-6">
@@ -964,7 +1706,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-12">
                     <div class="border_box_one pedigree_form">
                         <h4 class="mb-3"> Pedigree</h4>
@@ -1021,7 +1762,6 @@
                                             <input class="form-control gen_input gen_input" id="pedigree_1_1_2" type="text" name="pro_twogreat_grand_dam[]" placeholder="Type Here" />
                                         </div>
                                     </div>
-
                                     <div class="box_dark five mb-5">
                                         <div class="mb-4">
                                             <h4 class="mb-2">Great Great Grand Sire</h4>
@@ -1032,7 +1772,6 @@
                                             <input class="form-control gen_input gen_input" id="pedigree_1_2_2" type="text" name="pro_twogreat_grand_dam[]" placeholder="Type Here" />
                                         </div>
                                     </div>
-
                                     <div class="box_dark six mb-5">
                                         <div class="mb-4">
                                             <h4 class="mb-2">Great Great Grand Sire</h4>
@@ -1043,7 +1782,6 @@
                                             <input class="form-control gen_input gen_input" id="pedigree_2_1_2" type="text" name="pro_twogreat_grand_dam[]" placeholder="Type Here" />
                                         </div>
                                     </div>
-
                                     <div class="box_dark seven">
                                         <div class="mb-4">
                                             <h4 class="mb-2">Great Great Grand Sire</h4>
@@ -1057,7 +1795,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="dam-form">
                             <div class="row align-items-center">
                                 <div class="col-3">
@@ -1146,7 +1883,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-6">
                     <div class="border_box_one">
                         <h4 class="mb-3"> Color <span class="asterisk">*</span></h4>
@@ -1223,7 +1959,6 @@
                             <option value="Unknown">Unknown</option>
                             <option value="White">White</option>
                         </select>
-
                     </div>
                 </div>
                 <div class="col-6">
@@ -1244,7 +1979,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="col-6">
                     <div class="border_box_one">
                         <h4 class="mb-3">Height <span class="asterisk">*</span></h4>
@@ -1349,7 +2083,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-12">
                     <div class="border_box_one">
                         <div class="dropdown-container">
@@ -1375,7 +2108,8 @@
                                     <div onclick="selectOption(this)" data-value="Beginner">Beginner</div>
                                     <div onclick="selectOption(this)" data-value="Barrel Racing">Barrel Racing</div>
                                     <div onclick="selectOption(this)" data-value="Barrels* Poles *Gymkhana">Barrels* Poles
-                                        *Gymkhana</div>
+                                        *Gymkhana
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Breakaway Roping">Breakaway Roping</div>
                                     <div onclick="selectOption(this)" data-value="Brood mare">Brood mare</div>
                                     <div onclick="selectOption(this)" data-value="Cutting Prospect">Cutting Prospect</div>
@@ -1384,12 +2118,15 @@
                                     <div onclick="selectOption(this)" data-value="Clicker Training">Clicker Training</div>
                                     <div onclick="selectOption(this)" data-value="Companion Only">Companion Only</div>
                                     <div onclick="selectOption(this)" data-value="Competitive Trail Riding">Competitive Trail
-                                        Riding</div>
+                                        Riding
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Country English Pleasure">Country English
-                                        Pleasure</div>
+                                        Pleasure
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Cowboy Dressage">Cowboy Dressage</div>
                                     <div onclick="selectOption(this)" data-value="Cowboy Mounted Shooting">Cowboy Mounted
-                                        Shooting</div>
+                                        Shooting
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Cowboy Racing">Cowboy Racing</div>
                                     <div onclick="selectOption(this)" data-value="Cow horse">Cow horse</div>
                                     <div onclick="selectOption(this)" data-value="Cross-Country">Cross-Country</div>
@@ -1423,7 +2160,8 @@
                                     <div onclick="selectOption(this)" data-value="Mounted Police">Mounted Police</div>
                                     <div onclick="selectOption(this)" data-value="Native Costume">Native Costume</div>
                                     <div onclick="selectOption(this)" data-value="Natural Horsemanship Training">Natural
-                                        Horsemanship Training</div>
+                                        Horsemanship Training
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Nurse Mare">Nurse Mare</div>
                                     <div onclick="selectOption(this)" data-value="Pacing Gait">Pacing Gait</div>
                                     <div onclick="selectOption(this)" data-value="Pack">Pack</div>
@@ -1439,17 +2177,20 @@
                                     <div onclick="selectOption(this)" data-value="Retired Race Horse">Retired Race Horse</div>
                                     <div onclick="selectOption(this)" data-value="Racking Gait">Racking Gait</div>
                                     <div onclick="selectOption(this)" data-value="Ranch Conformation Class">Ranch Conformation
-                                        Class</div>
+                                        Class
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Ranch Rail Class">Ranch Rail Class</div>
                                     <div onclick="selectOption(this)" data-value="Ranch Riding - Ranch Pleasure">Ranch Riding -
-                                        Ranch Pleasure</div>
+                                        Ranch Pleasure
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Ranch Sorting">Ranch Sorting</div>
                                     <div onclick="selectOption(this)" data-value="Ranch Trail Class">Ranch Trail Class</div>
                                     <div onclick="selectOption(this)" data-value="Ranch Versatility">Ranch Versatility</div>
                                     <div onclick="selectOption(this)" data-value="Ranch Work">Ranch Work</div>
                                     <div onclick="selectOption(this)" data-value="Reining">Reining</div>
                                     <div onclick="selectOption(this)" data-value="Reining - Cowhorse - Cutting">Reining -
-                                        Cowhorse - Cutting</div>
+                                        Cowhorse - Cutting
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Rodeo">Rodeo</div>
                                     <div onclick="selectOption(this)" data-value="Rodeo Bronc">Rodeo Bronc</div>
                                     <div onclick="selectOption(this)" data-value="Roping">Roping</div>
@@ -1462,7 +2203,8 @@
                                     <div onclick="selectOption(this)" data-value="Showmanship Halter">Showmanship Halter</div>
                                     <div onclick="selectOption(this)" data-value="Sidesaddle">Sidesaddle</div>
                                     <div onclick="selectOption(this)" data-value="Stallion - Stud - Breeding">Stallion - Stud -
-                                        Breeding</div>
+                                        Breeding
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Started Under Saddle">Started Under Saddle
                                     </div>
                                     <div onclick="selectOption(this)" data-value="Steer Roping">Steer Roping</div>
@@ -1477,7 +2219,8 @@
                                     <div onclick="selectOption(this)" data-value="Therapeutic Riding">Therapeutic Riding</div>
                                     <div onclick="selectOption(this)" data-value="Therapy">Therapy</div>
                                     <div onclick="selectOption(this)" data-value="Trail Class Competition">Trail Class
-                                        Competition</div>
+                                        Competition
+                                    </div>
                                     <div onclick="selectOption(this)" data-value="Trail Master">Trail Master</div>
                                     <div onclick="selectOption(this)" data-value="Trail Riding">Trail Riding</div>
                                     <div onclick="selectOption(this)" data-value="Trick">Trick</div>
@@ -1505,15 +2248,19 @@
                             </div>
                             <div class="dropdown hidden" id="dropdown">
                                 <div data-value="Beginner Riders - have minimal or no experience">Beginner Riders - have
-                                    minimal or no experience</div>
+                                    minimal or no experience
+                                </div>
                                 <div data-value="Novice Riders - have a basic understanding of riding and can perform basic gaits.">
-                                    Novice Riders - have a basic understanding of riding and can perform basic gaits.</div>
+                                    Novice Riders - have a basic understanding of riding and can perform basic gaits.
+                                </div>
                                 <div data-value="Intermediate Riders - are comfortable with all gaits and can handle more challenging situations">
                                     Intermediate Riders - are comfortable with all gaits and can handle more challenging
-                                    situations</div>
+                                    situations
+                                </div>
                                 <div data-value="Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level.">
                                     Advanced Riders - have a high level of skill and experience, often competing or riding
-                                    at a professional level.</div>
+                                    at a professional level.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1641,10 +2388,11 @@
                                 </div>
                             </div>
                             <p id="error_message" style="color: red; display: none;">You can only add up to 3 video
-                                URLs.</p>
+                                URLs.
+                            </p>
                         </div>
                         <div class="col-6">
-                            <div class="upload__box">
+                           <div class="upload__box">
                                 <div class="upload__img-wrap"></div>
                                 <div class="upload__btn-box">
                                     <label class="upload__btn">
@@ -1656,95 +2404,95 @@
                                         <input name="pro_video_url[]" type="file" multiple class="upload__inputfile" accept="video/*">
                                     </label>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                     </div>
-
                 </div>
             </div>
+
             <!--<div class="col-12 mb-4">
-                    <h2 class="mb-3 text-white">Contact Details</h2>
-                    <div class="border_box_one">
-                        <div class="row gy-4">
-                            <div class="col-6">
-                                <h4 class="mb-3">State:<span class="asterisk">*</span></h4>
-                                <select class="form-control gen_input_one" name="per_state">
-                                    <option value="">Select your state</option>
-                                    <option value="alabama">Alabama</option>
-                                    <option value="alaska">Alaska</option>
-                                    <option value="arizona">Arizona</option>
-                                    <option value="arkansas">Arkansas</option>
-                                    <option value="california">California</option>
-                                    <option value="colorado">Colorado</option>
-                                    <option value="connecticut">Connecticut</option>
-                                    <option value="delaware">Delaware</option>
-                                    <option value="florida">Florida</option>
-                                    <option value="georgia">Georgia</option>
-                                    <option value="hawaii">Hawaii</option>
-                                    <option value="idaho">Idaho</option>
-                                    <option value="illinois">Illinois</option>
-                                    <option value="indiana">Indiana</option>
-                                    <option value="iowa">Iowa</option>
-                                    <option value="kansas">Kansas</option>
-                                    <option value="kentucky">Kentucky</option>
-                                    <option value="louisiana">Louisiana</option>
-                                    <option value="maine">Maine</option>
-                                    <option value="maryland">Maryland</option>
-                                    <option value="massachusetts">Massachusetts</option>
-                                    <option value="michigan">Michigan</option>
-                                    <option value="minnesota">Minnesota</option>
-                                    <option value="mississippi">Mississippi</option>
-                                    <option value="missouri">Missouri</option>
-                                    <option value="montana">Montana</option>
-                                    <option value="nebraska">Nebraska</option>
-                                    <option value="nevada">Nevada</option>
-                                    <option value="new_hampshire">New Hampshire</option>
-                                    <option value="new_jersey">New Jersey</option>
-                                    <option value="new_mexico">New Mexico</option>
-                                    <option value="new_york">New York</option>
-                                    <option value="north_carolina">North Carolina</option>
-                                    <option value="north_dakota">North Dakota</option>
-                                    <option value="ohio">Ohio</option>
-                                    <option value="oklahoma">Oklahoma</option>
-                                    <option value="oregon">Oregon</option>
-                                    <option value="pennsylvania">Pennsylvania</option>
-                                    <option value="rhode_island">Rhode Island</option>
-                                    <option value="south_carolina">South Carolina</option>
-                                    <option value="south_dakota">South Dakota</option>
-                                    <option value="tennessee">Tennessee</option>
-                                    <option value="texas">Texas</option>
-                                    <option value="utah">Utah</option>
-                                    <option value="vermont">Vermont</option>
-                                    <option value="virginia">Virginia</option>
-                                    <option value="washington">Washington</option>
-                                    <option value="west_virginia">West Virginia</option>
-                                    <option value="wisconsin">Wisconsin</option>
-                                    <option value="wyoming">Wyoming</option>
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <h4 class="mb-3">Phone:<span class="text-danger">*</span></h4>
-                                <input class="form-control gen_input_one phone-input" type="tel" name="per_phone" placeholder="Enter Phone" />
-                            </div>
-                            <div class="col-6">
-                                <h4 class="mb-3">Zip:</h4>
-                                <input class="form-control gen_input_one" type="tel" name="per_zip" placeholder="Enter Zip code" />
-                            </div>
-                            <div class="col-6">
-                                <h4 class="mb-3">Email:</h4>
-                                <input class="form-control gen_input_one" type="email" name="per_email" placeholder="Enter email address" />
-                            </div>
-                            <div class="col-6">
-                                <h4 class="mb-3">Address:</h4>
-                                <input class="form-control gen_input_one" type="text" name="per_address" placeholder="Enter Address" />
-                            </div>
-                            <div class="col-6">
-                                <h4 class="mb-3">Website:</h4>
-                                <input class="form-control gen_input_one" type="url" name="per_website" placeholder="Enter website" />
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
+                  <h2 class="mb-3 text-white">Contact Details</h2>
+                  <div class="border_box_one">
+                      <div class="row gy-4">
+                          <div class="col-6">
+                              <h4 class="mb-3">State:<span class="asterisk">*</span></h4>
+                              <select class="form-control gen_input_one" name="per_state">
+                                  <option value="">Select your state</option>
+                                  <option value="alabama">Alabama</option>
+                                  <option value="alaska">Alaska</option>
+                                  <option value="arizona">Arizona</option>
+                                  <option value="arkansas">Arkansas</option>
+                                  <option value="california">California</option>
+                                  <option value="colorado">Colorado</option>
+                                  <option value="connecticut">Connecticut</option>
+                                  <option value="delaware">Delaware</option>
+                                  <option value="florida">Florida</option>
+                                  <option value="georgia">Georgia</option>
+                                  <option value="hawaii">Hawaii</option>
+                                  <option value="idaho">Idaho</option>
+                                  <option value="illinois">Illinois</option>
+                                  <option value="indiana">Indiana</option>
+                                  <option value="iowa">Iowa</option>
+                                  <option value="kansas">Kansas</option>
+                                  <option value="kentucky">Kentucky</option>
+                                  <option value="louisiana">Louisiana</option>
+                                  <option value="maine">Maine</option>
+                                  <option value="maryland">Maryland</option>
+                                  <option value="massachusetts">Massachusetts</option>
+                                  <option value="michigan">Michigan</option>
+                                  <option value="minnesota">Minnesota</option>
+                                  <option value="mississippi">Mississippi</option>
+                                  <option value="missouri">Missouri</option>
+                                  <option value="montana">Montana</option>
+                                  <option value="nebraska">Nebraska</option>
+                                  <option value="nevada">Nevada</option>
+                                  <option value="new_hampshire">New Hampshire</option>
+                                  <option value="new_jersey">New Jersey</option>
+                                  <option value="new_mexico">New Mexico</option>
+                                  <option value="new_york">New York</option>
+                                  <option value="north_carolina">North Carolina</option>
+                                  <option value="north_dakota">North Dakota</option>
+                                  <option value="ohio">Ohio</option>
+                                  <option value="oklahoma">Oklahoma</option>
+                                  <option value="oregon">Oregon</option>
+                                  <option value="pennsylvania">Pennsylvania</option>
+                                  <option value="rhode_island">Rhode Island</option>
+                                  <option value="south_carolina">South Carolina</option>
+                                  <option value="south_dakota">South Dakota</option>
+                                  <option value="tennessee">Tennessee</option>
+                                  <option value="texas">Texas</option>
+                                  <option value="utah">Utah</option>
+                                  <option value="vermont">Vermont</option>
+                                  <option value="virginia">Virginia</option>
+                                  <option value="washington">Washington</option>
+                                  <option value="west_virginia">West Virginia</option>
+                                  <option value="wisconsin">Wisconsin</option>
+                                  <option value="wyoming">Wyoming</option>
+                              </select>
+                          </div>
+                          <div class="col-6">
+                              <h4 class="mb-3">Phone:<span class="text-danger">*</span></h4>
+                              <input class="form-control gen_input_one phone-input" type="tel" name="per_phone" placeholder="Enter Phone" />
+                          </div>
+                          <div class="col-6">
+                              <h4 class="mb-3">Zip:</h4>
+                              <input class="form-control gen_input_one" type="tel" name="per_zip" placeholder="Enter Zip code" />
+                          </div>
+                          <div class="col-6">
+                              <h4 class="mb-3">Email:</h4>
+                              <input class="form-control gen_input_one" type="email" name="per_email" placeholder="Enter email address" />
+                          </div>
+                          <div class="col-6">
+                              <h4 class="mb-3">Address:</h4>
+                              <input class="form-control gen_input_one" type="text" name="per_address" placeholder="Enter Address" />
+                          </div>
+                          <div class="col-6">
+                              <h4 class="mb-3">Website:</h4>
+                              <input class="form-control gen_input_one" type="url" name="per_website" placeholder="Enter website" />
+                          </div>
+                      </div>
+                  </div>
+                  </div>-->
             <div class="col-12 mb-4">
                 <h2 class="text-white mb-3">Social Profiles</h2>
                 <div class="border_box_one">
@@ -1765,180 +2513,394 @@
                             <h4 class="mb-3">Tiktok:</h4>
                             <input class="form-control gen_input_one" type="url" name="pro_tiktok" placeholder="Enter link" />
                         </div>
+                        <div class="col-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tc_agree">
+                                <label class="form-check-label" for="tc_agree">
+                                    I have read and agree to the website <a href="#!">terms</a> and <a href="#!">conditons</a>.
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="tc_agree">
-                    <label class="form-check-label" for="tc_agree">
-                        I have read and agree to the website terms and conditons.
-                    </label>
-                </div>
-            </div>
+            
             <div class="col-12">
                 <div class="col-auto d-flex justify-content-center gap-3">
-                    <a href="{{ url('products') }}/{{ last(request()->segments()) }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                    @if (Auth::user()->usertype == 1)
+                        
+                        <a href="{{ url('products') }}/{{ last(request()->segments()) }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                    @else
+                        <a href="{{ url('horse-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                        
+                    @endif
                     <button class="btn submit_btn_one" type="submit">Submit</button>
                     <button type="button" id="previewBtn" class="btn submit_btn_one">Preview</button>
                 </div>
             </div>
         </form>
-        <!-- Modal -->
-        <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Form Preview</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div id="fsmOverlay" class="fsm-overlay">
+            <div class="fsm-dialog">
+                <button class="fsm-close" aria-label="Close modal">×</button>
+                <div class="fsm-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div class="detail_left">
+                                <div class="top_blue_strip_flex">
+                                    <h3 class="sale_tag">For Sale</h3>
+                                    <div class="h_tages">
+                                    </div>
+                                </div>
+                                <div class="top_blue_strip">
+                                    <h3 class="heading44px fw_700 text_border">Boaz</h3>
+                                </div>
+                                <div class="relative_img_box">
+                                    <div class="horse_slider">
+                                        <div class="horse_slides">
+                                            <div class="horse_slide">
+                                                <img src="/assets/images/placeholder.png" class="img-fluid w-100 img_radius_one">
+                                            </div>
+                                            <div class="horse_slide">
+                                                <img src="/assets/images/placeholder.png" class="img-fluid w-100 img_radius_one">
+                                            </div>
+                                            <div class="horse_slide">
+                                                <img src="/assets/images/placeholder.png" class="img-fluid w-100 img_radius_one">
+                                            </div>
+                                        </div>
+                                        <button class="horse_arrow left">
+                                            <i class="fa fa-caret-left"></i>
+                                        </button>
+                                        <button class="horse_arrow right">
+                                            <i class="fa fa-caret-right"></i>
+                                        </button>
+                                        <div class="horse_pagination"></div>
+                                    </div>
+                                    <h2 class="breed_text">Draft Cross</h2>
+                                </div>
+                                <div class="horser_information_box mb-0">
+                                    <div class="custome_listing_row">
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list">
+                                                <li><span>7 Years 0 Mo Old</span></li>
+                                                <li><span>16.2 hh</span></li>
+                                                <li><span>Gelding</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list">
+                                                <li><span>Paint</span></li>
+                                                <li><span>REGISTERED: no</span></li>
+                                                <li><span>GAITED: No</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="custome_listing_col w-100">
+                                        <ul class="info_list">
+                                            <li class="m-0 mb-2"><span>Lafayette new_york</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="horser_information_box type_one">
+                                    <h3 class="heading30px price_Text mb-0">PRICE : $22,500</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="image-grid">
+                                <div>
+                                    <img src="/assets/images/placeholder.png" alt="img" class="">
+                                </div>
+                                <div>
+                                    <img src="/assets/images/placeholder.png" alt="img" class="">
+                                </div>
+                                <div>
+                                    <img src="/assets/images/placeholder.png" alt="img" class="">
+                                </div>
+                                <div>
+                                    <img src="/assets/images/placeholder.png" alt="img" class="">
+                                </div>
+                                <div>
+                                    <img src="/assets/images/placeholder.png" alt="img" class="">
+                                </div>
+                                <div>
+                                    <img src="/assets/images/placeholder.png" alt="img" class="">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-body" id="modalBody">
-                        <!-- Dynamically filled -->
+                </div>
+                <div class="fsm-content view_detail_page">
+                    <div class="col-12">
+                        <div class="mb-4">
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                                <h1>SKILLS | DISCIPLINE</h1>
+                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="border_box_one p-1">
+                                <ul class="gen_list_flex">
+                                    <li>
+                                        <span class="me-3">
+                                            <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
+                                        </span>
+                                        No skills specified
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                                <h1>RIDER LEVEL</h1>
+                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="border_box_one p-1">
+                                <ul class="gen_list_flex">
+                                    <li>
+                                        <span class="me-3">
+                                            <img src="/assets/images/h_icon_1.png" alt="img" class="img-fluid">
+                                        </span>
+                                        No Level Selected
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="fsm-content view_detail_page">
+                    <div class="mb-4">
+                        <h3 class="heading44px fw_700 about_horse_heading">About Hope:</h3>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                            took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+                            essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                            like Aldus PageMaker including versions of Lorem Ipsum.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>ADDITIONAL INFORMATION</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                        </div>
+                        <div class="border_box_one p-1">
+                            <ul class="gen_list_flex gen_list_flex_one">
+                                <li>
+                                    <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid"></span>
+                                    <p class="mb-0"> Trail Period:</p>
+                                    <p class="mb-0">Yes</p>
+                                    <p></p>
+                                </li>
+                                <li>
+                                    <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid"></span>
+                                    <p class="mb-0">May Trade:</p>
+                                    <p class="mb-0">No</p>
+                                    <p></p>
+                                </li>
+                                <li>
+                                    <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid"></span>
+                                    <p class="mb-0">Payment Options Available:</p>
+                                    <p class="mb-0">Yes</p>
+                                    <p></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="fsm-content view_detail_page">
+                    <div>
+                        <div class="mb-4">
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                                <h1>PRE-PURCHASE EXAM</h1>
+                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="border_box_one ppe_border_box">
+                                <div class="ppe_xray_box">
+                                    <img src="/assets/images/placeholder.png" alt="img" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="heading65px monte_carlo fw_400 mb-4">
+                                <h1>X-RAYS</h1>
+                                <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                            </div>
+                            <div class="border_box_one ppe_border_box">
+                                <div class="ppe_xray_box">
+                                    <img src="/assets/images/placeholder.png" alt="img" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fsm-content view_detail_page">
+                    <div class="mb-4">
+                        <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>PEDIGREE</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                        </div>
+                        <div class="pedigree_box">
+                            <div class="pedigree_box_1 colord_box xy_center">
+                                <p></p>
+                            </div>
+                            <div class="pedigree_box_1">
+                                <div class="pedigree_box_2 border_btm colord_box xy_center">
+                                    <p></p>
+                                </div>
+                                <div class="pedigree_box_2  xy_center">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="pedigree_box_1">
+                                <div class="pedigree_box_2 border_btm">
+                                    <div class="pedigree_box_3 border_btm colord_box xy_center">
+                                        <p></p>
+                                    </div>
+                                    <div class="pedigree_box_3  xy_center">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="pedigree_box_2">
+                                    <div class="pedigree_box_3 border_btm colord_box xy_center">
+                                        <p></p>
+                                    </div>
+                                    <div class="pedigree_box_3  xy_center">
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pedigree_box_1">
+                                <div class="pedigree_box_2 border_btm">
+                                    <div class="pedigree_box_3 border_btm">
+                                        <div class="pedigree_box_4 border_btm colord_box xy_center">
+                                            <p></p>
+                                        </div>
+                                        <div class="pedigree_box_4  xy_center">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="pedigree_box_3 ">
+                                        <div class="pedigree_box_4 border_btm colord_box xy_center">
+                                            <p></p>
+                                        </div>
+                                        <div class="pedigree_box_4  xy_center">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pedigree_box_2 ">
+                                    <div class="pedigree_box_3 border_btm">
+                                        <div class="pedigree_box_4 border_btm colord_box xy_center">
+                                            <p></p>
+                                        </div>
+                                        <div class="pedigree_box_4  xy_center">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="pedigree_box_3 ">
+                                        <div class="pedigree_box_4 border_btm colord_box xy_center">
+                                            <p></p>
+                                        </div>
+                                        <div class="pedigree_box_4  xy_center">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>REGISTRY INFORMATION</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                        </div>
+                        <div class="border_box_one">
+                            <h1 class="heading30px my-2 text-center reg">Friesian Heritage and Sporthorse International</h1>
+                            <h1 class="heading18px text-center">REGISTRATION #: MU-9497947472973</h1>
+                            <div class="row mb-4 justify-content-center">
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                                    <a href="#!" data-fancybox="certificate">
+                                        <img src="/assets/images/placeholder.png" alt="img" class="img-fluid">
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                                    <a href="#!" data-fancybox="certificate">
+                                        <img src="/assets/images/placeholder.png" alt="img" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="heading65px monte_carlo fw_400 mb-4">
+                            <h1>SOCIAL PROFILES</h1>
+                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                        </div>
+                        <div class="social_icons">
+                            <a href="" target="_blank" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid"></a>
+                            <a href="" target="_blank" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid"></a>
+                            <a href="" target="_blank" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid"></a>
+                            <a href="" target="_blank" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fsm-content view_detail_page">
+
+                    <div class="heading65px monte_carlo fw_400 mb-4">
+                        <h1>VIDEO</h1>
+                        <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid">
+                    </div>
+                    <video class="img-fluid" loop playsinline controls>
+                            <source src="/assets/videos/your-video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                 </div>
             </div>
         </div>
-        <style>
-            img.f_img_preview {
-                width: 100%;
-                height: auto;
-                margin-bottom: 10px;
-                border-radius: 7px;
-                border: 1px solid #00000036;
-            }
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
 
-            .prodict_Color {
-                width: 50px;
-                height: 30px;
-                border-radius: 4px;
-            }
+                const slidesContainer = document.querySelector(".horse_slides");
+                const slides = document.querySelectorAll(".horse_slide");
+                const nextBtn = document.querySelector(".horse_arrow.right");
+                const prevBtn = document.querySelector(".horse_arrow.left");
+                const pagination = document.querySelector(".horse_pagination");
 
-            .removeBtn svg {
-                color: red;
-            }
+                let currentIndex = 0;
+                const totalSlides = slides.length;
 
-            .checkbox_wrap {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px;
-            }
+                // Create Pagination Dots
+                slides.forEach((_, index) => {
+                    const dot = document.createElement("span");
+                    if (index === 0) dot.classList.add("active");
+                    dot.addEventListener("click", () => goToSlide(index));
+                    pagination.appendChild(dot);
+                });
 
-            .category_check {
-                display: block;
-                position: relative;
-                /* padding-left: 35px; */
-                /* margin-bottom: 12px; */
-                cursor: pointer;
-                /* font-size: 22px; */
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
+                const dots = document.querySelectorAll(".horse_pagination span");
 
-            .category_check input {
-                position: absolute;
-                opacity: 0;
-                cursor: pointer;
-                height: 0;
-                width: 0;
-            }
+                function updateSlider() {
+                    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    dots.forEach(dot => dot.classList.remove("active"));
+                    dots[currentIndex].classList.add("active");
+                }
 
-            .categoryMark {
-                /* position: absolute; */
-                top: 0;
-                left: 0;
-                /* height: 25px; */
-                /* width: 25px; */
-                background-color: #ccc;
-                transition: .5s;
-                color: #fff;
-                font-size: 13px;
-                text-transform: capitalize;
-                padding: 10px 10px;
-                display: inline-block;
-                border-radius: 8px;
-            }
+                function goToSlide(index) {
+                    currentIndex = index;
+                    updateSlider();
+                }
 
-            .category_check:hover input~.categoryMark {
-                background-color: #ccc;
-            }
+                nextBtn.addEventListener("click", () => {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    updateSlider();
+                });
 
-            .category_check input:checked~.categoryMark {
-                background-color: #b22033;
-            }
+                prevBtn.addEventListener("click", () => {
+                    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                    updateSlider();
+                });
 
-            .formWrapper form {
-                width: 50%;
-                position: relative;
-            }
-
-            .formWrapper .fields__clm {
-                width: 100%;
-                background-color: #00000012;
-                padding: 10px;
-                border-radius: 10px;
-                margin-bottom: 25px;
-            }
-
-            .formWrapper .inputField {
-                width: 100%;
-                margin: 0 0 15px 0;
-                border: 1px solid #0000001a;
-                padding: 15px 15px;
-                border-radius: 6px;
-                box-sizing: border-box;
-                outline: none !important;
-            }
-
-            .formWrapper .inputField:last-child {
-                margin-bottom: 0;
-            }
-
-            .formWrapper textarea.inputField {
-                height: 150px;
-            }
-
-            .addBtn {
-                background-color: #00d600;
-                width: 30px;
-                height: 30px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 25px;
-                font-weight: 700;
-                border-radius: 50%;
-                cursor: pointer;
-                color: #fff;
-            }
-
-            .minusBtn {
-                background-color: red;
-                width: 30px;
-                height: 30px;
-                font-size: 32px;
-                font-weight: 100;
-                border-radius: 50%;
-                cursor: pointer;
-                color: #fff;
-                line-height: 23px;
-                text-align: center;
-            }
-
-            .btnWrapper {
-                display: flex;
-                column-gap: 7px;
-                margin-top: 15px;
-            }
-
-            .choose_color {
-                padding: 0;
-                overflow: hidden;
-                height: 37px;
-            }
-        </style>
-
+            });
+        </script>
         <script>
             jQuery(document).ready(function() {
                 ImgUpload();
@@ -1989,13 +2951,13 @@
                                 }
 
                                 var html = `
-                                <div class='upload__img-box'>
-                                <div class='${iconClass}' style='${style}' data-number='${$(".upload__img-close").length}' data-file='${f.name}'>
-                                    ${iconContent ? `<div class='file-icon-text'>${iconContent}</div>` : ""}
-                                    <div class='upload__img-close'>×</div>
-                                </div>
-                                </div>
-                            `;
+                       <div class='upload__img-box'>
+                       <div class='${iconClass}' style='${style}' data-number='${$(".upload__img-close").length}' data-file='${f.name}'>
+                           ${iconContent ? `<div class='file-icon-text'>${iconContent}</div>` : ""}
+                           <div class='upload__img-close'>×</div>
+                       </div>
+                       </div>
+                   `;
                                 imgWrap.append(html);
                             };
 
@@ -2025,7 +2987,7 @@
 
             function toggleBidBox() {
                 const selected = document.querySelector('input[name="pro_ad_type"]:checked');
-                if (selected && selected.value === "Auction") {
+                if (selected && selected.value === "At Auction") {
                     bidBox.style.display = 'block';
                 } else {
                     bidBox.style.display = 'none';
@@ -2039,7 +3001,6 @@
             // Initial state
             document.addEventListener("DOMContentLoaded", toggleBidBox);
         </script>
-
         <script>
             jQuery(document).ready(function() {
                 generateImageBoxes(20, 4); // 20 active + 4 inactive
@@ -2052,21 +3013,21 @@
                 // Active boxes
                 for (let i = 0; i < activeCount; i++) {
                     const box = $(`
-                <div class="custom-upload-img-box">
-                    <img src="https://img.icons8.com/m_rounded/512/plus.png" />
-                    <button class="custom-remove-btn" type="button" style="display: none;">x</button>
-                </div>
-            `);
+       <div class="custom-upload-img-box">
+           <img src="https://img.icons8.com/m_rounded/512/plus.png" />
+           <button class="custom-remove-btn" type="button" style="display: none;">x</button>
+       </div>
+   `);
                     container.append(box);
                 }
 
                 // Inactive (disabled) boxes
                 for (let i = 0; i < inactiveCount; i++) {
                     const box = $(`
-                <div class="custom-upload-img-box inactive">
-                    <img src="https://img.icons8.com/m_rounded/512/plus.png" />
-                </div>
-            `);
+       <div class="custom-upload-img-box inactive">
+           <img src="https://img.icons8.com/m_rounded/512/plus.png" />
+       </div>
+   `);
                     container.append(box);
                 }
             }
@@ -2127,7 +3088,6 @@
                 });
             }
         </script>
-
         <script>
             // Registered Horse Box Toggle
             const horseRadioButtons = document.querySelectorAll('input[name="registerd_horse"]');
@@ -2166,7 +3126,6 @@
                 });
             });
         </script>
-
         <script>
             const addBtn = document.querySelector('.add_url_btn');
             const wrapper = document.getElementById('video_inputs_wrapper');
@@ -2187,9 +3146,9 @@
                 newInputDiv.className = 'video_input d-flex align-items-center mb-2';
 
                 newInputDiv.innerHTML = `
-                    <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
-                    <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
-                    `;
+           <input class="form-control gen_input" type="url" name="pro_video_url[]" placeholder="e.g: https://www.youtube.com/watch?v=CjDbSzhmF2M" />
+           <button type="button" class="remove_btn btn btn-sm btn-danger ms-2">&times;</button>
+           `;
 
                 wrapper.appendChild(newInputDiv);
 
@@ -2276,7 +3235,6 @@
             });
             monthInput.addEventListener("keydown", allowOnlyNumbers);
         </script>
-
         <script>
             const selectedTags = document.getElementById("selectedTags");
             const dropdown = document.getElementById("dropdown");
@@ -2360,7 +3318,6 @@
                 }
             });
         </script>
-
         <script>
             (function() {
                 const allOptions = [
@@ -2486,7 +3443,6 @@
                 renderTags();
             })();
         </script>
-
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const textarea = document.querySelector('textarea[name="pro_desc"]');
@@ -2518,23 +3474,6 @@
                 });
             });
         </script>
-
-        {{-- <script>
-            document.querySelectorAll('.price-input').forEach(function(input) {
-                input.addEventListener('focus', function() {
-                    this.value = this.value.replace(/[^0-9]/g, ''); // remove $ and commas
-                });
-
-                input.addEventListener('blur', function() {
-                    let raw = this.value.replace(/[^0-9]/g, '');
-                    if (raw) {
-                        this.value = '$' + Number(raw).toLocaleString();
-                    } else {
-                        this.value = '';
-                    }
-                });
-            });
-        </script> --}}
         <script>
             function formatPhoneNumber(input) {
                 let value = input.value.replace(/\D/g, "");
@@ -2564,7 +3503,6 @@
                 });
             });
         </script>
-
         <script>
             $(document).ready(function() {
                 function toggleGrandFields() {
@@ -2678,6 +3616,7 @@
             });
         </script>
 
+
         <script>
             $(document).ready(function() {
                 function toggleDamGrandFields() {
@@ -2790,59 +3729,260 @@
                 $('#pedigree_2_2_dam').on('input', toggleDamPedigree6Children);
             });
         </script>
-        <script>
-            document.getElementById('previewBtn').addEventListener('click', function() {
-                const form = document.getElementById('myForm');
-                const elements = form.querySelectorAll('input, textarea, select');
-                const modalBody = document.getElementById('modalBody');
 
-                modalBody.innerHTML = ''; // Clear previous preview
 
-                elements.forEach(el => {
-                    const name = el.name;
-                    const type = el.type;
-                    const tag = el.tagName.toLowerCase();
+        
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const overlay = document.getElementById("fsmOverlay");
+        const previewBtn = document.getElementById("previewBtn");
+        const closeBtn = overlay.querySelector(".fsm-close");
 
-                    if (!name || name === '_token' || type === 'hidden' || type === 'password') return;
+        previewBtn.addEventListener("click", function() {
+            const getVal = (name, type = 'input') => {
+                const el = document.querySelector(`${type}[name="${name}"]`);
+                return el ? el.value : "";
+            };
 
-                    if ((type === 'checkbox' || type === 'radio') && !el.checked) return;
+            // --- 1. Basic Info ---
+            const horseName = getVal('pro_name');
+            overlay.querySelector(".text_border").textContent = horseName || "Horse Name";
+            overlay.querySelector(".breed_text").textContent = getVal('pro_breed', 'select') || "Breed";
+            overlay.querySelector(".sale_tag").textContent = document.querySelector('input[name="pro_ad_type"]:checked')?.value || "For Sale";
 
-                    const label = name.charAt(0).toUpperCase() + name.slice(1).replace(/_/g, ' ');
+            const rawPrice = getVal('pro_reg_price');
+            overlay.querySelector(".price_Text").textContent = "PRICE : " + (rawPrice || "N/A");
 
-                    // Handle file inputs (images)
-                    if (type === 'file' && el.files.length > 0) {
-                        const file = el.files[0];
+            overlay.querySelector(".about_horse_heading").textContent = `About ${horseName || 'Horse'}:`;
+            const descriptionP = overlay.querySelector(".about_horse_heading + p");
+            if (descriptionP) {
+                descriptionP.textContent = getVal('pro_desc', 'textarea') || "No description provided.";
+            }
 
-                        // Only preview images
-                        if (file.type.startsWith('image/')) {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                const img = document.createElement('img');
-                                img.src = e.target.result;
-                                img.alt = label;
-                                img.style.maxWidth = '100%';
-                                img.style.marginTop = '10px';
+            const city = getVal('pro_city');
+            const state = getVal('real_location', 'select');
+            const locSpan = overlay.querySelector(".horser_information_box .custome_listing_col.w-100 span");
+            if (locSpan) locSpan.textContent = `${city} ${state}`;
 
-                                const wrapper = document.createElement('div');
-                                wrapper.innerHTML = `<p><strong>${label}:</strong></p>`;
-                                wrapper.appendChild(img);
+            // --- 2. Pedigree Mapping ---
+            const sireP = overlay.querySelector(".pedigree_box .pedigree_box_1:nth-child(1) p");
+            if (sireP) sireP.textContent = getVal('pro_sire');
 
-                                modalBody.appendChild(wrapper);
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                        return; // Skip further processing
+            const damP = overlay.querySelector(".pedigree_box .pedigree_box_1:nth-child(2) .pedigree_box_2:nth-child(2) p");
+            if (damP) damP.textContent = getVal('pro_dam');
+
+            const gSires = Array.from(document.querySelectorAll('input[name="pro_grand_sire[]"]')).map(i => i.value);
+            const gDams = Array.from(document.querySelectorAll('input[name="pro_grand_dam[]"]')).map(i => i.value);
+            const ggSires = Array.from(document.querySelectorAll('input[name="pro_great_grand_sire[]"]')).map(i => i.value);
+            const ggDams = Array.from(document.querySelectorAll('input[name="pro_great_grand_dam[]"]')).map(i => i.value);
+            const gggSires = Array.from(document.querySelectorAll('input[name="pro_twogreat_grand_sire[]"]')).map(i => i.value);
+            const gggDams = Array.from(document.querySelectorAll('input[name="pro_twogreat_grand_dam[]"]')).map(i => i.value);
+
+            const allPedigreePTags = overlay.querySelectorAll(".pedigree_box p");
+            if (gSires[0]) allPedigreePTags[1].textContent = gSires[0];
+            if (gDams[0]) allPedigreePTags[2].textContent = gDams[0];
+            if (ggSires[0]) allPedigreePTags[3].textContent = ggSires[0];
+            if (ggDams[0]) allPedigreePTags[4].textContent = ggDams[0];
+            if (ggSires[1]) allPedigreePTags[5].textContent = ggSires[1];
+            if (ggDams[1]) allPedigreePTags[6].textContent = ggDams[1];
+            if (gggSires[0]) allPedigreePTags[7].textContent = gggSires[0];
+            if (gggDams[0]) allPedigreePTags[8].textContent = gggDams[0];
+            if (gggSires[1]) allPedigreePTags[9].textContent = gggSires[1];
+            if (gggDams[1]) allPedigreePTags[10].textContent = gggDams[1];
+            if (gggSires[2]) allPedigreePTags[11].textContent = gggSires[2];
+            if (gggDams[2]) allPedigreePTags[12].textContent = gggDams[2];
+            if (gggSires[3]) allPedigreePTags[13].textContent = gggSires[3];
+            if (gggDams[3]) allPedigreePTags[14].textContent = gggDams[3];
+
+            // --- 3. Info List ---
+            const ageYear = getVal('pro_age_year', 'select');
+            const ageMonth = getVal('pro_age_month', 'select');
+            const horseHeight = getVal('pro_height', 'select');
+            const horseGender = getVal('pro_gender', 'select');
+            const horseColor = getVal('pro_color', 'select');
+            const isReg = document.querySelector('input[name="registerd_horse"]:checked')?.value || "no";
+            const isGaited = document.querySelector('input[name="gaited"]:checked')?.value || "No";
+
+            const statsList = overlay.querySelectorAll(".info_list li span");
+            if (statsList.length >= 6) {
+                let ageText = `${ageYear || 0} ${ageYear == 1 ? 'Year' : 'Years'}`;
+                if (ageMonth && ageMonth !== "0" && ageMonth !== "Months") {
+                    ageText += ` ${ageMonth} Mo`;
+                }
+                statsList[0].textContent = ageText + " Old";
+
+                statsList[1].textContent = horseHeight ? `${horseHeight} hh` : "N/A";
+                statsList[2].textContent = horseGender || "N/A";
+                statsList[3].textContent = horseColor || "N/A";
+                statsList[4].textContent = `REGISTERED: ${isReg}`;
+                statsList[5].textContent = `GAITED: ${isGaited}`;
+            }
+
+            // --- 4. Registry Info & Documents ---
+            const regFileInput = document.querySelector('input[name="pro_reg_file[]"]');
+            const regDocContainer = overlay.querySelector(".fsm-content .row.mb-4.justify-content-center");
+            const docIcon = "https://cdn-icons-png.flaticon.com/512/2991/2991108.png"; 
+
+            if (regFileInput && regFileInput.files.length > 0) {
+                regDocContainer.innerHTML = "";
+                Array.from(regFileInput.files).forEach(file => {
+                    const colDiv = document.createElement("div");
+                    colDiv.className = "col-lg-3 col-md-3 col-sm-12 col-12";
+                    
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            colDiv.innerHTML = `<a href="${e.target.result}" data-fancybox="certificate"><img src="${e.target.result}" alt="Registry Doc" class="img-fluid"></a>`;
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        colDiv.innerHTML = `<div class="text-center"><img src="${docIcon}" style="width:50px;" class="mb-2"><br><small>${file.name}</small></div>`;
                     }
-
-                    // Regular text/textarea/select fields
-                    let value = el.value;
-                    const previewItem = `<p><strong>${label}:</strong> ${value}</p>`;
-                    modalBody.innerHTML += previewItem;
+                    regDocContainer.appendChild(colDiv);
                 });
+            }
 
-                const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
-                previewModal.show();
-            });
-        </script>
+            const regHeader = overlay.querySelector(".reg");
+            const regSub = overlay.querySelector(".heading18px.text-center");
+            if (regHeader) regHeader.textContent = getVal('pro_reg_name') || "Registry Association";
+            if (regSub) regSub.textContent = `REGISTRATION #: ${getVal('pro_reg_number') || 'N/A'}`;
 
+            // --- 5. Skills & Rider Level ---
+            const skillValues = document.getElementById("pro_rider_level").value;
+            const skillUl = overlay.querySelectorAll(".gen_list_flex")[0];
+            if (skillValues && skillUl) {
+                skillUl.innerHTML = skillValues.split(',').map(s => `<li><span class="me-3"><img src="/assets/images/h_icon.png"></span>${s}</li>`).join('');
+            }
+
+            const levelValues = document.getElementById("riderLevelsInput").value;
+            const levelUl = overlay.querySelectorAll(".gen_list_flex")[1];
+            if (levelValues && levelUl) {
+                levelUl.innerHTML = levelValues.split(',').map(l => `<li><span class="me-3"><img src="/assets/images/h_icon_1.png"></span>${l.split(' - ')[0]}</li>`).join('');
+            }
+
+            // --- 6. Image Grid & Slider Sync ---
+            const featuredFile = document.querySelector('input[name="pro_Fimg"]').files[0];
+            const galleryFiles = document.getElementById("customImageInput").files;
+            const sliderContainer = overlay.querySelector(".horse_slides");
+            const gridContainer = overlay.querySelector(".image-grid");
+
+            sliderContainer.innerHTML = "";
+            gridContainer.innerHTML = "";
+
+            const addImg = (file) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const sDiv = document.createElement("div");
+                    sDiv.className = "horse_slide";
+                    sDiv.innerHTML = `<img src="${e.target.result}" class="img-fluid w-100 img_radius_one" style="height:270px; object-fit:cover;">`;
+                    sliderContainer.appendChild(sDiv);
+
+                    const gDiv = document.createElement("div");
+                    gDiv.innerHTML = `<img src="${e.target.result}" style="width:100%; height:220px; object-fit:cover;">`;
+                    gridContainer.appendChild(gDiv);
+                };
+                reader.readAsDataURL(file);
+            };
+
+            if (featuredFile || galleryFiles.length > 0) {
+                if (featuredFile) addImg(featuredFile);
+                Array.from(galleryFiles).forEach(f => addImg(f));
+            } else {
+                const placeholderImg = "/assets/images/placeholder.png";
+                sliderContainer.innerHTML = `<div class="horse_slide"><img src="${placeholderImg}" class="img-fluid w-100 img_radius_one" style="height:270px; object-fit:cover;"></div>`;
+                gridContainer.innerHTML = `<div><img src="${placeholderImg}" style="width:100%; height:220px; object-fit:cover;"></div>`;
+            }
+
+            // --- 7. PPE & X-Rays ---
+            const mapDoc = (name, idx) => {
+                const fInput = document.querySelector(`input[name="${name}"]`);
+                const box = overlay.querySelectorAll(".ppe_border_box .ppe_xray_box")[idx];
+                
+                if (fInput && fInput.files[0] && box) {
+                    const f = fInput.files[0];
+                    if (f.type.match('image.*')) {
+                        const r = new FileReader();
+                        r.onload = (e) => box.innerHTML = `<img src="${e.target.result}" class="img-fluid">`;
+                        r.readAsDataURL(f);
+                    } else {
+                        box.innerHTML = `<div class="text-center"><img src="${docIcon}" style="width:60px;" class="mb-2"><br><p>${f.name}</p></div>`;
+                    }
+                }
+            };
+            mapDoc('ppe_file[]', 0);
+            mapDoc('xray_file[]', 1);
+
+            // --- 8. SOCIAL PROFILES ---
+            const fbLink = getVal('pro_facebook');
+            const ytLink = getVal('pro_youtube');
+            const instaLink = getVal('pro_insta');
+            const ttLink = getVal('pro_tiktok');
+
+            const socialIconsDiv = overlay.querySelector(".social_icons");
+            if (socialIconsDiv) {
+                const icons = socialIconsDiv.querySelectorAll("a");
+                if (icons[0]) icons[0].href = fbLink || "#!";
+                if (icons[1]) icons[1].href = ytLink || "#!";
+                if (icons[2]) icons[2].href = ttLink || "#!";
+                if (icons[3]) icons[3].href = instaLink || "#!";
+            }
+
+            // --- 9. VIDEO PREVIEW (THE FIX) ---
+            const videoInput = document.querySelector('input[name="pro_video_url[]"]');
+            const videoElement = overlay.querySelector("video");
+            const videoHeading = overlay.querySelector(".view_detail_page .heading65px:last-of-type"); // Video Heading inside modal
+
+            if (videoInput && videoInput.files && videoInput.files[0]) {
+                const file = videoInput.files[0];
+                const fileURL = URL.createObjectURL(file);
+                
+                // Video element ko update karna
+                videoElement.src = fileURL;
+                videoElement.style.display = "block";
+                if(videoHeading) videoHeading.style.display = "block";
+                
+                videoElement.load(); // Reload video with new source
+            } else {
+                // Agar koi video select nahi hai tw preview mein hide kardo
+                videoElement.style.display = "none";
+                if(videoHeading) videoHeading.style.display = "none";
+            }
+
+            // --- 10. Additional Info ---
+            const additionalInfoUl = overlay.querySelector(".gen_list_flex_one");
+            if (additionalInfoUl) {
+                const trial = document.querySelector('input[name="trial_period"]:checked')?.value;
+                let trialText = "Not Selected";
+                if (trial === "yes_trial") trialText = "Yes";
+                else if (trial === "no_trial") trialText = "No";
+                else if (trial === "My Consider") trialText = "May Consider";
+
+                const aboutPriceCheckboxes = Array.from(document.querySelectorAll('input[name="about_price[]"]:checked')).map(el => el.value);
+                
+                const negotiableText = aboutPriceCheckboxes.includes("Negotiable") ? "Yes" : "No";
+                const mayTradeText = aboutPriceCheckboxes.includes("May Trade") ? "Yes" : "No";
+                const paymentOptionsText = aboutPriceCheckboxes.includes("Payment Options Available") ? "Yes" : "No";
+
+                additionalInfoUl.innerHTML = `
+                    <li><span class="me-3"><img src="/assets/images/h_icon_2.png"></span><p class="mb-0">Trail Period:</p><p class="mb-0">${trialText}</p></li>
+                    <li><span class="me-3"><img src="/assets/images/h_icon_2.png"></span><p class="mb-0">Negotiable:</p><p class="mb-0">${negotiableText}</p></li>
+                    <li><span class="me-3"><img src="/assets/images/h_icon_2.png"></span><p class="mb-0">May Trade:</p><p class="mb-0">${mayTradeText}</p></li>
+                    <li><span class="me-3"><img src="/assets/images/h_icon_2.png"></span><p class="mb-0">Payment Options Available:</p><p class="mb-0">${paymentOptionsText}</p></li>
+                `;
+            }
+
+            // --- 11. Show Modal ---
+            overlay.classList.add("is-visible");
+            document.body.style.overflow = "hidden";
+        });
+
+        closeBtn.addEventListener("click", () => {
+            overlay.classList.remove("is-visible");
+            document.body.style.overflow = "";
+            // Video stop karden band hone pe
+            const videoElement = overlay.querySelector("video");
+            if(videoElement) videoElement.pause();
+        });
+    });
+</script>
     @endsection

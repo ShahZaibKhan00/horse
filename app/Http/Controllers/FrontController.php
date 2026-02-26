@@ -671,15 +671,15 @@ class FrontController extends Controller
         return view('front.membership' , compact('Logo', 'plans', 'Number' , 'Email' , 'Address'));
     }
 
-    public function realestate()
-    {
-        $logoquery = General::where('id', 1)->first();
-        $Logo = $logoquery->G_logo;
-        $Number = $logoquery->G_number;
-        $Email = $logoquery->G_email;
-        $Address = $logoquery->G_address;
-        return view('front.realestate' , compact('Logo' , 'Number' , 'Email' , 'Address'));
-    }
+    // public function realestate()
+    // {
+    //     $logoquery = General::where('id', 1)->first();
+    //     $Logo = $logoquery->G_logo;
+    //     $Number = $logoquery->G_number;
+    //     $Email = $logoquery->G_email;
+    //     $Address = $logoquery->G_address;
+    //     return view('front.realestate' , compact('Logo' , 'Number' , 'Email' , 'Address'));
+    // }
     public function faqs()
     {
         $logoquery = General::where('id', 1)->first();
@@ -741,5 +741,34 @@ class FrontController extends Controller
         return back()->with('success', 'Added to your favorites.');
     }
 
+    function realstateDetail($id) {
+        $realId = Crypt::decrypt($id);
+        $logoquery = General::where('id', 1)->first();
+        $Logo = $logoquery->G_logo;
+        $Number = $logoquery->G_number;
+        $Email = $logoquery->G_email;
+        $Address = $logoquery->G_address;
+        $data = Realstate::join('users', 'realstates.User_id', '=', 'users.id')->find($realId);
 
+        $soldCount = Realstate::where('status', 'sold')
+        ->count();
+        $sale_count = Realstate::where('ad_type', 'Sale')
+        ->count();
+
+        $sold = Realstate::where('id', '!=', $realId)
+        ->where('status', 'sold')
+        ->inRandomOrder()
+        ->limit(2)
+        ->get();
+
+        $notSold = Realstate::where('id', '!=', $realId)
+            ->where('status', '!=', 'sold')
+            ->inRandomOrder()
+            ->limit(2)
+            ->get();
+
+        // $relatedProperties = $sold->merge($notSold);
+        // dd($relatedProperties);
+        return view('front.realestate', compact('Logo', 'data', 'Number', 'Email', 'Address', 'notSold', 'sold', 'soldCount', 'sale_count'));
+    }
 }

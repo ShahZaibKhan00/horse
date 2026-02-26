@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Stripe\Stripe;
-use Stripe\Customer;
+use App\Models\Category;
 use App\Models\General;
 use App\Models\Product;
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Models\Realstate;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Exception;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use Stripe\Checkout\Session as StripSession;
-use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session as ProjectSession;
 use Stripe\Balance;
+use Stripe\Checkout\Session as StripSession;
+use Stripe\Customer;
+use Stripe\Stripe;
 
 class AllController extends Controller
 {

@@ -131,31 +131,6 @@
                                     <h5><span>${{ $item->price }}</span>/month</h5>
                                     <h3>{{ $item->description }}</h3>
                                     <a href="{{ route('payment.link', Crypt::encrypt($item->id)) }}">Buy Now</a>
-
-                                    {{-- @php
-                                        $credits = 5;
-                                    @endphp
-                                    @if ($credits >= 5)
-                                        <div class="buy-wrapper">
-                                            <button type="button" class="buy-main-btn">
-                                                Buy Now
-                                                <span class="arrow">▼</span>
-                                            </button>
-
-                                            <div class="buy-options">
-                                                <a href="{{ route('payment.link', Crypt::encrypt($item->id)) }}">
-                                                    💳 Pay with Card
-                                                </a>
-                                                <a href="#!" class="use-credit">
-                                                    ⭐ Use 5 Credits
-                                                </a>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <a href="{{ route('payment.link', Crypt::encrypt($item->id)) }}" class="buy-main-btn">
-                                            Buy Now
-                                        </a>
-                                    @endif --}}
                                 </div>
                             </div>
                         @endforeach
@@ -167,14 +142,4 @@
             </div>
         </div>
     </section>
-    {{-- <script>
-        document.querySelectorAll('.buy-main-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const wrapper = this.closest('.buy-wrapper');
-                if (wrapper) {
-                    wrapper.classList.toggle('active');
-                }
-            });
-        });
-    </script> --}}
 @endsection

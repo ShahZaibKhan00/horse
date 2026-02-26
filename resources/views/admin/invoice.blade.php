@@ -69,7 +69,7 @@
     <div class="invoice-box">
         <div class="header">
             <div>
-                <div class="title">{{ getenv('APP_NAME') }}</div>
+                <div class="title">Horse Action Network</div>
                 <p>
                     Invoice Date: {{ \Carbon\Carbon::parse($plan->created_at)->format('F d, Y') }}<br>
                     Due Date: {{ \Carbon\Carbon::parse($plan->created_at)->addMonth()->format('F d, Y') ?? 'N/A' }}<br>

@@ -1787,7 +1787,7 @@
                                             Bathrooms
                                         </li>
                                         <li class="mb-1">
-                                            <span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> {{ $state['real_garage'] }}
+                                            <span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> {{ $state['num_spaces'] }} {{ $state['real_garage'] }}
                                             Garage
                                         </li>
                                     </ul>
@@ -1798,7 +1798,7 @@
                                     <h3>Price: {{ $state['real_price'] }}</h3>
                                 </div>
                                 <div class="horse_list_card_btn_flex_new bottom_row">
-                                    <a href="#!" class="horse_card_btn w-100">View All Details</a>
+                                    <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn w-100">View All Details</a>
                                 </div>
                                 <div class="horse_list_card_btn_flex_new bottom_row">
                                     <a href="#!" class="horse_card_btn">Seller Profile</a>
