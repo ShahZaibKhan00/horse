@@ -243,66 +243,6 @@ button.btn.btn-primary.mt-3 {
         </div>
     </div>
 
-    <div class="custome_popup" id="customModal">
-        <div class="modal_content">
-            <div class="horse-form">
-                <div class="horse-container">
-                    <h1 class="title">Please let us know whether your horse sold or if you are withdrawing it.</h1>
-
-                    <div class="info-section">
-                        <ul>
-                            <li>If <strong>SOLD</strong>, check <strong>"Horse Sold"</strong> and enter the <strong>sale
-                                    price</strong>.</li>
-                            <li>If <strong>withdrawing</strong>, check <strong>"withdraw"</strong> and ender a reason.</li>
-                        </ul>
-                    </div>
-
-                    <p class="warning-text">Submitting will immediately end your ad subscription and stop future billing.
-                    </p>
-
-                    <p class="description-text">Providing a sale price allows your horse to be used as a comparable on our
-                        sales page, helping other sellers price their horses accurately. Thank you for choosing Horse Action
-                        Network!</p>
-
-                    <div class="options-container">
-                        <div class="option">
-                            <label for="horseSold">Horse Sold</label>
-                            <input type="radio" id="horseSold" name="action" value="sold">
-                        </div>
-                        <div class="option">
-                            <label for="withdraw">Withdraw</label>
-                            <input type="radio" id="withdraw" name="action" value="withdraw" checked>
-                        </div>
-                    </div>
-
-                    <div class="sale-price" id="salePrice">
-                        <label>Sold Price:</label>
-                        <input type="text" placeholder="Enter price" class="thousand_separator">
-                    </div>
-
-                    <div class="form-group" id="withdrawReason">
-                        <label for="reasonSelect">Withdraw Reason:</label>
-                        <select id="reasonSelect">
-                            <option value="" selected disabled>SELECT A REASON FROM DROPDOWN</option>
-                            <option value=""> Seller decided to keep</option>
-                            <option value="">Seasonal timing (withdrawing until show record updates, competition season, or
-                                better market window)</option>
-                            <option value="">Withdrawn for veterinary reasons (health/soundness concern or needs rest)
-                            </option>
-                            <option value="">Withdrawal due to training or conditioning needs</option>
-                            <option value="">Rather not say</option>
-                        </select>
-                    </div>
-
-                    <div class="button-container">
-                        <button class="btn-cancel">Cancel</button>
-                        <button class="btn-submit">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
     <div class="custome_popup" id="deleteModal">
         <div class="modal_content">
@@ -474,7 +414,7 @@ button.btn.btn-primary.mt-3 {
         });
     </script>
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const openBtns = document.querySelectorAll(".withdraw_btn");
             const modal = document.getElementById("customModal");
@@ -505,7 +445,7 @@ button.btn.btn-primary.mt-3 {
                 document.body.style.overflow = "";
             }
         });
-    </script>
+    </script> --}}
 
     <script>
         const currentPage = window.location.pathname.split("/").pop();

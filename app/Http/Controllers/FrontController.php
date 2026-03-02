@@ -109,6 +109,7 @@ class FrontController extends Controller
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
         $data = Product::where('pro_sku', '=' , $id)->first();
+        $service = Service::orderBy('id', 'desc')->where('User_id', $data->user_id)->take(3);
         return view('front.view_detail_page' , compact('Logo' , 'Number' , 'Email' , 'Address', 'data'));
     }
 

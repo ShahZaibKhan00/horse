@@ -3028,7 +3028,7 @@
 
             function toggleBidBox() {
                 const selected = document.querySelector('input[name="pro_ad_type"]:checked');
-                if (selected && selected.value === "Auction") {
+                if (selected && selected.value === "At Auction") {
                     bidBox.style.display = 'block';
                 } else {
                     bidBox.style.display = 'none';

@@ -766,6 +766,16 @@
             right: 10px;
         }
 
+        .sold_badge {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 111;
+            width: 62% !important;
+            object-fit: contain !important;
+        }
+
         .real_estate_card_new.horse_list_card_new .custome_listing_col .info_list li {
             font-size: 16px;
             margin: 5px 0px;
@@ -951,11 +961,11 @@
         }
 
         /* .scroller {
-                                           max-height: 1366px;
-                                           overflow-y: auto;
-                                           overflow-x: hidden;
-                                           }
-                                           */
+                                               max-height: 1366px;
+                                               overflow-y: auto;
+                                               overflow-x: hidden;
+                                               }
+                                               */
     </style>
 
     <section class="inner_page_banner membershipBanner">
@@ -1750,6 +1760,10 @@
                                         </label>
                                     </div>
                                     <div class="img_box">
+
+                                        @if ($product->horse_status)
+                                            <img src="{{ asset('assets/images/SOLD.png') }}" class="sold_badge" alt="" srcset="">
+                                        @endif
                                         <div class="swiper horse_list_card_slider h-100 w-100">
                                             <div class="swiper-wrapper">
                                                 @php $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; @endphp @forelse ($productImages as $item)
@@ -1775,34 +1789,36 @@
                                             <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                         </div>
                                         <h2 class="breed_text">{{ $product->pro_breed }}</h2>
-                                        @if ($product->pro_ad_type == 'At Auction')
-                                            <div class="countdown" data-duration="259200000">
-                                                <div class="circle-container" data-type="days">
-                                                    <div class="circle-text">
-                                                        <span class="value">3</span>
-                                                        <small>Days</small>
+                                        @if (is_null($product->horse_status))
+                                            @if ($product->pro_ad_type == 'At Auction')
+                                                <div class="countdown" data-enddate="{{ \Carbon\Carbon::parse($product->auc_end_date)->endOfDay()->format('Y-m-d\TH:i:s') }}">
+                                                    <div class="circle-container" data-type="days">
+                                                        <div class="circle-text">
+                                                            <span class="value">0</span>
+                                                            <small>Days</small>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="circle-container" data-type="hours">
-                                                    <div class="circle-text">
-                                                        <span class="value">0</span>
-                                                        <small>Hrs</small>
+                                                    <div class="circle-container" data-type="hours">
+                                                        <div class="circle-text">
+                                                            <span class="value">0</span>
+                                                            <small>Hrs</small>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="circle-container" data-type="minutes">
-                                                    <div class="circle-text">
-                                                        <span class="value">0</span>
-                                                        <small>Mins</small>
+                                                    <div class="circle-container" data-type="minutes">
+                                                        <div class="circle-text">
+                                                            <span class="value">0</span>
+                                                            <small>Mins</small>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="circle-container border-0" data-type="seconds">
-                                                    <div class="circle-text">
-                                                        <span class="value">0</span>
-                                                        <small>Secs</small>
+                                                    <div class="circle-container border-0" data-type="seconds">
+                                                        <div class="circle-text">
+                                                            <span class="value">0</span>
+                                                            <small>Secs</small>
+                                                        </div>
                                                     </div>
+                                                    <p>TILL END OF AUCTION</p>
                                                 </div>
-                                                <p>TILL END OF AUCTION</p>
-                                            </div>
+                                            @endif
                                         @endif
                                     </div>
                                     <div class="text_box">
@@ -1828,7 +1844,6 @@
                                                     <li>{{ $product->pro_color ?? ' ' }}</li>
                                                     <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
                                                     <li>Gaited: {{ $product->gaited }}</li>
-                                                    <!-- <li><strong>Ad Type:</strong> {{ $product->pro_ad_type }}</li> -->
                                                 </ul>
                                             </div>
                                         </div>
@@ -1878,6 +1893,46 @@
                                 </div>
                             @empty
                             @endforelse
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+
+                                    const countdowns = document.querySelectorAll(".countdown");
+
+                                    countdowns.forEach(function(countdown) {
+
+                                        const endDateStr = countdown.getAttribute("data-enddate");
+                                        const endDate = new Date(endDateStr).getTime();
+
+                                        if (isNaN(endDate)) {
+                                            console.error("Invalid date format:", endDateStr);
+                                            return;
+                                        }
+
+                                        function updateCountdown() {
+                                            const now = new Date().getTime();
+                                            let distance = endDate - now;
+
+                                            if (distance <= 0) {
+                                                distance = 0;
+                                            }
+
+                                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                            countdown.querySelector('[data-type="days"] .value').textContent = days;
+                                            countdown.querySelector('[data-type="hours"] .value').textContent = hours;
+                                            countdown.querySelector('[data-type="minutes"] .value').textContent = minutes;
+                                            countdown.querySelector('[data-type="seconds"] .value').textContent = seconds;
+                                        }
+
+                                        updateCountdown();
+                                        setInterval(updateCountdown, 1000);
+                                    });
+
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -2181,7 +2236,8 @@
             }
         });
     </script>
-    <script>
+
+    {{-- <script>
         const FULL_DASH_ARRAY = 2 * Math.PI * 30;
 
         function initializeCountdown(container, durationMs) {
@@ -2233,7 +2289,8 @@
             const durationMs = parseInt(countdown.getAttribute("data-duration"), 10);
             initializeCountdown(countdown, durationMs);
         });
-    </script>
+    </script> --}}
+
     {{-- <script>
    const tagsContainer = document.querySelector(".shortcuts_tags_flex");
    const form = document.getElementById("mainForm");

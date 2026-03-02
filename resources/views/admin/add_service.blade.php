@@ -855,12 +855,12 @@
                             </div>
                         </div>
                         <div class="border_box_one mb-3">
-                            <h3 class="mb-2">Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h3>
+                            {{-- <h3 class="mb-2">Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h3>
                             <h4 class="mb-3"><small class="text-muted">(Kindly provide your address to include your business in our map feature, which will assist potential clients in locating your
                                     services more easily.)</small>
-                            </h4>
+                            </h4> --}}
                             <div class="row">
-                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" placeholder="Enter Your Town" /></div>
+                                {{-- <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" placeholder="Enter Your Town" /></div>
                                 <div class="col-6">
                                     <select class="form-control gen_input mb-3" name="state" required>
                                         <option value="">Select your State</option>
@@ -915,10 +915,10 @@
                                         <option value="wisconsin">Wisconsin</option>
                                         <option value="wyoming">Wyoming</option>
                                     </select>
-                                </div>
+                                </div> --}}
                                 <h3 class="mb-2">Business Physical Name & Location Required <span class="asterisk">*</span></h3>
                                 <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_name1" placeholder="Enter Business Name" /></div>
-                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_location1" placeholder="Enter Business Location" /></div>
+                                <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_location1" placeholder="Enter Business Address" /></div>
                             </div>
                         </div>
                     </div>
@@ -926,7 +926,7 @@
                         <div class="border_box_one mb-3">
                             <div class="row">
                                 <div class="col-3">
-                                    <h4 class="mb-3">Service Options</h4>
+                                    <h4 class="mb-3">Service Location</h4>
                                     <div class="form-check">
                                         <label><input class="form-check-input" type="checkbox" name="service_location[]" value="At Provider’s Facility" /> At Provider’s Facility</label>
                                     </div>
@@ -934,44 +934,51 @@
                                         <label><input class="form-check-input" type="checkbox" name="service_location[]" value="Mobile (I travel to client)" /> Mobile (I travel to client)</label>
                                     </div>
                                     <div class="form-check">
-                                        <label><input class="form-check-input" type="checkbox" name="service_location[]" value="Virtual / Online Coaching" />Virtual / Online Coaching</label>
+                                        <label><input class="form-check-input" type="checkbox" name="service_location[]" value="Virtual / Online" />Virtual / Online</label>
                                     </div>
                                 </div>
                                 <div class="col-9">
                                     <h4 class="mb-0">Service Areas's Coverd</h4>
                                     <p>Enters upto 10 areas to cover. You may enters towns, counties and states:</p>
                                     <div class="row gy-3 mt-2">
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
-                                        <div class="col-3">
-                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
-                                        </div>
+                                        @for ($i = 0; $i < 10; $i++)
+                                            <div class="col-3">
+                                                <input class="form-control gen_input" type="text" name="features[]" placeholder="Type Here" />
+                                            </div>
+                                        @endfor
                                     </div>
+                                    {{-- <div class="row gy-3 mt-2">
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="" placeholder="Type Here" />
+                                        </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -1018,37 +1025,37 @@
                                         </div>
                                         <input type="hidden" name="languages" id="languagesInput" value="">
                                         <!--<div class="dropdown-container" data-dropdown-name="languages">
-                                  <div class="dropdown-header"></div>
-                                  <div class="dropdown-list">
-                                      <div onclick="selectOption(this)" data-value="English">English</div>
-                                      <div onclick="selectOption(this)" data-value="Spanish">Spanish</div>
-                                      <div onclick="selectOption(this)" data-value="Chinese (Mandarin)">Chinese (Mandarin)</div>
-                                      <div onclick="selectOption(this)" data-value="Hindi">Hindi</div>
-                                      <div onclick="selectOption(this)" data-value="Arabic">Arabic</div>
-                                      <div onclick="selectOption(this)" data-value="Portuguese">Portuguese</div>
-                                      <div onclick="selectOption(this)" data-value="Russian">Russian</div>
-                                      <div onclick="selectOption(this)" data-value="Japanese">Japanese</div>
-                                      <div onclick="selectOption(this)" data-value="French">French</div>
-                                      <div onclick="selectOption(this)" data-value="German">German</div>
-                                      <div onclick="selectOption(this)" data-value="Korean">Korean</div>
-                                      <div onclick="selectOption(this)" data-value="Italian">Italian</div>
-                                      <div onclick="selectOption(this)" data-value="Turkish">Turkish</div>
-                                      <div onclick="selectOption(this)" data-value="Bengali">Bengali</div>
-                                      <div onclick="selectOption(this)" data-value="Vietnamese">Vietnamese</div>
-                                      <div onclick="selectOption(this)" data-value="Tagalog">Tagalog</div>
-                                      <div onclick="selectOption(this)" data-value="Polish">Polish</div>
-                                      <div onclick="selectOption(this)" data-value="Persian (Farsi)">Persian (Farsi)</div>
-                                      <div onclick="selectOption(this)" data-value="Gujarati">Gujarati</div>
-                                      <div onclick="selectOption(this)" data-value="Greek">Greek</div>
-                                      <div onclick="selectOption(this)" data-value="Hebrew">Hebrew</div>
-                                      <div onclick="selectOption(this)" data-value="Ukrainian">Ukrainian</div>
-                                      <div onclick="selectOption(this)" data-value="Hmong">Hmong</div>
-                                      <div onclick="selectOption(this)" data-value="Tamil">Tamil</div>
-                                      <div onclick="selectOption(this)" data-value="Dutch">Dutch</div>
-                                      <div onclick="selectOption(this)" data-value="Thai">Thai</div>
-                                      <div onclick="selectOption(this)" data-value="Armenian">Armenian</div>
-                                      <div onclick="selectOption(this)" data-value="Navajo">Navajo</div>
-                                  </div> -->
+                                                                              <div class="dropdown-header"></div>
+                                                                              <div class="dropdown-list">
+                                                                                  <div onclick="selectOption(this)" data-value="English">English</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Spanish">Spanish</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Chinese (Mandarin)">Chinese (Mandarin)</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Hindi">Hindi</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Arabic">Arabic</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Portuguese">Portuguese</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Russian">Russian</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Japanese">Japanese</div>
+                                                                                  <div onclick="selectOption(this)" data-value="French">French</div>
+                                                                                  <div onclick="selectOption(this)" data-value="German">German</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Korean">Korean</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Italian">Italian</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Turkish">Turkish</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Bengali">Bengali</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Vietnamese">Vietnamese</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Tagalog">Tagalog</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Polish">Polish</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Persian (Farsi)">Persian (Farsi)</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Gujarati">Gujarati</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Greek">Greek</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Hebrew">Hebrew</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Ukrainian">Ukrainian</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Hmong">Hmong</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Tamil">Tamil</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Dutch">Dutch</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Thai">Thai</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Armenian">Armenian</div>
+                                                                                  <div onclick="selectOption(this)" data-value="Navajo">Navajo</div>
+                                                                              </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -1762,25 +1769,25 @@
                                 <div class="service-category">
                                     <h5 class="category-title">Other Services</h5>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="other_custom1" id="other_custom1">
+                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="" id="other_custom1">
                                         <label class="form-check-label" for="other_custom1">
                                             <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..." name="custom_service_1">
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="other_custom2" id="other_custom2">
+                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="" id="other_custom2">
                                         <label class="form-check-label" for="other_custom2">
                                             <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..." name="custom_service_2">
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="other_custom3" id="other_custom3">
+                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="" id="other_custom3">
                                         <label class="form-check-label" for="other_custom3">
                                             <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..." name="custom_service_3">
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="other_custom4" id="other_custom4">
+                                        <input class="form-check-input" type="checkbox" name="services_offered[]" value="" id="other_custom4">
                                         <label class="form-check-label" for="other_custom4">
                                             <input type="text" class="form-control form-control-sm d-inline" style="width: 200px;" placeholder="Specify service..." name="custom_service_4">
                                         </label>
@@ -1960,10 +1967,10 @@
                             <input class="form-control gen_input_one mb-3" type="url" name="youtube" placeholder="Paste link here" />
                         </div>
 
-                        <div class="col-6">
+                        {{-- <div class="col-6">
                             <h5 class="mb-2">Zillow </h5>
                             <input class="form-control gen_input_one mb-3" type="url" name="zillow" placeholder="Paste link here" />
-                        </div>
+                        </div> --}}
 
                         <div class="col-6">
                             <div class="form-check">
@@ -1978,13 +1985,11 @@
                 <div class="col-12 d-flex justify-content-center">
                     <div class="col-auto  d-flex justify-content-center gap-3">
                         @if (Auth::user()->usertype == 1)
-                        
-                        <a href="{{ url('manage_service') }} }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
-                    @else
-                        <a href="{{ url('service-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
-                        
-                    @endif
-                        
+                            <a href="{{ url('manage_service') }} }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                        @else
+                            <a href="{{ url('service-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
+                        @endif
+
                         <button class="btn submit_btn_one" type="submit">Submit</button>
                         <button type="button" id="previewBtn" class="btn submit_btn_one">Preview</button>
                     </div>
@@ -2676,14 +2681,41 @@
                 <div class="address_tabs_sec mb-4">
                     <!-- Text Section -->
                     <div class="text-section text-center">
-                        <h2>Service Location:</h2>
+                        {{-- <h2>Service Location:</h2>
                         <ul class="mb-3">
                             <li>Officia dolorem Nam , </li>
-                        </ul>
+                        </ul> --}}
                         <h2>BUSINESS LOCATION:</h2>
+
                         <p>
                             Yasir Fleming, Pariatur Libero ill
                         </p>
+
+                        <h2>Service Location:</h2>
+
+                        <p>
+                            Yasir Fleming, Pariatur Libero ill
+                        </p>
+
+                        <h2>Service Area Coverd:</h2>
+
+                        <div class="d-flex justify-content-center gap-5">
+                            <div class="mb-4">
+                                <p>Deleniti et id eaque</p>
+                                <p>Incididunt eaque fac</p>
+                                <p>Vel pariatur Repell</p>
+                                <p>Voluptas exercitatio</p>
+                                <p>Sint molestiae beata</p>
+                            </div>
+                            <div class="mb-4">
+                                <p>Deleniti et id eaque</p>
+                                <p>Incididunt eaque fac</p>
+                                <p>Vel pariatur Repell</p>
+                                <p>Voluptas exercitatio</p>
+                                <p>Sint molestiae beata</p>
+                            </div>
+                        </div>
+
                     </div>
                     <!-- Map Section -->
                 </div>
@@ -2702,7 +2734,7 @@
                     </div>
                 </div>
                 <div class="profile_tabs__one">
-                     <h2 class="about-title text-center">Video</h2>
+                    <h2 class="about-title text-center">Video</h2>
                     <video class="img-fluid" loop playsinline controls>
                         <source src="/assets/videos/your-video.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -3043,6 +3075,7 @@
             });
         });
     </script>
+
     <script>
         document.querySelectorAll('.thousand-separator').forEach(function(input) {
             input.addEventListener('input', function(e) {
@@ -3055,6 +3088,7 @@
             });
         });
     </script>
+
     <script>
         document.querySelectorAll('.price-input').forEach(function(input) {
             input.addEventListener('focus', function() {
@@ -3466,189 +3500,372 @@
         });
     </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const overlay = document.getElementById("fsmOverlay");
-    const previewBtn = document.getElementById("previewBtn");
-    const closeBtn = overlay.querySelector(".fsm-close");
+    <!--<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const overlay = document.getElementById("fsmOverlay");
+            const previewBtn = document.getElementById("previewBtn");
+            const closeBtn = overlay.querySelector(".fsm-close");
 
-    previewBtn.addEventListener("click", function() {
-        // --- 1. Helper Functions ---
-        const getVal = (name, type = 'input') => {
-            const el = document.querySelector(`${type}[name="${name}"]`);
-            return el ? el.value : "";
-        };
+            previewBtn.addEventListener("click", function() {
+                // --- 1. Helper Functions ---
+                const getVal = (name, type = 'input') => {
+                    const el = document.querySelector(`${type}[name="${name}"]`);
+                    return el ? el.value : "";
+                };
 
-        // --- 2. Basic Information & Contact Section ---
-        const fullName = getVal('full_name');
-        const bizName = getVal('business_name');
-        const phone = getVal('number');
-        const email = getVal('email');
+                // --- 2. Basic Information & Contact Section ---
+                const fullName = getVal('full_name');
+                const bizName = getVal('business_name');
+                const phone = getVal('number');
+                const email = getVal('email');
 
-        overlay.querySelector(".seller_profile_text_box h1").textContent = bizName || fullName || "Service Provider";
+                overlay.querySelector(".seller_profile_text_box h1").textContent = bizName || fullName || "Service Provider";
 
-        const contactPs = overlay.querySelectorAll(".seller_profile_text_box p");
-        if (contactPs.length >= 2) {
-            contactPs[0].textContent = `Cell: ${phone || 'N/A'}`;
-            contactPs[1].textContent = email || 'N/A';
-        }
-
-        // --- 3. Profile Image Preview ---
-        const profileFile = document.querySelector('input[name="ser_profile"]').files[0];
-        const profileImgTarget = overlay.querySelector(".seller_profile_img img");
-        if (profileFile) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                profileImgTarget.src = e.target.result;
-            };
-            reader.readAsDataURL(profileFile);
-        }
-
-        // --- 4. Experience & Languages Mapping ---
-        const expValue = getVal('experience');
-        overlay.querySelector(".experience-value").textContent = `${expValue || 0} Years`;
-
-        const langTags = Array.from(document.querySelectorAll("#selectedLangTags .tag"))
-            .map(tag => {
-                return tag.firstChild.textContent.trim();
-            });
-        overlay.querySelector(".languages").textContent = langTags.length > 0 ? langTags.join(" | ") : "N/A";
-
-        // --- 5. About & Service Details ---
-        overlay.querySelector(".about-text").textContent = getVal('per_bio', 'textarea') || "No bio provided.";
-
-        const serviceDetailP = overlay.querySelectorAll(".about-section .about-text")[1];
-        if (serviceDetailP) {
-            serviceDetailP.textContent = getVal('service_desc', 'textarea') || "No details provided.";
-        }
-
-        // --- 6. Additional Services Offered (Checkboxes) ---
-        const selectedServices = Array.from(document.querySelectorAll('input[name="services_offered[]"]:checked'))
-            .map(cb => {
-                const label = document.querySelector(`label[for="${cb.id}"]`);
-                if (cb.id.includes('other_custom')) {
-                    const customInp = label.querySelector('input[type="text"]');
-                    return customInp && customInp.value ? customInp.value : "Other Service";
+                const contactPs = overlay.querySelectorAll(".seller_profile_text_box p");
+                if (contactPs.length >= 2) {
+                    contactPs[0].textContent = `Cell: ${phone || 'N/A'}`;
+                    contactPs[1].textContent = email || 'N/A';
                 }
-                return label ? label.textContent.trim() : cb.value;
-            });
 
-        const servicesGrid = overlay.querySelector(".profile_tabs__one .row");
-        if (servicesGrid) {
-            servicesGrid.innerHTML = ""; 
-            if (selectedServices.length > 0) {
-                selectedServices.forEach(service => {
-                    servicesGrid.innerHTML += `<div class="col-md-4"><ul class="list-unstyled"><li>- ${service}</li></ul></div>`;
-                });
-            } else {
-                servicesGrid.innerHTML = `<div class="col-12 text-center text-muted">No specific services selected.</div>`;
-            }
-        }
-
-        // --- 7. Location Mapping ---
-        const town = getVal('Address');
-        const state = getVal('state', 'select');
-        const bizLocation = getVal('business_location1');
-        const bizFacName = getVal('business_name1');
-
-        const locSection = overlay.querySelector(".address_tabs_sec .text-section");
-        if (locSection) {
-            const locUl = locSection.querySelector("ul");
-            const locP = locSection.querySelector("p");
-            if (locUl) locUl.innerHTML = `<li>${town}${state ? ', ' + state.toUpperCase() : ''}</li>`;
-            if (locP) locP.textContent = bizFacName || bizLocation ? `${bizFacName} - ${bizLocation}` : "Location not set";
-        }
-
-        // --- 8. Photos / Gallery Mapping ---
-        const galleryInput = document.getElementById("customImageInput");
-        const photoGrid = overlay.querySelectorAll(".profile_tabs__one .image-grid")[1]; 
-        if (photoGrid) {
-            photoGrid.innerHTML = "";
-            if (galleryInput.files.length > 0) {
-                Array.from(galleryInput.files).forEach(file => {
+                // --- 3. Profile Image Preview ---
+                const profileFile = document.querySelector('input[name="ser_profile"]').files[0];
+                const profileImgTarget = overlay.querySelector(".seller_profile_img img");
+                if (profileFile) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        photoGrid.innerHTML += `<a href="${e.target.result}" data-fancybox="group"><img src="${e.target.result}"></a>`;
+                        profileImgTarget.src = e.target.result;
                     };
-                    reader.readAsDataURL(file);
-                });
-            } else {
-                photoGrid.innerHTML = '<p class="text-muted w-100 text-center">No gallery photos uploaded.</p>';
-            }
-        }
+                    reader.readAsDataURL(profileFile);
+                }
 
-        // --- 8.1 Certifications Grid (WITH FILE TYPE LOGIC) ---
-        const certInput = document.querySelector('input[name="certifications[]"]');
-        const certGrid = overlay.querySelector(".certifications-section .image-grid");
-        
-        if (certGrid) {
-            certGrid.innerHTML = "";
-            if (certInput.files.length > 0) {
-                Array.from(certInput.files).forEach(file => {
-                    // Agar Image hai
-                    if (file.type.match('image.*')) {
+                // --- 4. Experience & Languages Mapping ---
+                const expValue = getVal('experience');
+                overlay.querySelector(".experience-value").textContent = `${expValue || 0} Years`;
+
+                const langTags = Array.from(document.querySelectorAll("#selectedLangTags .tag"))
+                    .map(tag => {
+                        return tag.firstChild.textContent.trim();
+                    });
+                overlay.querySelector(".languages").textContent = langTags.length > 0 ? langTags.join(" | ") : "N/A";
+
+                // --- 5. About & Service Details ---
+                overlay.querySelector(".about-text").textContent = getVal('per_bio', 'textarea') || "No bio provided.";
+
+                const serviceDetailP = overlay.querySelectorAll(".about-section .about-text")[1];
+                if (serviceDetailP) {
+                    serviceDetailP.textContent = getVal('service_desc', 'textarea') || "No details provided.";
+                }
+
+                // --- 6. Additional Services Offered (Checkboxes) ---
+                const selectedServices = Array.from(document.querySelectorAll('input[name="services_offered[]"]:checked'))
+                    .map(cb => {
+                        const label = document.querySelector(`label[for="${cb.id}"]`);
+                        if (cb.id.includes('other_custom')) {
+                            const customInp = label.querySelector('input[type="text"]');
+                            return customInp && customInp.value ? customInp.value : "Other Service";
+                        }
+                        return label ? label.textContent.trim() : cb.value;
+                    });
+
+                const servicesGrid = overlay.querySelector(".profile_tabs__one .row");
+                if (servicesGrid) {
+                    servicesGrid.innerHTML = "";
+                    if (selectedServices.length > 0) {
+                        selectedServices.forEach(service => {
+                            servicesGrid.innerHTML += `<div class="col-md-4"><ul class="list-unstyled"><li>- ${service}</li></ul></div>`;
+                        });
+                    } else {
+                        servicesGrid.innerHTML = `<div class="col-12 text-center text-muted">No specific services selected.</div>`;
+                    }
+                }
+
+                // --- 7. Location Mapping ---
+                const town = getVal('Address');
+                const state = getVal('state', 'select');
+                const bizLocation = getVal('business_location1');
+                const bizFacName = getVal('business_name1');
+
+                const locSection = overlay.querySelector(".address_tabs_sec .text-section");
+                if (locSection) {
+                    const locUl = locSection.querySelector("ul");
+                    const locP = locSection.querySelector("p");
+                    if (locUl) locUl.innerHTML = `<li>${town}${state ? ', ' + state.toUpperCase() : ''}</li>`;
+                    if (locP) locP.textContent = bizFacName || bizLocation ? `${bizFacName} - ${bizLocation}` : "Location not set";
+                }
+
+                // --- 8. Photos / Gallery Mapping ---
+                const galleryInput = document.getElementById("customImageInput");
+                const photoGrid = overlay.querySelectorAll(".profile_tabs__one .image-grid")[1];
+                if (photoGrid) {
+                    photoGrid.innerHTML = "";
+                    if (galleryInput.files.length > 0) {
+                        Array.from(galleryInput.files).forEach(file => {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                photoGrid.innerHTML += `<a href="${e.target.result}" data-fancybox="group"><img src="${e.target.result}"></a>`;
+                            };
+                            reader.readAsDataURL(file);
+                        });
+                    } else {
+                        photoGrid.innerHTML = '<p class="text-muted w-100 text-center">No gallery photos uploaded.</p>';
+                    }
+                }
+
+                // --- 8.1 Certifications Grid (WITH FILE TYPE LOGIC) ---
+                const certInput = document.querySelector('input[name="certifications[]"]');
+                const certGrid = overlay.querySelector(".certifications-section .image-grid");
+
+                if (certGrid) {
+                    certGrid.innerHTML = "";
+                    if (certInput.files.length > 0) {
+                        Array.from(certInput.files).forEach(file => {
+                            // Agar Image hai
+                            if (file.type.match('image.*')) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    certGrid.innerHTML += `<a href="${e.target.result}" data-fancybox="certs"><img src="${e.target.result}"></a>`;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                            // Agar PDF hai
+                            else if (file.type.match('application/pdf')) {
+                                certGrid.innerHTML += `<div class="pdf-icon"><div class="file-icon-text">PDF</div></div>`;
+                            }
+                            // Agar Word ya baqi Document files hain
+                            else {
+                                certGrid.innerHTML += `<div class="docx-icon"><div class="file-icon-text">DOC</div></div>`;
+                            }
+                        });
+                    } else {
+                        certGrid.innerHTML = '<p class="text-muted w-100 text-center">No certifications uploaded.</p>';
+                    }
+                }
+
+                // --- 9. Social Links Mapping ---
+                const socialIcons = overlay.querySelectorAll(".social_icons a");
+                const fb = getVal('facebook');
+                const insta = getVal('insta');
+                const tiktok = getVal('tiktok');
+                const linkedin = getVal('linkedin');
+                const youtube = getVal('youtube');
+                const website = getVal('website_url');
+
+                if (socialIcons[0]) socialIcons[0].href = fb || "#!";
+                if (socialIcons[1]) socialIcons[1].href = youtube || "#!";
+                if (socialIcons[2]) socialIcons[2].href = tiktok || "#!";
+                if (socialIcons[3]) socialIcons[3].href = insta || "#!";
+                if (socialIcons[4]) socialIcons[4].href = website || "#!";
+
+                // --- 10. VIDEO PREVIEW ---
+                const videoInput = document.querySelector('input[name="pro_video_url[]"]');
+                const videoElement = overlay.querySelector("video");
+                const videoSection = videoElement.closest('.profile_tabs__one');
+
+                if (videoInput && videoInput.files && videoInput.files[0]) {
+                    const file = videoInput.files[0];
+                    const fileURL = URL.createObjectURL(file);
+                    videoElement.src = fileURL;
+                    videoSection.style.display = "block";
+                    videoElement.load();
+                } else {
+                    videoSection.style.display = "none";
+                }
+
+                // --- Show Modal ---
+                overlay.classList.add("is-visible");
+                document.body.style.overflow = "hidden";
+            });
+
+            closeBtn.addEventListener("click", () => {
+                overlay.classList.remove("is-visible");
+                document.body.style.overflow = "";
+                const videoElement = overlay.querySelector("video");
+                if (videoElement) videoElement.pause();
+            });
+        });
+    </script> -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const overlay = document.getElementById("fsmOverlay");
+        const previewBtn = document.getElementById("previewBtn");
+        const closeBtn = overlay.querySelector(".fsm-close");
+
+        previewBtn.addEventListener("click", function() {
+            // --- 1. Helper Functions ---
+            const getVal = (name, type = 'input') => {
+                const el = document.querySelector(`${type}[name="${name}"]`);
+                return el ? el.value : "";
+            };
+
+            // --- 2. Basic Information & Contact Section ---
+            const fullName = getVal('full_name');
+            const bizName = getVal('business_name');
+            const phone = getVal('number');
+            const email = getVal('email');
+
+            overlay.querySelector(".seller_profile_text_box h1").textContent = bizName || fullName || "Service Provider";
+
+            const contactPs = overlay.querySelectorAll(".seller_profile_text_box p");
+            if (contactPs.length >= 2) {
+                contactPs[0].textContent = `Cell: ${phone || 'N/A'}`;
+                contactPs[1].textContent = email || 'N/A';
+            }
+
+            // --- 3. Profile Image Preview ---
+            const profileFile = document.querySelector('input[name="ser_profile"]').files[0];
+            const profileImgTarget = overlay.querySelector(".seller_profile_img img");
+            if (profileFile) {
+                const reader = new FileReader();
+                reader.onload = (e) => { profileImgTarget.src = e.target.result; };
+                reader.readAsDataURL(profileFile);
+            }
+
+            // --- 4. Experience & Languages Mapping ---
+            const expValue = getVal('experience');
+            overlay.querySelector(".experience-value").textContent = `${expValue || 0} Years`;
+
+            const langTags = Array.from(document.querySelectorAll("#selectedLangTags .tag"))
+                .map(tag => tag.firstChild.textContent.trim());
+            overlay.querySelector(".languages").textContent = langTags.length > 0 ? langTags.join(" | ") : "N/A";
+
+            // --- 5. About & Service Details ---
+            overlay.querySelector(".about-text").textContent = getVal('per_bio', 'textarea') || "No bio provided.";
+            const serviceDetailP = overlay.querySelectorAll(".about-section .about-text")[1];
+            if (serviceDetailP) {
+                serviceDetailP.textContent = getVal('service_desc', 'textarea') || "No details provided.";
+            }
+
+            // --- 6. Additional Services Offered (Checkboxes) ---
+            const selectedServices = Array.from(document.querySelectorAll('input[name="services_offered[]"]:checked'))
+                .map(cb => {
+                    const label = document.querySelector(`label[for="${cb.id}"]`);
+                    if (cb.id.includes('other_custom')) {
+                        const customInp = label.querySelector('input[type="text"]');
+                        return customInp && customInp.value ? customInp.value : "Other Service";
+                    }
+                    return label ? label.textContent.trim() : cb.value;
+                });
+
+            const servicesGrid = overlay.querySelector(".profile_tabs__one .row");
+            if (servicesGrid) {
+                servicesGrid.innerHTML = "";
+                if (selectedServices.length > 0) {
+                    selectedServices.forEach(service => {
+                        servicesGrid.innerHTML += `<div class="col-md-4"><ul class="list-unstyled"><li>- ${service}</li></ul></div>`;
+                    });
+                } else {
+                    servicesGrid.innerHTML = `<div class="col-12 text-center text-muted">No specific services selected.</div>`;
+                }
+            }
+
+            // --- 7. Updated: Business, Service Location & Areas ---
+            const bizPhysName = getVal('business_name1');
+            const bizPhysLoc = getVal('business_location1');
+
+            const serviceLocs = Array.from(document.querySelectorAll('input[name="service_location[]"]:checked'))
+                                    .map(cb => cb.value).join(", ");
+
+            const serviceAreas = Array.from(document.querySelectorAll('input[name="features[]"]'))
+                                    .map(input => input.value.trim())
+                                    .filter(val => val !== "");
+
+            const locContentSection = overlay.querySelector(".address_tabs_sec .text-section");
+            if (locContentSection) {
+                locContentSection.innerHTML = `
+                    <h2 class="mt-2">BUSINESS PHYSICAL LOCATION:</h2>
+                    <p>${bizPhysName || 'N/A'} - ${bizPhysLoc || 'N/A'}</p>
+                    <h2 class="mt-4">SERVICE LOCATION:</h2>
+                    <p>${serviceLocs || 'Not Specified'}</p>
+                    <h2 class="mt-4">SERVICE AREAS COVERED:</h2>
+                    <div class="d-flex justify-content-center gap-5 flex-wrap">
+                        ${serviceAreas.length > 0
+                            ? `<div class="mb-4">${serviceAreas.map(area => `<p class="mb-1">${area}</p>`).join('')}</div>`
+                            : `<p class="text-muted">No areas specified</p>`
+                        }
+                    </div>
+                `;
+            }
+
+            // --- 8. Photos / Gallery Mapping ---
+            const galleryInput = document.getElementById("customImageInput");
+            const photoGrid = overlay.querySelectorAll(".profile_tabs__one .image-grid")[1];
+            if (photoGrid) {
+                photoGrid.innerHTML = "";
+                if (galleryInput.files.length > 0) {
+                    Array.from(galleryInput.files).forEach(file => {
                         const reader = new FileReader();
                         reader.onload = (e) => {
-                            certGrid.innerHTML += `<a href="${e.target.result}" data-fancybox="certs"><img src="${e.target.result}"></a>`;
+                            photoGrid.innerHTML += `<a href="${e.target.result}" data-fancybox="group"><img src="${e.target.result}"></a>`;
                         };
                         reader.readAsDataURL(file);
-                    } 
-                    // Agar PDF hai
-                    else if (file.type.match('application/pdf')) {
-                        certGrid.innerHTML += `<div class="pdf-icon"><div class="file-icon-text">PDF</div></div>`;
-                    }
-                    // Agar Word ya baqi Document files hain
-                    else {
-                        certGrid.innerHTML += `<div class="docx-icon"><div class="file-icon-text">DOC</div></div>`;
-                    }
-                });
-            } else {
-                certGrid.innerHTML = '<p class="text-muted w-100 text-center">No certifications uploaded.</p>';
+                    });
+                } else {
+                    photoGrid.innerHTML = '<p class="text-muted w-100 text-center">No gallery photos uploaded.</p>';
+                }
             }
-        }
 
-        // --- 9. Social Links Mapping ---
-        const socialIcons = overlay.querySelectorAll(".social_icons a");
-        const fb = getVal('facebook');
-        const insta = getVal('insta');
-        const tiktok = getVal('tiktok');
-        const linkedin = getVal('linkedin');
-        const youtube = getVal('youtube');
-        const website = getVal('website_url');
+            // --- 9. Certifications Grid ---
+            const certInput = document.querySelector('input[name="certifications[]"]');
+            const certGrid = overlay.querySelector(".certifications-section .image-grid");
+            if (certGrid) {
+                certGrid.innerHTML = "";
+                if (certInput.files.length > 0) {
+                    Array.from(certInput.files).forEach(file => {
+                        if (file.type.match('image.*')) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                certGrid.innerHTML += `<a href="${e.target.result}" data-fancybox="certs"><img src="${e.target.result}"></a>`;
+                            };
+                            reader.readAsDataURL(file);
+                        } else if (file.type.match('application/pdf')) {
+                            certGrid.innerHTML += `<div class="pdf-icon"><div class="file-icon-text">PDF</div></div>`;
+                        } else {
+                            certGrid.innerHTML += `<div class="docx-icon"><div class="file-icon-text">DOC</div></div>`;
+                        }
+                    });
+                } else {
+                    certGrid.innerHTML = '<p class="text-muted w-100 text-center">No certifications uploaded.</p>';
+                }
+            }
 
-        if(socialIcons[0]) socialIcons[0].href = fb || "#!";
-        if(socialIcons[1]) socialIcons[1].href = youtube || "#!";
-        if(socialIcons[2]) socialIcons[2].href = tiktok || "#!";
-        if(socialIcons[3]) socialIcons[3].href = insta || "#!";
-        if(socialIcons[4]) socialIcons[4].href = website || "#!";
+            // --- 10. Social Links Mapping ---
+            const socialIcons = overlay.querySelectorAll(".social_icons a");
+            if (socialIcons.length > 0) {
+                socialIcons[0].href = getVal('facebook') || "#!";
+                socialIcons[1].href = getVal('youtube') || "#!";
+                socialIcons[2].href = getVal('tiktok') || "#!";
+                socialIcons[3].href = getVal('insta') || "#!";
+                socialIcons[4].href = getVal('website_url') || "#!";
+            }
 
-        // --- 10. VIDEO PREVIEW ---
-        const videoInput = document.querySelector('input[name="pro_video_url[]"]');
-        const videoElement = overlay.querySelector("video");
-        const videoSection = videoElement.closest('.profile_tabs__one');
+            // --- 11. VIDEO PREVIEW ---
+            const videoInput = document.querySelector('input[name="pro_video_url[]"]');
+            const videoElement = overlay.querySelector("video");
+            const videoSection = videoElement ? videoElement.closest('.profile_tabs__one') : null;
+            if (videoInput && videoInput.files && videoInput.files[0]) {
+                const fileURL = URL.createObjectURL(videoInput.files[0]);
+                videoElement.src = fileURL;
+                if(videoSection) videoSection.style.display = "block";
+                videoElement.load();
+            } else {
+                if(videoSection) videoSection.style.display = "none";
+            }
 
-        if (videoInput && videoInput.files && videoInput.files[0]) {
-            const file = videoInput.files[0];
-            const fileURL = URL.createObjectURL(file);
-            videoElement.src = fileURL;
-            videoSection.style.display = "block";
-            videoElement.load();
-        } else {
-            videoSection.style.display = "none";
-        }
+            overlay.classList.add("is-visible");
+            document.body.style.overflow = "hidden";
+        });
 
-        // --- Show Modal ---
-        overlay.classList.add("is-visible");
-        document.body.style.overflow = "hidden";
+        // --- Updated Close Logic: Handles Outside Click & Close Button ---
+        overlay.addEventListener("click", (e) => {
+            // Agar click seedha 'fsmOverlay' par ho (background) ya 'fsm-close' button par
+            if (e.target === overlay || e.target.closest(".fsm-close")) {
+                overlay.classList.remove("is-visible");
+                document.body.style.overflow = "";
+                const videoElement = overlay.querySelector("video");
+                if (videoElement) videoElement.pause();
+            }
+        });
     });
-
-    closeBtn.addEventListener("click", () => {
-        overlay.classList.remove("is-visible");
-        document.body.style.overflow = "";
-        const videoElement = overlay.querySelector("video");
-        if(videoElement) videoElement.pause();
-    });
-});
 </script>
 
 @endsection

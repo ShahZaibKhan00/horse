@@ -826,11 +826,11 @@
                                 </div>
                             </div>
                             <div class="border_box_one mb-3">
-                                <h3 class="mb-2">Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h3>
+                                {{-- <h3 class="mb-2">Location <span class="asterisk">*</span> <small class="text-muted">(town,state, US based only)</small></h3>
                                 <h4 class="mb-3"><small class="text-muted">(Kindly provide your address to include your business in our map feature, which will assist potential clients in locating your
-                                        services more easily.)</small></h4>
+                                        services more easily.)</small></h4> --}}
                                 <div class="row">
-                                    <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
+                                    {{-- <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="Address" value="{{ $data->Address }}" placeholder="Enter Your Town" /></div>
                                     <div class="col-6">
                                         <select class="form-control gen_input mb-3" name="state">
                                             <option value="">Select your State</option>
@@ -887,12 +887,12 @@
                                             <option value="wyoming" {{ $data->state == 'wyoming' ? 'selected' : '' }}>Wyoming</option>
                                         </select>
 
-                                    </div>
+                                    </div> --}}
                                     <h3 class="mb-2">Business Physical Name & Location Required <span class="asterisk">*</span></h3>
                                     <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_name1" value="{{ $data->business_name1 }}"
                                             placeholder="Enter Business Name" /></div>
-                                    <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_location1" value="{{ $data->business_location1 }}"
-                                            placeholder="Enter Business Location" /></div>
+                                    <div class="col-6"><input class="form-control gen_input mb-3" type="text" name="business_location1"  value="{{ $data->business_location1 }}"
+                                            placeholder="Enter Business Address" /></div>
                                 </div>
                             </div>
                             <!--<div class="row">
@@ -970,7 +970,9 @@
 
                     <div class="col-12">
                         <div class="border_box_one mb-3">
-                            <h4 class="mb-3">Service Options</h4>
+                            <div class="row">
+                                <div class="col-3">
+                            <h4 class="mb-3">Service Location</h4>
 
                             <div class="form-check">
                                 <label>
@@ -986,11 +988,38 @@
                                 </label>
                             </div>
 
-                            <div class="form-check">
-                                <label>
-                                    <input type="checkbox" name="service_location[]" value="Virtual / Online Coaching" @if (in_array('Virtual / Online Coaching', $selected)) checked @endif>
-                                    Virtual / Online Coaching
-                                </label>
+                                <div class="form-check">
+                                    <label>
+                                        <input type="checkbox" name="service_location[]" value="Virtual / Online" @if (in_array('Virtual / Online', $selected)) checked @endif>
+                                        Virtual / Online Coaching
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <h4 class="mb-0">Service Areas's Coverd</h4>
+                                    <p>Enters upto 10 areas to cover. You may enters towns, counties and states:</p>
+                                <div class="row gy-3 mt-2">
+                                    @php
+                                        $features = is_array($data->features) ? $data->features : ( $data->features ? json_decode($data->features, true) : [] );
+                                    @endphp
+
+                                    @for($i = 0; $i < 10; $i++)
+                                        <div class="col-3">
+                                            <input class="form-control gen_input" type="text" name="features[]"
+                                                value="{{ old('features.'.$i, $features[$i] ?? '') }}" placeholder="Type Here" />
+                                        </div>
+                                    @endfor
+                                    {{-- @for($i = 0; $i < 10; $i++)
+                                        <div class="col-3">
+                                            <input class="form-control gen_input"
+                                                type="text"
+                                                name="features[]"
+                                                value="{{ $data->features[$i] ?? '' }}"
+                                                placeholder="Type Here" />
+                                        </div>
+                                    @endfor --}}
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -2353,21 +2382,21 @@
                                 <input class="form-control gen_input_one mb-3" type="url" name="youtube" value="{{ $data->youtube }}" placeholder="Paste link here" />
                             </div>
 
-                            <div class="col-6">
+                            {{-- <div class="col-6">
                                 <h5 class="mb-2">Zillow </h5>
                                 <input class="form-control gen_input_one mb-3" type="url" name="zillow" value="{{ $data->zillow }}" placeholder="Paste link here" />
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-12 d-flex justify-content-center">
                         <div class="col-auto  d-flex justify-content-center gap-3">
                             <div class="col-auto  d-flex justify-content-center gap-3">
                         @if (Auth::user()->usertype == 1)
-                            
+
                             <a href="{{ url('manage_service') }} }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Back</a>
                         @else
                             <a href="{{ url('service-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Go Back</a>
-                            
+
                         @endif
                             <button class="btn submit_btn_one" type="submit">Update</button>
                             {{-- <a href="#!" class="btn submit_btn_one">Preview</a> --}}

@@ -75,6 +75,15 @@ Route::get('/membership_form', [FrontController::class, 'membership_form'])->nam
 Route::get('/membership', [FrontController::class, 'membership'])->name('membership');
 Route::get('/realestate', [FrontController::class, 'realestate'])->name('realestate');
 Route::get('user/dashboard', [HomeController::class, 'dashboardU'])->name('dashboardU');
+Route::post('/real/{id}/status', [AllController::class, 'realstateStatus'])
+    ->name('real.realstateStatus');
+Route::post('/real/{id}/sold', [AllController::class, 'realstatemarkAsSold'])
+    ->name('real.markAsSold');
+
+Route::post('horse/{id}/status', [AllController::class, 'horsestateStatus'])
+    ->name('horse.realstateStatus');
+Route::post('/horse/{id}/sold', [AllController::class, 'horsestatemarkAsSold'])
+    ->name('horse.markAsSold');
 // Route::get('/view_detail', [FrontController::class, 'view_detail_page'])->name('view_detail_page');
 Route::get('/faqs', [FrontController::class, 'faqs'])->name('faqs');
 Route::get('/product/{id}', [FrontController::class, 'cate_products'])->name('product');

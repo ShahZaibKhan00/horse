@@ -1525,11 +1525,11 @@
                                         <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                     </div>
                                     <h2 class="breed_text">{{ $product->pro_breed }}</h2>
-                                    @if ($product->pro_ad_type === 'At Auction')
-                                        <div class="countdown" data-duration="259200000">
+                                    @if ($product->pro_ad_type == 'At Auction')
+                                        <div class="countdown" data-enddate="{{ \Carbon\Carbon::parse($product->auc_end_date)->endOfDay()->format('Y-m-d\TH:i:s') }}">
                                             <div class="circle-container" data-type="days">
                                                 <div class="circle-text">
-                                                    <span class="value">3</span>
+                                                    <span class="value">0</span>
                                                     <small>Days</small>
                                                 </div>
                                             </div>

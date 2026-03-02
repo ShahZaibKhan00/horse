@@ -402,4 +402,99 @@ class AllController extends Controller
         Session()->flash('alert-success', $messages);
         return redirect('/subscription');
     }
+
+    public function realstateStatus(Request $request, $id)
+    {
+        // Validation
+        $request->validate([
+            'reason' => 'required|string|max:255',
+        ]);
+        // Find horse / model
+        $horse = Realstate::findOrFail($id);
+
+        // Update values
+        $horse->status_reason = $request->reason;
+        $horse->re_status = 'Withdraw'; // as per your request
+        $horse->save();
+
+        // Flash message
+        $messages = [
+            'title' => 'Data Saved!!',
+            'detail' => 'Status has been Withdraw successfully.'
+        ];
+        session()->flash('alert-success', $messages);
+
+        return redirect()->back();
+    }
+
+    public function realstatemarkAsSold(Request $request, $id)
+    {
+        // Validation
+        $request->validate([
+            'sold_price' => 'required|string|min:0|max:255',
+        ]);
+        // Find horse
+        $horse = Realstate::findOrFail($id);
+
+        // Update status
+        $horse->re_status = 'Sold';
+        $horse->sold_price = $request->sold_price;
+        $horse->status_reason = 'Sold'; // optional
+        $horse->save();
+        // Flash message
+        $messages = [
+            'title' => 'Realestate Marked as Sold!',
+            'detail' => 'The Realestate Status has been updated successfully.'
+        ];
+        session()->flash('alert-success', $messages);
+
+        return redirect()->back();
+    }
+    public function horsestateStatus(Request $request, $id)
+    {
+        // Validation
+        $request->validate([
+            'reason' => 'required|string|max:255',
+        ]);
+        // Find horse / model
+        $horse = Product::findOrFail($id);
+
+        // Update values
+        $horse->status_reason = $request->reason;
+        $horse->horse_status = 'Withdraw'; // as per your request
+        $horse->save();
+
+        // Flash message
+        $messages = [
+            'title' => 'Data Saved!!',
+            'detail' => 'Status has been Withdraw successfully.'
+        ];
+        session()->flash('alert-success', $messages);
+
+        return redirect()->back();
+    }
+
+    public function horsestatemarkAsSold(Request $request, $id)
+    {
+        // Validation
+        $request->validate([
+            'sold_price' => 'required|string|min:0|max:255',
+        ]);
+        // Find horse
+        $horse = Product::findOrFail($id);
+
+        // Update status
+        $horse->horse_status = 'Sold';
+        $horse->sold_price = $request->sold_price;
+        $horse->status_reason = 'Sold'; // optional
+        $horse->save();
+        // Flash message
+        $messages = [
+            'title' => 'Horse Marked as Sold!',
+            'detail' => 'The horse Status has been updated successfully.'
+        ];
+        session()->flash('alert-success', $messages);
+
+        return redirect()->back();
+    }
 }

@@ -1301,7 +1301,7 @@ ul#pills-tab li button {
                                                     <li><span> @if ($data->pro_age_year > 0)
                                                             {{ $data->pro_age_year }} Years
                                                         @endif @if ($data->pro_age_month > 0)
-                                                            {{ $data->pro_age_month }} MO
+                                                            {{ $data->pro_age_month }} Mo
                                                         @endif
                                                         Old</span></li>
                                                     <li><span>{{ $data->pro_height }}</span></li>
@@ -1318,16 +1318,40 @@ ul#pills-tab li button {
                                         </div>
                                         <div class="custome_listing_col w-100">
                                                 <ul class="info_list">
-                                                    <li class="m-0 mb-2"><span>{{ $data->pro_address . ' ' . $data->pro_city }}</span></li>
+                                                    <li class="m-0 mb-2"><span>
+                                                        @php
+                                                            $state = $product->per_state ?? 'alabama (AL)';
+                                                            preg_match('/\((.*?)\)/', $state, $matches);
+                                                            $stateCode = $matches[1] ?? '';
+                                                        @endphp
+                                                        {{-- @if ($data->pro_ad_type == 'At Auction')
+                                                            <a href="{{ $data->auc_link ?? 'javascript:;' }}" target="{{ !empty($data->auc_link) ? '_blank' : '' }}" rel="noopener noreferrer"
+                                                                class="horse_card_btn w-100 {{ empty($data->auc_link) ? 'disabled' : '' }}">
+                                                                View Details
+                                                            </a>
+                                                        @else --}}
+                                                            {{ $data->pro_address . ' (' . $stateCode .')' }}
+                                                        {{-- @endif --}}
+                                                    </span></li>
                                                 </ul>
                                             </div>
                                     </div>
 
                                     <div class="horser_information_box type_one">
-                                        <h3 class="heading30px price_Text mb-2">PRICE : ${{ $data->pro_reg_price }}</h3>
+                                        <h3 class="heading30px price_Text mb-2">
+                                            @if ($data->pro_ad_type == 'At Auction')
+                                                Starting Bid:
+                                            @else
+                                                PRICE:
+                                            @endif
+                                            ${{ $data->pro_reg_price }}</h3>
 
 
+                                            @if ($data->pro_ad_type == 'At Auction')
+                                                <a href="{{ $data->auc_link ?? 'javascript:;' }}" target="{{ !empty($data->auc_link) ? '_blank' : '' }}" class="horser_action_info_btn action_btn w-100 mb-2 {{ empty($data->auc_link) ? 'disabled' : '' }}">Auction Link</a>
+                                            @else
 
+                                            @endif
                                         <div class="horse_list_card_btn_flex_new bottom_row mb-2">
                                             <a href="#!" class="horser_action_info_btn action_btn w-50">Seller Profile</a>
                                             <a href="#!" class="horser_action_info_btn action_btn w-50">Chat with seller</a>
@@ -1488,25 +1512,41 @@ ul#pills-tab li button {
                                                     <h1>ADDITIONAL INFORMATION</h1>
                                                     <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
                                                 </div>
-
+                                                @php
+                                                    $aboutPrices = $data->about_price
+                                                        ? explode(',', $data->about_price)
+                                                        : [];
+                                                @endphp
                                                 <div class="border_box_one p-1">
                                                     <ul class="gen_list_flex gen_list_flex_one">
                                                         <li>
                                                             <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
                                                             <p> Trail Period:</p>
-                                                            <p>Yes
+                                                            <p>{{ $data->trial_period }}
+                                                            <p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
+                                                            <p>Firm:</p>
+                                                            <p>{{ in_array('Firm', $aboutPrices) ? 'Yes' : 'No' }}
                                                             <p>
                                                         </li>
                                                         <li>
                                                             <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
                                                             <p>May Trade:</p>
-                                                            <p>No
+                                                            <p>{{ in_array('May Trade', $aboutPrices) ? 'Yes' : 'No' }}
+                                                            <p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
+                                                            <p>Negotiable:</p>
+                                                            <p>{{ in_array('Negotiable', $aboutPrices) ? 'Yes' : 'No' }}
                                                             <p>
                                                         </li>
                                                         <li>
                                                             <span class="me-3"><img src="/assets/images/h_icon_2.png" alt="img" class="img-fluid" /></span>
                                                             <p>Payment Options Available:</p>
-                                                            <p>Yes
+                                                            <p>{{ in_array('Payment Options Available', $aboutPrices) ? 'Yes' : 'No' }}
                                                             <p>
                                                         </li>
                                                     </ul>
@@ -1672,16 +1712,31 @@ ul#pills-tab li button {
                                                     <h1 class="heading30px my-2 text-center reg">Friesian Heritage and Sporthorse International</h1>
                                                     <h1 class="heading18px text-center">REGISTRATION #: MU-9497947472973</h1>
                                                     <div class="row mb-4 justify-content-center">
-                                                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                                                            <a href="/assets/images/placeholder.png" data-fancybox="certificate">
-                                                                <img src="/assets/images/placeholder.png" alt="img" class="img-fluid" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                                                            <a href="/assets/images/placeholder.png" data-fancybox="certificate">
-                                                                <img src="/assets/images/placeholder.png" alt="img" class="img-fluid" />
-                                                            </a>
-                                                        </div>
+                                                        @php
+                                                            $files = [];
+                                                            if (!empty($data->pro_reg_file)) {
+                                                                $decoded = json_decode($data->pro_reg_file, true);
+                                                                $files = is_array($decoded) ? $decoded : [];
+                                                            }
+                                                        @endphp
+                                                        {{-- @dd($files) --}}
+                                                        @if(!empty($files))
+                                                            @foreach($files as $file)
+                                                                <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                                                                    <a href="{{ asset('Product_images/'.$file) }}" data-fancybox="certificate">
+                                                                        <img src="{{ asset('Product_images/'.$file) }}" alt="certificate" class="img-fluid" />
+                                                                    </a>
+                                                                </div>
+                                                            @endforeach
+                                                        @else
+                                                            <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                                                                <a href="{{ asset('assets/images/placeholder.png') }}" data-fancybox="certificate">
+                                                                    <img src="{{ asset('assets/images/placeholder.png') }}"
+                                                                        alt="No Image"
+                                                                        class="img-fluid" />
+                                                                </a>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                     <p class="heading18px text-center m-0"><strong>CLICK TO ENLARGE</strong></p>
                                                 </div>
@@ -1780,7 +1835,7 @@ ul#pills-tab li button {
                                                     </div>
                                                 </div>
 
-                                                <a href="#!" class="search_all_btn"><span>Search All</span></a>
+                                                <a href="{{ url('/services') }}" class="search_all_btn"><span>Search All</span></a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade seller_tab" id="v-pills-detail_8" role="tabpanel" aria-labelledby="v-pills-detail_8-tab">

@@ -70,6 +70,10 @@
                                         </label> -->
                                     </div>
                                     <div class="user_img_box">
+                                        @if ($data->horse_status)
+                                            <img src="{{ asset('assets/images/SOLD.png') }}" class="sold_badge" alt="" srcset="">
+                                        @endif
+
                                         <div class="swiper user_card_slider swiper-wrapper">
                                             @php
                                                 $productImages = [];
@@ -114,8 +118,11 @@
                                             <button class="user_arrow_right"><img src="assets/images/arrow_ri8.png" alt=""></button>
                                         </div>
                                         <p>GYPSY VANNER CROSS</p>
-                                        @if ($data->pro_ad_type == 'At Auction')
-                                            <div class="countdown_user_timer" data-end-time="2025-12-31T23:59:59">
+                                        @if ($data->horse_status)
+                                            <img src="{{ asset('assets/images/SOLD.png') }}" class="sold_badge" alt="" srcset="">
+                                        @endif
+                                        @if ($data->pro_ad_type == 'At Auction' )
+                                            {{-- <div class="countdown_user_timer" data-end-time="2025-12-31T23:59:59">
                                                 <h5>
                                                     <span class="days">1</span> Days |
                                                     <span class="hours">0</span> Hrs |
@@ -123,7 +130,34 @@
                                                     <span class="seconds">0</span> Secs
                                                 </h5>
                                                 <h6>TILL END OF AUCTIONS</h6>
+                                            </div> --}}
+                                            <div class="countdown_user_timer" data-enddate="{{ \Carbon\Carbon::parse($datat->auc_end_date)->endOfDay()->format('Y-m-d\TH:i:s') }}">
+                                            <div class="circle-container" data-type="days">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Days</small>
+                                                </div>
                                             </div>
+                                            <div class="circle-container" data-type="hours">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Hrs</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container" data-type="minutes">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Mins</small>
+                                                </div>
+                                            </div>
+                                            <div class="circle-container border-0" data-type="seconds">
+                                                <div class="circle-text">
+                                                    <span class="value">0</span>
+                                                    <small>Secs</small>
+                                                </div>
+                                            </div>
+                                            <p>TILL END OF AUCTION</p>
+                                        </div>
                                         @endif
                                     </div>
                                     <div class="user_card_info_box">
@@ -154,6 +188,7 @@
                                                 @endif ${{ $data->pro_reg_price }}
                                             </div>
                                         </div>
+
                                         {{-- <button class="button button-full">VIEW ALL DETAILS</button> --}}
                                         <div class="button-row">
                                             {{-- <button class="button">SELLER PROFILE</button>
@@ -174,12 +209,108 @@
                                                     class="edit-symbol"><img src="assets/images/edit.png" alt=""></span></a>
                                         </div>
                                         <div class="control-row">
-                                            <button class="clickable-box hollow-style">Mark Sold</button>
-                                            <button class="clickable-box hollow-style withdraw_btn">Mark Withdrawn</button>
+                                            <button class="clickable-box hollow-style" data-bs-toggle="modal" data-bs-target="#exampleModalSold-{{ $data->id }}">Mark Sold</button>
+                                            <button class="clickable-box hollow-style withdraw_btn" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $data->id }}">Mark withdrawn</button>
                                         </div>
                                         <div class="analytics-bar">
                                             <div class="data-point">Views: 250</div>
                                             <div class="data-point">Saves: 25</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="exampleModalSold-{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal_content">
+                                            <div class="horse-form">
+                                                <form action="{{ route('horse.markAsSold', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <div class="horse-container">
+                                                        <h1 class="title">Please let us know whether your horse sold or if you are withdrawing it.</h1>
+
+                                                        <div class="info-section">
+                                                            <ul>
+                                                                <li>If <strong>SOLD</strong>, check <strong>"Horse Sold"</strong> and enter the <strong>sale
+                                                                        price</strong>.</li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <p class="warning-text">Submitting will immediately end your ad subscription and stop future billing.
+                                                        </p>
+
+                                                        <p class="description-text">Providing a sale price allows your horse to be used as a comparable on our
+                                                            sales page, helping other sellers price their horses accurately. Thank you for choosing Horse Action
+                                                            Network!</p>
+
+                                                        <div class="sale-price" id="salePrice">
+                                                            <label>Sold Price:</label>
+                                                            <input type="text" name="sold_price" placeholder="Enter price" class="thousand_separator" required>
+                                                        </div>
+
+                                                        <div class="button-container mt-3">
+                                                            <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
+                                                            <button type="submit" class="btn btn-primary btn-submit">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- WIdra --}}
+                            <div class="modal fade" id="exampleModal-{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal_content">
+                                            <div class="horse-form">
+                                                <form action="{{ route('horse.realstateStatus', $data->id) }}" method="POST">
+                                                    @csrf
+
+                                                    <div class="horse-container">
+                                                        <h1 class="title">Please let us know whether your horse sold or if you are withdrawing it.</h1>
+
+                                                        <div class="info-section">
+                                                            <ul>
+                                                                <li>If <strong>withdrawing</strong>, check <strong>"Withdraw"</strong> and enter a reason.</li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <p class="warning-text">
+                                                            Submitting will immediately end your ad subscription and stop future billing.
+                                                        </p>
+
+                                                        <p class="description-text">
+                                                            Providing a sale price allows your horse to be used as a comparable on our sales page, helping other sellers price their horses accurately.
+                                                            Thank you for choosing Horse Action Network!
+                                                        </p>
+
+                                                        <div class="form-group" id="withdrawReason">
+                                                            <label for="reasonSelect">Withdraw Reason:</label>
+                                                            <select id="reasonSelect" name="reason" class="form-control" required>
+                                                                <option value="" selected disabled>SELECT A REASON FROM DROPDOWN</option>
+                                                                <option value="Seller decided to keep">Seller decided to keep</option>
+                                                                <option value="Seasonal timing (withdrawing until show record updates, competition season, or better market window)">Seasonal timing
+                                                                    (withdrawing until show record updates, competition season, or better market window)
+                                                                </option>
+                                                                <option value="Withdrawn for veterinary reasons (health/soundness concern or needs rest)">Withdrawn for veterinary reasons
+                                                                    (health/soundness concern or needs rest)</option>
+                                                                <option value="Withdrawal due to training or conditioning needs">Withdrawal due to training or conditioning needs</option>
+                                                                <option value="Rather not say">Rather not say</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="button-container mt-3">
+                                                            <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                            <button type="submit" class="btn btn-primary btn-submit">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

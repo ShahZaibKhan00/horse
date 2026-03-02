@@ -77,6 +77,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        // dd());
         $request->validate([
             'full_name' => 'required',
             'number' => 'required',
@@ -84,16 +85,27 @@ class ServiceController extends Controller
             'full_name.required' => 'The Service Full Name field is required.',
             'number.required' => 'The Service Email field is required.',
         ]);
+        // $pro_images = [];
 
+        // if ($request->hasFile('ser_gallery')) {
+        //     foreach ($request->file('ser_gallery') as $image) {
+        //         $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        //         $image->storeAs('uploads/services', $filename, 'public');
+        //         $pro_images[] = $filename;
+        //     }
+        // }
         $pro_images = [];
 
         if ($request->hasFile('ser_gallery')) {
             foreach ($request->file('ser_gallery') as $image) {
-                $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $filename = time().'_'.uniqid().'.'.$image->getClientOriginalExtension();
                 $image->storeAs('uploads/services', $filename, 'public');
                 $pro_images[] = $filename;
             }
         }
+
+$features = array_values(array_filter($request['features'] ?? []));
+
         $data = new Service;
 
         $ser_profile = $request->ser_profile;
@@ -122,16 +134,21 @@ class ServiceController extends Controller
         $data->email = $request->email;
         $data->number = $request->number;
         $data->website_url = $request->website_url;
-        $data->Address = $request->Address;
+        $data->Address = $request->Address ?? '';
         $data->city = $request->city ?? "";
-        $data->state = $request->state;
+        $data->state = $request->state ?? '';
         $data->per_bio = $request->per_bio;
         $data->facebook = $request->facebook;
         $data->insta = $request->insta;
         $data->tiktok = $request->tiktok;
         $data->linkedin = $request->linkedin;
         $data->youtube = $request->youtube;
-        $data->zillow = $request->zillow;
+        $data->custom_service_1 = $request->custom_service_1;
+        $data->custom_service_2 = $request->custom_service_2;
+        $data->custom_service_3 = $request->custom_service_3;
+        $data->custom_service_4 = $request->custom_service_4;
+        // $data->zillow = $request->zillow;
+        $data->features = json_encode($features);
 
         $data->experience = $request->experience;
         $data->Languages = $request->languages;
@@ -164,6 +181,7 @@ class ServiceController extends Controller
         $data->demo_link = implode(',', $request->demo_link);
         $data->User_id = Auth::user()->id;
         $data->save();
+        // dd($request->all(), $data);
         $latestSubscription = DB::table('subscriptions')
             ->where('useer_id', auth()->id())
             ->where('pacakge_status', 'Active')
@@ -226,6 +244,8 @@ class ServiceController extends Controller
         $id = $request->id;
         // DB::beginTransaction();
         $data = Service::find($id);
+$features = array_values(array_filter($request->features ?? []));
+
 
         // $ser_profile = $request->ser_profile;
         // if ($ser_profile != "") {
@@ -282,15 +302,15 @@ class ServiceController extends Controller
         $data->email = $request->email;
         $data->number = $request->number;
         $data->website_url = $request->website_url;
-        $data->Address = $request->Address;
+        $data->Address = $request->Address ?? '';
         $data->city = $request->city ?? "";
-        $data->state = $request->state;
+        $data->state = $request->state ?? '';
         $data->facebook = $request->facebook;
         $data->insta = $request->insta;
         $data->tiktok = $request->tiktok;
         $data->linkedin = $request->linkedin;
         $data->youtube = $request->youtube;
-        $data->zillow = $request->zillow;
+        // $data->zillow = $request->zillow;
 
         $data->business_name1 = $request->business_name1;
         $data->business_location1 = $request->business_location1;
@@ -313,6 +333,7 @@ class ServiceController extends Controller
 
             $data->certifications = json_encode($imageNames);
         }
+        $data->features = json_encode($features);
         $data->services_offered = implode(',', $request->services_offered);
         $data->service_desc = $request->service_desc;
         $data->service_location = implode(',', $request->service_location ?? []);

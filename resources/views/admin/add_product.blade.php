@@ -1613,19 +1613,19 @@
                     <div class="border_box_one mb-4">
                         <h4 class="mb-3">Trial Period</h4>
                         <div class="form-check">
-                            <input class="form-check-input" name="trial_period" type="radio" value="yes_trial" id="yes_trial">
+                            <input class="form-check-input" name="trial_period" type="radio" value="Yes" id="yes_trial">
                             <label class="form-check-label" for="yes_trial">
                                 Yes
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" name="trial_period" type="radio" value="no_trial" id="no_trial">
+                            <input class="form-check-input" name="trial_period" type="radio" value="No" id="no_trial">
                             <label class="form-check-label" for="no_trial">
                                 No
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" name="trial_period" type="radio" value="My Consider" id="may_trial">
+                            <input class="form-check-input" name="trial_period" type="radio" value="May Consider" id="may_trial">
                             <label class="form-check-label" for="may_trial">
                                 May Consider
                             </label>
@@ -2404,7 +2404,7 @@
                                         <input name="pro_video_url[]" type="file" multiple class="upload__inputfile" accept="video/*">
                                     </label>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2524,15 +2524,15 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-12">
                 <div class="col-auto d-flex justify-content-center gap-3">
                     @if (Auth::user()->usertype == 1)
-                        
+
                         <a href="{{ url('products') }}/{{ last(request()->segments()) }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
                     @else
                         <a href="{{ url('horse-listing') }}" class="submit_btn_one btn px-5 mb-2 mb-sm-0">Discard</a>
-                        
+
                     @endif
                     <button class="btn submit_btn_one" type="submit">Submit</button>
                     <button type="button" id="previewBtn" class="btn submit_btn_one">Preview</button>
@@ -3731,7 +3731,7 @@
         </script>
 
 
-        
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const overlay = document.getElementById("fsmOverlay");
@@ -3821,14 +3821,14 @@
             // --- 4. Registry Info & Documents ---
             const regFileInput = document.querySelector('input[name="pro_reg_file[]"]');
             const regDocContainer = overlay.querySelector(".fsm-content .row.mb-4.justify-content-center");
-            const docIcon = "https://cdn-icons-png.flaticon.com/512/2991/2991108.png"; 
+            const docIcon = "https://cdn-icons-png.flaticon.com/512/2991/2991108.png";
 
             if (regFileInput && regFileInput.files.length > 0) {
                 regDocContainer.innerHTML = "";
                 Array.from(regFileInput.files).forEach(file => {
                     const colDiv = document.createElement("div");
                     colDiv.className = "col-lg-3 col-md-3 col-sm-12 col-12";
-                    
+
                     if (file.type.match('image.*')) {
                         const reader = new FileReader();
                         reader.onload = function(e) {
@@ -3897,7 +3897,7 @@
             const mapDoc = (name, idx) => {
                 const fInput = document.querySelector(`input[name="${name}"]`);
                 const box = overlay.querySelectorAll(".ppe_border_box .ppe_xray_box")[idx];
-                
+
                 if (fInput && fInput.files[0] && box) {
                     const f = fInput.files[0];
                     if (f.type.match('image.*')) {
@@ -3927,23 +3927,19 @@
                 if (icons[3]) icons[3].href = instaLink || "#!";
             }
 
-            // --- 9. VIDEO PREVIEW (THE FIX) ---
+            // --- 9. VIDEO PREVIEW ---
             const videoInput = document.querySelector('input[name="pro_video_url[]"]');
             const videoElement = overlay.querySelector("video");
-            const videoHeading = overlay.querySelector(".view_detail_page .heading65px:last-of-type"); // Video Heading inside modal
+            const videoHeading = overlay.querySelector(".view_detail_page .heading65px:last-of-type");
 
             if (videoInput && videoInput.files && videoInput.files[0]) {
                 const file = videoInput.files[0];
                 const fileURL = URL.createObjectURL(file);
-                
-                // Video element ko update karna
                 videoElement.src = fileURL;
                 videoElement.style.display = "block";
                 if(videoHeading) videoHeading.style.display = "block";
-                
-                videoElement.load(); // Reload video with new source
+                videoElement.load();
             } else {
-                // Agar koi video select nahi hai tw preview mein hide kardo
                 videoElement.style.display = "none";
                 if(videoHeading) videoHeading.style.display = "none";
             }
@@ -3958,7 +3954,7 @@
                 else if (trial === "My Consider") trialText = "May Consider";
 
                 const aboutPriceCheckboxes = Array.from(document.querySelectorAll('input[name="about_price[]"]:checked')).map(el => el.value);
-                
+
                 const negotiableText = aboutPriceCheckboxes.includes("Negotiable") ? "Yes" : "No";
                 const mayTradeText = aboutPriceCheckboxes.includes("May Trade") ? "Yes" : "No";
                 const paymentOptionsText = aboutPriceCheckboxes.includes("Payment Options Available") ? "Yes" : "No";
@@ -3976,12 +3972,15 @@
             document.body.style.overflow = "hidden";
         });
 
-        closeBtn.addEventListener("click", () => {
-            overlay.classList.remove("is-visible");
-            document.body.style.overflow = "";
-            // Video stop karden band hone pe
-            const videoElement = overlay.querySelector("video");
-            if(videoElement) videoElement.pause();
+        // --- Updated Close Logic: Handles Outside Click & Close Button ---
+        overlay.addEventListener("click", function(e) {
+            // Agar click seedha overlay (background) par ho ya close button par
+            if (e.target === overlay || e.target.closest(".fsm-close")) {
+                overlay.classList.remove("is-visible");
+                document.body.style.overflow = "";
+                const videoElement = overlay.querySelector("video");
+                if(videoElement) videoElement.pause();
+            }
         });
     });
 </script>

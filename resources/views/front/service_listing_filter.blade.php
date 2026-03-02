@@ -487,7 +487,7 @@
     iframe {
         height: 100%;
     }
-    
+
 
     @media only screen and (max-width: 1799px) {
         .filter_sec {
@@ -575,12 +575,12 @@
                         <div class="section-title">Service</div>
                         <div class="select-wrapper">
                             <select class="select-field form-select">
-                                <option>See All</option>                             
-                                <option>Service 1</option>                             
-                                <option>Service 2</option>                             
-                                <option>Service 3</option>                             
-                                <option>Service 4</option>                             
-                                <option>Service 5</option>                             
+                                <option>See All</option>
+                                <option>Service 1</option>
+                                <option>Service 2</option>
+                                <option>Service 3</option>
+                                <option>Service 4</option>
+                                <option>Service 5</option>
                             </select>
                         </div>
                     </div>
@@ -624,26 +624,26 @@
                     </div>
                 </div>-->
                 <div class="map_box">
-                    <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31513238.245366327!2d-124.78440774999999!3d37.09024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDA1JzI0LjkiTiA5NcKwNDcnNTIuNCJX!5e0!3m2!1sen!2sus!4v1722267333995!5m2!1sen!2sus" 
-                    width="100%" 
-                    height="95%" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
+                    <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31513238.245366327!2d-124.78440774999999!3d37.09024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDA1JzI0LjkiTiA5NcKwNDcnNTIuNCJX!5e0!3m2!1sen!2sus!4v1722267333995!5m2!1sen!2sus"
+                    width="100%"
+                    height="95%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                    <p>39 results</p> 
-                    <p>Page 1 of 2</p> 
+                    <p>39 results</p>
+                    <p>Page 1 of 2</p>
                 </div>
-                
-            </div>
-            
 
-                
-                   
-                
+            </div>
+
+
+
+
+
             </div>
         </div>
     </div>

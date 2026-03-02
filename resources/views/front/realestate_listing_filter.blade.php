@@ -1139,7 +1139,8 @@
                                                     </li>
                                                     <li class="mb-1">
                                                         <span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span>
-                                                        {{ $state['num_spaces'] }} {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
+                                                        {{ $state['num_spaces'] }} Cars{{ $state['garage_type'] ? ' | ' . explode(',', $state['garage_type'])[0] : '' }}
+                                                        {{-- {{ $state['num_spaces'] }} Cars  {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }} --}}
                                                     </li>
                                                 </ul>
                                             </div>

@@ -203,7 +203,15 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: 999;
+}
+
+.modal-dialog {
+    max-width: 750px;
+}
+
+.modal-content {
+    background-color: transparent;
 }
 
 .dark_bar h2 {
@@ -995,7 +1003,7 @@ body::-webkit-scrollbar-thumb {
     bottom: 60px;
     right: 0;
     text-align: center;
-    z-index: 11;
+    z-index: 111;
 }
 
 .countdown_user_timer h5 {
@@ -1084,7 +1092,8 @@ body::-webkit-scrollbar-thumb {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 111;
-    width: 62%;
+    width: 62% !important;
+    object-fit: contain !important;
 }
 
 #deleteModal .modal_content {
@@ -1291,7 +1300,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 .horse-form .sale-price {
-    display: none;
     margin-bottom: 25px;
     align-items: center;
 }

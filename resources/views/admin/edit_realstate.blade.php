@@ -383,22 +383,22 @@
                                                 <div class="col-3">
                                                     <div class="d-flex gap-1 flex-column">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="Detached" id="detached" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="Detached" id="detached" name="garage_type[]"
                                                                 {{ in_array('Detached', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="detached">Detached</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="Attached" id="attached" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="Attached" id="attached" name="garage_type[]"
                                                                 {{ in_array('Attached', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="attached">Attached</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="Tandem" id="tandem" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="Tandem" id="tandem" name="garage_type[]"
                                                                 {{ in_array('Tandem', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="tandem">Tandem</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="oversized" id="oversized" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="oversized" id="oversized" name="garage_type[]"
                                                                 {{ in_array('oversized', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="oversized">Oversized</label>
                                                         </div>
@@ -407,22 +407,22 @@
                                                 <div class="col-3">
                                                     <div class="d-flex gap-1 flex-column">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="Breezeway" id="breezeway" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="Breezeway" id="breezeway" name="garage_type[]"
                                                                 {{ in_array('Breezeway', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="breezeway">Breezeway</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="Garage Workshop" id="garage_ws" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="Garage Workshop" id="garage_ws" name="garage_type[]"
                                                                 {{ in_array('Garage Workshop', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="garage_ws">Garage Workshop</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="Garage Apartment" id="garage_a" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="Garage Apartment" id="garage_a" name="garage_type[]"
                                                                 {{ in_array('Garage Apartment', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="garage_a">Garage Apartment</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="Carport" id="carport" name="garage_type[]"
+                                                            <input class="form-check-input" type="radio" value="Carport" id="carport" name="garage_type[]"
                                                                 {{ in_array('Carport', $garage_type) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="carport">Carport</label>
                                                         </div>

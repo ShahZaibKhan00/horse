@@ -66,7 +66,7 @@ class ProductController extends Controller
             if ($plans[0]->remaining_token == 0) {
                 $messages = [
                     'title'  => 'Ads Finished!',
-                    'detail' => 'Your ads have been finished. Kindly recharge them.'
+                    'detail' => 'Sorry! It looks like you’ve used all your available credits. Add more credits to keep posting your ads.'
                 ];
                 Session()->flash('alert-danger', $messages);
                 return redirect()->back();
@@ -367,6 +367,7 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request->all());
         $usertype = Auth::user()->usertype;
         $username = Auth::user()->name;
         $userprofile = Auth::user()->Profile_img;

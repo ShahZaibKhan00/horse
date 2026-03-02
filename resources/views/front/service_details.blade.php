@@ -160,11 +160,11 @@
         }
 
         /* .horser_information_box_one  .horser_action_info_btn,
-                                                                                .horser_information_box_one  .horser_action_info_btn:focus,
-                                                                                .horser_information_box_one  .fvrt_btn {
-                                                                                    width: 30%;
-                                                                                    font-size: 12px;
-                                                                                } */
+                                                                                        .horser_information_box_one  .horser_action_info_btn:focus,
+                                                                                        .horser_information_box_one  .fvrt_btn {
+                                                                                            width: 30%;
+                                                                                            font-size: 12px;
+                                                                                        } */
         .horser_information_box.horser_information_box_one,
         .img_radius_ext {
             height: 340px;
@@ -1100,9 +1100,9 @@
             }
 
             /* .side_box_one {
-                                            padding: 20px 20px 20.8px 85px;
-                                            margin-bottom: 23px;
-                                        } */
+                                                    padding: 20px 20px 20.8px 85px;
+                                                    margin-bottom: 23px;
+                                                } */
             .side_box_one {
                 padding: 0px 10px 0px 70px;
             }
@@ -1379,9 +1379,9 @@
 
         @media (max-width: 1799px) {
             /* .side_box_one {
-                                            min-height: 617px;
-                                            margin-bottom: 8px;
-                                        } */
+                                                    min-height: 617px;
+                                                    margin-bottom: 8px;
+                                                } */
         }
 
         @media (max-width: 1399px) {
@@ -1486,7 +1486,9 @@
                                             <div class="experience-label">LANGUAGES SPOKEN</div>
                                             <div class="languages">
                                                 @foreach (explode(',', $data->Languages) as $item)
-                                                    {{ $item }} |
+                                                    {{ $item }}@if (!$loop->last)
+                                                        |
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>
@@ -1533,11 +1535,35 @@
                                         <h2 class="about-title">ADDITIONAL SERVICES OFFERED:</h2>
                                         <div class="about-text">
                                             <div class="row">
-                                                @php
+                                                {{-- @php
                                                     $serviceList = explode(',', $data->services_offered); // [".]
                                                     $filtered = array_filter($serviceList, function ($item) {
                                                         return strlen($item) > 10;
                                                     });
+                                                    $chunks = array_chunk($filtered, 2);
+                                                @endphp --}}
+
+                                                @php
+                                                    // Services explode
+                                                    $serviceList = explode(',', $data->services_offered ?? '');
+
+                                                    // Custom services add kar do same array me
+                                                    $customServices = [
+                                                        $data->custom_service_1 ?? null,
+                                                        $data->custom_service_2 ?? null,
+                                                        $data->custom_service_3 ?? null,
+                                                        $data->custom_service_4 ?? null,
+                                                    ];
+
+                                                    // Merge both arrays
+                                                    $allServices = array_merge($serviceList, $customServices);
+
+                                                    // Remove empty & small values
+                                                    $filtered = array_filter($allServices, function ($item) {
+                                                        return !empty($item) && strlen($item) > 2;
+                                                    });
+
+                                                    // Chunk in 2 items per column
                                                     $chunks = array_chunk($filtered, 2);
                                                 @endphp
 
@@ -1568,17 +1594,23 @@
                                         </p>
                                         <h2 class="mb-2">Service Location:</h2>
                                         <ul class="mb-4">
-                                            <li>{{ $data->service_address }} , {{ $data->state }}</li>
+                                            @php
+                                                $aboutPrices = $data->service_location ? explode(',', $data->service_location) : [];
+                                            @endphp
+                                            @foreach ($aboutPrices as $price)
+                                                <li>{{ $price }}</li>
+                                            @endforeach
+                                            {{-- <li>{{ $data->service_address }} , {{ $data->state }}</li> --}}
                                         </ul>
 
                                         <h2 class="mb-2">Service Area Coverd:</h2>
-                                        <div class="d-flex gap-5">
+                                        {{-- <div class="d-flex gap-5">
                                             <ul class="mb-4">
-                                            <li>Sussex County</li>
-                                            <li>Morris County</li>
-                                            <li>Warren County</li>
-                                            <li>Lafayette</li>
-                                            <li>Newton</li>
+                                                <li>Sussex County</li>
+                                                <li>Morris County</li>
+                                                <li>Warren County</li>
+                                                <li>Lafayette</li>
+                                                <li>Newton</li>
                                             </ul>
                                             <ul class="mb-4">
                                                 <li>Morristown</li>
@@ -1587,9 +1619,24 @@
                                                 <li>Branchville</li>
                                                 <li>Union County</li>
                                             </ul>
+                                        </div> --}}
+                                        @php
+                                            $features = is_array($data->features) ? $data->features : ($data->features ? json_decode($data->features, true) : []);
+
+                                            $features = array_values(array_filter($features)); // remove empty
+                                            $chunks = array_chunk($features, 5); // 5 per column
+                                        @endphp
+
+                                        <div class="d-flex gap-5">
+                                            @foreach ($chunks as $chunk)
+                                                <ul class="mb-4">
+                                                    @foreach ($chunk as $item)
+                                                        <li>{{ $item }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endforeach
                                         </div>
 
-                                        
                                     </div>
 
                                     <!-- Map Section -->
