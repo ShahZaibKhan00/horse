@@ -118,13 +118,13 @@ class HomeController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if($usertype == '1'){
+        // if($usertype == '1'){
             $profile = User::where('id', '=', $id)->get();
             return view('admin.profile' , compact('profile' , 'username' , 'userprofile' , 'Logo'  , 'Web_name'  , 'categories'));
-        }else{
-            $profile = User::where('id', '=', $id)->get();
-            return view('user.profile' , compact('profile' , 'username' , 'userprofile' , 'Logo'  , 'Web_name'));
-        }
+        // }else{
+        //     $profile = User::where('id', '=', $id)->get();
+        //     return view('user.profile' , compact('profile' , 'username' , 'userprofile' , 'Logo'  , 'Web_name'));
+        // }
     }
 
     public function updateProfileImage(Request $request)
@@ -159,13 +159,13 @@ class HomeController extends Controller
         $Logo = $logoquery->G_logo;
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
-        if($usertype == '1'){
+        // if($usertype == '1'){
             $profile = User::where('id', '=', $id)->get();
             return view('admin.edit_profile' , compact('profile' , 'username' , 'userprofile' , 'Logo'  , 'Web_name'  , 'categories'));
-        }else{
-            $profile = User::where('id', '=', $id)->get();
-            return view('user.edit_profile' , compact('profile' , 'username' , 'userprofile' , 'Logo'  , 'Web_name'));
-        }
+        // }else{
+        //     $profile = User::where('id', '=', $id)->get();
+        //     return view('user.edit_profile' , compact('profile' , 'username' , 'userprofile' , 'Logo'  , 'Web_name'));
+        // }
     }
 
     public function updateProfileInfo(Request $request)
@@ -177,18 +177,18 @@ class HomeController extends Controller
             'bussiness_name' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:100',
             'town' => 'nullable|string|max:100',
-            'website_link' => 'nullable|url|max:255',
-            'facebook_link' => 'nullable|url|max:255',
-            'insta_link' => 'nullable|url|max:255',
-            'tiktok_link' => 'nullable|url|max:255',
-            'youtube_link' => 'nullable|url|max:255',
-            'business_link' => 'nullable|url|max:255',
+            'website_link' => 'nullable|string|max:255',
+            'facebook_link' => 'nullable|string|max:255',
+            'insta_link' => 'nullable|string|max:255',
+            'tiktok_link' => 'nullable|string|max:255',
+            'youtube_link' => 'nullable|string|max:255',
+            'business_link' => 'nullable|string|max:255',
             'pro_rider_level' => 'nullable|string',   // comma-separated values
             'pro_breed_level' => 'nullable|string',
             'pro_service_level' => 'nullable|string',
             'about' => 'nullable|string|max:2000',
         ]);
-
+        // dd($request->all());
         $id = Auth::user()->id;
         $user = User::find($id);
         $user->name = $request->name;
@@ -203,6 +203,16 @@ class HomeController extends Controller
         $user->tiktok_link = $request->tiktok_link;
         $user->youtube_link = $request->youtube_link;
         $user->business_link = $request->business_link;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $destinationPath = public_path('/assets/images');
+            $imageName = 'profile_' . time() . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imageName);
+
+            // Update user's profile image in the database
+            $user->Profile_img = $imageName ?? '';
+
+        }
         $user->skill = $request->filled('pro_rider_level') && $request->input('pro_rider_level') !== null
     ? explode(',', $request->input('pro_rider_level'))
     : ($user->skill ?? []);

@@ -13,7 +13,7 @@ class HorseFavorite extends Model
 
     protected $fillable = [
         'user_id',
-        'horse_id',
+        'product_id',
     ];
 
     /**

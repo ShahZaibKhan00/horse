@@ -33,18 +33,21 @@
             display: flex;
         }
 
-        .filter_side_bar {
+
+
+
+        
+         .filter_side_bar {
             width: 350px;
             background-color: #1d2139;
+            padding: 20px;
         }
+        
+        
 
         .filter_content_box {
             width: calc(100% - 350px);
             padding-left: 20px;
-        }
-
-        .filter_side_bar {
-            padding: 20px;
         }
 
         .filter_side_bar .heading44px {
@@ -214,6 +217,7 @@
             align-items: center;
             gap: 4px;
             background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
+            opacity: 0;
         }
 
         .skill-tag .remove {
@@ -249,6 +253,32 @@
         .range-separator {
             font-size: 12px;
             color: #666;
+        }
+
+        /* 🌟 Enhanced Notification Styling */
+        .tag-notification {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: #bf9855;
+            background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
+            color: #1d2139;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.4s ease;
+            z-index: 99999;
+            max-width: 400px;
+        }
+
+        .tag-notification.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .age-options {
@@ -382,7 +412,6 @@
             width: 100%;
             text-transform: uppercase;
             border-radius: 0;
-            z-index: 999;
             border: none;
             color: #1d2139;
             letter-spacing: 0.5px;
@@ -452,7 +481,7 @@
         }
 
         .blue_stripe h2 {
-            font-size: 22px;
+            font-size: 28px!important;
             text-transform: uppercase;
             padding: 5px 0px;
         }
@@ -564,18 +593,26 @@
 
         .gen_card_flex {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap; /* Isse 4 ke baad agla card niche chala jayega */
             width: 100%;
-            justify-content: flex-start;
+            justify-content: flex-start; 
             max-width: 100%;
             margin: 0 auto;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 15px; /* Cards ke darmiyan gap */
         }
 
+        /*.gen_card_flex .horse_list_card {*/
+        /*    width: 24%;*/
+        /*    margin-bottom: 25px;*/
+        /*}*/
+        
         .gen_card_flex .horse_list_card {
-            width: 24%;
+            /* Formula: (100% - total gaps) / 4 */
+            /* 3 gaps hain 15px ke, isliye (15px * 3) = 45px minus hoga */
+            width: calc((100% - 45px) / 4); 
+            
             margin-bottom: 25px;
+            box-sizing: border-box; /* Padding/border ko width ke andar rakhne ke liye */
         }
 
         .horse_list_card_new .custome_listing_row {
@@ -702,7 +739,7 @@
         }
 
         .real_estate_card_new.horse_list_card_new .custome_listing_col .info_list li {
-            font-size: 16px;
+            font-size: 13px;
             margin: 5px 0px;
             padding: 4px 8px;
             overflow: hidden;
@@ -710,11 +747,22 @@
             text-overflow: ellipsis;
             border: 1px solid #1d2139;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
         .horse_list_card_new .horse_list_card_btn_flex_new .fvrt_btn {
             text-transform: uppercase;
+        }
+                .amenities_flex {
+            white-space: nowrap;
+            /*width: 100%;*/
+            text-overflow: ellipsis;
+            overflow: hidden;
+            justify-content: flex-start;
+            margin: 0;
         }
 
         @media only screen and (max-width: 1799px) {
@@ -783,16 +831,10 @@
             }
         }
 
-        @media only screen and (max-width: 1600px) {
-            .gen_card_flex .horse_list_card {
-                width: 250px;
-            }
-        }
+
 
         @media (max-width: 1400px) {
-            .gen_card_flex .horse_list_card {
-                width: 230px;
-            }
+
 
             .filter_side_bar {
                 width: 270px;
@@ -1024,12 +1066,33 @@
                             </div>
                             <div class="select-wrapper">
                                 <select class="select-field form-select amenities_select" name="amenitie[]" multiple="multiple" id="amenities">
-                                    <option>Select Amenities</option>
-                                    @forelse ($amenities as $amenitie)
-                                        <option value="{{ $amenitie->amenities }}">{{ Str::title($amenitie->amenities) }}</option>
-                                    @empty
-                                    @endforelse
-                                </select>
+    <!-- Default placeholder option should not have a value or should be handled in JS -->
+    <option value="">Select Amenities</option> 
+    
+    @forelse ($amenities as $amenitie)
+        <!-- Ensure value is present -->
+        <option value="{{ $amenitie->amenities }}">{{ Str::title($amenitie->amenities) }}</option>
+    @empty
+    @endforelse
+    
+    <!-- Hardcoded options with proper values -->
+    <option value="Stall">Stall</option>
+    <option value="Barn">Barn</option>
+    <option value="Barn flooring">Barn flooring</option>
+    <option value="Rubber Mats in stalls">Rubber Mats in stalls</option>
+    <option value="Run-In Shed">Run-In Shed</option>
+    <option value="Tack Room">Tack Room</option>
+    <option value="Wash Stall">Wash Stall</option>
+    <option value="Hay Storage">Hay Storage</option>
+    <option value="Heated barn">Heated barn</option>
+    <option value="Air Conditions Barn">Air Conditions Barn</option>
+    <option value="Dry Lots">Dry Lots</option>
+    <option value="Fenced Grass Pastures">Fenced Grass Pastures</option>
+    <option value="Fencing">Fencing</option>
+    <option value="Outdoor Riding Ring">Outdoor Riding Ring</option>
+    <option value="Indoor Riding Ring">Indoor Riding Ring</option>
+    <option value="Round Pen">Round Pen</option>
+</select>
                             </div>
                         </div>
                         <div class="action-buttons border_btm">
@@ -1040,7 +1103,7 @@
                         </div>
                         <!-- Action Buttons -->
                         <div class="action-buttons">
-                            <button class="choose-btn" type="submit">
+                            <button class="choose-btn" type="button" onclick="saveSearch(this)">
                                 <span class="btn-icon">💾</span>
                                 SAVE THIS SEARCH
                             </button>
@@ -1092,19 +1155,26 @@
 
                                         <h2>{{ $state['real_title'] }}, {{ $displayLocation }}</h2>
                                         <label class="heart_checkbox_wrapper d-block">
-                                            <input type="checkbox" class="heartCheckbox" hidden />
-                                            <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                            <input type="checkbox" class="heartCheckbox" hidden {{ $state->favorites->isNotEmpty() ? 'checked' : '' }} />
+                                            <i class="fa fa-heart{{ $state->favorites->isNotEmpty() ? '' : '-o' }} icon_heart" aria-hidden="true" style="{{ $state->favorites->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
                                         </label>
                                     </div>
                                     @php
                                         $images = !empty($state->gallery_imgs) ? json_decode($state->gallery_imgs, true) : [];
+                                        if (!empty($state->featured_image)) 
+                                                array_unshift($images, 'FEATURED::' . $state->featured_image);
+                                            
                                     @endphp
                                     <div class="img_box">
                                         <div class="swiper horse_list_card_slider h-100 w-100">
                                             <div class="swiper-wrapper">
                                                 @foreach ($images as $image)
                                                     <div class="swiper-slide">
-                                                        <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img">
+                                                        @if(str_starts_with($image, 'FEATURED::'))
+                                                            <img src="{{ asset('Featured_imgs/' . str_replace('FEATURED::', '', $image)) }}" alt="featured-img">
+                                                        @else
+                                                            <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img">
+                                                        @endif
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -1139,7 +1209,8 @@
                                                     </li>
                                                     <li class="mb-1">
                                                         <span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span>
-                                                        {{ $state['num_spaces'] }} Cars{{ $state['garage_type'] ? ' | ' . explode(',', $state['garage_type'])[0] : '' }}
+                                                        
+                                                        <p class="amenities_flex">{{ $state['num_spaces'] }} Cars {{ $state['1'] ? ' | ' . explode(',', $state['garage_type'])[0] : '' }}</p>
                                                         {{-- {{ $state['num_spaces'] }} Cars  {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }} --}}
                                                     </li>
                                                 </ul>
@@ -1149,18 +1220,20 @@
                                             <div class="blue_stripe mb-2">
                                                 <h3>Price: {{ $state['real_price'] }}</h3>
                                             </div>
+                                            <!--<div class="horse_list_card_btn_flex_new bottom_row">-->
+                                            <!--    <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn view-detail-btn w-100">View All Details</a>-->
+                                            <!--</div>-->
                                             <div class="horse_list_card_btn_flex_new bottom_row">
-                                                <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn w-100">View All Details</a>
-                                            </div>
-                                            <div class="horse_list_card_btn_flex_new bottom_row">
-                                                <a href="javascript:;" class="horse_card_btn">Seller Profile</a>
-                                                <a href="javascript:;" class="horse_card_btn">Chat with Seller</a>
+                                                <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn view-detail-btn w-100">View All Details</a>
+                                                <!--<a href="javascript:;" class="horse_card_btn">Seller Profile</a>-->
+                                                <a href="{{ route('start.conversation', ['receiver_id' => $state->User_id, 'product_id' => $state->id, 'product_type' => 'real_estate']) }}" class="horse_card_btn">Chat with Seller</a>
                                             </div>
                                             <div class="horse_list_card_btn_flex_new bottom_row">
                                                 <a href="javascript:;" class="horse_card_btn">Share</a>
-                                                <form action="{{ route('farm.favorite', Crypt::encrypt($state['id'])) }}" class="horse_card_btn" method="POST">
-                                                    <button class="fvrt_btn" type="submit" title="Add to favorite">
-                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                <form action="{{ route('farm.favorite', Crypt::encrypt($state->id)) }}" class="horse_card_btn favorite-form" method="POST">
+                                                    @csrf
+                                                    <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                        {{ $state->favorites->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $state->favorites->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $state->favorites->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
                                                     </button>
                                                 </form>
                                             </div>
@@ -1364,59 +1437,188 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        // === Initialize Select2 ===
+
+
+<script>
+    $(document).ready(function() {
+        // === 1. Initialize Select2 ===
         $('#amenities').select2({
-            placeholder: 'Select options',
+            placeholder: 'Select Amenities',
             width: '100%',
-            templateSelection: function(selectedItems) {
-                if (!selectedItems || selectedItems.length === 0) return 'Select options';
-                if (selectedItems.length === 1) return selectedItems[0].text;
-                return selectedItems.length + ' selected';
-            }
+            allowClear: false
         });
 
-        // === Function to update tag display dynamically ===
-        function updateTags(selectId, tagsContainerId) {
-            const selectedValues = $(selectId).val() || [];
-            const tagsContainer = $(tagsContainerId);
-            tagsContainer.empty(); // Clear existing tags
+        // === 2. Helper Functions ===
+        const tagsContainer = document.querySelector(".shortcuts_tags_flex");
+        const form = document.getElementById("mainForm");
+        
+        function showNotification(message) {
+            let notification = document.getElementById("tagNotification");
+            if (!notification) {
+                notification = document.createElement("div");
+                notification.id = "tagNotification";
+                notification.className = "tag-notification";
+                document.body.appendChild(notification);
+            }
+            notification.textContent = message;
+            notification.classList.add("active");
+            setTimeout(() => notification.classList.remove("active"), 4000);
+        }
 
-            selectedValues.forEach(value => {
-                const tagHtml = `
-         <div class="skill-tag" data-value="${value}">
-             ${value}
-             <button type="button" class="remove" data-value="${value}">×</button>
-         </div>`;
-                tagsContainer.append(tagHtml);
+        function createTag(label, value, key, showLabel = false) {
+            // Validation: Agar value empty hai to tag mat banao
+            if (!value || value.toString().trim() === "" || value === "-") {
+                // Agar existing tag hai to usse hata do
+                const existing = tagsContainer?.querySelector(`[data-key='${key}']`);
+                if (existing) existing.remove();
+                return;
+            }
+
+            // Check if tag already exists -> Update it
+            const existingTag = tagsContainer?.querySelector(`[data-key='${key}']`);
+            if (existingTag) {
+                existingTag.querySelector('p').innerHTML = showLabel ? `<strong>${label}:</strong> ${value}` : value;
+                // Move to top
+                tagsContainer.insertBefore(existingTag, tagsContainer.firstChild);
+                return;
+            }
+
+            // Create new tag
+            const tag = document.createElement("div");
+            tag.classList.add("shortcuts_tags_item");
+            tag.dataset.key = key;
+            tag.innerHTML = `
+                <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
+                <a href="#!" class="remove-tag"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+            `;
+            
+            if(tagsContainer) {
+                tagsContainer.insertBefore(tag, tagsContainer.firstChild);
+            }
+            
+            // Remove event
+            tag.querySelector(".remove-tag").addEventListener("click", (e) => {
+                e.preventDefault();
+                tag.remove();
+                clearFormField(key);
+                showNotification(`${label} removed`);
             });
         }
 
-        // === Amenity Select handling ===
+        function clearFormField(key) {
+            if (!form) return;
+            if (key === "location") {
+                form.querySelector('[name="location"]').value = "";
+            } else if (key.startsWith("amenity_")) {
+                const val = key.replace("amenity_", "");
+                const selected = $('#amenities').val() || [];
+                const filtered = selected.filter(v => v !== val);
+                $('#amenities').val(filtered).trigger('change');
+            } else if (key === "price") {
+                form.querySelector('[name="price_min"]').value = "";
+                form.querySelector('[name="price_max"]').value = "";
+            }
+            // Add other fields as needed
+        }
+
+        function formatRange(min, max) {
+            if (min && max) return `${min} - ${max}`;
+            if (min) return `${min}+`;
+            if (max) return `Up to ${max}`;
+            return "";
+        }
+
+        function getQueryParam(name, isMulti = false) {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (isMulti) {
+                return urlParams.getAll(name);
+            }
+            return urlParams.get(name) || null;
+        }
+
+        // === 3. Restore Tags from URL on Page Load ===
+        function restoreTagsFromURL() {
+            // Location
+            const locationVal = getQueryParam('location');
+            if (locationVal) {
+                // Try to find readable text if it's a select box, else use value
+                let displayLoc = locationVal;
+                const locSelect = form?.querySelector('[name="location"]');
+                if(locSelect) {
+                    for(let i=0; i<locSelect.options.length; i++) {
+                        if(locSelect.options[i].value === locationVal) {
+                            displayLoc = locSelect.options[i].text;
+                            break;
+                        }
+                    }
+                }
+                createTag("Location", displayLoc, "location", true);
+            }
+
+            // Price Range
+            const pMin = getQueryParam('price_min');
+            const pMax = getQueryParam('price_max');
+            const priceVal = formatRange(pMin, pMax);
+            if (priceVal) createTag("Price Range ($)", priceVal, "price", true);
+
+            // Amenities (Multiple)
+            const amenityVals = getQueryParam('amenitie[]', true) || getQueryParam('amenitie', true); // Handle both array formats
+            if (amenityVals && amenityVals.length > 0) {
+                amenityVals.forEach(val => {
+                    if(val) createTag(val, val, `amenity_${val}`, false);
+                });
+            }
+            
+            // You can add other fields (Bedrooms, Bathrooms etc) here similarly
+        }
+
+        // === 4. Event Listeners for Live Updates ===
+
+        // Amenities Change Event
         $('#amenities').on('change', function() {
-            updateTags('#amenities', '#amenities-tags');
+            const selected = $(this).val() || [];
+            // Clear existing amenity tags first to avoid duplicates if you want strict sync
+            // Or just append new ones. Here we re-render all for consistency:
+            
+            // Optional: Clear only amenity tags before re-adding
+            // document.querySelectorAll('.shortcuts_tags_item[data-key^="amenity_"]').forEach(e => e.remove());
+
+            selected.forEach(val => {
+                createTag(val, val, `amenity_${val}`, false);
+            });
         });
 
-        // === Handle tag removal (for both) ===
-        $(document).on('click', '.skill-tag .remove', function() {
-            const valueToRemove = $(this).data('value');
-            const parentContainer = $(this).closest('.skills-tags, .amenities-tags');
+        // Location Change Event
+        const locInput = form?.querySelector('[name="location"]');
+        if (locInput) {
+            locInput.addEventListener('change', function() {
+                const val = this.value;
+                const text = this.options[this.selectedIndex]?.text || val;
+                createTag("Location", text, "location", true);
+            });
+        }
 
-            if (parentContainer.attr('id') === 'skills-tags') {
-                let selected = $('#riderSelect').val() || [];
-                selected = selected.filter(v => v !== valueToRemove);
-                $('#riderSelect').val(selected).trigger('change');
-            } else if (parentContainer.attr('id') === 'amenities-tags') {
-                let selected = $('#amenities').val() || [];
-                selected = selected.filter(v => v !== valueToRemove);
-                $('#amenities').val(selected).trigger('change');
+        // Price Input Events
+        ['price_min', 'price_max'].forEach(name => {
+            const inp = form?.querySelector(`[name="${name}"]`);
+            if(inp) {
+                inp.addEventListener('blur', function() {
+                    const min = form.querySelector('[name="price_min"]').value;
+                    const max = form.querySelector('[name="price_max"]').value;
+                    createTag("Price Range ($)", formatRange(min, max), "price", true);
+                });
             }
         });
 
-        // === On page load: show preselected tags (after search) ===
-        updateTags('#riderSelect', '#skills-tags');
-        updateTags('#amenities', '#amenities-tags');
-    </script>
+        // Initialize on Load
+        restoreTagsFromURL();
+        
+        // Also trigger initial render for Select2 if values are pre-selected in HTML
+        if($('#amenities').val() && $('#amenities').val().length > 0) {
+             $('#amenities').trigger('change');
+        }
+    });
+</script>
     {{-- <script>
    const tagsContainer = document.querySelector(".shortcuts_tags_flex");
    const form = document.getElementById("mainForm");
@@ -1646,27 +1848,46 @@
     <script>
         const tagsContainer = document.querySelector(".shortcuts_tags_flex");
         const form = document.getElementById("mainForm");
-        const notification = document.getElementById("tagNotification");
-
         function showNotification(message) {
-            if (!notification) return;
+            let notification = document.getElementById("tagNotification");
+            
+            if (!notification) {
+                notification = document.createElement("div");
+                notification.id = "tagNotification";
+                notification.className = "tag-notification";
+                document.body.appendChild(notification);
+            }
+
             notification.textContent = message;
             notification.classList.add("active");
             setTimeout(() => notification.classList.remove("active"), 4000);
         }
 
         function createTag(label, value, key, showLabel = false) {
-            if (!value || value.toString().trim() === "" || value === "-") return;
+            const existingTag = [...tagsContainer.children].find(tag => tag.dataset.key === key);
+            
+            // If value is empty, remove existing tag and return
+            if (!value || value.toString().trim() === "" || value === "-") {
+                if (existingTag) {
+                    existingTag.remove();
+                    showNotification(`${label} removed`);
+                }
+                return;
+            }
 
-            if ([...tagsContainer.children].some(tag => tag.dataset.key === key)) return;
+            if (existingTag) {
+                existingTag.querySelector('p').innerHTML = showLabel ? `<strong>${label}:</strong> ${value}` : value;
+                showNotification(`Updated: ${showLabel ? `${label}: ${value}` : value}`);
+                return;
+            }
 
             const tag = document.createElement("div");
             tag.classList.add("shortcuts_tags_item");
             tag.dataset.key = key;
             tag.innerHTML = `
-   <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
-   <a href="#!" class="remove-tag"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-   `;
+                <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
+                <a href="#!" class="remove-tag"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+            `;
             tagsContainer.insertBefore(tag, tagsContainer.firstChild);
             showNotification(`Added: ${showLabel ? `${label}: ${value}` : value}`);
 
@@ -1834,56 +2055,78 @@
         // 🟢 Live handlers (for new selections)
 
         // Location
-        const locInput = form?.querySelector('input[name="location"]');
-        locInput?.addEventListener("blur", () => {
-            if (locInput.value.trim()) createTag("Location", locInput.value, "location", true);
-        });
+        const locInput = form?.querySelector('[name="location"]');
+        if (locInput) {
+            ['blur', 'change'].forEach(evt => {
+                locInput.addEventListener(evt, () => {
+                    const value = locInput.value.trim();
+                    if (value) {
+                        // For select elements, try to get the visible text
+                        const displayValue = locInput.tagName === "SELECT" && locInput.selectedIndex > 0 
+                            ? locInput.options[locInput.selectedIndex].text 
+                            : value;
+                        createTag("Location", displayValue, "location", true);
+                    } else {
+                        createTag("Location", "", "location", true);
+                    }
+                });
+            });
+        }
 
         // Ranges
         const rangeConfigs = [{
                 selector: 'input[name="distance_min"], input[name="distance_max"]',
-                key: 'distance'
+                key: 'distance',
+                prefix: 'distance'
             },
             {
                 selector: 'input[name="price_min"], input[name="price_max"]',
-                key: 'price'
+                key: 'price',
+                prefix: 'price'
             },
             {
                 selector: 'input[name="acre_min"], input[name="acre_max"]',
-                key: 'acreage'
+                key: 'acreage',
+                prefix: 'acre'
             },
             {
                 selector: 'input[name="bedrooms_min"], input[name="bedrooms_max"]',
-                key: 'bedrooms'
+                key: 'bedrooms',
+                prefix: 'bedrooms'
             },
             {
                 selector: 'input[name="bathrooms_min"], input[name="bathrooms_max"]',
-                key: 'bathrooms'
+                key: 'bathrooms',
+                prefix: 'bathrooms'
             },
             {
                 selector: 'input[name="stall_min"], input[name="stall_max"]',
-                key: 'stalls'
+                key: 'stalls',
+                prefix: 'stall'
             },
         ];
 
         rangeConfigs.forEach(({
             selector,
-            key
+            key,
+            prefix
         }) => {
             const inputs = form?.querySelectorAll(selector) || [];
             inputs.forEach(input => {
-                input.addEventListener("blur", () => {
-                    const minInput = form.querySelector(`input[name="${key}_min"]`);
-                    const maxInput = form.querySelector(`input[name="${key}_max"]`);
-                    const val = formatRange(minInput?.value, maxInput?.value);
-                    if (val) createTag(
-                        key === 'distance' ? 'Distance Range' :
-                        key === 'price' ? 'Price Range ($)' :
-                        key === 'acreage' ? 'Acreage' :
-                        key === 'bedrooms' ? 'Bedrooms' :
-                        key === 'bathrooms' ? 'Bathrooms' : '# of Stalls',
-                        val, key, true
-                    );
+                ['blur', 'change'].forEach(evt => {
+                    input.addEventListener(evt, () => {
+                        const minInput = form.querySelector(`input[name="${prefix}_min"]`);
+                        const maxInput = form.querySelector(`input[name="${prefix}_max"]`);
+                        const val = formatRange(minInput?.value, maxInput?.value);
+                        
+                        const label = key === 'distance' ? 'Distance Range' :
+                            key === 'price' ? 'Price Range ($)' :
+                            key === 'acreage' ? 'Acreage' :
+                            key === 'bedrooms' ? 'Bedrooms' :
+                            key === 'bathrooms' ? 'Bathrooms' : '# of Stalls';
+                            
+                        createTag(label, val, key, true);
+                    });
                 });
             });
         });
@@ -1959,6 +2202,51 @@
         }
     </script>
 
+    <script>
+        function saveSearch(btn) {
+            const form = document.getElementById("mainForm");
+            if (!form) {
+                console.error("Search form not found!");
+                return;
+            }
+
+            const formData = new FormData(form);
+            formData.append('type', 'realestate'); // Ensure type is included
+
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> SAVING...';
+
+            fetch("{{ route('save.search') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (typeof showNotification === 'function') {
+                        showNotification(data.message || 'Search saved successfully!');
+                    } else {
+                        alert(data.message || 'Search saved successfully!');
+                    }
+                } else {
+                    alert(data.message || "Something went wrong.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            });
+        }
+    </script>
     <script>
         document.querySelectorAll('.thousand-separator').forEach(input => {
             input.addEventListener('input', function(e) {

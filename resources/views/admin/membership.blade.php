@@ -6,7 +6,7 @@
             <h2>Horse Listings</h2>
             <a href="javascript:;" class="points_btn" data-bs-toggle="modal" data-bs-target="#pointsModal">
                 <img src="assets/images/points_icon.png" alt="" class="img-fluid mb-2">
-                Show Points
+                E-Wallet
             </a>
         </div>
         <x-credit-modal />

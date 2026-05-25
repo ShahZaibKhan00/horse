@@ -1414,9 +1414,9 @@
                     <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
                 </div>
 
-                <h1>{{ $data->business_name ?? '' }}</h1>
+                <h1>{{ "business name" }}</h1>
 
-                <a href="#!" class="seller_chat_btn">CHAT WITH SERVICE PROVIDER</a>
+                <a href="{{ route('start.conversation', ['receiver_id' => $data->user_id, 'product_id' => $data->id, 'product_type' => 'service']) }}" class="seller_chat_btn">CHAT WITH SERVICE PROVIDER</a>
             </div>
 
             <div class="seller_content_wrapper">

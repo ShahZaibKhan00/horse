@@ -546,6 +546,13 @@ section.video .pay_btn {left: 0;right: 0;margin: auto;top: 50%;transform: transl
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: unset;
+    text-transform: uppercase;
+    height: 50px;
+    overflow: hidden;
+    white-space: wrap;
+    text-decoration: underline;
 }
 .equestrian_service_sec .product_clm p {
     font-size: 20px;
@@ -1201,14 +1208,21 @@ h2.cta_sec_heading {
     background-color: #1d2139 ;
     box-shadow: none;
 }
-.accordion-button:not(.collapsed)::after {
-    display : none;
-}
-.accordion-button:not(.collapsed)::after {
-    display : none;
-}
 .accordion-button::after {
-    display : none;
+    content: "";
+    background-image: url(../../assets/images/selectArrow.png)!important;
+    width: 22px;
+    height: 22px;
+    background-position: center;
+    filter: brightness(0) invert(0);
+    background: 5px;
+    background-repeat: no-repeat;
+}
+.accordion-button:not(.collapsed)::after {
+    content: "";
+    background-image:  url(../../assets/images/selectArrow.png)!important;
+    transform: rotate(-180deg);
+    filter: brightness(0) invert(1);
 }
 .accordion-button:focus {
     border-color: unset;
@@ -1880,6 +1894,13 @@ select.minimal {
     color: #fff!important;
     background: #1d2139;
 }
+form.horse_card_btn.favorite-form {
+    background: transparent;
+    margin: 0;
+}
+section.best_selling form.horse_card_btn.favorite-form {
+    background: transparent;
+}
 .horse_list_card .horse_card_btn {
     width: 105px;
     height: 45px;
@@ -2111,3 +2132,7 @@ select.minimal {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
+.dropdown-item {
+    white-space: wrap;
+    cursor: pointer;
+}

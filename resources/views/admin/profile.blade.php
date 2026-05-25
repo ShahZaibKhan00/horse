@@ -1,4 +1,9 @@
-@extends('layouts.admin_app') @section('content')
+@php
+$layout = Auth::user()->usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+@endphp
+@extends($layout)
+
+ @section('content')
 <style>
     .avatar-upload {
         position: relative;
@@ -70,6 +75,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: #212529;
+    }
+    .edit_gen_btn:hover{
+         color: #212529;
     }
     .card-body a.btn:hover {
         color: #fff !important;
@@ -85,6 +94,12 @@
         justify-content: center;
         gap: 20px;
         height: 55px;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #000;
+    }
+    .box_frame a {
+        color: #b09341;
     }
     .form-check.check_one {
         width: 240px;
@@ -238,7 +253,7 @@
               height: 150px;
             }
 </style>
-<div class="content">
+<div class="content user_main_content profile_content">
     @foreach ($profile as $profile)
     <div class="row align-items-center mb-4">
         <div class="col-lg-4 col-md-4 col-sm-12 col-12">
@@ -300,9 +315,9 @@
                                     <div class="box_frame">
                                         <h5 class="text-800 m-0">Full Name:</h5>
                                         <p class="text-800 m-0">{{$profile->name}}</p>
-                                        @if($profile->usertype == 1) @endif @if($profile->usertype == 0)
+                                        {{-- @if($profile->usertype == 1) @endif @if($profile->usertype == 0)
                                         <p class="text-800 m-0">User</p>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </div>
 
@@ -421,11 +436,11 @@
                                 <input type="hidden" name="pro_skill" id="selectedActivitiesInput" value="{{ is_array($profile->skill) ? implode(',', $profile->skill) : '' }}" />
                                 <div class="dropdown-header" id="dropdownHeader1">
                                     <div class="tags" id="tagsContainer1"></div>
-                                     @if (!empty($profile->skill))
-                                     @foreach ($profile->skill as $item)
-                                        <div class="tag">{{ $item }}</div>
-                                    @endforeach
-                                     @endif
+                                    @if (!empty($profile->skill))
+                                        @foreach ($profile->skill as $item)
+                                            <div class="tag">{{ $item }}</div>
+                                        @endforeach
+                                    @endif
                                     <!-- <input type="text" id="ssearchInput1" placeholder="Start typing" disabled oninput="handleInput(1)" onkeydown="handleKeyDown(event, 1)" />
                                     <span class="dropdown-arrow" onclick="toggleDropdown(1)">▼</span> -->
                                 </div>

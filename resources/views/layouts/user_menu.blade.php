@@ -27,11 +27,11 @@
             <li>
                 <a href="javascript:;">FAVORITES</a>
             </li>
-            <li>
-                <a href="javascript:;">SAVED SEARCHES</a>
+            <li class="{{ request()->routeIs('saved-searches.index') ? 'active' : '' }}">
+                <a href="{{ route('saved-searches.index') }}">SAVED SEARCHES</a>
             </li>
             <li>
-                <a href="javascript:;">CHATS</a>
+                <a href="{{ url('chat') }}">CHATS</a>
             </li>
             <li class="{{ request()->routeIs('package') ? 'active' : '' }}">
                 <a href="{{ route('package') }}">MY WALLET / BILLING</a>
@@ -44,7 +44,7 @@
                 <a href="{{ url('list-management') }}">Packages</a>
             </li>
             <li>
-                <a href="javascript:;">ACCOUNT DETAILS</a>
+                <a href="{{ url('profile') }}">ACCOUNT DETAILS</a>
                 {{-- <a href="account-detail.php">ACCOUNT DETAILS</a> --}}
             </li>
         </ul>

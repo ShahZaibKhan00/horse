@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CashPaymentConfirmation;
 use App\Models\HorseFavorite;
 use App\Models\RealStateFavorite;
+use App\Models\ServiceFavorite;
 use Illuminate\Support\Facades\Crypt;
 
 class FrontController extends Controller
@@ -41,10 +42,14 @@ class FrontController extends Controller
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
         $cate_data = Category::orderBy('id', 'desc')->take(2)->get();
-        $pro_data = Product::where('pro_status', 'Published')
+        $pro_data = Product::with(['horsrFavs' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->where('pro_status', 'Published')
             ->where('status', 1)
             ->orderBy('id', 'desc')->take(8)->get();
-        $pro_data_sale = Product::where('pro_ad_type', 'For Sale')
+        $pro_data_sale = Product::with(['horsrFavs' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->where('pro_ad_type', 'For Sale')
             ->where('pro_status', 'Published')
             ->where('status', 1)
             ->orderBy('id', 'desc')
@@ -52,16 +57,22 @@ class FrontController extends Controller
             ->get();
 
         // Clone 2: Where pro_ad_type = 'Auction'
-        $pro_data_auction = Product::where('pro_ad_type', 'At Auction')
+        $pro_data_auction = Product::with(['horsrFavs' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->where('pro_ad_type', 'At Auction')
             ->where('pro_status', 'Published')
             ->where('status', 1)
             ->orderBy('id', 'desc')
             ->take(4)
             ->get();
-        $services = Service::orderBy('id', 'desc')
+        $services = Service::with(['serviceFavs' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->orderBy('id', 'desc')
             ->where('status', 1)
             ->take(8)->get();
-        $states = Realstate::orderBy('id', 'desc')
+        $states = Realstate::with(['favorites' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->orderBy('id', 'desc')
             ->where('re_status', 'Published')
             ->where('status', 1)
             ->take(8)->get();
@@ -101,17 +112,125 @@ class FrontController extends Controller
         return view('front.cate_products' , compact('Logo' , 'Number' , 'Email' , 'Address' , 'data' , 'cate'));
     }
 
+    // public function products_detail($id)
+    // {
+    //     $logoquery = General::where('id', 1)->first();
+    //     $Logo = $logoquery->G_logo;
+    //     $Number = $logoquery->G_number;
+    //     $Email = $logoquery->G_email;
+    //     $Address = $logoquery->G_address;
+    //     $data = Product::where('pro_sku', '=' , $id)->first();
+        
+    //     if (!$data) {
+    //         return response()->json(['error' => 'Product not found'], 404);
+    //     }
+
+    //     $products = Product::where('user_id', $data->user_id)
+    //         ->where('id', '!=', $data->id) // current product exclude
+    //         ->inRandomOrder()
+    //         ->limit(4)
+    //         ->get();
+    //     $soldProducts = Product::where('user_id', $data->user_id)
+    //         ->where('id', '!=', $data->id) // current product exclude
+    //         ->where('horse_status', '=', 'Sold')
+    //         ->inRandomOrder()
+    //         ->limit(2)
+    //         ->get();
+    //     $service = Service::orderBy('id', 'desc')->where('User_id', $data->user_id)->take(3);
+
+    //     if (request()->has('is_modal')) {
+    //         $isModal = true;
+    //         return view('front.view_detail_page' , compact('Logo' , 'products', 'soldProducts', 'Number' , 'Email' , 'Address', 'data', 'isModal'));
+    //     }
+
+    //     $isModal = false;
+    //     return view('front.view_detail_page' , compact('Logo' , 'products', 'soldProducts', 'Number' , 'Email' , 'Address', 'data', 'isModal'));
+    // }
+    
     public function products_detail($id)
-    {
-        $logoquery = General::where('id', 1)->first();
+{
+    // 1. General Settings Fetch
+    $logoquery = General::where('id', 1)->first();
+    
+    // Null check for safety (agar general settings na mile to error na aaye)
+    if (!$logoquery) {
+        // Handle error or set defaults
+        $Logo = ''; $Number = ''; $Email = ''; $Address = '';
+    } else {
         $Logo = $logoquery->G_logo;
         $Number = $logoquery->G_number;
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
-        $data = Product::where('pro_sku', '=' , $id)->first();
-        $service = Service::orderBy('id', 'desc')->where('User_id', $data->user_id)->take(3);
-        return view('front.view_detail_page' , compact('Logo' , 'Number' , 'Email' , 'Address', 'data'));
     }
+
+    // 2. Product Fetch
+    $data = Product::where('pro_sku', '=', $id)->first();
+    
+    if (!$data) {
+        return response()->json(['error' => 'Product not found'], 404);
+    }
+
+    // 3. User Data Fetch (New Addition)
+    // Hum User model ko directly query kar rahe hain user_id ke basis par
+    $user = User::find($data->user_id);
+    
+    // Agar user mil jaye to profile img le lo, warna null/default rakho
+    $profileImg = $user ? $user->Profile_img : null; 
+
+    // 4. Related Products
+    $products = Product::where('user_id', $data->user_id)
+        ->where('id', '!=', $data->id) 
+        ->inRandomOrder()
+        ->limit(4)
+        ->get();
+
+    // 5. Sold Products
+    $soldProducts = Product::where('user_id', $data->user_id)
+        ->where('id', '!=', $data->id) 
+        ->where('horse_status', '=', 'Sold')
+        ->inRandomOrder()
+        ->limit(2)
+        ->get();
+
+    // 6. Services
+    // Note: Yahan aapne get() ya first() use nahi kiya tha, sirf query builder object tha.
+    // Behtar hai ke hum ->get() lagayen taake view mein loop chal sake.
+    $service = Service::orderBy('id', 'desc')
+        ->where('User_id', $data->user_id)
+        ->take(3)
+        ->get(); 
+
+    // 7. View Return
+    if (request()->has('is_modal')) {
+        $isModal = true;
+        return view('front.view_detail_page', compact(
+            'Logo', 
+            'products', 
+            'soldProducts', 
+            'Number', 
+            'Email', 
+            'Address', 
+            'data', 
+            'isModal',
+            'profileImg', // New variable added here
+            'service'     // Service variable bhi add kiya hai taake view mein use ho sake
+        ));
+    }
+
+    $isModal = false;
+    return view('front.view_detail_page', compact(
+        'Logo', 
+        'products', 
+        'soldProducts', 
+        'Number', 
+        'Email', 
+        'Address', 
+        'data', 
+        'isModal',
+        'profileImg', // New variable added here
+        'service'     // Service variable bhi add kiya hai
+    ));
+}
 
     public function seller_profile_one($id)
     {
@@ -120,12 +239,42 @@ class FrontController extends Controller
         $Number = $logoquery->G_number;
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
-        // $data = Product::where('pro_sku' , $id)->get();
-        $proquery = Product::where('pro_sku', '=' , $id)->first();
-        // $data = Product::where('id' , $proquery->id)->get();
-        $data = Product::where('id' , $id)->get();
+        $product_id = Product::find($id);
+        $user = DB::table('users')->where('id', $product_id->user_id)->first();
+
+        $products = Product::with(['horsrFavs' => function ($q) {
+                $q->where('user_id', auth()->id());
+            }])->where('user_id', $user->id)
+            ->where('pro_ad_type', 'For Sale')
+            ->orderByDesc('id')
+            ->take(3)->get();
+            // dd($products);
+        // DB::table('products')
+        //     ->where('user_id', $user->id)
+        //     ->orderByDesc('id')
+        //     ->take(3)->get();
+        // dd($products);
+        $product_solds = Product::with(['horsrFavs' => function ($q) {
+                $q->where('user_id', auth()->id());
+            }])->where('user_id', $user->id)
+            ->where('horse_status', 'Sold')
+            ->orderByDesc('id')
+            ->take(3)->get();
+        
+        // DB::table('products')
+        //     ->where('user_id', $user->id)
+        //     ->where('horse_status', 'Sold')
+        //     ->orderByDesc('id')
+        //     ->take(3)->get();
+
+        // Services (assuming column: user_id)
+        $services = DB::table('services')
+            ->where('User_id', $user->id)
+            ->orderByDesc('id')
+            ->get();
+
         // $color_addon = Addon::where('pro_sku' , $proquery->pro_sku)->get();
-        return view('front.seller_profile_page' , compact('Logo' , 'Number' , 'Email' , 'Address' , 'data'));
+        return view('front.seller_profile_page' , compact('Logo' , 'Number' , 'Email' , 'Address', 'user', 'products', 'services', 'product_solds'));
     }
 
 
@@ -136,12 +285,13 @@ class FrontController extends Controller
         $Number = $logoquery->G_number;
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
+        
         // $data = Product::where('pro_sku' , $id)->get();
-        $proquery = Product::where('pro_sku', '=' , $id)->first();
+        // $proquery = Product::where('pro_sku', '=' , $id)->first();
         // $data = Product::where('id' , $proquery->id)->get();
-        $data = Product::where('id' , $id)->get();
+        // $data = Product::where('id' , $id)->get();
         // $color_addon = Addon::where('pro_sku' , $proquery->pro_sku)->get();
-        return view('front.seller_profile_main' , compact('Logo' , 'Number' , 'Email' , 'Address' , 'data'));
+        return view('front.seller_profile_main' , compact('Logo' , 'Number' , 'Email' , 'Address'));
     }
 
     public function cart()
@@ -335,7 +485,9 @@ class FrontController extends Controller
             }
         }
 
-        $services = $services->orderBy('id', 'desc')->get();
+        $services = $services->with(['serviceFavs' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->orderBy('id', 'desc')->get();
         return view('front.services' , compact('Logo' ,'services', 'Number' , 'Email' , 'Address'));
     }
 
@@ -360,6 +512,7 @@ class FrontController extends Controller
         $breed = request('breed');
         $state = request('state');
         $name = request('name');
+        $location = request('location');
 
         $skill = $request->query('skill', null);
         $rider = request('rider');
@@ -427,8 +580,8 @@ class FrontController extends Controller
                 $query->whereRaw('1 = 0');
             }
         }
-        if ($from !== null && $to !== null) {
-            $query->whereBetween('pro_reg_price', [$from,$to]);
+        if (!empty($from) && !empty($to)) {
+            $query->whereBetween('pro_reg_price', [$from, $to]);
         }
 
         if (!empty($breed)) {
@@ -436,19 +589,29 @@ class FrontController extends Controller
         }
 
         if (!empty($skill)) {
-            $query->whereRaw("FIND_IN_SET(?, pro_rider_level)", [$skill]);
+            $skills = (array) $skill;
+            $query->where(function ($q) use ($skills) {
+                foreach ($skills as $s) {
+                    $q->orWhereRaw("FIND_IN_SET(?, pro_rider_level)", [$s]);
+                }
+            });
         }
 
         if (!empty($rider)) {
-            $query->whereRaw("FIND_IN_SET(?, pro_skill)", [$rider]);
+            $riders = (array) $rider;
+            $query->where(function ($q) use ($riders) {
+                foreach ($riders as $r) {
+                    $q->orWhereRaw("FIND_IN_SET(?, pro_skill)", [$r]);
+                }
+            });
         }
 
         if (!empty($selectedColor)) {
-            $query->where('pro_color', $selectedColor);
+            $query->whereIn('pro_color', (array)$selectedColor);
         }
 
         if (!empty($selectedGender)) {
-            $query->where('pro_gender', $selectedGender);
+            $query->whereIn('pro_gender', (array)$selectedGender);
         }
 
         if (!empty($age_min) && !empty($age_max)) {
@@ -462,7 +625,7 @@ class FrontController extends Controller
         if (!empty($height_min) && !empty($height_max)) {
             $query->whereBetween('pro_height', [(float)$height_min, (float)$height_max]);
         }
-   // dd($sort);
+        // dd($sort);
         switch ($sort) {
             case 'price_desc':
                 $query->orderBy('pro_reg_price', 'DESC');
@@ -480,7 +643,10 @@ class FrontController extends Controller
                 $query->orderBy('id', 'DESC');
         }
 
-        $products = $query->get();
+        $products = $query->with(['horsrFavs' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->get();
+        // dd($products);
         // $products = $query->orderBy('id', 'DESC')->get();
 
         return view('front.horse_listing_filter' , compact('selectedColor', 'age_min', 'age_max', 'height_min', 'sort', 'height_max',
@@ -605,8 +771,11 @@ class FrontController extends Controller
         }
 
         $products = $query->get();
-        $states = $query->orderBy('id', 'DESC')->get();
-
+        $states = $query->with(['favorites' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->orderBy('id', 'DESC')->get();
+        // $states = $query->with('favorites')->orderBy('id', 'DESC')->get();
+                // dd($states);
         return view('front.realestate_listing_filter', compact('Logo', 'states', 'amenities', 'Number', 'Email', 'Address', 'sort'));
     }
 
@@ -617,17 +786,29 @@ class FrontController extends Controller
         $Number = $logoquery->G_number;
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
-        $data = Service::join('users', 'services.User_id', '=', 'users.id')
+        $data = Service::with(['serviceFavs' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->join('users', 'services.User_id', '=', 'users.id')
             ->select(
                 'services.*',
-                'services.Address as service_address',
                 'users.*',
+                'services.id as id', // Explicitly select service id LAST to avoid overwrite
+                'services.Address as service_address',
+                'services.email as service_semail',
+                'services.state as service_state',
+                'services.city as service_city',
                 'users.Address as user_address'
             )
             ->where('services.id', Crypt::decrypt($id))
             ->firstOrFail();
 
-        return view('front.service_details', compact('Logo', 'data', 'Number', 'Email', 'Address'));
+        if (request()->has('is_modal')) {
+            $isModal = true;
+            return view('front.service_details', compact('Logo', 'data', 'Number', 'Email', 'Address', 'isModal'));
+        }
+
+        $isModal = false;
+        return view('front.service_details', compact('Logo', 'data', 'Number', 'Email', 'Address', 'isModal'));
     }
 
     public function farm_listing()
@@ -667,9 +848,17 @@ class FrontController extends Controller
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
         $plans = DB::table('plans')
-            ->orderBy('created_at', 'desc')
+            ->orderByRaw('CAST(price AS DECIMAL(10,2)) ASC')
+
+            // ->orderBy('price', 'asc')
             ->get();
-        return view('front.membership' , compact('Logo', 'plans', 'Number' , 'Email' , 'Address'));
+
+            $avg  = DB::table('subscriptions')
+                ->select('package_price', DB::raw('SUM(package_usage) as total_usage'))
+                ->groupBy('package_price')
+                ->orderByDesc('total_usage')
+                ->value('package_price');
+        return view('front.membership' , compact('Logo', 'plans', 'Number' , 'Email' , 'Address', 'avg'));
     }
 
     // public function realestate()
@@ -691,56 +880,194 @@ class FrontController extends Controller
         return view('front.faqs' , compact('Logo' , 'Number' , 'Email' , 'Address'));
     }
 
-    function farmFavorite($id) {
+    public function farmFavorite($id)
+    {
         if (!Auth::check()) {
+            if (request()->ajax() || request()->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please log in to add this item to your favorites.'
+                ], 401);
+            }
             return redirect()->route('login')->with('error', 'Please log in to add this item to your favorites.');
         }
 
         try {
             $realstateId = Crypt::decrypt($id);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
-            return back()->with('error', 'Invalid ID.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid ID.'
+            ], 400);
         }
 
+        // Property record fetch karo taake owner check ho sake
+        $property = Realstate::find($realstateId);   // ← yahan apna actual model name daalo (RealState / Property / Farm / jo bhi hai)
+
+        if (!$property) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Property not found.'
+            ], 404);
+        }
+
+        // Agar yeh property current user ki hi hai → favorite allow nahi karo
+        if ($property->User_id == Auth::id()) {   // ← column ka naam user_id ya owner_id jo bhi hai
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot favorite your own property.',
+                'own_property' => true
+            ], 200);
+        }
+
+        // Pehle se favorite check
         $alreadyFavorite = RealStateFavorite::where('user_id', Auth::id())
             ->where('realstate_id', $realstateId)
             ->exists();
 
         if ($alreadyFavorite) {
-            return back()->with('error', 'This property is already in your favorites.');
+            RealStateFavorite::where('user_id', Auth::id())
+                ->where('realstate_id', $realstateId)
+                ->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Removed from your favorites.',
+                'status' => 'removed'
+            ], 200);
         }
 
-        $realnew = new RealStateFavorite();
-        $realnew->user_id = Auth::id();
-        $realnew->realstate_id = $realstateId;
-        $realnew->save();
+        // Favorite add karo
+        $favorite = new RealStateFavorite();
+        $favorite->user_id     = Auth::id();
+        $favorite->realstate_id = $realstateId;
+        $favorite->save();
 
-        return back()->with('success', 'Added to your favorites.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Added to your favorites.',
+            'status' => 'added'
+        ], 201);
     }
 
-    function horseFavorite($id) {
-        if (!Auth::check())
+    public function horseFavorite($id)
+    {
+        if (!Auth::check()) {
+            if (request()->ajax() || request()->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please log in to add this item to your favorites.'
+                ], 401);
+            }
             return redirect()->route('login')->with('error', 'Please log in to add this item to your favorites.');
+        }
 
         try {
             $realstateId = Crypt::decrypt($id);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
-            return back()->with('error', 'Invalid ID.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid ID.'
+            ], 400);
         }
 
+        // Important: Horse ka record fetch karo taake owner check ho sake
+        $horse = Product::find($realstateId);   // ← yahan apna model name daalo (Horse ya Product ya jo bhi hai)
+
+        if (!$horse) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Horse not found.'
+            ], 404);
+        }
+
+        // Agar yeh horse current user ka hi hai → favorite nahi allow karo
+        if ($horse->user_id == Auth::id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot favorite your own horse.',
+                'own_horse' => true
+            ], 200);   // ya 403 Forbidden bhi use kar sakte ho
+        }
+
+        // Ab pehle se favorite check
         $alreadyFavorite = HorseFavorite::where('user_id', Auth::id())
             ->where('product_id', $realstateId)
             ->exists();
-        if ($alreadyFavorite)
-            return back()->with('error', 'This Horse is already in your favorites.');
 
-        $realnew = new HorseFavorite();
-        $realnew->user_id = Auth::id();
-        $realnew->product_id = $realstateId;
-        $realnew->save();
+        if ($alreadyFavorite) {
+            HorseFavorite::where('user_id', Auth::id())
+                ->where('product_id', $realstateId)
+                ->delete();
 
-        return back()->with('success', 'Added to your favorites.');
+            return response()->json([
+                'success' => true,
+                'message' => 'Removed from your favorites.',
+                'status' => 'removed'
+            ], 200);
+        }
+
+        // Favorite add
+        $favorite = new HorseFavorite();
+        $favorite->user_id    = Auth::id();
+        $favorite->product_id = $realstateId;
+        $favorite->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Added to your favorites.',
+            'status' => 'added'
+        ], 201);
     }
+
+//     public function horseFavorite($id)
+//     {
+//         // Agar user login nahi hai
+//         if (!Auth::check()) {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'Please log in to add this item to your favorites.',
+//                 'login_required' => true
+//             ], 401);   // 401 = Unauthorized
+//         }
+
+//         // ID decrypt karo
+//         try {
+//             $realstateId = Crypt::decrypt($id);
+//         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'Invalid ID.'
+//             ], 400);   // 400 = Bad Request
+//         }
+// $alreadyFavorite = HorseFavorite::where('user_id', Auth::id())
+//             ->where('product_id', $realstateId)
+//             ->exists();
+//         // Pehle se favorite check
+//         $alreadyFavorite = HorseFavorite::where('user_id', Auth::id())
+//             ->where('product_id', $realstateId)
+//             ->exists();
+
+//         if ($alreadyFavorite) {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'This Horse is already in your favorites.',
+//                 'already' => true   // ← JS mein isse handle kar sakte ho
+//             ], 200);  // ya 409 Conflict bhi use kar sakte ho
+//         }
+
+//         // Naya favorite add
+//         $favorite = new HorseFavorite();
+//         $favorite->user_id    = Auth::id();
+//         $favorite->product_id = $realstateId;
+//         $favorite->save();
+
+//         // Success response
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Added to your favorites.'
+//         ], 201);  // 201 = Created (optional, 200 bhi chalega)
+//     }
 
     function realstateDetail($id) {
         $realId = Crypt::decrypt($id);
@@ -749,7 +1076,13 @@ class FrontController extends Controller
         $Number = $logoquery->G_number;
         $Email = $logoquery->G_email;
         $Address = $logoquery->G_address;
-        $data = Realstate::join('users', 'realstates.User_id', '=', 'users.id')->find($realId);
+        $data = Realstate::with(['favorites' => function ($q) {
+            $q->where('user_id', auth()->id());
+        }])->join('users', 'realstates.User_id', '=', 'users.id')->find($realId);
+
+        if (!$data) {
+            return response()->json(['error' => 'Property not found'], 404);
+        }
 
         $soldCount = Realstate::where('status', 'sold')
         ->count();
@@ -768,8 +1101,99 @@ class FrontController extends Controller
             ->limit(2)
             ->get();
 
-        // $relatedProperties = $sold->merge($notSold);
-        // dd($relatedProperties);
-        return view('front.realestate', compact('Logo', 'data', 'Number', 'Email', 'Address', 'notSold', 'sold', 'soldCount', 'sale_count'));
+        if (request()->has('is_modal')) {
+            $isModal = true;
+            return view('front.realestate', compact('Logo', 'data', 'Number', 'Email', 'Address', 'notSold', 'sold', 'soldCount', 'sale_count', 'isModal'));
+        }
+
+        $isModal = false;
+        return view('front.realestate', compact('Logo', 'data', 'Number', 'Email', 'Address', 'notSold', 'sold', 'soldCount', 'sale_count', 'isModal'));
     }
+
+    public function serviceFavorite($id)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please log in to add this item to your favorites.',
+                'login_required' => true
+            ], 401);
+        }
+
+        try {
+            $serviceId = Crypt::decrypt($id);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid ID.'
+            ], 400);
+        }
+
+        $service = Service::find($serviceId);
+
+        if (!$service) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Service not found.'
+            ], 404);
+        }
+
+        // Own service check
+        if ($service->User_id == Auth::id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot favorite your own service.',
+                'own_service' => true
+            ], 200);
+        }
+
+        $alreadyFavorite = ServiceFavorite::where('user_id', Auth::id())
+            ->where('service_id', $serviceId)
+            ->exists();
+
+        if ($alreadyFavorite) {
+            ServiceFavorite::where('user_id', Auth::id())
+                ->where('service_id', $serviceId)
+                ->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Removed from your favorites.',
+                'status' => 'removed'
+            ], 200);
+        }
+
+        $favorite = new ServiceFavorite();
+        $favorite->user_id    = Auth::id();
+        $favorite->service_id = $serviceId;
+        $favorite->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Added to your favorites.',
+            'status' => 'added'
+        ], 201);
+    }
+
+
+public function destroy(Service $ad)   // Model binding
+{
+    // dd($ad->User_id, auth()->id());
+    // Security: Sirf owner hi delete kar sake
+    if (auth()->id() == $ad->User_id) {
+        
+    // Ad Delete
+    $ad->delete();
+$messages = ['title' => 'Data Saved!!', 'detail' => 'Your ad has been successfully deleted.'];
+        Session()->flash('alert-success', $messages);
+    return redirect()->back();  // ya jahan aap redirect karna chahte ho
+// ->with('success', 'Your ad has been successfully deleted.');
+//         }
+
+// Subscription end karne ka logic (agar hai)
+// Example: $ad->subscription?->cancel();
+
+}
+abort(403, 'Unauthorized action.');
+}
 }

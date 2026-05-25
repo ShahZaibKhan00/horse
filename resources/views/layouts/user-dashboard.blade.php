@@ -6,7 +6,7 @@
             <h2>Horse Listings</h2>
             <a href="#!" class="points_btn">
                 <img src="{{ getenv('APP_URL') }}/assets/front/images/points_icon.png" alt="" class="img-fluid mb-2">
-                Show Points
+                E-Wallet
             </a>
         </div>
         <div class="inner_content_wrapper">

@@ -132,7 +132,12 @@ class PlanController extends Controller
         $Web_name = $logoquery->G_name;
         $categories = Category::all();
         $plans = DB::table('plans')->get();
-        return view('layouts.listing', compact('username' , 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories'));
+        $avg  = DB::table('subscriptions')
+                ->select('package_price', DB::raw('SUM(package_usage) as total_usage'))
+                ->groupBy('package_price')
+                ->orderByDesc('total_usage')
+                ->value('package_price');
+        return view('layouts.listing', compact('username' , 'plans' , 'userprofile' , 'Logo' , 'Web_name' , 'categories', 'avg'));
     }
 
     function horseListing() {

@@ -20,6 +20,12 @@
         -webkit-text-fill-color: transparent;
         font-weight: 300;
     }
+    form.horse_card_btn.favorite-form {
+    background: #fff;
+    margin: 0!important;
+    }
+    
+
     .filter_sec {
         padding: 20px 10px;
     }

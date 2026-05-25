@@ -156,15 +156,22 @@ body::-webkit-scrollbar-thumb {
     height: 100vh;
     overflow-y: auto;
 }
+   .content.user_main_content.profile_content {
+    
+    background: #1c2039;
+    padding: 20px;
+    padding-bottom: 150px;
+}
 
 .user_logo {
     display: block;
     text-align: center;
     padding-bottom: 30px;
-    border-bottom: 1px solid #03c992;
+    /*border-bottom: 1px solid #03c992;*/
     max-width: 200px;
     margin: 0 auto;
     margin-bottom: 20px;
+    transform: scaleX(-1);
 }
 
 .side_menu_navs li a {
@@ -212,6 +219,7 @@ body::-webkit-scrollbar-thumb {
 
 .modal-content {
     background-color: transparent;
+    border: 0;
 }
 
 .dark_bar h2 {
@@ -230,15 +238,17 @@ body::-webkit-scrollbar-thumb {
     flex-direction: column;
     align-items: center;
     padding: 15px;
-    width: fit-content;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     background: linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    /* future support */
+    width: 340px;
+}
+.points_btn img {
+    transform: scaleX(-1);
 }
 
 .points_btn::before {
@@ -258,9 +268,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .inner_content_wrapper {
-    padding: 30px
+    padding: 10px;
+    overflow-x: hidden;
 }
-
 
 .welcome-content {
     display: flex;
@@ -806,9 +816,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-.user_gen_card_one {
-    width: ;
-}
 
 .top__bar {
     width: 100%;
@@ -857,14 +864,15 @@ body::-webkit-scrollbar-thumb {
 }
 
 .user_tag {
-    padding: 8px 15px;
-    font-size: 12px;
+    padding: 8px 32px;
+    font-size: 17px;
+    font-weight: 600;
     color: #000;
     width: fit-content;
     background: linear-gradient(90deg, #B09240 0%, #FAF8F4 91.23%);
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -8px;
+    left: -5px;
     text-transform: uppercase;
     line-height: 1;
 }
@@ -889,18 +897,7 @@ body::-webkit-scrollbar-thumb {
     object-fit: cover;
 }
 
-.user_img_box p {
-    font-size: 14px;
-    color: #fff;
-    text-align: center;
-    padding: 6px 10px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    background: #181E39;
-    z-index: 111;
-}
+
 
 .user_card_slider_arrows {
     width: 100%;
@@ -933,10 +930,10 @@ body::-webkit-scrollbar-thumb {
 
 .cell {
     border: 1px solid #000;
-    padding: 5px 10px;
+    padding: 2px 10px;
     text-align: center;
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 500;
     background-color: white;
 }
 
@@ -952,14 +949,14 @@ body::-webkit-scrollbar-thumb {
 
 .bid-header {
     background-color: #181E39;
-    padding: 8px;
+    padding: 0 8px 8px 8px;
     text-align: center;
 }
 
 .bid-amount {
     font-size: 20px;
     font-weight: 600;
-    background: linear-gradient(180deg, #FCFAF4 13.33%, #C5A266 100%);
+    background: linear-gradient(to right, #ae8e3b 40%, #ffffff 75%, #ae8e3b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1333,7 +1330,7 @@ body::-webkit-scrollbar-thumb {
 
 .product_clm .pro_img {
     width: 100%;
-    height: 220px;
+    height: 280px;
     object-fit: cover;
     border: 0;
     padding: 0;
@@ -1571,7 +1568,70 @@ body::-webkit-scrollbar-thumb {
 .conversation-header {
     display: flex;
     align-items: center;
-    padding: 30px 30px;
+    justify-content: space-between;
+    padding: 20px 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.header-listing-info {
+    flex: 1;
+}
+
+.header-listing-info h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1C2039;
+    margin-bottom: 8px;
+}
+
+.listing-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1C2039;
+}
+
+.listing-meta span.separator {
+    color: #C6A861;
+    font-weight: bold;
+}
+
+.view-listing-button {
+    background: #0D1627;
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+}
+
+.view-listing-button:hover {
+    background: #1a2a47;
+}
+
+.view-listing-button i {
+    color: #C6A861;
+    font-size: 16px;
+}
+
+.listing-name {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .header-user-avatar {
@@ -2265,9 +2325,9 @@ ul.side_menu_navs::-webkit-scrollbar-thumb:hover {
 .blue_logo_bar img {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    right: -10px;
-    z-index: 999;
+    transform: translateY(-50%) scaleX(-1);
+    right: 0px;
+    z-index: 99;
 }
 
 .icon_box_flex {
@@ -2392,3 +2452,5 @@ ul.side_menu_navs::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(white, white) padding-box, linear-gradient(180deg, #B48942 -2.68%, #D5B970 87.5%) border-box;
     border: 2px solid transparent;
 }
+
+

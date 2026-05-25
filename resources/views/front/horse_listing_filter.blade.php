@@ -66,6 +66,7 @@
         .filter_side_bar {
             width: 350px;
             background-color: #1d2139;
+            padding: 20px;
         }
 
         .filter_content_box {
@@ -73,9 +74,7 @@
             padding-left: 20px;
         }
 
-        .filter_side_bar {
-            padding: 20px;
-        }
+
 
         .filter_side_bar .heading44px {
             font-family: "AvenirLTStd-Book";
@@ -103,6 +102,8 @@
             background: #ccc;
             z-index: 999;
             position: relative;
+            height: 350px;
+            overflow-y: auto;
         }
 
         .form-section:last-child {
@@ -434,7 +435,7 @@
             width: 100%;
             text-transform: uppercase;
             border-radius: 0;
-            z-index: 999;
+            z-index: 1;
             border: none;
             color: #1d2139;
             letter-spacing: 0.5px;
@@ -451,12 +452,18 @@
             justify-content: center;
             position: absolute;
             z-index: 999;
-            bottom: 50px;
-            right: 3px;
-            background: #1d2139db;
+            bottom: 0;
+            right: -100%;
+            background: #1d2139;
             padding: 5px 10px 25px 10px;
-            border: 1px solid #ffffff54;
+            border: 1px solid #7f83ac;
             width: 295px;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        .gen_card_flex .horse_list_card:hover .countdown {
+            opacity: 1;
+            right: 0;
         }
 
         .countdown p {
@@ -474,13 +481,38 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        
+        .circle-text {
+            text-align: center;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-        .circle-container {
+       .circle-text span {
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .circle-text small {
+            font-size: 14px;
+            display: block;
+            font-weight: bold;
+            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+         .circle-container {
             position: relative;
             padding: 0px 10px;
             border-right: 1px solid #c09956;
         }
-
         .progress-ring {
             transform: rotate(-90deg);
         }
@@ -509,25 +541,7 @@
             gap: 5px;
         }
 
-        .circle-text span {
-            font-size: 14px;
-            font-weight: bold;
-            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
 
-        .circle-text small {
-            font-size: 14px;
-            /* Reduced from 9px */
-            display: block;
-            font-weight: bold;
-            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
 
         .info_list li {
             border: 1px solid #1d2139;
@@ -537,7 +551,7 @@
         }
 
         .horse_list_card .img_box {
-            height: 250px;
+            height: 260px;
         }
 
         .blue_stripe h2 {
@@ -620,18 +634,26 @@
 
         .gen_card_flex {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap; /* Isse 4 ke baad agla card niche chala jayega */
             width: 100%;
-            justify-content: flex-start;
+            justify-content: flex-start; 
             max-width: 100%;
             margin: 0 auto;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 15px; /* Cards ke darmiyan gap */
         }
 
+        /*.gen_card_flex .horse_list_card {*/
+        /*    width: 24%;*/
+        /*    margin-bottom: 25px;*/
+        /*}*/
+        
         .gen_card_flex .horse_list_card {
-            width: 24%;
+            /* Formula: (100% - total gaps) / 4 */
+            /* 3 gaps hain 15px ke, isliye (15px * 3) = 45px minus hoga */
+            width: calc((100% - 45px) / 4); 
+            
             margin-bottom: 25px;
+            box-sizing: border-box; /* Padding/border ko width ke andar rakhne ke liye */
         }
 
         .horse_list_card_new .custome_listing_row {
@@ -687,7 +709,7 @@
         }
 
         .horse_list_card_new .top_list {
-            padding: 15px 0px;
+            padding: 10px 0px;
         }
 
         .horse_list_card_new .top_list li {
@@ -701,7 +723,7 @@
         .horse_list_card_new .icon_heart {
             position: absolute;
             font-size: 24px;
-            top: -23px;
+            top: -12px;
             right: 7px;
         }
 
@@ -737,13 +759,12 @@
             text-transform: uppercase;
         }
 
-        .breed_text {
+       .breed_text {
             background: #1d2139;
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            /*position: absolute;*/
+            /*bottom: 0;*/
+            /*left: 0;*/
             width: 100%;
-            height: 45px;
             z-index: 9;
             text-align: center;
             font-size: 22px;
@@ -753,6 +774,7 @@
             align-items: center;
             justify-content: center;
             text-transform: uppercase;
+            padding: 7px 0;
         }
 
         .real_estate_card_new.horse_list_card_new .blue_stripe.blue_tripe_new {
@@ -771,7 +793,7 @@
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 111;
+            z-index: 1;
             width: 62% !important;
             object-fit: contain !important;
         }
@@ -806,10 +828,14 @@
                 font-size: 9px;
             }
 
-            .countdown {
-                transform: scale(0.7);
-                bottom: 18px;
-                right: -42px;
+             .countdown {
+                width: 230px;
+            }
+        .circle-text span, .circle-text small {
+            font-size: 12px;
+        }
+                    .circle-container {
+                padding: 0px 7px;
             }
 
             .choose-btn {
@@ -822,12 +848,12 @@
                 right: 14px;
             }
 
-            .gen_card_flex {
-                max-width: 1270px;
-                padding-top: 10px;
-                gap: 10px;
-                justify-content: flex-start;
-            }
+            /*.gen_card_flex {*/
+            /*    max-width: 1270px;*/
+            /*    padding-top: 10px;*/
+            /*    gap: 10px;*/
+            /*    justify-content: flex-start;*/
+            /*}*/
 
             .filter_side_bar {
                 width: 300px;
@@ -884,7 +910,6 @@
 
             .breed_text {
                 font-size: 17px;
-                height: 25px;
             }
 
             .real_estate_card_new.horse_list_card_new .custome_listing_col .info_list li {
@@ -925,9 +950,9 @@
                 padding-left: 12px;
             }
 
-            .gen_card_flex .horse_list_card {
-                width: 240px;
-            }
+            /*.gen_card_flex .horse_list_card {*/
+            /*    width: 235px;*/
+            /*}*/
 
             .section-title {
                 font-size: 13px;
@@ -961,11 +986,11 @@
         }
 
         /* .scroller {
-                                               max-height: 1366px;
-                                               overflow-y: auto;
-                                               overflow-x: hidden;
-                                               }
-                                               */
+                                                   max-height: 1366px;
+                                                   overflow-y: auto;
+                                                   overflow-x: hidden;
+                                                   }
+                                                   */
     </style>
 
     <section class="inner_page_banner membershipBanner">
@@ -998,13 +1023,13 @@
                             <div class="form-section">
                                 <div class="section-title">Distance Range</div>
                                 <div class="distance-controls">
-                                    <input type="text" class="distance-input form-control thousand-separator" placeholder="MIN" />
-                                    <input type="text" class="distance-input form-control thousand-separator" placeholder="MAX" />
+                                    <input type="text" class="distance-input form-control thousand-separator" name="distance_min" value="{{ request('distance_min') }}" placeholder="MIN" />
+                                    <input type="text" class="distance-input form-control thousand-separator" name="distance_max" value="{{ request('distance_max') }}" placeholder="MAX" />
                                 </div>
                                 <div class="unit-label mt-3">
                                     <div class="checkbox-item justify-content-start gap-3">
-                                        <label><input type="radio" class="form-check-input" name="hr_miles" /> Hours</label>
-                                        <label><input type="radio" class="form-check-input" name="hr_miles" /> Miles</label>
+                                        <label><input type="radio" class="form-check-input" name="hr_miles" value="hours" {{ request('hr_miles') == 'hours' ? 'checked' : '' }} /> Hours</label>
+                                        <label><input type="radio" class="form-check-input" name="hr_miles" value="miles" {{ request('hr_miles') == 'miles' ? 'checked' : '' }} /> Miles</label>
                                     </div>
                                 </div>
                             </div>
@@ -1021,7 +1046,7 @@
                                     <div></div>
                                     <div class="checkbox-header">INCLUDE</div>
                                     <div class="checkbox-header">EXCLUDE</div>
-                                    <div class="checkbox-header">ONLY</div>
+                                    <div class="checkbox-header"></div>
                                     <div class="checkbox-row">
                                         <div class="checkbox-label">Horses for Sale</div>
                                         <div class="checkbox-item">
@@ -1031,7 +1056,7 @@
                                             <input type="radio" name="listed_horses" @checked(request('listed_horses') == 'not-for-sale') value="not-for-sale" class="form-check-input" />
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="radio" name="listed_horses" @checked(request('listed_horses') == 'For Sale') value="" class="form-check-input" />
+                                            {{-- <input type="radio" name="listed_horses" @checked(request('listed_horses') == 'For Sale') value="" class="form-check-input" /> --}}
                                         </div>
                                     </div>
                                     <div class="checkbox-row">
@@ -1043,7 +1068,7 @@
                                             <input type="radio" name="auction_horses" @checked(request('auction_horses') == 'not-at-auction') value="not-at-auction" class="form-check-input" />
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="radio" name="auction_horses" @checked(request('auction_horses') == 'At Auction') value="" class="form-check-input" />
+                                            {{-- <input type="radio" name="auction_horses" @checked(request('auction_horses') == 'At Auction') value="" class="form-check-input" /> --}}
                                         </div>
                                     </div>
                                     <div class="checkbox-row">
@@ -1055,7 +1080,7 @@
                                             <input type="radio" name="sold_horses" @checked(request('sold_horses') == 'not-sold') value="not-sold" class="form-check-input" />
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="radio" name="sold_horses" @checked(request('sold_horses') == 'Sold') value="" class="form-check-input" />
+                                            {{-- <input type="radio" name="sold_horses" @checked(request('sold_horses') == 'Sold') value="" class="form-check-input" /> --}}
                                         </div>
                                     </div>
                                     <div class="checkbox-row">
@@ -1067,7 +1092,7 @@
                                             <input type="radio" name="lease_horses" @checked(request('lease_horses') == 'not-for-lease') value="not-for-lease" class="form-check-input" />
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="radio" name="lease_horses" @checked(request('lease_horses') == 'For Lease') value="" class="form-check-input" />
+                                            {{-- <input type="radio" name="lease_horses" @checked(request('lease_horses') == 'For Lease') value="" class="form-check-input" /> --}}
                                         </div>
                                     </div>
                                     <div class="checkbox-row">
@@ -1079,7 +1104,7 @@
                                             <input type="radio" name="at_stud" @checked(request('at_stud') == 'not-for-stud') value="not-for-stud" class="form-check-input" />
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="radio" name="at_stud" @checked(request('at_stud') == 'For Stud') value="" class="form-check-input" />
+                                            {{-- <input type="radio" name="at_stud" @checked(request('at_stud') == 'For Stud') value="" class="form-check-input" /> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -1092,209 +1117,189 @@
                                     <!-- Selected breeds will appear here -->
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="select-field form-select breed_select" name="breed" id="breedSelect">
-                                        <option disabled selected>Select Breed</option>
-                                        <option value="Akhal-Teke" {{ request('breed') == 'Akhal-Teke' ? 'selected' : '' }}>
-                                            Akhal-Teke</option>
-                                        <option value="Aegidienberger" {{ request('breed') == 'Aegidienberger' ? 'selected' : '' }}>Aegidienberger</option>
-                                        <option value="AlbertaWildHorse" {{ request('breed') == 'AlbertaWildHorse' ? 'selected' : '' }}>Alberta Wild Horse</option>
-                                        <option value="AlterReal" {{ request('breed') == 'AlterReal' ? 'selected' : '' }}>
-                                            Alter Real</option>
-                                        <option value="Altmark Coldblood" {{ request('breed') == 'Altmark Coldblood' ? 'selected' : '' }}>Altmark Coldblood</option>
-                                        <option value="Altor Real" {{ request('breed') == 'Altor Real' ? 'selected' : '' }}>
-                                            Altor Real</option>
-                                        <option value="American Bashkir Curly" {{ request('breed') == 'American Bashkir Curly' ? 'selected' : '' }}>American Bashkir
-                                            Curly</option>
-                                        <option value="American Belgian Draft" {{ request('breed') == 'American Belgian Draft' ? 'selected' : '' }}>American Belgian
-                                            Draft</option>
-                                        <option value="American Cream Draft Horse" {{ request('breed') == 'American Cream Draft Horse' ? 'selected' : '' }}>American
-                                            Cream Draft Horse</option>
-                                        <option value="American Indian Horse" {{ request('breed') == 'American Indian Horse' ? 'selected' : '' }}>American Indian
-                                            Horse</option>
-                                        <option value="American Miniature Horse" {{ request('breed') == 'American Miniature Horse' ? 'selected' : '' }}>American
-                                            Miniature Horse</option>
-                                        <option value="American Saddlebred" {{ request('breed') == 'American Saddlebred' ? 'selected' : '' }}>American Saddlebred
-                                        </option>
-                                        <option value="American Saddlebred" {{ request('breed') == 'American Saddlebred' ? 'selected' : '' }}>American Saddlebred
-                                        </option>
-                                        <option value="American Shetland Pony" {{ request('breed') == 'American Shetland Pony' ? 'selected' : '' }}>American
-                                            Shetland Pony</option>
-                                        <option value="American Spotted" {{ request('breed') == 'American Spotted' ? 'selected' : '' }}>American Spotted</option>
-                                        <option value="American Standardbred" {{ request('breed') == 'American Standardbred' ? 'selected' : '' }}>American
-                                            Standardbred</option>
-                                        <option value="American Walking Pony" {{ request('breed') == 'American Walking Pony' ? 'selected' : '' }}>American Walking
-                                            Pony</option>
-                                        <option value="Andalusian Horse" {{ request('breed') == 'Andalusian Horse' ? 'selected' : '' }}>Andalusian Horse</option>
-                                        <option value="Anglo Arabian" {{ request('breed') == 'Anglo Arabian' ? 'selected' : '' }}>Anglo-Arabian</option>
-                                        <option value="Appaloosa" {{ request('breed') == 'Appaloosa' ? 'selected' : '' }}>
-                                            Appaloosa</option>
-                                        <option value="Arabian" {{ request('breed') == 'Arabian' ? 'selected' : '' }}>Arabian
-                                        </option>
-                                        <option value="Arabian Horses" {{ request('breed') == 'Arabian Horses' ? 'selected' : '' }}>Arabian Cross</option>
-                                        <option value="Ardennes" {{ request('breed') == 'Ardennes' ? 'selected' : '' }}>
-                                            Ardennes</option>
-                                        <option value="Arabian-Berber" {{ request('breed') == 'Arabian-Berber' ? 'selected' : '' }}>Arabian-Berber</option>
-                                        <option value="Arabian Halfbred" {{ request('breed') == 'Arabian Halfbred' ? 'selected' : '' }}>Arabian Halfbred</option>
-                                        <option value="Arabian Partbred" {{ request('breed') == 'Arabian Partbred' ? 'selected' : '' }}>Arabian Partbred</option>
-                                        <option value="Araloosa" {{ request('breed') == 'Araloosa' ? 'selected' : '' }}>
-                                            Araloosa</option>
-                                        <option value="Arcenberg-Nordkirchen" {{ request('breed') == 'Arcenberg-Nordkirchen' ? 'selected' : '' }}>
-                                            Arcenberg-Nordkirchen</option>
-                                        <option value="Australian Brumby" {{ in_array('Australian Brumby', (array) request('breed', [])) ? 'selected' : '' }}>
-                                            Australian Brumby</option>
-                                        <option value="Australian Draught Horse" {{ request('breed') == 'Australian Draught Horse' ? 'selected' : '' }}>Australian
-                                            Draught Horse</option>
-                                        <option value="Australian Stock Horse" {{ request('breed') == 'Australian Stock Horse' ? 'selected' : '' }}>Australian Stock
-                                            Horse</option>
-                                        <option value="Austrian Warmblood" {{ request('breed') == 'Austrian Warmblood' ? 'selected' : '' }}>Austrian Warmblood
-                                        </option>
-                                        <option value="Auxois" {{ request('breed') == 'Auxois' ? 'selected' : '' }}>Auxois
-                                        </option>
-                                        <option value="Baden-Wurttemberg" {{ request('breed') == 'Baden-Wurttemberg' ? 'selected' : '' }}>Baden-Wurttemberg</option>
-                                        <option value="Balearic" {{ request('breed') == 'Balearic' ? 'selected' : '' }}>
-                                            Balearic</option>
-                                        <option value="Balikun Horse" {{ request('breed') == 'Balikun Horse' ? 'selected' : '' }}>Balikun Horse</option>
-                                        <option value="Baltic Hanoverian" {{ request('breed') == 'Baltic Hanoverian' ? 'selected' : '' }}>Baltic Hanoverian</option>
-                                        <option value="Bardigiano" {{ request('breed') == 'Bardigiano' ? 'selected' : '' }}>
-                                            Bardigiano</option>
-                                        <option value="Bashkir Horse" {{ request('breed') == 'Bashkir Horse' ? 'selected' : '' }}>Bashkir Horse</option>
-                                        <option value="Bavarian Warmblood" {{ request('breed') == 'Bavarian Warmblood' ? 'selected' : '' }}>Bavarian Warmblood
-                                        </option>
-                                        <option value="Belgian Cold Blood" {{ request('breed') == 'Belgian Cold Blood' ? 'selected' : '' }}>Belgian Cold Blood
-                                        </option>
-                                        <option value="Belgian Draft" {{ request('breed') == 'Belgian Draft' ? 'selected' : '' }}>Belgian Draft</option>
-                                        <option value="Belgian Warmblood" {{ request('breed') == 'Belgian Warmblood' ? 'selected' : '' }}>Belgian Warmblood</option>
-                                        <option value="Black Forest Horse" {{ request('breed') == 'Black Forest Horse' ? 'selected' : '' }}>Black Forest Horse
-                                        </option>
-                                        <option value="Boerperd" {{ request('breed') == 'Boerperd' ? 'selected' : '' }}>
-                                            Boerperd</option>
-                                        <option value="Boulonnais" {{ request('breed') == 'Boulonnais' ? 'selected' : '' }}>
-                                            Boulonnais</option>
-                                        <option value="Brabant Horse" {{ request('breed') == 'Brabant Horse' ? 'selected' : '' }}>Brabant Horse</option>
-                                        <option value="Brandenburger Warmblood" {{ request('breed') == 'Brandenburger Warmblood' ? 'selected' : '' }}>Brandenburger
-                                            Warmblood</option>
-                                        <option value="Breton" {{ request('breed') == 'Breton' ? 'selected' : '' }}>Breton
-                                        </option>
-                                        <option value="British Riding Pony" {{ request('breed') == 'British Riding Pony' ? 'selected' : '' }}>British Riding Pony
-                                        </option>
-                                        <option value="Budyonny" {{ request('breed') == 'Budyonny' ? 'selected' : '' }}>
-                                            Budyonny</option>
-                                        <option value="Burguete" {{ request('breed') == 'Burguete' ? 'selected' : '' }}>
-                                            Burguete</option>
-                                        <option value="Byelorussian Harness Horse" {{ request('breed') == 'Byelorussian Harness Horse' ? 'selected' : '' }}>Byelorussian
-                                            Harness Horse</option>
-                                        <option value="Calabrese" {{ request('breed') == 'Calabrese' ? 'selected' : '' }}>
-                                            Calabrese</option>
-                                        <option value="Camargue Horse" {{ request('breed') == 'Camargue Horse' ? 'selected' : '' }}>Camargue Horse</option>
-                                        <option value="Canadian Horse" {{ request('breed') == 'Canadian Horse' ? 'selected' : '' }}>Canadian Horse</option>
-                                        <option value="Canadian Pacer" {{ request('breed') == 'Canadian Pacer' ? 'selected' : '' }}>Canadian Pacer</option>
-                                        <option value="Canadian Rustic Pony" {{ request('breed') == 'Canadian Rustic Pony' ? 'selected' : '' }}>Canadian Rustic Pony
-                                        </option>
-                                        <option value="Carolina Marsh Tacky" {{ request('breed') == 'Carolina Marsh Tacky' ? 'selected' : '' }}>Carolina Marsh Tacky
-                                        </option>
-                                        <option value="Cerbat Mustang" {{ request('breed') == 'Cerbat Mustang' ? 'selected' : '' }}>Cerbat Mustang</option>
-                                        <option value="Chincoteague Pony" {{ request('breed') == 'Chincoteague Pony' ? 'selected' : '' }}>Chincoteague Pony</option>
-                                        <option value="Chickasaw Horse" {{ request('breed') == 'Chickasaw Horse' ? 'selected' : '' }}>Chickasaw Horse</option>
-                                        <option value="Choctaw Pony" {{ request('breed') == 'Choctaw Pony' ? 'selected' : '' }}>Choctaw Pony</option>
-                                        <option value="Classic Pony" {{ request('breed') == 'Classic Pony' ? 'selected' : '' }}>Classic Pony</option>
-                                        <option value="Cleveland-Bay" {{ request('breed') == 'Cleveland-Bay' ? 'selected' : '' }}>Cleveland-Bay</option>
-                                        <option value="Clydesdale" {{ request('breed') == 'Clydesdale' ? 'selected' : '' }}>
-                                            Clydesdale</option>
-                                        <option value="Clydesdale Cross" {{ request('breed') == 'Clydesdale Cross' ? 'selected' : '' }}>Clydesdale Cross</option>
-                                        <option value="Cumberland Island Horse" {{ request('breed') == 'Cumberland Island Horse' ? 'selected' : '' }}>Cumberland
-                                            Island Horse</option>
-                                        <option value="Cob Horse" {{ request('breed') == 'Cob Horse' ? 'selected' : '' }}>Cob
-                                            Horse</option>
-                                        <option value="Comtois" {{ request('breed') == 'Comtois' ? 'selected' : '' }}>Comtois
-                                        </option>
-                                        <option value="Connemara Pony" {{ request('breed') == 'Connemara Pony' ? 'selected' : '' }}>Connemara Pony</option>
-                                        <option value="Criollo Horse" {{ request('breed') == 'Criollo Horse' ? 'selected' : '' }}>Criollo Horse</option>
-                                        <option value="Curly Horses" {{ request('breed') == 'Curly Horses' ? 'selected' : '' }}>Curly Horses</option>
-                                        <option value="Dales Pony" {{ request('breed') == 'Dales Pony' ? 'selected' : '' }}>
-                                            Dales Pony</option>
-                                        <option value="Dartmoor Pony" {{ request('breed') == 'Dartmoor Pony' ? 'selected' : '' }}>Dartmoor Pony</option>
-                                        <option value="Draft Cross" {{ request('breed') == 'Draft Cross' ? 'selected' : '' }}>
-                                            Draft Cross</option>
-                                        <option value="Dutch Warmblood" {{ request('breed') == 'Dutch Warmblood' ? 'selected' : '' }}>Dutch Warmblood</option>
-                                        <option value="Fell Pony" {{ request('breed') == 'Fell Pony' ? 'selected' : '' }}>Fell
-                                            Pony</option>
-                                        <option value="Finnhorse" {{ request('breed') == 'Finnhorse' ? 'selected' : '' }}>
-                                            Finnhorse</option>
-                                        <option value="Friesian" {{ request('breed') == 'Friesian' ? 'selected' : '' }}>
-                                            Friesian</option>
-                                        <option value="Friesian Cross" {{ request('breed') == 'Friesian Cross' ? 'selected' : '' }}>Friesian Cross</option>
-                                        <option value="Fjord" {{ request('breed') == 'Fjord' ? 'selected' : '' }}>Fjord
-                                        </option>
-                                        <option value="Fjord Cross" {{ request('breed') == 'Fjord Cross' ? 'selected' : '' }}>
-                                            Fjord Cross</option>
-                                        <option value="Gelderland" {{ request('breed') == 'Gelderland' ? 'selected' : '' }}>
-                                            Gelderland</option>
-                                        <option value="Gypsy Vanner" {{ request('breed') == 'Gypsy Vanner' ? 'selected' : '' }}>Gypsy Vanner</option>
-                                        <option value="Gypsy Cross" {{ request('breed') == 'Gypsy Cross' ? 'selected' : '' }}>
-                                            Gypsy Cross</option>
-                                        <option value="Hackney" {{ request('breed') == 'Hackney' ? 'selected' : '' }}>Hackney
-                                        </option>
-                                        <option value="Hanoverian" {{ request('breed') == 'Hanoverian' ? 'selected' : '' }}>
-                                            Hanoverian</option>
-                                        <option value="Haflinger" {{ request('breed') == 'Haflinger' ? 'selected' : '' }}>
-                                            Haflinger</option>
-                                        <option value="Holsteiner" {{ request('breed') == 'Holsteiner' ? 'selected' : '' }}>
-                                            Holsteiner</option>
-                                        <option value="Icelandic Horse" {{ request('breed') == 'Icelandic Horse' ? 'selected' : '' }}>Icelandic Horse</option>
-                                        <option value="Irish Draft Cross" {{ request('breed') == 'Irish Draft Cross' ? 'selected' : '' }}>Irish Draft Cross</option>
-                                        <option value="Irish Draught" {{ request('breed') == 'Irish Draught' ? 'selected' : '' }}>Irish Draught</option>
-                                        <option value="Kinsky Horse" {{ request('breed') == 'Kinsky Horse' ? 'selected' : '' }}>Kinsky Horse</option>
-                                        <option value="Knabstrupper" {{ request('breed') == 'Knabstrupper' ? 'selected' : '' }}>Knabstrupper</option>
-                                        <option value="Lippizan" {{ request('breed') == 'Lippizan' ? 'selected' : '' }}>
-                                            Lippizan</option>
-                                        <option value="Lusitano" {{ request('breed') == 'Lusitano' ? 'selected' : '' }}>
-                                            Lusitano</option>
-                                        <option value="Marwari Horse" {{ request('breed') == 'Marwari Horse' ? 'selected' : '' }}>Marwari Horse</option>
-                                        <option value="Morgan" {{ request('breed') == 'Morgan' ? 'selected' : '' }}>Morgan
-                                        </option>
-                                        <option value="Morgan Cross" {{ request('breed') == 'Morgan Cross' ? 'selected' : '' }}>Morgan Cross</option>
-                                        <option value="Mustang" {{ request('breed') == 'Mustang' ? 'selected' : '' }}>Mustang
-                                        </option>
-                                        <option value="Paso Fino" {{ request('breed') == 'Paso Fino' ? 'selected' : '' }}>Paso
-                                            Fino</option>
-                                        <option value="Percheron" {{ request('breed') == 'Percheron' ? 'selected' : '' }}>
-                                            Percheron</option>
-                                        <option value="Percheron Cross" {{ request('breed') == 'Percheron Cross' ? 'selected' : '' }}>Percheron Cross</option>
-                                        <option value="Pinto" {{ request('breed') == 'Pinto' ? 'selected' : '' }}>Pinto
-                                        </option>
-                                        <option value="Polish Warmblood" {{ request('breed') == 'Polish Warmblood' ? 'selected' : '' }}>Polish Warmblood</option>
-                                        <option value="Quarter Horse" {{ request('breed') == 'Quarter Horse' ? 'selected' : '' }}>Quarter Horse</option>
-                                        <option value="Quarter Horse Cross" {{ request('breed') == 'Quarter Horse Cross' ? 'selected' : '' }}>Quarter Horse Cross
-                                        </option>
-                                        <option value="Rocky Mountain Horse" {{ request('breed') == 'Rocky Mountain Horse' ? 'selected' : '' }}>Rocky Mountain
-                                            Horse</option>
-                                        <option value="Shire" {{ request('breed') == 'Shire' ? 'selected' : '' }}>Shire
-                                        </option>
-                                        <option value="Shire Cross" {{ request('breed') == 'Shire Cross' ? 'selected' : '' }}>
-                                            Shire Cross</option>
-                                        <option value="Spotted Draft" {{ request('breed') == 'Spotted Draft' ? 'selected' : '' }}>Spotted Draft</option>
-                                        <option value="Spotted Draft Cross" {{ request('breed') == 'Spotted Draft Cross' ? 'selected' : '' }}>Spotted Draft Cross
-                                        </option>
-                                        <option value="Tennessee Walking Horse" {{ request('breed') == 'Tennessee Walking Horse' ? 'selected' : '' }}>Tennessee
-                                            Walking Horse</option>
-                                        <option value="Thoroughbred" {{ request('breed') == 'Thoroughbred' ? 'selected' : '' }}>Thoroughbred</option>
-                                        <option value="Thoroughbred Cross" {{ request('breed') == 'Thoroughbred Cross' ? 'selected' : '' }}>Thoroughbred Cross
-                                        </option>
-                                        <option value="Trakehner" {{ request('breed') == 'Trakehner' ? 'selected' : '' }}>
-                                            Trakehner</option>
-                                        <option value="Welsh" {{ request('breed') == 'Welsh' ? 'selected' : '' }}>Welsh
-                                        </option>
-                                        <option value="Welsh Pony" {{ request('breed') == 'Welsh Pony' ? 'selected' : '' }}>
-                                            Welsh Pony</option>
-                                        <option value="Westphalian" {{ request('breed') == 'Westphalian' ? 'selected' : '' }}>
-                                            Westphalian</option>
-                                        <option value="Welsh Cross" {{ request('breed') == 'Welsh Cross' ? 'selected' : '' }}>
-                                            Welsh Cross</option>
-                                        <option value="Warmblood" {{ request('breed') == 'Warmblood' ? 'selected' : '' }}>
-                                            Warmblood</option>
-                                        <option value="Warmblood Cross" {{ request('breed') == 'Warmblood Cross' ? 'selected' : '' }}>Warmblood Cross</option>
-                                        <option value="Zweibrücker Horse" {{ request('breed') == 'Zweibrücker Horse' ? 'selected' : '' }}>Zweibrücker Horse
-                                        </option>
+                                    <select class="select-field form-select breed_select" name="breed[]" id="breedSelect" multiple>
+                                        <option value="" disabled selected>Select Breed</option>
+                                        <option value="Aegidienberger" @selected(in_array('Aegidienberger', (array)request('breed')))>Aegidienberger</option>
+                                        <option value="Akhal-Teke" @selected(in_array('Akhal-Teke', (array)request('breed')))>Akhal-Teke</option>
+                                        <option value="AlbertaWildHorse" @selected(in_array('AlbertaWildHorse', (array)request('breed')))>Alberta Wild Horse</option>
+                                        <option value="AlterReal" @selected(in_array('AlterReal', (array)request('breed')))>Alter Real</option>
+                                        <option value="Altmark Coldblood" @selected(in_array('Altmark Coldblood', (array)request('breed')))>Altmark Coldblood</option>
+                                        <option value="Altor Real" @selected(in_array('Altor Real', (array)request('breed')))>Altor Real</option>
+                                        <option value="American Bashkir Curly" @selected(in_array('American Bashkir Curly', (array)request('breed')))>American Bashkir Curly</option>
+                                        <option value="American Belgian Draft" @selected(in_array('American Belgian Draft', (array)request('breed')))>American Belgian Draft</option>
+                                        <option value="American Cream Draft Horse" @selected(in_array('American Cream Draft Horse', (array)request('breed')))>American Cream Draft Horse</option>
+                                        <option value="American Indian Horse" @selected(in_array('American Indian Horse', (array)request('breed')))>American Indian Horse</option>
+                                        <option value="American Miniature Horse" @selected(in_array('American Miniature Horse', (array)request('breed')))>American Miniature Horse</option>
+                                        <option value="American Quarter Pony" @selected(in_array('American Quarter Pony', (array)request('breed')))>American Quarter Pony</option>
+                                        <option value="American Saddlebred" @selected(in_array('American Saddlebred', (array)request('breed')))>American Saddlebred</option>
+                                        <option value="American Shetland Pony" @selected(in_array('American Shetland Pony', (array)request('breed')))>American Shetland Pony</option>
+                                        <option value="American Spotted" @selected(in_array('American Spotted', (array)request('breed')))>American Spotted</option>
+                                        <option value="American Standardbred" @selected(in_array('American Standardbred', (array)request('breed')))>American Standardbred</option>
+                                        <option value="American Walking Pony" @selected(in_array('American Walking Pony', (array)request('breed')))>American Walking Pony</option>
+                                        <option value="American Warmblood" @selected(in_array('American Warmblood', (array)request('breed')))>American Warmblood</option>
+                                        <option value="Andalusian Horse" @selected(in_array('Andalusian Horse', (array)request('breed')))>Andalusian Horse</option>
+                                        <option value="Anglo Arabian" @selected(in_array('Anglo Arabian', (array)request('breed')))>Anglo-Arabian</option>
+                                        <option value="Appaloosa" @selected(in_array('Appaloosa', (array)request('breed')))>Appaloosa</option>
+                                        <option value="Appendix" @selected(in_array('Appendix', (array)request('breed')))>Appendix</option>
+                                        <option value="Appendix Quarter Horse" @selected(in_array('Appendix Quarter Horse', (array)request('breed')))>Appendix Quarter Horse</option>
+                                        <option value="Arabian" @selected(in_array('Arabian', (array)request('breed')))>Arabian</option>
+                                        <option value="Arabian Horses" @selected(in_array('Arabian Horses', (array)request('breed')))>Arabian Cross</option>
+                                        <option value="Arabian Halfbred" @selected(in_array('Arabian Halfbred', (array)request('breed')))>Arabian Halfbred</option>
+                                        <option value="Arabian Partbred" @selected(in_array('Arabian Partbred', (array)request('breed')))>Arabian Partbred</option>
+                                        <option value="Arabian-Berber" @selected(in_array('Arabian-Berber', (array)request('breed')))>Arabian-Berber</option>
+                                        <option value="Araloosa" @selected(in_array('Araloosa', (array)request('breed')))>Araloosa</option>
+                                        <option value="Arcenberg-Nordkirchen" @selected(in_array('Arcenberg-Nordkirchen', (array)request('breed')))>Arcenberg-Nordkirchen</option>
+                                        <option value="Ardennes" @selected(in_array('Ardennes', (array)request('breed')))>Ardennes</option>
+                                        <option value="Australian Brumby" @selected(in_array('Australian Brumby', (array)request('breed')))>Australian Brumby</option>
+                                        <option value="Australian Draught Horse" @selected(in_array('Australian Draught Horse', (array)request('breed')))>Australian Draught Horse</option>
+                                        <option value="Australian Stock Horse" @selected(in_array('Australian Stock Horse', (array)request('breed')))>Australian Stock Horse</option>
+                                        <option value="Austrian Warmblood" @selected(in_array('Austrian Warmblood', (array)request('breed')))>Austrian Warmblood</option>
+                                        <option value="Auxois" @selected(in_array('Auxois', (array)request('breed')))>Auxois</option>
+                                        <option value="Azteca" @selected(in_array('Azteca', (array)request('breed')))>Azteca</option>
+                                        <option value="Baden-Wurttemberg" @selected(in_array('Baden-Wurttemberg', (array)request('breed')))>Baden-Wurttemberg</option>
+                                        <option value="Balearic" @selected(in_array('Balearic', (array)request('breed')))>Balearic</option>
+                                        <option value="Balikun Horse" @selected(in_array('Balikun Horse', (array)request('breed')))>Balikun Horse</option>
+                                        <option value="Baltic Hanoverian" @selected(in_array('Baltic Hanoverian', (array)request('breed')))>Baltic Hanoverian</option>
+                                        <option value="Banker" @selected(in_array('Banker', (array)request('breed')))>Banker</option>
+                                        <option value="Bardigiano" @selected(in_array('Bardigiano', (array)request('breed')))>Bardigiano</option>
+                                        <option value="Baroque" @selected(in_array('Baroque', (array)request('breed')))>Baroque</option>
+                                        <option value="Bashkir Horse" @selected(in_array('Bashkir Horse', (array)request('breed')))>Bashkir Horse</option>
+                                        <option value="Bavarian Warmblood" @selected(in_array('Bavarian Warmblood', (array)request('breed')))>Bavarian Warmblood</option>
+                                        <option value="Belgian Cold Blood" @selected(in_array('Belgian Cold Blood', (array)request('breed')))>Belgian Cold Blood</option>
+                                        <option value="Belgian Draft" @selected(in_array('Belgian Draft', (array)request('breed')))>Belgian Draft</option>
+                                        <option value="Belgian Warmblood" @selected(in_array('Belgian Warmblood', (array)request('breed')))>Belgian Warmblood</option>
+                                        <option value="Black Forest Horse" @selected(in_array('Black Forest Horse', (array)request('breed')))>Black Forest Horse</option>
+                                        <option value="Boerperd" @selected(in_array('Boerperd', (array)request('breed')))>Boerperd</option>
+                                        <option value="Boulonnais" @selected(in_array('Boulonnais', (array)request('breed')))>Boulonnais</option>
+                                        <option value="Brabant Horse" @selected(in_array('Brabant Horse', (array)request('breed')))>Brabant Horse</option>
+                                        <option value="Brandenburger Warmblood" @selected(in_array('Brandenburger Warmblood', (array)request('breed')))>Brandenburger Warmblood</option>
+                                        <option value="Breton" @selected(in_array('Breton', (array)request('breed')))>Breton</option>
+                                        <option value="British Riding Pony" @selected(in_array('British Riding Pony', (array)request('breed')))>British Riding Pony</option>
+                                        <option value="Budyonny" @selected(in_array('Budyonny', (array)request('breed')))>Budyonny</option>
+                                        <option value="Burguete" @selected(in_array('Burguete', (array)request('breed')))>Burguete</option>
+                                        <option value="Byelorussian Harness Horse" @selected(in_array('Byelorussian Harness Horse', (array)request('breed')))>Byelorussian Harness Horse</option>
+                                        <option value="Calabrese" @selected(in_array('Calabrese', (array)request('breed')))>Calabrese</option>
+                                        <option value="Camargue Horse" @selected(in_array('Camargue Horse', (array)request('breed')))>Camargue Horse</option>
+                                        <option value="Canadian Horse" @selected(in_array('Canadian Horse', (array)request('breed')))>Canadian Horse</option>
+                                        <option value="Canadian Pacer" @selected(in_array('Canadian Pacer', (array)request('breed')))>Canadian Pacer</option>
+                                        <option value="Canadian Rustic Pony" @selected(in_array('Canadian Rustic Pony', (array)request('breed')))>Canadian Rustic Pony</option>
+                                        <option value="Carolina Marsh Tacky" @selected(in_array('Carolina Marsh Tacky', (array)request('breed')))>Carolina Marsh Tacky</option>
+                                        <option value="Cerbat Mustang" @selected(in_array('Cerbat Mustang', (array)request('breed')))>Cerbat Mustang</option>
+                                        <option value="Chickasaw Horse" @selected(in_array('Chickasaw Horse', (array)request('breed')))>Chickasaw Horse</option>
+                                        <option value="Chincoteague Pony" @selected(in_array('Chincoteague Pony', (array)request('breed')))>Chincoteague Pony</option>
+                                        <option value="Choctaw Pony" @selected(in_array('Choctaw Pony', (array)request('breed')))>Choctaw Pony</option>
+                                        <option value="Classic Pony" @selected(in_array('Classic Pony', (array)request('breed')))>Classic Pony</option>
+                                        <option value="Cleveland-Bay" @selected(in_array('Cleveland-Bay', (array)request('breed')))>Cleveland-Bay</option>
+                                        <option value="Clydesdale" @selected(in_array('Clydesdale', (array)request('breed')))>Clydesdale</option>
+                                        <option value="Clydesdale Cross" @selected(in_array('Clydesdale Cross', (array)request('breed')))>Clydesdale Cross</option>
+                                        <option value="Cob Horse" @selected(in_array('Cob Horse', (array)request('breed')))>Cob Horse</option>
+                                        <option value="Comtois" @selected(in_array('Comtois', (array)request('breed')))>Comtois</option>
+                                        <option value="Connemara Pony" @selected(in_array('Connemara Pony', (array)request('breed')))>Connemara Pony</option>
+                                        <option value="Criollo Horse" @selected(in_array('Criollo Horse', (array)request('breed')))>Criollo Horse</option>
+                                        <option value="Crossbred" @selected(in_array('Crossbred', (array)request('breed')))>Crossbred</option>
+                                        <option value="Curly" @selected(in_array('Curly', (array)request('breed')))>Curly</option>
+                                        <option value="Curly Horses" @selected(in_array('Curly Horses', (array)request('breed')))>Curly Horses</option>
+                                        <option value="Dales Pony" @selected(in_array('Dales Pony', (array)request('breed')))>Dales Pony</option>
+                                        <option value="Danish Warmblood" @selected(in_array('Danish Warmblood', (array)request('breed')))>Danish Warmblood</option>
+                                        <option value="Dartmoor Pony" @selected(in_array('Dartmoor Pony', (array)request('breed')))>Dartmoor Pony</option>
+                                        <option value="Draft" @selected(in_array('Draft', (array)request('breed')))>Draft</option>
+                                        <option value="Draft Cross" @selected(in_array('Draft Cross', (array)request('breed')))>Draft Cross</option>
+                                        <option value="Driving" @selected(in_array('Driving', (array)request('breed')))>Driving</option>
+                                        <option value="Drum Horse" @selected(in_array('Drum Horse', (array)request('breed')))>Drum Horse</option>
+                                        <option value="Dutch Harness Horse" @selected(in_array('Dutch Harness Horse', (array)request('breed')))>Dutch Harness Horse</option>
+                                        <option value="Dutch Warmblood" @selected(in_array('Dutch Warmblood', (array)request('breed')))>Dutch Warmblood</option>
+                                        <option value="Falabella" @selected(in_array('Falabella', (array)request('breed')))>Falabella</option>
+                                        <option value="Fell Pony" @selected(in_array('Fell Pony', (array)request('breed')))>Fell Pony</option>
+                                        <option value="Finnhorse" @selected(in_array('Finnhorse', (array)request('breed')))>Finnhorse</option>
+                                        <option value="Fjord" @selected(in_array('Fjord', (array)request('breed')))>Fjord</option>
+                                        <option value="Fjord Cross" @selected(in_array('Fjord Cross', (array)request('breed')))>Fjord Cross</option>
+                                        <option value="Florida Cracker Horse" @selected(in_array('Florida Cracker Horse', (array)request('breed')))>Florida Cracker Horse</option>
+                                        <option value="Friesian" @selected(in_array('Friesian', (array)request('breed')))>Friesian</option>
+                                        <option value="Friesian Cross" @selected(in_array('Friesian Cross', (array)request('breed')))>Friesian Cross</option>
+                                        <option value="Friesian Sporthorse" @selected(in_array('Friesian Sporthorse', (array)request('breed')))>Friesian Sporthorse</option>
+                                        <option value="Friesian Warmblood Cross" @selected(in_array('Friesian Warmblood Cross', (array)request('breed')))>Friesian Warmblood Cross</option>
+                                        <option value="Gaited" @selected(in_array('Gaited', (array)request('breed')))>Gaited</option>
+                                        <option value="Galiceno" @selected(in_array('Galiceno', (array)request('breed')))>Galiceno</option>
+                                        <option value="Gelderland" @selected(in_array('Gelderland', (array)request('breed')))>Gelderland</option>
+                                        <option value="Gypsy Cross" @selected(in_array('Gypsy Cross', (array)request('breed')))>Gypsy Cross</option>
+                                        <option value="Gypsy Drum Horse" @selected(in_array('Gypsy Drum Horse', (array)request('breed')))>Gypsy Drum Horse</option>
+                                        <option value="Gypsy Friesian Cross" @selected(in_array('Gypsy Friesian Cross', (array)request('breed')))>Gypsy Friesian Cross</option>
+                                        <option value="Gypsy Vanner" @selected(in_array('Gypsy Vanner', (array)request('breed')))>Gypsy Vanner</option>
+                                        <option value="Gypsy Warmblood Cross" @selected(in_array('Gypsy Warmblood Cross', (array)request('breed')))>Gypsy Warmblood Cross</option>
+                                        <option value="Hackney" @selected(in_array('Hackney', (array)request('breed')))>Hackney</option>
+                                        <option value="Hackney Pony" @selected(in_array('Hackney Pony', (array)request('breed')))>Hackney Pony</option>
+                                        <option value="Haflinger" @selected(in_array('Haflinger', (array)request('breed')))>Haflinger</option>
+                                        <option value="Hanoverian" @selected(in_array('Hanoverian', (array)request('breed')))>Hanoverian</option>
+                                        <option value="Holsteiner" @selected(in_array('Holsteiner', (array)request('breed')))>Holsteiner</option>
+                                        <option value="Iberian" @selected(in_array('Iberian', (array)request('breed')))>Iberian</option>
+                                        <option value="Icelandic Horse" @selected(in_array('Icelandic Horse', (array)request('breed')))>Icelandic Horse</option>
+                                        <option value="Irish Draught" @selected(in_array('Irish Draught', (array)request('breed')))>Irish Draught</option>
+                                        <option value="Irish Draft Cross" @selected(in_array('Irish Draft Cross', (array)request('breed')))>Irish Draft Cross</option>
+                                        <option value="Irish Sport Horse" @selected(in_array('Irish Sport Horse', (array)request('breed')))>Irish Sport Horse</option>
+                                        <option value="Kathiawari" @selected(in_array('Kathiawari', (array)request('breed')))>Kathiawari</option>
+                                        <option value="Kentucky Mountain Saddle Horse" @selected(in_array('Kentucky Mountain Saddle Horse', (array)request('breed')))>Kentucky Mountain Saddle Horse</option>
+                                        <option value="Kinsky Horse" @selected(in_array('Kinsky Horse', (array)request('breed')))>Kinsky Horse</option>
+                                        <option value="Knabstrupper" @selected(in_array('Knabstrupper', (array)request('breed')))>Knabstrupper</option>
+                                        <option value="Lippizan" @selected(in_array('Lippizan', (array)request('breed')))>Lippizan</option>
+                                        <option value="Lusitano" @selected(in_array('Lusitano', (array)request('breed')))>Lusitano</option>
+                                        <option value="Mangalarga Marchador" @selected(in_array('Mangalarga Marchador', (array)request('breed')))>Mangalarga Marchador</option>
+                                        <option value="Mangalarga Paulista" @selected(in_array('Mangalarga Paulista', (array)request('breed')))>Mangalarga Paulista</option>
+                                        <option value="Marwari Horse" @selected(in_array('Marwari Horse', (array)request('breed')))>Marwari Horse</option>
+                                        <option value="Mecklenburg" @selected(in_array('Mecklenburg', (array)request('breed')))>Mecklenburg</option>
+                                        <option value="Miniature" @selected(in_array('Miniature', (array)request('breed')))>Miniature</option>
+                                        <option value="Missouri Fox Trotter" @selected(in_array('Missouri Fox Trotter', (array)request('breed')))>Missouri Fox Trotter</option>
+                                        <option value="Morgan" @selected(in_array('Morgan', (array)request('breed')))>Morgan</option>
+                                        <option value="Morgan Cross" @selected(in_array('Morgan Cross', (array)request('breed')))>Morgan Cross</option>
+                                        <option value="Mountain Pleasure Horse" @selected(in_array('Mountain Pleasure Horse', (array)request('breed')))>Mountain Pleasure Horse</option>
+                                        <option value="Mustang" @selected(in_array('Mustang', (array)request('breed')))>Mustang</option>
+                                        <option value="National Show Horse" @selected(in_array('National Show Horse', (array)request('breed')))>National Show Horse</option>
+                                        <option value="New Forest Pony" @selected(in_array('New Forest Pony', (array)request('breed')))>New Forest Pony</option>
+                                        <option value="Newfoundland Pony" @selected(in_array('Newfoundland Pony', (array)request('breed')))>Newfoundland Pony</option>
+                                        <option value="Nokota" @selected(in_array('Nokota', (array)request('breed')))>Nokota</option>
+                                        <option value="Oldenburg" @selected(in_array('Oldenburg', (array)request('breed')))>Oldenburg</option>
+                                        <option value="Paint" @selected(in_array('Paint', (array)request('breed')))>Paint</option>
+                                        <option value="Paso Fino" @selected(in_array('Paso Fino', (array)request('breed')))>Paso Fino</option>
+                                        <option value="Percheron" @selected(in_array('Percheron', (array)request('breed')))>Percheron</option>
+                                        <option value="Percheron Cross" @selected(in_array('Percheron Cross', (array)request('breed')))>Percheron Cross</option>
+                                        <option value="Pinto" @selected(in_array('Pinto', (array)request('breed')))>Pinto</option>
+                                        <option value="POA" @selected(in_array('POA', (array)request('breed')))>POA</option>
+                                        <option value="Polish Warmblood" @selected(in_array('Polish Warmblood', (array)request('breed')))>Polish Warmblood</option>
+                                        <option value="Pony" @selected(in_array('Pony', (array)request('breed')))>Pony</option>
+                                        <option value="Quarter Draft" @selected(in_array('Quarter Draft', (array)request('breed')))>Quarter Draft</option>
+                                        <option value="Quarter Horse" @selected(in_array('Quarter Horse', (array)request('breed')))>Quarter Horse</option>
+                                        <option value="Quarter Horse Cross" @selected(in_array('Quarter Horse Cross', (array)request('breed')))>Quarter Horse Cross</option>
+                                        <option value="Racking Horse" @selected(in_array('Racking Horse', (array)request('breed')))>Racking Horse</option>
+                                        <option value="Rhinelander" @selected(in_array('Rhinelander', (array)request('breed')))>Rhinelander</option>
+                                        <option value="Rocky Mountain Horse" @selected(in_array('Rocky Mountain Horse', (array)request('breed')))>Rocky Mountain Horse</option>
+                                        <option value="Selle Français" @selected(in_array('Selle Français', (array)request('breed')))>Selle Français</option>
+                                        <option value="Shire" @selected(in_array('Shire', (array)request('breed')))>Shire</option>
+                                        <option value="Shire Cross" @selected(in_array('Shire Cross', (array)request('breed')))>Shire Cross</option>
+                                        <option value="Single-Footing Horse" @selected(in_array('Single-Footing Horse', (array)request('breed')))>Single-Footing Horse</option>
+                                        <option value="Sport Horse" @selected(in_array('Sport Horse', (array)request('breed')))>Sport Horse</option>
+                                        <option value="Spotted Draft" @selected(in_array('Spotted Draft', (array)request('breed')))>Spotted Draft</option>
+                                        <option value="Spotted Draft Cross" @selected(in_array('Spotted Draft Cross', (array)request('breed')))>Spotted Draft Cross</option>
+                                        <option value="Spotted Saddle Horse" @selected(in_array('Spotted Saddle Horse', (array)request('breed')))>Spotted Saddle Horse</option>
+                                        <option value="Stock Horse" @selected(in_array('Stock Horse', (array)request('breed')))>Stock Horse</option>
+                                        <option value="Suffolk Punch" @selected(in_array('Suffolk Punch', (array)request('breed')))>Suffolk Punch</option>
+                                        <option value="Swedish Warmblood" @selected(in_array('Swedish Warmblood', (array)request('breed')))>Swedish Warmblood</option>
+                                        <option value="Swiss Warmblood" @selected(in_array('Swiss Warmblood', (array)request('breed')))>Swiss Warmblood</option>
+                                        <option value="Tennessee Walking Horse" @selected(in_array('Tennessee Walking Horse', (array)request('breed')))>Tennessee Walking Horse</option>
+                                        <option value="Thoroughbred" @selected(in_array('Thoroughbred', (array)request('breed')))>Thoroughbred</option>
+                                        <option value="Thoroughbred Cross" @selected(in_array('Thoroughbred Cross', (array)request('breed')))>Thoroughbred Cross</option>
+                                        <option value="Tinker" @selected(in_array('Tinker', (array)request('breed')))>Tinker</option>
+                                        <option value="Trakehner" @selected(in_array('Trakehner', (array)request('breed')))>Trakehner</option>
+                                        <option value="Cumberland Island Horse" @selected(in_array('Cumberland Island Horse', (array)request('breed')))>Cumberland Island Horse</option>
+                                        <option value="Virginia Highlander" @selected(in_array('Virginia Highlander', (array)request('breed')))>Virginia Highlander</option>
+                                        <option value="Warmblood" @selected(in_array('Warmblood', (array)request('breed')))>Warmblood</option>
+                                        <option value="Warmblood Cross" @selected(in_array('Warmblood Cross', (array)request('breed')))>Warmblood Cross</option>
+                                        <option value="Warmblood Draft Cross" @selected(in_array('Warmblood Draft Cross', (array)request('breed')))>Warmblood Draft Cross</option>
+                                        <option value="Warmblood TB Cross" @selected(in_array('Warmblood TB Cross', (array)request('breed')))>Warmblood TB Cross</option>
+                                        <option value="Welsh" @selected(in_array('Welsh', (array)request('breed')))>Welsh</option>
+                                        <option value="Welsh Cross" @selected(in_array('Welsh Cross', (array)request('breed')))>Welsh Cross</option>
+                                        <option value="Welsh Pony" @selected(in_array('Welsh Pony', (array)request('breed')))>Welsh Pony</option>
+                                        <option value="Westphalian" @selected(in_array('Westphalian', (array)request('breed')))>Westphalian</option>
+                                        <option value="Zangersheide" @selected(in_array('Zangersheide', (array)request('breed')))>Zangersheide</option>
+                                        <option value="Zweibrücker Horse" @selected(in_array('Zweibrücker Horse', (array)request('breed')))>Zweibrücker Horse</option>
                                     </select>
                                 </div>
                             </div>
@@ -1305,110 +1310,84 @@
                                     <!-- Selected colors will appear here -->
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="select-field form-select color_select" name="selectedColor">
+                                    <select class="select-field form-select color_select" name="selectedColor[]" multiple>
                                         <option value="" @selected(true) @disabled(true)>Select Color</option>
-                                        <option value="Appaloosa" {{ request('selectedColor') == 'Appaloosa' ? 'selected' : '' }}>Appaloosa</option>
-                                        <option value="Bay" {{ request('selectedColor') == 'Bay' ? 'selected' : '' }}>Bay
-                                        </option>
-                                        <option value="Bay Dun" {{ request('selectedColor') == 'Bay Dun' ? 'selected' : '' }}>
-                                            Bay Dun</option>
-                                        <option value="Bay Dun Roan" {{ request('selectedColor') == 'Bay Dun Roan' ? 'selected' : '' }}>Bay Dun Roan</option>
-                                        <option value="Bay Roan" {{ request('selectedColor') == 'Bay Roan' ? 'selected' : '' }}>Bay Roan</option>
-                                        <option value="Black" {{ request('selectedColor') == 'Black' ? 'selected' : '' }}>
-                                            Black</option>
-                                        <option value="Black Bay" {{ request('selectedColor') == 'Black Bay' ? 'selected' : '' }}>Black Bay</option>
-                                        <option value="Blue Roan" {{ request('selectedColor') == 'Blue Roan' ? 'selected' : '' }}>Blue Roan</option>
-                                        <option value="Brindle" {{ request('selectedColor') == 'Brindle' ? 'selected' : '' }}>
-                                            Brindle</option>
-                                        <option value="Brown" {{ request('selectedColor') == 'Brown' ? 'selected' : '' }}>
-                                            Brown</option>
-                                        <option value="Buckskin" {{ request('selectedColor') == 'Buckskin' ? 'selected' : '' }}>Buckskin</option>
-                                        <option value="Buckskin Roan" {{ request('selectedColor') == 'Buckskin Roan' ? 'selected' : '' }}>Buckskin Roan</option>
-                                        <option value="Champagne" {{ request('selectedColor') == 'Champagne' ? 'selected' : '' }}>Champagne</option>
-                                        <option value="Chestnut" {{ request('selectedColor') == 'Chestnut' ? 'selected' : '' }}>Chestnut</option>
-                                        <option value="Chocolate" {{ request('selectedColor') == 'Chocolate' ? 'selected' : '' }}>Chocolate</option>
-                                        <option value="Chocolate Flaxen" {{ request('selectedColor') == 'Chocolate Flaxen' ? 'selected' : '' }}>Chocolate Flaxen
-                                        </option>
-                                        <option value="Cream" {{ request('selectedColor') == 'Cream' ? 'selected' : '' }}>
-                                            Cream</option>
-                                        <option value="Cremello" {{ request('selectedColor') == 'Cremello' ? 'selected' : '' }}>Cremello</option>
-                                        <option value="Cremello Dun" {{ request('selectedColor') == 'Cremello Dun' ? 'selected' : '' }}>Cremello Dun</option>
-                                        <option value="Dapple Grey" {{ request('selectedColor') == 'Dapple Grey' ? 'selected' : '' }}>Dapple Grey</option>
-                                        <option value="Dun" {{ request('selectedColor') == 'Dun' ? 'selected' : '' }}>Dun
-                                        </option>
-                                        <option value="Dunalino" {{ request('selectedColor') == 'Dunalino' ? 'selected' : '' }}>Dunalino</option>
-                                        <option value="Dunskin" {{ request('selectedColor') == 'Dunskin' ? 'selected' : '' }}>
-                                            Dunskin</option>
-                                        <option value="Flaxen" {{ request('selectedColor') == 'Flaxen' ? 'selected' : '' }}>
-                                            Flaxen</option>
-                                        <option value="Flea-bitten Gray" {{ request('selectedColor') == 'Flea-bitten Gray' ? 'selected' : '' }}>Flea-bitten Gray
-                                        </option>
-                                        <option value="Frame Overo" {{ request('selectedColor') == 'Frame Overo' ? 'selected' : '' }}>Frame Overo</option>
-                                        <option value="Grey" {{ request('selectedColor') == 'Grey' ? 'selected' : '' }}>Grey
-                                        </option>
-                                        <option value="Grullo" {{ request('selectedColor') == 'Grullo' ? 'selected' : '' }}>
-                                            Grullo</option>
-                                        <option value="Isabella" {{ request('selectedColor') == 'Isabella' ? 'selected' : '' }}>Isabella</option>
-                                        <option value="Lerino Dun" {{ request('selectedColor') == 'Lerino Dun' ? 'selected' : '' }}>Lerino Dun</option>
-                                        <option value="Liver Chestnut" {{ request('selectedColor') == 'Liver Chestnut' ? 'selected' : '' }}>Liver Chestnut</option>
-                                        <option value="Other" {{ request('selectedColor') == 'Other' ? 'selected' : '' }}>
-                                            Other</option>
-                                        <option value="Overo" {{ request('selectedColor') == 'Overo' ? 'selected' : '' }}>
-                                            Overo</option>
-                                        <option value="Paintaloosa" {{ request('selectedColor') == 'Paintaloosa' ? 'selected' : '' }}>Paintaloosa</option>
-                                        <option value="Palomino" {{ request('selectedColor') == 'Palomino' ? 'selected' : '' }}>Palomino</option>
-                                        <option value="Palomino Roan" {{ request('selectedColor') == 'Palomino Roan' ? 'selected' : '' }}>Palomino Roan</option>
-                                        <option value="Pearl" {{ request('selectedColor') == 'Pearl' ? 'selected' : '' }}>
-                                            Pearl</option>
-                                        <option value="Perlino" {{ request('selectedColor') == 'Perlino' ? 'selected' : '' }}>
-                                            Perlino</option>
-                                        <option value="Piebald" {{ request('selectedColor') == 'Piebald' ? 'selected' : '' }}>
-                                            Piebald</option>
-                                        <option value="Pinto" {{ request('selectedColor') == 'Pinto' ? 'selected' : '' }}>
-                                            Pinto</option>
-                                        <option value="Red Chocolate" {{ request('selectedColor') == 'Red Chocolate' ? 'selected' : '' }}>Red Chocolate</option>
-                                        <option value="Red Dun" {{ request('selectedColor') == 'Red Dun' ? 'selected' : '' }}>
-                                            Red Dun</option>
-                                        <option value="Red Dun Roan" {{ request('selectedColor') == 'Red Dun Roan' ? 'selected' : '' }}>Red Dun Roan</option>
-                                        <option value="Red Roan" {{ request('selectedColor') == 'Red Roan' ? 'selected' : '' }}>Red Roan</option>
-                                        <option value="Roan" {{ request('selectedColor') == 'Roan' ? 'selected' : '' }}>Roan
-                                        </option>
-                                        <option value="Sabino" {{ request('selectedColor') == 'Sabino' ? 'selected' : '' }}>
-                                            Sabino</option>
-                                        <option value="Seal Brown" {{ request('selectedColor') == 'Seal Brown' ? 'selected' : '' }}>Seal Brown</option>
-                                        <option value="Silver" {{ request('selectedColor') == 'Silver' ? 'selected' : '' }}>
-                                            Silver</option>
-                                        <option value="Silver Bay" {{ request('selectedColor') == 'Silver Bay' ? 'selected' : '' }}>Silver Bay</option>
-                                        <option value="Silver Black" {{ request('selectedColor') == 'Silver Black' ? 'selected' : '' }}>Silver Black</option>
-                                        <option value="Silver Black Roan" {{ request('selectedColor') == 'Silver Black Roan' ? 'selected' : '' }}>Silver Black Roan
-                                        </option>
-                                        <option value="Silver Buckskin" {{ request('selectedColor') == 'Silver Buckskin' ? 'selected' : '' }}>Silver Buckskin
-                                        </option>
-                                        <option value="Silver Dapple" {{ request('selectedColor') == 'Silver Dapple' ? 'selected' : '' }}>Silver Dapple</option>
-                                        <option value="Silver Perlino" {{ request('selectedColor') == 'Silver Perlino' ? 'selected' : '' }}>Silver Perlino</option>
-                                        <option value="Silver Smokey Black" {{ request('selectedColor') == 'Silver Smokey Black' ? 'selected' : '' }}>Silver
-                                            Smokey Black</option>
-                                        <option value="Silver Smokey Cream" {{ request('selectedColor') == 'Silver Smokey Cream' ? 'selected' : '' }}>Silver
-                                            Smokey Cream</option>
-                                        <option value="Skewbald" {{ request('selectedColor') == 'Skewbald' ? 'selected' : '' }}>Skewbald</option>
-                                        <option value="Smokey Black" {{ request('selectedColor') == 'Smokey Black' ? 'selected' : '' }}>Smokey Black</option>
-                                        <option value="Smokey Cream" {{ request('selectedColor') == 'Smokey Cream' ? 'selected' : '' }}>Smokey Cream</option>
-                                        <option value="Smokey Cream Dun" {{ request('selectedColor') == 'Smokey Cream Dun' ? 'selected' : '' }}>Smokey Cream Dun
-                                        </option>
-                                        <option value="Smokey Grullo" {{ request('selectedColor') == 'Smokey Grullo' ? 'selected' : '' }}>Smokey Grullo</option>
-                                        <option value="Sooty Buckskin" {{ request('selectedColor') == 'Sooty Buckskin' ? 'selected' : '' }}>Sooty Buckskin</option>
-                                        <option value="Sorrel" {{ request('selectedColor') == 'Sorrel' ? 'selected' : '' }}>
-                                            Sorrel</option>
-                                        <option value="Splash Overo" {{ request('selectedColor') == 'Splash Overo' ? 'selected' : '' }}>Splash Overo</option>
-                                        <option value="Splash White" {{ request('selectedColor') == 'Splash White' ? 'selected' : '' }}>Splash White</option>
-                                        <option value="Tobiano" {{ request('selectedColor') == 'Tobiano' ? 'selected' : '' }}>
-                                            Tobiano</option>
-                                        <option value="Tovero" {{ request('selectedColor') == 'Tovero' ? 'selected' : '' }}>
-                                            Tovero</option>
-                                        <option value="Unknown" {{ request('selectedColor') == 'Unknown' ? 'selected' : '' }}>
-                                            Unknown</option>
-                                        <option value="White" {{ request('selectedColor') == 'White' ? 'selected' : '' }}>
-                                            White</option>
+                                        <option value="Appaloosa" @selected(in_array('Appaloosa', (array)request('selectedColor')))>Appaloosa</option>
+                                        <option value="Bay" @selected(in_array('Bay', (array)request('selectedColor')))>Bay</option>
+                                        <option value="Bay Dun" @selected(in_array('Bay Dun', (array)request('selectedColor')))>Bay Dun</option>
+                                        <option value="Bay Dun Roan" @selected(in_array('Bay Dun Roan', (array)request('selectedColor')))>Bay Dun Roan</option>
+                                        <option value="Bay Roan" @selected(in_array('Bay Roan', (array)request('selectedColor')))>Bay Roan</option>
+                                        <option value="Black" @selected(in_array('Black', (array)request('selectedColor')))>Black</option>
+                                        <option value="Black Bay" @selected(in_array('Black Bay', (array)request('selectedColor')))>Black Bay</option>
+                                        <option value="Blanket Appaloosa" @selected(in_array('Blanket Appaloosa', (array)request('selectedColor')))>Blanket Appaloosa</option>
+                                        <option value="Blue Roan" @selected(in_array('Blue Roan', (array)request('selectedColor')))>Blue Roan</option>
+                                        <option value="Brindle" @selected(in_array('Brindle', (array)request('selectedColor')))>Brindle</option>
+                                        <option value="Brown" @selected(in_array('Brown', (array)request('selectedColor')))>Brown</option>
+                                        <option value="Buckskin" @selected(in_array('Buckskin', (array)request('selectedColor')))>Buckskin</option>
+                                        <option value="Buckskin Roan" @selected(in_array('Buckskin Roan', (array)request('selectedColor')))>Buckskin Roan</option>
+                                        <option value="Champagne" @selected(in_array('Champagne', (array)request('selectedColor')))>Champagne</option>
+                                        <option value="Chestnut" @selected(in_array('Chestnut', (array)request('selectedColor')))>Chestnut</option>
+                                        <option value="Chocolate" @selected(in_array('Chocolate', (array)request('selectedColor')))>Chocolate</option>
+                                        <option value="Chocolate Flaxen" @selected(in_array('Chocolate Flaxen', (array)request('selectedColor')))>Chocolate Flaxen</option>
+                                        <option value="Cream" @selected(in_array('Cream', (array)request('selectedColor')))>Cream</option>
+                                        <option value="Cremello" @selected(in_array('Cremello', (array)request('selectedColor')))>Cremello</option>
+                                        <option value="Cremello Dun" @selected(in_array('Cremello Dun', (array)request('selectedColor')))>Cremello Dun</option>
+                                        <option value="Dapple Grey" @selected(in_array('Dapple Grey', (array)request('selectedColor')))>Dapple Grey</option>
+                                        <option value="Dun" @selected(in_array('Dun', (array)request('selectedColor')))>Dun</option>
+                                        <option value="Dunalino" @selected(in_array('Dunalino', (array)request('selectedColor')))>Dunalino</option>
+                                        <option value="Dunskin" @selected(in_array('Dunskin', (array)request('selectedColor')))>Dunskin</option>
+                                        <option value="Flaxen" @selected(in_array('Flaxen', (array)request('selectedColor')))>Flaxen</option>
+                                        <option value="Flea-bitten Gray" @selected(in_array('Flea-bitten Gray', (array)request('selectedColor')))>Flea-bitten Gray</option>
+                                        <option value="Frame Overo" @selected(in_array('Frame Overo', (array)request('selectedColor')))>Frame Overo</option>
+                                        <option value="Grey" @selected(in_array('Grey', (array)request('selectedColor')))>Grey</option>
+                                        <option value="Grullo" @selected(in_array('Grullo', (array)request('selectedColor')))>Grullo</option>
+                                        <option value="Isabella" @selected(in_array('Isabella', (array)request('selectedColor')))>Isabella</option>
+                                        <option value="Leopard Appaloosa" @selected(in_array('Leopard Appaloosa', (array)request('selectedColor')))>Leopard Appaloosa</option>
+                                        <option value="Lerino Dun" @selected(in_array('Lerino Dun', (array)request('selectedColor')))>Lerino Dun</option>
+                                        <option value="Liver Chestnut" @selected(in_array('Liver Chestnut', (array)request('selectedColor')))>Liver Chestnut</option>
+                                        <option value="Medicine Hat" @selected(in_array('Medicine Hat', (array)request('selectedColor')))>Medicine Hat</option>
+                                        <option value="Other" @selected(in_array('Other', (array)request('selectedColor')))>Other</option>
+                                        <option value="Overo" @selected(in_array('Overo', (array)request('selectedColor')))>Overo</option>
+                                        <option value="Paintaloosa" @selected(in_array('Paintaloosa', (array)request('selectedColor')))>Paintaloosa</option>
+                                        <option value="Palomino" @selected(in_array('Palomino', (array)request('selectedColor')))>Palomino</option>
+                                        <option value="Palomino Roan" @selected(in_array('Palomino Roan', (array)request('selectedColor')))>Palomino Roan</option>
+                                        <option value="Pearl" @selected(in_array('Pearl', (array)request('selectedColor')))>Pearl</option>
+                                        <option value="Perlino" @selected(in_array('Perlino', (array)request('selectedColor')))>Perlino</option>
+                                        <option value="Piebald" @selected(in_array('Piebald', (array)request('selectedColor')))>Piebald</option>
+                                        <option value="Pinto" @selected(in_array('Pinto', (array)request('selectedColor')))>Pinto</option>
+                                        <option value="Rabicano" @selected(in_array('Rabicano', (array)request('selectedColor')))>Rabicano</option>
+                                        <option value="Red Chocolate" @selected(in_array('Red Chocolate', (array)request('selectedColor')))>Red Chocolate</option>
+                                        <option value="Red Dun" @selected(in_array('Red Dun', (array)request('selectedColor')))>Red Dun</option>
+                                        <option value="Red Dun Roan" @selected(in_array('Red Dun Roan', (array)request('selectedColor')))>Red Dun Roan</option>
+                                        <option value="Red Roan" @selected(in_array('Red Roan', (array)request('selectedColor')))>Red Roan</option>
+                                        <option value="Roan" @selected(in_array('Roan', (array)request('selectedColor')))>Roan</option>
+                                        <option value="Rose Grey" @selected(in_array('Rose Grey', (array)request('selectedColor')))>Rose Grey</option>
+                                        <option value="Sabino" @selected(in_array('Sabino', (array)request('selectedColor')))>Sabino</option>
+                                        <option value="Seal Brown" @selected(in_array('Seal Brown', (array)request('selectedColor')))>Seal Brown</option>
+                                        <option value="Silver" @selected(in_array('Silver', (array)request('selectedColor')))>Silver</option>
+                                        <option value="Silver Bay" @selected(in_array('Silver Bay', (array)request('selectedColor')))>Silver Bay</option>
+                                        <option value="Silver Black" @selected(in_array('Silver Black', (array)request('selectedColor')))>Silver Black</option>
+                                        <option value="Silver Black Roan" @selected(in_array('Silver Black Roan', (array)request('selectedColor')))>Silver Black Roan</option>
+                                        <option value="Silver Buckskin" @selected(in_array('Silver Buckskin', (array)request('selectedColor')))>Silver Buckskin</option>
+                                        <option value="Silver Dapple" @selected(in_array('Silver Dapple', (array)request('selectedColor')))>Silver Dapple</option>
+                                        <option value="Silver Perlino" @selected(in_array('Silver Perlino', (array)request('selectedColor')))>Silver Perlino</option>
+                                        <option value="Silver Smokey Black" @selected(in_array('Silver Smokey Black', (array)request('selectedColor')))>Silver Smokey Black</option>
+                                        <option value="Silver Smokey Cream" @selected(in_array('Silver Smokey Cream', (array)request('selectedColor')))>Silver Smokey Cream</option>
+                                        <option value="Skewbald" @selected(in_array('Skewbald', (array)request('selectedColor')))>Skewbald</option>
+                                        <option value="Smokey Black" @selected(in_array('Smokey Black', (array)request('selectedColor')))>Smokey Black</option>
+                                        <option value="Smokey Cream" @selected(in_array('Smokey Cream', (array)request('selectedColor')))>Smokey Cream</option>
+                                        <option value="Smokey Cream Dun" @selected(in_array('Smokey Cream Dun', (array)request('selectedColor')))>Smokey Cream Dun</option>
+                                        <option value="Smokey Grullo" @selected(in_array('Smokey Grullo', (array)request('selectedColor')))>Smokey Grullo</option>
+                                        <option value="Sooty Buckskin" @selected(in_array('Sooty Buckskin', (array)request('selectedColor')))>Sooty Buckskin</option>
+                                        <option value="Sooty Palomino" @selected(in_array('Sooty Palomino', (array)request('selectedColor')))>Sooty Palomino</option>
+                                        <option value="Sorrel" @selected(in_array('Sorrel', (array)request('selectedColor')))>Sorrel</option>
+                                        <option value="Splash Overo" @selected(in_array('Splash Overo', (array)request('selectedColor')))>Splash Overo</option>
+                                        <option value="Splash White" @selected(in_array('Splash White', (array)request('selectedColor')))>Splash White</option>
+                                        <option value="Strawberry Roan" @selected(in_array('Strawberry Roan', (array)request('selectedColor')))>Strawberry Roan</option>
+                                        <option value="Tobiano" @selected(in_array('Tobiano', (array)request('selectedColor')))>Tobiano</option>
+                                        <option value="Tovero" @selected(in_array('Tovero', (array)request('selectedColor')))>Tovero</option>
+                                        <option value="Unknown" @selected(in_array('Unknown', (array)request('selectedColor')))>Unknown</option>
+                                        <option value="White" @selected(in_array('White', (array)request('selectedColor')))>White</option>
                                     </select>
                                 </div>
                             </div>
@@ -1419,24 +1398,24 @@
                                     <!-- Selected genders will appear here -->
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="select-field form-select gender_select" name="selectedGender">
-                                        <option @disabled(true) selected>Select Genders</option>
-                                        <option value="Colt" {{ request('selectedGender') == 'Colt' ? 'selected' : '' }}>Colt
+                                    <select class="select-field form-select gender_select" name="selectedGender[]" multiple>
+                                        <option value="" @disabled(true) selected>Select Genders</option>
+                                        <option value="Colt" @selected(in_array('Colt', (array)request('selectedGender')))>Colt
                                         </option>
-                                        <option value="Filly" {{ request('selectedGender') == 'Filly' ? 'selected' : '' }}>
+                                        <option value="Filly" @selected(in_array('Filly', (array)request('selectedGender')))>
                                             Filly</option>
-                                        <option value="Gelding" {{ request('selectedGender') == 'Gelding' ? 'selected' : '' }}>Gelding</option>
-                                        <option value="Mare" {{ request('selectedGender') == 'Mare' ? 'selected' : '' }}>Mare
+                                        <option value="Gelding" @selected(in_array('Gelding', (array)request('selectedGender')))>Gelding</option>
+                                        <option value="Mare" @selected(in_array('Mare', (array)request('selectedGender')))>Mare
                                         </option>
-                                        <option value="Stallion" {{ request('selectedGender') == 'Stallion' ? 'selected' : '' }}>Stallion</option>
-                                        <option value="Unborn Foal" {{ request('selectedGender') == 'Unborn Foal' ? 'selected' : '' }}>Unborn Foal</option>
-                                        <option value="Jack" {{ request('selectedGender') == 'Jack' ? 'selected' : '' }}>Jack
+                                        <option value="Stallion" @selected(in_array('Stallion', (array)request('selectedGender')))>Stallion</option>
+                                        <option value="Unborn Foal" @selected(in_array('Unborn Foal', (array)request('selectedGender')))>Unborn Foal</option>
+                                        <option value="Jack" @selected(in_array('Jack', (array)request('selectedGender')))>Jack
                                         </option>
-                                        <option value="Jenny" {{ request('selectedGender') == 'Jenny' ? 'selected' : '' }}>
+                                        <option value="Jenny" @selected(in_array('Jenny', (array)request('selectedGender')))>
                                             Jenny</option>
-                                        <option value="John" {{ request('selectedGender') == 'John' ? 'selected' : '' }}>John
+                                        <option value="John" @selected(in_array('John', (array)request('selectedGender')))>John
                                         </option>
-                                        <option value="Molly" {{ request('selectedGender') == 'Molly' ? 'selected' : '' }}>
+                                        <option value="Molly" @selected(in_array('Molly', (array)request('selectedGender')))>
                                             Molly</option>
                                     </select>
                                 </div>
@@ -1444,219 +1423,207 @@
                             <!-- Skills/Disciplines Section -->
                             <div class="form-section">
                                 <div class="section-title">Skills/Disciplines</div>
-                                <div class="skills-tags d-none" id="skills-tags">
-                                    <div class="skill-tag">
-                                        Jumping 3'6"
-                                        <button class="remove" onclick="removeTag(this)">×</button>
-                                    </div>
-                                    <div class="skill-tag">
-                                        Trail Riding
-                                        <button class="remove" onclick="removeTag(this)">×</button>
-                                    </div>
-                                    <div class="skill-tag">
-                                        Hunter Horse
-                                        <button class="remove" onclick="removeTag(this)">×</button>
-                                    </div>
+                                <div class="skills-tags" id="rider-tags">
+                                    <!-- Selected skills will appear here -->
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="select-field form-select skill_select" name="rider">
-                                        <option selected disabled>Select Skills/Disciplines</option>
-                                        <option value="Agility" {{ request('rider') == 'Agility' ? 'selected' : '' }}>Agility
+                                    <select class="select-field form-select skill_select" name="rider[]" multiple>
+                                        <option value="" selected disabled>Select Skills/Disciplines</option>
+                                        <option value="Agility" @selected(in_array('Agility', (array)request('rider')))>Agility
                                         </option>
-                                        <option value="All Around" {{ request('rider') == 'All Around' ? 'selected' : '' }}>
+                                        <option value="All Around" @selected(in_array('All Around', (array)request('rider')))>
                                             All Around</option>
-                                        <option value="All-Around Show" {{ request('rider') == 'All-Around Show' ? 'selected' : '' }}>All-Around Show</option>
-                                        <option value="Beginner" {{ request('rider') == 'Beginner' ? 'selected' : '' }}>
+                                        <option value="All-Around Show" @selected(in_array('All-Around Show', (array)request('rider')))>All-Around Show</option>
+                                        <option value="Beginner" @selected(in_array('Beginner', (array)request('rider')))>
                                             Beginner</option>
-                                        <option value="Barrel Racing" {{ request('rider') == 'Barrel Racing' ? 'selected' : '' }}>Barrel Racing</option>
-                                        <option value="Barrels* Poles *Gymkhana" {{ request('rider') == 'Barrels* Poles *Gymkhana' ? 'selected' : '' }}>Barrels* Poles
-                                            *Gymkhana</option>
-                                        <option value="Breakaway Roping" {{ request('rider') == 'Breakaway Roping' ? 'selected' : '' }}>Breakaway Roping</option>
-                                        <option value="Brood mare" {{ request('rider') == 'Brood mare' ? 'selected' : '' }}>
-                                            Brood mare</option>
-                                        <option value="Cutting Prospect" {{ request('rider') == 'Cutting Prospect' ? 'selected' : '' }}>Cutting Prospect</option>
-                                        <option value="Cutting" {{ request('rider') == 'Cutting' ? 'selected' : '' }}>Cutting
+                                        <option value="Barrel Racing" @selected(in_array('Barrel Racing', (array)request('rider')))>Barrel Racing</option>
+                                        <option value="Pole Bending" @selected(in_array('Pole Bending', (array)request('rider')))>Pole Bending</option>
+                                        <option value="Gymkhana" @selected(in_array('Gymkhana', (array)request('rider')))>Gymkhana</option>
+                                        <option value="Breakaway Roping" @selected(in_array('Breakaway Roping', (array)request('rider')))>Breakaway Roping</option>
+                                        <option value="Broodmare" @selected(in_array('Broodmare', (array)request('rider')))>
+                                            Broodmare</option>
+                                        <option value="Cutting Prospect" @selected(in_array('Cutting Prospect', (array)request('rider')))>Cutting Prospect</option>
+                                        <option value="Cutting" @selected(in_array('Cutting', (array)request('rider')))>Cutting
                                         </option>
-                                        <option value="Calf Roping" {{ request('rider') == 'Calf Roping' ? 'selected' : '' }}>
+                                        <option value="Calf Roping" @selected(in_array('Calf Roping', (array)request('rider')))>
                                             Calf Roping</option>
-                                        <option value="Clicker Training" {{ request('rider') == 'Clicker Training' ? 'selected' : '' }}>Clicker Training</option>
-                                        <option value="Companion Only" {{ request('rider') == 'Companion Only' ? 'selected' : '' }}>Companion Only</option>
-                                        <option value="Competitive Trail Riding" {{ request('rider') == 'Competitive Trail Riding' ? 'selected' : '' }}>Competitive
+                                        <option value="Clicker Training" @selected(in_array('Clicker Training', (array)request('rider')))>Clicker Training</option>
+                                        <option value="Companion Only" @selected(in_array('Companion Only', (array)request('rider')))>Companion Only</option>
+                                        <option value="Competitive Trail Riding" @selected(in_array('Competitive Trail Riding', (array)request('rider')))>Competitive
                                             Trail Riding</option>
-                                        <option value="Country English Pleasure" {{ request('rider') == 'Country English Pleasure' ? 'selected' : '' }}>Country
+                                        <option value="Country English Pleasure" @selected(in_array('Country English Pleasure', (array)request('rider')))>Country
                                             English Pleasure</option>
-                                        <option value="Cowboy Dressage" {{ request('rider') == 'Cowboy Dressage' ? 'selected' : '' }}>Cowboy Dressage</option>
-                                        <option value="Cowboy Mounted Shooting" {{ request('rider') == 'Cowboy Mounted Shooting' ? 'selected' : '' }}>Cowboy Mounted
+                                        <option value="Cowboy Dressage" @selected(in_array('Cowboy Dressage', (array)request('rider')))>Cowboy Dressage</option>
+                                        <option value="Cowboy Mounted Shooting" @selected(in_array('Cowboy Mounted Shooting', (array)request('rider')))>Cowboy Mounted
                                             Shooting</option>
-                                        <option value="Cowboy Racing" {{ request('rider') == 'Cowboy Racing' ? 'selected' : '' }}>Cowboy Racing</option>
-                                        <option value="Cow horse" {{ request('rider') == 'Cow horse' ? 'selected' : '' }}>Cow
+                                        <option value="Cowboy Racing" @selected(in_array('Cowboy Racing', (array)request('rider')))>Cowboy Racing</option>
+                                        <option value="Cowhorse" @selected(in_array('Cowhorse', (array)request('rider')))>Cow
                                             horse</option>
-                                        <option value="Cross-Country" {{ request('rider') == 'Cross-Country' ? 'selected' : '' }}>Cross-Country</option>
-                                        <option value="Dressage" {{ request('rider') == 'Dressage' ? 'selected' : '' }}>
+                                        <option value="Cross-Country" @selected(in_array('Cross-Country', (array)request('rider')))>Cross-Country</option>
+                                        <option value="Dressage" @selected(in_array('Dressage', (array)request('rider')))>
                                             Dressage</option>
-                                        <option value="Drill Team" {{ request('rider') == 'Drill Team' ? 'selected' : '' }}>
+                                        <option value="Drill Team" @selected(in_array('Drill Team', (array)request('rider')))>
                                             Drill Team</option>
-                                        <option value="Driving" {{ request('rider') == 'Driving' ? 'selected' : '' }}>Driving
+                                        <option value="Driving" @selected(in_array('Driving', (array)request('rider')))>Driving
                                         </option>
-                                        <option value="Endurance Riding" {{ request('rider') == 'Endurance Riding' ? 'selected' : '' }}>Endurance Riding</option>
-                                        <option value="English" {{ request('rider') == 'English' ? 'selected' : '' }}>English
+                                        <option value="Endurance Riding" @selected(in_array('Endurance Riding', (array)request('rider')))>Endurance Riding</option>
+                                        <option value="English" @selected(in_array('English', (array)request('rider')))>English
                                         </option>
-                                        <option value="English Pleasure" {{ request('rider') == 'English Pleasure' ? 'selected' : '' }}>English Pleasure</option>
-                                        <option value="Equitation" {{ request('rider') == 'Equitation' ? 'selected' : '' }}>
+                                        <option value="English Pleasure" @selected(in_array('English Pleasure', (array)request('rider')))>English Pleasure</option>
+                                        <option value="Equitation" @selected(in_array('Equitation', (array)request('rider')))>
                                             Equitation</option>
-                                        <option value="Eventing" {{ request('rider') == 'Eventing' ? 'selected' : '' }}>
+                                        <option value="Eventing" @selected(in_array('Eventing', (array)request('rider')))>
                                             Eventing</option>
-                                        <option value="Field Trial" {{ request('rider') == 'Field Trial' ? 'selected' : '' }}>
+                                        <option value="Field Trial" @selected(in_array('Field Trial', (array)request('rider')))>
                                             Field Trial</option>
-                                        <option value="Foxhunter" {{ request('rider') == 'Foxhunter' ? 'selected' : '' }}>
+                                        <option value="Foxhunter" @selected(in_array('Foxhunter', (array)request('rider')))>
                                             Foxhunter</option>
-                                        <option value="Gun - Safe Hunting" {{ request('rider') == 'Gun - Safe Hunting' ? 'selected' : '' }}>Gun - Safe Hunting
+                                        <option value="Gun - Safe Hunting" @selected(in_array('Gun - Safe Hunting', (array)request('rider')))>Gun - Safe Hunting
                                         </option>
-                                        <option value="Halter" {{ request('rider') == 'Halter' ? 'selected' : '' }}>Halter
+                                        <option value="Halter" @selected(in_array('Halter', (array)request('rider')))>Halter
                                         </option>
-                                        <option value="Harness" {{ request('rider') == 'Harness' ? 'selected' : '' }}>Harness
+                                        <option value="Harness" @selected(in_array('Harness', (array)request('rider')))>Harness
                                         </option>
-                                        <option value="Harness Racing" {{ request('rider') == 'Harness Racing' ? 'selected' : '' }}>Harness Racing</option>
-                                        <option value="Horsemanship" {{ request('rider') == 'Horsemanship' ? 'selected' : '' }}>Horsemanship</option>
-                                        <option value="Hunt Seat Equitation" {{ request('rider') == 'Hunt Seat Equitation' ? 'selected' : '' }}>Hunt Seat
+                                        <option value="Harness Racing" @selected(in_array('Harness Racing', (array)request('rider')))>Harness Racing</option>
+                                        <option value="Horsemanship" @selected(in_array('Horsemanship', (array)request('rider')))>Horsemanship</option>
+                                        <option value="Hunt Seat Equitation" @selected(in_array('Hunt Seat Equitation', (array)request('rider')))>Hunt Seat
                                             Equitation</option>
-                                        <option value="Hunter" {{ request('rider') == 'Hunter' ? 'selected' : '' }}>Hunter
+                                        <option value="Hunter" @selected(in_array('Hunter', (array)request('rider')))>Hunter
                                         </option>
-                                        <option value="Hunter Pleasure" {{ request('rider') == 'Hunter Pleasure' ? 'selected' : '' }}>Hunter Pleasure</option>
-                                        <option value="Hunter Under Saddle" {{ request('rider') == 'Hunter Under Saddle' ? 'selected' : '' }}>Hunter Under Saddle
+                                        <option value="Hunter Pleasure" @selected(in_array('Hunter Pleasure', (array)request('rider')))>Hunter Pleasure</option>
+                                        <option value="Hunter Under Saddle" @selected(in_array('Hunter Under Saddle', (array)request('rider')))>Hunter Under Saddle
                                         </option>
-                                        <option value="Jumping" {{ request('rider') == 'Jumping' ? 'selected' : '' }}>Jumping
+                                        <option value="Jumping" @selected(in_array('Jumping', (array)request('rider')))>Jumping
                                         </option>
-                                        <option value="Lesson Horse" {{ request('rider') == 'Lesson Horse' ? 'selected' : '' }}>Lesson Horse</option>
-                                        <option value="Liberty Training" {{ request('rider') == 'Liberty Training' ? 'selected' : '' }}>Liberty Training</option>
-                                        <option value="Light Riding" {{ request('rider') == 'Light Riding' ? 'selected' : '' }}>Light Riding</option>
-                                        <option value="Longe Line" {{ request('rider') == 'Longe Line' ? 'selected' : '' }}>
+                                        <option value="Lesson Horse" @selected(in_array('Lesson Horse', (array)request('rider')))>Lesson Horse</option>
+                                        <option value="Liberty Training" @selected(in_array('Liberty Training', (array)request('rider')))>Liberty Training</option>
+                                        <option value="Light Riding" @selected(in_array('Light Riding', (array)request('rider')))>Light Riding</option>
+                                        <option value="Longe Line" @selected(in_array('Longe Line', (array)request('rider')))>
                                             Longe Line</option>
-                                        <option value="Mountain Trail" {{ request('rider') == 'Mountain Trail' ? 'selected' : '' }}>Mountain Trail</option>
-                                        <option value="Mounted Games" {{ request('rider') == 'Mounted Games' ? 'selected' : '' }}>Mounted Games</option>
-                                        <option value="Mounted Police" {{ request('rider') == 'Mounted Police' ? 'selected' : '' }}>Mounted Police</option>
-                                        <option value="Native Costume" {{ request('rider') == 'Native Costume' ? 'selected' : '' }}>Native Costume</option>
-                                        <option value="Natural Horsemanship Training" {{ request('rider') == 'Natural Horsemanship Training' ? 'selected' : '' }}>Natural
+                                        <option value="Mountain Trail" @selected(in_array('Mountain Trail', (array)request('rider')))>Mountain Trail</option>
+                                        <option value="Mounted Games" @selected(in_array('Mounted Games', (array)request('rider')))>Mounted Games</option>
+                                        <option value="Mounted Police" @selected(in_array('Mounted Police', (array)request('rider')))>Mounted Police</option>
+                                        <option value="Native Costume" @selected(in_array('Native Costume', (array)request('rider')))>Native Costume</option>
+                                        <option value="Natural Horsemanship Training" @selected(in_array('Natural Horsemanship Training', (array)request('rider')))>Natural
                                             Horsemanship Training</option>
-                                        <option value="Nurse Mare" {{ request('rider') == 'Nurse Mare' ? 'selected' : '' }}>
+                                        <option value="Nurse Mare" @selected(in_array('Nurse Mare', (array)request('rider')))>
                                             Nurse Mare</option>
-                                        <option value="Pacing Gait" {{ request('rider') == 'Pacing Gait' ? 'selected' : '' }}>
+                                        <option value="Pacing Gait" @selected(in_array('Pacing Gait', (array)request('rider')))>
                                             Pacing Gait</option>
-                                        <option value="Pack" {{ request('rider') == 'Pack' ? 'selected' : '' }}>Pack</option>
-                                        <option value="Parade" {{ request('rider') == 'Parade' ? 'selected' : '' }}>Parade
+                                        <option value="Pack" @selected(in_array('Pack', (array)request('rider')))>Pack</option>
+                                        <option value="Parade" @selected(in_array('Parade', (array)request('rider')))>Parade
                                         </option>
-                                        <option value="Performance" {{ request('rider') == 'Performance' ? 'selected' : '' }}>
+                                        <option value="Performance" @selected(in_array('Performance', (array)request('rider')))>
                                             Performance</option>
-                                        <option value="Play day" {{ request('rider') == 'Play day' ? 'selected' : '' }}>Play
+                                        <option value="Play day" @selected(in_array('Play day', (array)request('rider')))>Play
                                             day</option>
-                                        <option value="Pleasure Driving" {{ request('rider') == 'Pleasure Driving' ? 'selected' : '' }}>Pleasure Driving</option>
-                                        <option value="Pole Bending" {{ request('rider') == 'Pole Bending' ? 'selected' : '' }}>Pole Bending</option>
-                                        <option value="Polo" {{ request('rider') == 'Polo' ? 'selected' : '' }}>Polo</option>
-                                        <option value="Pony Club" {{ request('rider') == 'Pony Club' ? 'selected' : '' }}>Pony
+                                        <option value="Pleasure Driving" @selected(in_array('Pleasure Driving', (array)request('rider')))>Pleasure Driving</option>
+                                        <option value="Pole Bending" @selected(in_array('Pole Bending', (array)request('rider')))>Pole Bending</option>
+                                        <option value="Polo" @selected(in_array('Polo', (array)request('rider')))>Polo</option>
+                                        <option value="Pony Club" @selected(in_array('Pony Club', (array)request('rider')))>Pony
                                             Club</option>
-                                        <option value="Project" {{ request('rider') == 'Project' ? 'selected' : '' }}>Project
+                                        <option value="Project" @selected(in_array('Project', (array)request('rider')))>Project
                                         </option>
-                                        <option value="Racing" {{ request('rider') == 'Racing' ? 'selected' : '' }}>Racing
+                                        <option value="Racing" @selected(in_array('Racing', (array)request('rider')))>Racing
                                         </option>
-                                        <option value="Retired Race Horse" {{ request('rider') == 'Retired Race Horse' ? 'selected' : '' }}>Retired Race Horse
+                                        <option value="Retired Race Horse" @selected(in_array('Retired Race Horse', (array)request('rider')))>Retired Race Horse
                                         </option>
-                                        <option value="Racking Gait" {{ request('rider') == 'Racking Gait' ? 'selected' : '' }}>Racking Gait</option>
-                                        <option value="Ranch Conformation Class" {{ request('rider') == 'Ranch Conformation Class' ? 'selected' : '' }}>Ranch
+                                        <option value="Racking Gait" @selected(in_array('Racking Gait', (array)request('rider')))>Racking Gait</option>
+                                        <option value="Ranch Conformation Class" @selected(in_array('Ranch Conformation Class', (array)request('rider')))>Ranch
                                             Conformation Class</option>
-                                        <option value="Ranch Rail Class" {{ request('rider') == 'Ranch Rail Class' ? 'selected' : '' }}>Ranch Rail Class</option>
-                                        <option value="Ranch Riding - Ranch Pleasure" {{ request('rider') == 'Ranch Riding - Ranch Pleasure' ? 'selected' : '' }}>Ranch
-                                            Riding - Ranch Pleasure</option>
-                                        <option value="Ranch Sorting" {{ request('rider') == 'Ranch Sorting' ? 'selected' : '' }}>Ranch Sorting</option>
-                                        <option value="Ranch Trail Class" {{ request('rider') == 'Ranch Trail Class' ? 'selected' : '' }}>Ranch Trail Class
+                                        <option value="Ranch Rail Class" @selected(in_array('Ranch Rail Class', (array)request('rider')))>Ranch Rail Class</option>
+                                        <option value="Ranch Riding" @selected(in_array('Ranch Riding', (array)request('rider')))>Ranch Riding</option>
+                                        <option value="Ranch Pleasure" @selected(in_array('Ranch Pleasure', (array)request('rider')))>Ranch Pleasure</option>
+                                        <option value="Ranch Sorting" @selected(in_array('Ranch Sorting', (array)request('rider')))>Ranch Sorting</option>
+                                        <option value="Ranch Trail Class" @selected(in_array('Ranch Trail Class', (array)request('rider')))>Ranch Trail Class
                                         </option>
-                                        <option value="Ranch Versatility" {{ request('rider') == 'Ranch Versatility' ? 'selected' : '' }}>Ranch Versatility
+                                        <option value="Ranch Versatility" @selected(in_array('Ranch Versatility', (array)request('rider')))>Ranch Versatility
                                         </option>
-                                        <option value="Ranch Work" {{ request('rider') == 'Ranch Work' ? 'selected' : '' }}>
+                                        <option value="Ranch Work" @selected(in_array('Ranch Work', (array)request('rider')))>
                                             Ranch Work</option>
-                                        <option value="Reining" {{ request('rider') == 'Reining' ? 'selected' : '' }}>Reining
+                                        <option value="Reining" @selected(in_array('Reining', (array)request('rider')))>Reining
                                         </option>
-                                        <option value="Reining - Cowhorse - Cutting" {{ request('rider') == 'Reining - Cowhorse - Cutting' ? 'selected' : '' }}>Reining -
-                                            Cowhorse - Cutting</option>
-                                        <option value="Rodeo" {{ request('rider') == 'Rodeo' ? 'selected' : '' }}>Rodeo
+                                        <option value="Reined Cowhorse" @selected(in_array('Reined Cowhorse', (array)request('rider')))>Reined Cowhorse</option>
+                                        <option value="Rodeo" @selected(in_array('Rodeo', (array)request('rider')))>Rodeo
                                         </option>
-                                        <option value="Rodeo Bronc" {{ request('rider') == 'Rodeo Bronc' ? 'selected' : '' }}>
+                                        <option value="Rodeo Bronc" @selected(in_array('Rodeo Bronc', (array)request('rider')))>
                                             Rodeo Bronc</option>
-                                        <option value="Roping" {{ request('rider') == 'Roping' ? 'selected' : '' }}>Roping
+                                        <option value="Roping" @selected(in_array('Roping', (array)request('rider')))>Roping
                                         </option>
-                                        <option value="Saddle Seat" {{ request('rider') == 'Saddle Seat' ? 'selected' : '' }}>
+                                        <option value="Saddle Seat" @selected(in_array('Saddle Seat', (array)request('rider')))>
                                             Saddle Seat</option>
-                                        <option value="School" {{ request('rider') == 'School' ? 'selected' : '' }}>School
+                                        <option value="School" @selected(in_array('School', (array)request('rider')))>School
                                         </option>
-                                        <option value="Schoolmaster" {{ request('rider') == 'Schoolmaster' ? 'selected' : '' }}>Schoolmaster</option>
-                                        <option value="Show Experience" {{ request('rider') == 'Show Experience' ? 'selected' : '' }}>Show Experience</option>
-                                        <option value="Show Hack" {{ request('rider') == 'Show Hack' ? 'selected' : '' }}>Show
+                                        <option value="Schoolmaster" @selected(in_array('Schoolmaster', (array)request('rider')))>Schoolmaster</option>
+                                        <option value="Show Experience" @selected(in_array('Show Experience', (array)request('rider')))>Show Experience</option>
+                                        <option value="Show Hack" @selected(in_array('Show Hack', (array)request('rider')))>Show
                                             Hack</option>
-                                        <option value="Show Winner" {{ request('rider') == 'Show Winner' ? 'selected' : '' }}>
+                                        <option value="Show Winner" @selected(in_array('Show Winner', (array)request('rider')))>
                                             Show Winner</option>
-                                        <option value="Showmanship Halter" {{ request('rider') == 'Showmanship Halter' ? 'selected' : '' }}>Showmanship Halter
+                                        <option value="Showmanship Halter" @selected(in_array('Showmanship Halter', (array)request('rider')))>Showmanship Halter
                                         </option>
-                                        <option value="Sidesaddle" {{ request('rider') == 'Sidesaddle' ? 'selected' : '' }}>
+                                        <option value="Sidesaddle" @selected(in_array('Sidesaddle', (array)request('rider')))>
                                             Sidesaddle</option>
-                                        <option value="Stallion - Stud - Breeding" {{ request('rider') == 'Stallion - Stud - Breeding' ? 'selected' : '' }}>Stallion -
+                                        <option value="Stallion - Stud - Breeding" @selected(in_array('Stallion - Stud - Breeding', (array)request('rider')))>Stallion -
                                             Stud - Breeding</option>
-                                        <option value="Started Under Saddle" {{ request('rider') == 'Started Under Saddle' ? 'selected' : '' }}>Started Under
+                                        <option value="Started Under Saddle" @selected(in_array('Started Under Saddle', (array)request('rider')))>Started Under
                                             Saddle</option>
-                                        <option value="Steer Roping" {{ request('rider') == 'Steer Roping' ? 'selected' : '' }}>Steer Roping</option>
-                                        <option value="Steer Wrestling" {{ request('rider') == 'Steer Wrestling' ? 'selected' : '' }}>Steer Wrestling</option>
-                                        <option value="Stock" {{ request('rider') == 'Stock' ? 'selected' : '' }}>Stock
+                                        <option value="Steer Roping" @selected(in_array('Steer Roping', (array)request('rider')))>Steer Roping</option>
+                                        <option value="Steer Wrestling" @selected(in_array('Steer Wrestling', (array)request('rider')))>Steer Wrestling</option>
+                                        <option value="Stock" @selected(in_array('Stock', (array)request('rider')))>Stock
                                         </option>
-                                        <option value="Team Driving" {{ request('rider') == 'Team Driving' ? 'selected' : '' }}>Team Driving</option>
-                                        <option value="Team Penning" {{ request('rider') == 'Team Penning' ? 'selected' : '' }}>Team Penning</option>
-                                        <option value="Team Roping" {{ request('rider') == 'Team Roping' ? 'selected' : '' }}>
+                                        <option value="Team Driving" @selected(in_array('Team Driving', (array)request('rider')))>Team Driving</option>
+                                        <option value="Team Penning" @selected(in_array('Team Penning', (array)request('rider')))>Team Penning</option>
+                                        <option value="Team Roping" @selected(in_array('Team Roping', (array)request('rider')))>
                                             Team Roping</option>
-                                        <option value="Team Roping - Head" {{ request('rider') == 'Team Roping - Head' ? 'selected' : '' }}>Team Roping - Head
+                                        <option value="Team Roping - Head" @selected(in_array('Team Roping - Head', (array)request('rider')))>Team Roping - Head
                                         </option>
-                                        <option value="Team Roping - Heel" {{ request('rider') == 'Team Roping - Heel' ? 'selected' : '' }}>Team Roping - Heel
+                                        <option value="Team Roping - Heel" @selected(in_array('Team Roping - Heel', (array)request('rider')))>Team Roping - Heel
                                         </option>
-                                        <option value="Team Sorting" {{ request('rider') == 'Team Sorting' ? 'selected' : '' }}>Team Sorting</option>
-                                        <option value="Therapeutic Riding" {{ request('rider') == 'Therapeutic Riding' ? 'selected' : '' }}>Therapeutic Riding
+                                        <option value="Team Sorting" @selected(in_array('Team Sorting', (array)request('rider')))>Team Sorting</option>
+                                        <option value="Therapeutic Riding" @selected(in_array('Therapeutic Riding', (array)request('rider')))>Therapeutic Riding
                                         </option>
-                                        <option value="Therapy" {{ request('rider') == 'Therapy' ? 'selected' : '' }}>Therapy
+                                        <option value="Therapy" @selected(in_array('Therapy', (array)request('rider')))>Therapy
                                         </option>
-                                        <option value="Trail Class Competition" {{ request('rider') == 'Trail Class Competition' ? 'selected' : '' }}>Trail Class
+                                        <option value="Trail Class Competition" @selected(in_array('Trail Class Competition', (array)request('rider')))>Trail Class
                                             Competition</option>
-                                        <option value="Trail Master" {{ request('rider') == 'Trail Master' ? 'selected' : '' }}>Trail Master</option>
-                                        <option value="Trail Riding" {{ request('rider') == 'Trail Riding' ? 'selected' : '' }}>Trail Riding</option>
-                                        <option value="Trick" {{ request('rider') == 'Trick' ? 'selected' : '' }}>Trick
+                                        <option value="Trail Master" @selected(in_array('Trail Master', (array)request('rider')))>Trail Master</option>
+                                        <option value="Trail Riding" @selected(in_array('Trail Riding', (array)request('rider')))>Trail Riding</option>
+                                        <option value="Trick" @selected(in_array('Trick', (array)request('rider')))>Trick
                                         </option>
-                                        <option value="Unicorn" {{ request('rider') == 'Unicorn' ? 'selected' : '' }}>Unicorn
+                                        <option value="Unicorn" @selected(in_array('Unicorn', (array)request('rider')))>Unicorn
                                         </option>
-                                        <option value="Vaulting" {{ request('rider') == 'Vaulting' ? 'selected' : '' }}>
+                                        <option value="Vaulting" @selected(in_array('Vaulting', (array)request('rider')))>
                                             Vaulting</option>
-                                        <option value="Western" {{ request('rider') == 'Western' ? 'selected' : '' }}>Western
+                                        <option value="Western" @selected(in_array('Western', (array)request('rider')))>Western
                                         </option>
-                                        <option value="Western Dressage" {{ request('rider') == 'Western Dressage' ? 'selected' : '' }}>Western Dressage</option>
-                                        <option value="Western Pleasure" {{ request('rider') == 'Western Pleasure' ? 'selected' : '' }}>Western Pleasure</option>
-                                        <option value="Western Riding" {{ request('rider') == 'Western Riding' ? 'selected' : '' }}>Western Riding</option>
-                                        <option value="Working Cattle" {{ request('rider') == 'Working Cattle' ? 'selected' : '' }}>Working Cattle</option>
-                                        <option value="Working Equitation" {{ request('rider') == 'Working Equitation' ? 'selected' : '' }}>Working Equitation
+                                        <option value="Western Dressage" @selected(in_array('Western Dressage', (array)request('rider')))>Western Dressage</option>
+                                        <option value="Western Pleasure" @selected(in_array('Western Pleasure', (array)request('rider')))>Western Pleasure</option>
+                                        <option value="Western Riding" @selected(in_array('Western Riding', (array)request('rider')))>Western Riding</option>
+                                        <option value="Working Cattle" @selected(in_array('Working Cattle', (array)request('rider')))>Working Cattle</option>
+                                        <option value="Working Equitation" @selected(in_array('Working Equitation', (array)request('rider')))>Working Equitation
                                         </option>
-                                        <option value="4H" {{ request('rider') == '4H' ? 'selected' : '' }}>4H</option>
+                                        <option value="4H" @selected(in_array('4H', (array)request('rider')))>4H</option>
                                     </select>
                                 </div>
                             </div>
                             <!-- Rider Level Section -->
                             <div class="form-section">
                                 <div class="section-title">Rider Level</div>
-                                <div class="skills-tags" id="rider-level-tags">
+                                <div class="skills-tags" id="skill-tags">
                                     <!-- Selected rider levels will appear here -->
                                 </div>
                                 <div class="select-wrapper">
-                                    <select class="select-field form-select rider_level_select" name="skill">
-                                        <option selected disabled>Select Rider Levels</option>
-                                        <option value="Beginner Riders - have minimal or no experience" @selected($skill == 'Beginner Riders - have minimal or no experience')>Beginner
+                                    <select class="select-field form-select rider_level_select" name="skill[]" multiple>
+                                        <option value="" selected disabled>Select Rider Levels</option>
+                                        <option value="Beginner Riders - have minimal or no experience" @selected(in_array('Beginner Riders - have minimal or no experience', (array)request('skill')))>Beginner
                                             Riders - have minimal or no experience</option>
-                                        <option value="Novice Riders - have a basic understanding of riding and can perform basic gaits." @selected($skill == 'Novice Riders - have a basic understanding of riding and can perform basic gaits.')>Novice Riders - have a basic
+                                        <option value="Novice Riders - have a basic understanding of riding and can perform basic gaits." @selected(in_array('Novice Riders - have a basic understanding of riding and can perform basic gaits.', (array)request('skill')))>Novice Riders - have a basic
                                             understanding of riding and can perform basic gaits.</option>
-                                        <option value="Intermediate Riders - are comfortable with all gaits and can handle more challenging situations" @selected($skill == 'Intermediate Riders - are comfortable with all gaits and can handle more challenging situations')>Intermediate Riders
+                                        <option value="Intermediate Riders - are comfortable with all gaits and can handle more challenging situations" @selected(in_array('Intermediate Riders - are comfortable with all gaits and can handle more challenging situations', (array)request('skill')))>Intermediate Riders
                                             - are comfortable with all gaits and can handle more challenging situations
                                         </option>
-                                        <option value="Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level." @selected($skill == 'Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level.')>
+                                        <option value="Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level." @selected(in_array('Advanced Riders - have a high level of skill and experience, often competing or riding at a professional level.', (array)request('skill')))>
                                             Advanced Riders - have a high level of skill and experience, often competing or
                                             riding at a professional level.</option>
                                     </select>
@@ -1702,14 +1669,14 @@
                                 </div>
                             </div>
                             <div class="action-buttons border_btm">
-                                <button class="choose-btn" type="submit" onclick="saveSearch()">
+                                <button class="choose-btn" type="submit">
                                     <span class="btn-icon">🔍</span>
                                     SEARCH
                                 </button>
                             </div>
                             <!-- Action Buttons -->
                             <div class="action-buttons">
-                                <button class="choose-btn" type="submit" onclick="saveSearch()">
+                                <button class="choose-btn" type="button" onclick="saveSearch(this)">
                                     <span class="btn-icon">💾</span>
                                     SAVE THIS SEARCH
                                 </button>
@@ -1755,8 +1722,8 @@
                                     <div class="blue_stripe blue_stripe_new">
                                         <h2>{{ $product->pro_name }}</h2>
                                         <label class="heart_checkbox_wrapper d-block">
-                                            <input type="checkbox" class="heartCheckbox" hidden />
-                                            <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                            <input type="checkbox" class="heartCheckbox" hidden {{ $product->horsrFavs->isNotEmpty() ? 'checked' : '' }} />
+                                            <i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }} icon_heart" aria-hidden="true" style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
                                         </label>
                                     </div>
                                     <div class="img_box">
@@ -1766,20 +1733,27 @@
                                         @endif
                                         <div class="swiper horse_list_card_slider h-100 w-100">
                                             <div class="swiper-wrapper">
-                                                @php $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; @endphp @forelse ($productImages as $item)
+                                                @php 
+                                                    $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; 
+                                                @endphp
+
+                                                @if(!empty($product->pro_Fimg))
                                                     <div class="swiper-slide">
-                                                        <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
+                                                        <img src="{{ asset('Featured_image/' . $product->pro_Fimg) }}" alt="Featured Image" class="img-fluid w-100 img_radius_one" />
+                                                    </div>
+                                                @endif
+
+                                                @forelse ($productImages as $item)
+                                                    <div class="swiper-slide">
+                                                        <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="Product Image" class="img-fluid w-100 img_radius_one" />
                                                     </div>
                                                 @empty
-                                                    <div class="swiper-slide">
-                                                        <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                    </div>
+                                                    {{-- Agar featured image bhi na ho aur gallery bhi khali ho tab placeholder dikhayein --}}
+                                                    @if(empty($data->pro_Fimg))
+                                                        <div class="swiper-slide">
+                                                            <img src="{{ asset('assets/images/placeholder.png') }}" alt="Placeholder" class="img-fluid w-100 img_radius_one" />
+                                                        </div>
+                                                    @endif
                                                 @endforelse
                                             </div>
                                             <div class="swiper-pagination"></div>
@@ -1788,7 +1762,7 @@
                                             <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
                                             <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                         </div>
-                                        <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                       
                                         @if (is_null($product->horse_status))
                                             @if ($product->pro_ad_type == 'At Auction')
                                                 <div class="countdown" data-enddate="{{ \Carbon\Carbon::parse($product->auc_end_date)->endOfDay()->format('Y-m-d\TH:i:s') }}">
@@ -1821,6 +1795,7 @@
                                             @endif
                                         @endif
                                     </div>
+                                     <h2 class="breed_text">{{ $product->pro_breed }}</h2>
                                     <div class="text_box">
                                         <div class="custome_listing_row">
                                             <div class="custome_listing_col">
@@ -1828,10 +1803,10 @@
                                                     <!-- <li>{{ $product->pro_breed }}</li> -->
                                                     <li>
                                                         @if ($product->pro_age_year > 0)
-                                                            {{ $product->pro_age_year }} Years
+                                                            {{ $product->pro_age_year }} {{ $product->pro_age_year == 1 ? 'Yr' : 'Yrs' }}
                                                         @endif
                                                         @if ($product->pro_age_month > 0)
-                                                            {{ $product->pro_age_month }} MO
+                                                            {{ $product->pro_age_month }} {{ $product->pro_age_month == 1 ? 'Mo' : 'Mos' }}
                                                         @endif
                                                         Old
                                                     </li>
@@ -1856,7 +1831,7 @@
                                                 @endphp
 
                                                 <li class="m-0 mb-2">
-                                                    {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
+                                                    {{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
                                                     {{ $stateCode }}
                                                 </li>
                                             </ul>
@@ -1865,26 +1840,26 @@
                                             <div class="blue_stripe">
                                                 <h3>
                                                     @if ($product->pro_ad_type == 'At Auction')
-                                                        Starting Bid:
+                                                        Starting Bid: ${{ $product->bid_amount ?? '0' }}
                                                     @else
-                                                        Price:
+                                                        Price: ${{ $product->pro_reg_price ?? '0' }}
                                                     @endif
-                                                    ${{ $product->pro_reg_price }}
                                                 </h3>
                                             </div>
                                             <div class="horse_list_card_btn_flex_new bottom_row">
-                                                <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
+                                                <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn view-detail-btn w-100">View Details</a>
                                             </div>
                                             <div class="horse_list_card_btn_flex_new bottom_row">
-                                                <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                                <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                                <a href="{{ url('seller_profile_one/'. $product->id) }}" class="horse_card_btn">Seller Profile</a>
+                                                <a href="{{ route('start.conversation', ['receiver_id' => $product->user_id, 'product_id' => $product->id, 'product_type' => 'horse']) }}"
+                                                    class="horse_card_btn">Chat with seller</a>
                                             </div>
                                             <div class="horse_list_card_btn_flex_new bottom_row">
                                                 <a href="#!" class="horse_card_btn">Share</a>
-                                                <form class="horse_card_btn" action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" method="POST">
+                                                <form class="horse_card_btn favorite-form" action="{{ route('horse.favorite', Crypt::encrypt($product->id)) }}" method="POST">
                                                     @csrf
-                                                    <button class="fvrt_btn" type="submit" title="Add to favorite">
-                                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                    <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                        {{ $product->horsrFavs->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
                                                     </button>
                                                 </form>
                                             </div>
@@ -1941,160 +1916,168 @@
     </section>
     <script>
         // Function to convert select elements to searchable dropdowns
-        // function makeSelectSearchable(selectElement) {
-        //     const wrapper = selectElement.closest('.select-wrapper');
-        //     if (!wrapper) return;
+        function makeSelectSearchable(selectElement) {
+            const wrapper = selectElement.closest('.select-wrapper');
+            if (!wrapper) return;
 
-        //     // Store original options
-        //     const originalOptions = Array.from(selectElement.options).map(option => ({
-        //         value: option.value,
-        //         text: option.textContent,
-        //         disabled: option.disabled,
-        //         selected: option.selected
-        //     }));
+            // Store original options
+            const originalOptions = Array.from(selectElement.options).map(option => ({
+                value: option.value,
+                text: option.textContent,
+                disabled: option.disabled,
+                selected: option.selected
+            }));
 
-        //     // Create input element
-        //     const input = document.createElement('input');
-        //     input.type = 'text';
-        //     input.className = selectElement.className.replace('form-select', 'form-input-select');
-        //     input.placeholder = selectElement.options[selectElement.selectedIndex].textContent;
-        //     input.setAttribute('autocomplete', 'off');
+            // Create input element
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = selectElement.className.replace('form-select', 'form-input-select');
+            input.placeholder = selectElement.options[0].textContent;
+            input.setAttribute('autocomplete', 'off');
 
-        //     // Create dropdown container
-        //     const dropdown = document.createElement('div');
-        //     dropdown.className = 'select-dropdown';
-        //     dropdown.style.display = 'none';
+            // Create dropdown container
+            const dropdown = document.createElement('div');
+            dropdown.className = 'select-dropdown';
+            dropdown.style.display = 'none';
 
-        //     // Hide original select
-        //     selectElement.style.display = 'none';
+            // Hide original select
+            selectElement.style.display = 'none';
 
-        //     // Insert input and dropdown
-        //     wrapper.appendChild(input);
-        //     wrapper.appendChild(dropdown);
+            // Insert input and dropdown
+            wrapper.appendChild(input);
+            wrapper.appendChild(dropdown);
 
-        //     // Function to populate dropdown
-        //     function populateDropdown(filter = '') {
-        //         dropdown.innerHTML = '';
-        //         const filteredOptions = originalOptions.filter(option =>
-        //             !option.disabled &&
-        //             option.text.toLowerCase().includes(filter.toLowerCase()) &&
-        //             option.value !== ''
-        //         );
+            // Function to populate dropdown
+            function populateDropdown(filter = '') {
+                dropdown.innerHTML = '';
+                const filteredOptions = originalOptions.filter(option =>
+                    !option.disabled &&
+                    option.text.toLowerCase().includes(filter.toLowerCase()) &&
+                    option.value !== ''
+                );
 
-        //         filteredOptions.forEach(option => {
-        //             const item = document.createElement('div');
-        //             item.className = 'dropdown-item';
-        //             item.textContent = option.text;
-        //             item.setAttribute('data-value', option.value);
+                filteredOptions.forEach(option => {
+                    const item = document.createElement('div');
+                    item.className = 'dropdown-item';
+                    item.textContent = option.text;
+                    item.setAttribute('data-value', option.value);
 
-        //             item.addEventListener('click', function() {
-        //                 input.value = option.text;
-        //                 selectElement.value = option.value;
-        //                 dropdown.style.display = 'none';
+                    item.addEventListener('click', function() {
+                        input.value = ''; // Clear for next selection in multi-select
+                        
+                        if (selectElement.multiple) {
+                            // Find and select the option in multi-select
+                            const optToSelect = Array.from(selectElement.options).find(o => o.value === option.value);
+                            if (optToSelect) optToSelect.selected = true;
+                        } else {
+                            selectElement.value = option.value;
+                        }
+                        
+                        dropdown.style.display = 'none';
 
-        //                 // Trigger change event for existing functionality
-        //                 const changeEvent = new Event('change');
-        //                 selectElement.dispatchEvent(changeEvent);
-        //             });
+                        // Trigger change event for existing functionality (adding tags)
+                        const changeEvent = new Event('change');
+                        selectElement.dispatchEvent(changeEvent);
+                    });
 
-        //             dropdown.appendChild(item);
-        //         });
+                    dropdown.appendChild(item);
+                });
 
-        //         // Show "No results" if no matches
-        //         if (filteredOptions.length === 0 && filter !== '') {
-        //             const noResults = document.createElement('div');
-        //             noResults.className = 'dropdown-item no-results';
-        //             noResults.textContent = 'No results found';
-        //             dropdown.appendChild(noResults);
-        //         }
-        //     }
+                // Show "No results" if no matches
+                if (filteredOptions.length === 0 && filter !== '') {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'dropdown-item no-results';
+                    noResults.textContent = 'No results found';
+                    dropdown.appendChild(noResults);
+                }
+            }
 
-        //     // Input event listeners
-        //     input.addEventListener('input', function() {
-        //         populateDropdown(this.value);
-        //         dropdown.style.display = 'block';
-        //     });
+            // Input event listeners
+            input.addEventListener('input', function() {
+                populateDropdown(this.value);
+                dropdown.style.display = 'block';
+            });
 
-        //     input.addEventListener('focus', function() {
-        //         populateDropdown(this.value);
-        //         dropdown.style.display = 'block';
-        //     });
+            input.addEventListener('focus', function() {
+                populateDropdown(this.value);
+                dropdown.style.display = 'block';
+            });
 
-        //     input.addEventListener('blur', function(e) {
-        //         // Delay hiding to allow click on dropdown items
-        //         setTimeout(() => {
-        //             if (!wrapper.contains(document.activeElement)) {
-        //                 dropdown.style.display = 'none';
-        //             }
-        //         }, 150);
-        //     });
+            input.addEventListener('blur', function(e) {
+                // Delay hiding to allow click on dropdown items
+                setTimeout(() => {
+                    if (!wrapper.contains(document.activeElement)) {
+                        dropdown.style.display = 'none';
+                    }
+                }, 150);
+            });
 
-        //     // Keyboard navigation
-        //     input.addEventListener('keydown', function(e) {
-        //         const items = dropdown.querySelectorAll('.dropdown-item:not(.no-results)');
-        //         let currentIndex = -1;
+            // Keyboard navigation
+            input.addEventListener('keydown', function(e) {
+                const items = dropdown.querySelectorAll('.dropdown-item:not(.no-results)');
+                let currentIndex = -1;
 
-        //         // Find currently highlighted item
-        //         items.forEach((item, index) => {
-        //             if (item.classList.contains('highlighted')) {
-        //                 currentIndex = index;
-        //             }
-        //         });
+                // Find currently highlighted item
+                items.forEach((item, index) => {
+                    if (item.classList.contains('highlighted')) {
+                        currentIndex = index;
+                    }
+                });
 
-        //         switch (e.key) {
-        //             case 'ArrowDown':
-        //                 e.preventDefault();
-        //                 if (dropdown.style.display === 'none') {
-        //                     populateDropdown(this.value);
-        //                     dropdown.style.display = 'block';
-        //                 } else {
-        //                     // Remove current highlight
-        //                     items.forEach(item => item.classList.remove('highlighted'));
-        //                     // Add highlight to next item
-        //                     const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
-        //                     if (items[nextIndex]) {
-        //                         items[nextIndex].classList.add('highlighted');
-        //                     }
-        //                 }
-        //                 break;
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (dropdown.style.display === 'none') {
+                            populateDropdown(this.value);
+                            dropdown.style.display = 'block';
+                        } else {
+                            // Remove current highlight
+                            items.forEach(item => item.classList.remove('highlighted'));
+                            // Add highlight to next item
+                            const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+                            if (items[nextIndex]) {
+                                items[nextIndex].classList.add('highlighted');
+                            }
+                        }
+                        break;
 
-        //             case 'ArrowUp':
-        //                 e.preventDefault();
-        //                 if (dropdown.style.display !== 'none') {
-        //                     // Remove current highlight
-        //                     items.forEach(item => item.classList.remove('highlighted'));
-        //                     // Add highlight to previous item
-        //                     const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
-        //                     if (items[prevIndex]) {
-        //                         items[prevIndex].classList.add('highlighted');
-        //                     }
-        //                 }
-        //                 break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (dropdown.style.display !== 'none') {
+                            // Remove current highlight
+                            items.forEach(item => item.classList.remove('highlighted'));
+                            // Add highlight to previous item
+                            const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+                            if (items[prevIndex]) {
+                                items[prevIndex].classList.add('highlighted');
+                            }
+                        }
+                        break;
 
-        //             case 'Enter':
-        //                 e.preventDefault();
-        //                 const highlighted = dropdown.querySelector('.dropdown-item.highlighted');
-        //                 if (highlighted && !highlighted.classList.contains('no-results')) {
-        //                     highlighted.click();
-        //                 } else if (items.length === 1) {
-        //                     items[0].click();
-        //                 }
-        //                 break;
+                    case 'Enter':
+                        e.preventDefault();
+                        const highlighted = dropdown.querySelector('.dropdown-item.highlighted');
+                        if (highlighted && !highlighted.classList.contains('no-results')) {
+                            highlighted.click();
+                        } else if (items.length === 1) {
+                            items[0].click();
+                        }
+                        break;
 
-        //             case 'Escape':
-        //                 dropdown.style.display = 'none';
-        //                 input.blur();
-        //                 break;
-        //         }
-        //     });
+                    case 'Escape':
+                        dropdown.style.display = 'none';
+                        input.blur();
+                        break;
+                }
+            });
 
-        //     // Close dropdown when clicking outside
-        //     document.addEventListener('click', function(e) {
-        //         if (!wrapper.contains(e.target)) {
-        //             dropdown.style.display = 'none';
-        //         }
-        //     });
-        // }
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!wrapper.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
 
         // Function to clear location (existing)
         function clearLocation() {
@@ -2103,7 +2086,28 @@
 
         // Function to remove tags (existing)
         function removeTag(button) {
-            button.parentElement.remove();
+            const tag = button.parentElement;
+            const fieldName = tag.getAttribute('data-field');
+            const fieldValue = tag.getAttribute('data-value');
+            const container = tag.parentElement;
+
+            if (fieldName && fieldValue) {
+                const select = document.querySelector(`select[name="${fieldName}"]`);
+                if (select) {
+                    Array.from(select.options).forEach(opt => {
+                        if (opt.value === fieldValue) {
+                            opt.selected = false;
+                        }
+                    });
+                    // Re-sync tags for this select
+                    syncSidebarTags(select, container.id);
+                    
+                    // Trigger change to update other UI parts (like top shortcuts)
+                    select.dispatchEvent(new Event('change'));
+                }
+            } else {
+                tag.remove();
+            }
         }
 
         // Function to save search (existing)
@@ -2137,55 +2141,44 @@
 
             // Clear all tag containers
             document.querySelectorAll(".skills-tags").forEach((container) => {
-                if (container.id !== "skills-tags") {
-                    container.innerHTML = "";
-                } else {
-                    // Keep the initial skills tags
-                    container.innerHTML = `
-           <div class="skill-tag">
-               Jumping 3'6"
-               <button class="remove" onclick="removeTag(this)">×</button>
-           </div>
-           <div class="skill-tag">
-               Trail Riding
-               <button class="remove" onclick="removeTag(this)">×</button>
-           </div>
-           <div class="skill-tag">
-               Hunter Horse
-               <button class="remove" onclick="removeTag(this)">×</button>
-           </div>
-       `;
-                }
+                container.innerHTML = "";
             });
 
             alert("Search criteria reset!");
         }
 
-        // Generic function to add tags for multi-select fields (existing)
-        function addTag(selectElement, containerId) {
-            if (selectElement.value && selectElement.selectedIndex > 0) {
-                const container = document.getElementById(containerId);
+        // Synchronize sidebar tags with the select state
+        function syncSidebarTags(selectElement, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
 
-                // Check if tag already exists
-                const existingTags = Array.from(container.children);
-                const tagExists = existingTags.some(tag =>
-                    tag.textContent.trim().replace('×', '').trim() === selectElement.value
-                );
+            // Clear existing tags in this specific container
+            container.innerHTML = "";
 
-                if (!tagExists) {
+            // Add tags for all selected options (except the placeholder at index 0)
+            Array.from(selectElement.options).forEach((option, index) => {
+                if (option.selected && option.value !== "" && index > 0) {
+                    let tagText = option.text;
+                    // Truncate long descriptions (e.g. "Beginner - description") to just "Beginner"
+                    if (selectElement.classList.contains('rider_level_select') && tagText.includes(' - ')) {
+                        tagText = tagText.split(' - ')[0];
+                    }
+
                     const newTag = document.createElement("div");
                     newTag.className = "skill-tag";
+                    newTag.setAttribute('data-field', selectElement.name);
+                    newTag.setAttribute('data-value', option.value);
                     newTag.innerHTML = `
-           ${selectElement.value}
-           <button class="remove" onclick="removeTag(this)">×</button>
-       `;
+                        ${tagText}
+                        <button class="remove" onclick="removeTag(this)">×</button>
+                    `;
                     container.appendChild(newTag);
                 }
+            });
 
-                selectElement.selectedIndex = 0;
-
-                // Clear the input field if it exists
-                const wrapper = selectElement.closest('.select-wrapper');
+            // Clear the searchable input field if it exists
+            const wrapper = selectElement.closest('.select-wrapper');
+            if (wrapper) {
                 const input = wrapper.querySelector('.form-input-select');
                 if (input) {
                     input.value = '';
@@ -2199,604 +2192,370 @@
             // Convert all form-select elements to searchable
             document.querySelectorAll('.form-select').forEach(makeSelectSearchable);
 
-            // Add event listeners for all multi-select dropdowns (existing functionality)
             const skillSelect = document.querySelector(".skill_select");
             if (skillSelect) {
-                skillSelect.addEventListener("change", function(e) {
-                    addTag(e.target, "skills-tags");
+                skillSelect.addEventListener('change', function() {
+                    syncSidebarTags(this, 'rider-tags');
                 });
             }
 
             const breedSelect = document.querySelector(".breed_select");
             if (breedSelect) {
                 breedSelect.addEventListener("change", function(e) {
-                    addTag(e.target, "breed-tags");
+                    syncSidebarTags(e.target, "breed-tags");
                 });
             }
 
             const colorSelect = document.querySelector(".color_select");
             if (colorSelect) {
                 colorSelect.addEventListener("change", function(e) {
-                    addTag(e.target, "color-tags");
+                    syncSidebarTags(e.target, "color-tags");
                 });
             }
 
             const genderSelect = document.querySelector(".gender_select");
             if (genderSelect) {
                 genderSelect.addEventListener("change", function(e) {
-                    addTag(e.target, "gender-tags");
+                    syncSidebarTags(e.target, "gender-tags");
                 });
             }
 
             const riderLevelSelect = document.querySelector(".rider_level_select");
             if (riderLevelSelect) {
-                riderLevelSelect.addEventListener("change", function(e) {
-                    addTag(e.target, "rider-level-tags");
+                riderLevelSelect.addEventListener('change', function() {
+                    syncSidebarTags(this, 'skill-tags');
                 });
             }
         });
     </script>
 
-    {{-- <script>
-        const FULL_DASH_ARRAY = 2 * Math.PI * 30;
-
-        function initializeCountdown(container, durationMs) {
-            const countdownEnd = new Date().getTime() + durationMs;
-
-            const totalDays = Math.floor(durationMs / (1000 * 60 * 60 * 24)) || 1;
-            const totalHours = 24;
-            const totalMinutes = 60;
-            const totalSeconds = 60;
-
-            function updateCountdown() {
-                const now = new Date().getTime();
-                let distance = countdownEnd - now;
-
-                if (distance < 0) {
-                    container.innerHTML = "Time's up!";
-                    clearInterval(interval);
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                updateCircle(container, "days", days, totalDays);
-                updateCircle(container, "hours", hours, totalHours);
-                updateCircle(container, "minutes", minutes, totalMinutes);
-                updateCircle(container, "seconds", seconds, totalSeconds);
-            }
-
-            const interval = setInterval(updateCountdown, 1000);
-            updateCountdown();
-        }
-
-        function updateCircle(container, type, value, max) {
-            const circleContainer = container.querySelector(`.circle-container[data-type="${type}"]`);
-            const valueElement = circleContainer.querySelector(".value");
-            const circle = circleContainer.querySelector(".progress");
-
-            valueElement.textContent = value;
-            const offset = FULL_DASH_ARRAY * (1 - value / max);
-            circle.style.strokeDasharray = FULL_DASH_ARRAY;
-            circle.style.strokeDashoffset = offset;
-        }
-
-        // Initialize all countdowns
-        document.querySelectorAll(".countdown").forEach((countdown) => {
-            const durationMs = parseInt(countdown.getAttribute("data-duration"), 10);
-            initializeCountdown(countdown, durationMs);
-        });
-    </script> --}}
-
-    {{-- <script>
-   const tagsContainer = document.querySelector(".shortcuts_tags_flex");
-   const form = document.getElementById("mainForm");
-   const notification = document.getElementById("tagNotification");
-
-   // 🟢 Show notification for 5 seconds
-   function showNotification(message) {
-     notification.textContent = message;
-     notification.classList.add("active");
-     setTimeout(() => notification.classList.remove("active"), 3000);
-   }
-
-   // 🟢 Create tag
-   function createTag(label, value, key, showLabel = false) {
-     if (!value || value.trim() === "" || value === "-") return;
-
-     // Avoid duplicates (same key)
-     if ([...tagsContainer.children].some(tag => tag.dataset.key === key)) {
-       const existing = tagsContainer.querySelector(`[data-key='${key}']`);
-       existing.querySelector("p").innerText = showLabel ? `${label}: ${value}` : value;
-       showNotification(`Updated ${label} to ${value}`);
-       return;
-     }
-
-     const tag = document.createElement("div");
-     tag.classList.add("shortcuts_tags_item");
-     tag.dataset.key = key;
-
-     tag.innerHTML = `
-       <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
-       <a href="#!" class="remove-tag">
-         <i class="fa fa-times-circle" aria-hidden="true"></i>
-       </a>
-     `;
-
-     tagsContainer.appendChild(tag);
-     showNotification(`Your selection (${showLabel ? `${label}: ${value}` : value}) has been added to the top.`);
 
 
-     // Remove tag
-     // Inside createTag, replace the remove listener with:
-     tag.querySelector(".remove-tag").addEventListener("click", () => {
-     tag.remove();
-
-     // Clear associated inputs based on key
-     if (key === "distance") {
-         form.querySelectorAll(".distance-input").forEach(i => i.value = "");
-     } else if (key === "height") {
-         form.querySelectorAll("input[name^='height_']").forEach(i => i.value = "");
-     } else if (key === "age") {
-         form.querySelectorAll("input[name^='age_']").forEach(i => i.value = "");
-     } else if (key === "price") {
-         form.querySelectorAll("input[name='from'], input[name='to']").forEach(i => i.value = "");
-     } else if (key.startsWith("skill_") || key.startsWith("rider_")) {
-         // Handle multi-select: remove specific value from select
-         const parts = key.split('_');
-         const selectName = parts[0];
-         const value = parts.slice(1).join('_');
-         const select = form.querySelector(`select[name="${selectName}"]`);
-         if (select) {
-         const option = select.querySelector(`option[value="${value}"]`);
-         if (option) option.selected = false;
-         }
-     } else {
-         // Single input field by name
-         const input = form.querySelector(`[name="${key}"]`);
-         if (input) input.value = "";
-     }
-
-     showNotification(`${label || key} removed`);
-     });
-   }
-
-   // 🟡 Combine min-max values correctly
-   function getRangeValue(inputs) {
-     const min = inputs[0]?.value.trim() || "";
-     const max = inputs[1]?.value.trim() || "";
-     if (min && max) return `${min} - ${max}`;
-     if (min) return `${min}+`;
-     if (max) return `Up to ${max}`;
-     return "";
-   }
-
-   // 🟢 Distance Range
-   const distanceInputs = form.querySelectorAll(".distance-input");
-   distanceInputs.forEach(input =>
-     input.addEventListener("blur", () => {
-       const val = getRangeValue(distanceInputs);
-       if (val) createTag("Distance Range", val, "distance", true);
-     })
-   );
-
-   // 🟢 Height Range
-   const heightInputs = form.querySelectorAll("input[name^='height_']");
-   heightInputs.forEach(input =>
-     input.addEventListener("blur", () => {
-       const val = getRangeValue(heightInputs);
-       if (val) createTag("Height Range", val, "height", true);
-     })
-   );
-
-   // 🟢 Age Range
-   const ageInputs = form.querySelectorAll("input[name^='age_']");
-   ageInputs.forEach(input =>
-     input.addEventListener("blur", () => {
-       const val = getRangeValue(ageInputs);
-       if (val) createTag("Age Range (Years)", val, "age", true);
-     })
-   );
-
-   // 🟢 Price Range
-   const priceInputs = form.querySelectorAll("input[name='from'], input[name='to']");
-   priceInputs.forEach(input =>
-     input.addEventListener("blur", () => {
-       const val = getRangeValue(priceInputs);
-       if (val) createTag("Price Range ($)", val, "price", true);
-     })
-   );
-
-   // 🟢 Normal inputs (non-range)
-   const normalInputs = form.querySelectorAll("input[type='text'], input[type='number']");
-   normalInputs.forEach(input => {
-     if (
-       input.classList.contains("distance-input") ||
-       input.name.startsWith("height_") ||
-       input.name.startsWith("age_") ||
-       input.name === "from" ||
-       input.name === "to"
-     )
-       return;
-
-     // Tag create on blur (jab user doosri field me jaye)
-     input.addEventListener("blur", () => {
-       if (input.value.trim()) {
-         createTag(input.placeholder || input.name, input.value.trim(), input.name, false);
-       }
-     });
-   });
-
-   // 🟢 Select fields — tag create jab doosra select start ho ya focus lose kare
-   form.querySelectorAll("select").forEach(select => {
-     select.addEventListener("change", () => {
-       const selectedText = select.options[select.selectedIndex].text;
-       if (selectedText && selectedText !== "Select") {
-         createTag(selectedText, selectedText, `${select.name}_${selectedText}`, false);
-       }
-     });
-   });
-
-
-     function restoreTagsFromFormData() {
-     const formData = new FormData(form);
-
-     // Helper: safely get value(s)
-     const getVal = (name) => formData.get(name)?.trim() || null;
-     const getAll = (name) => formData.getAll(name).filter(v => v.trim() !== "");
-
-     // --- Distance ---
-     const distMin = getVal('distance_min');
-     const distMax = getVal('distance_max');
-     if (distMin || distMax) {
-         const val = (() => {
-         if (distMin && distMax) return `${distMin} - ${distMax}`;
-         if (distMin) return `${distMin}+`;
-         if (distMax) return `Up to ${distMax}`;
-         return "";
-         })();
-         if (val) createTag("Distance Range", val, "distance", true);
-     }
-
-     // --- Height ---
-     const hMin = getVal('height_min');
-     const hMax = getVal('height_max');
-     if (hMin || hMax) {
-         const val = (() => {
-         if (hMin && hMax) return `${hMin} - ${hMax}`;
-         if (hMin) return `${hMin}+`;
-         if (hMax) return `Up to ${hMax}`;
-         return "";
-         })();
-         if (val) createTag("Height Range", val, "height", true);
-     }
-
-     // --- Age ---
-     const ageMin = getVal('age_min');
-     const ageMax = getVal('age_max');
-     if (ageMin || ageMax) {
-         const val = (() => {
-         if (ageMin && ageMax) return `${ageMin} - ${ageMax}`;
-         if (ageMin) return `${ageMin}+`;
-         if (ageMax) return `Up to ${ageMax}`;
-         return "";
-         })();
-         if (val) createTag("Age Range (Years)", val, "age", true);
-     }
-
-     // --- Price ---
-     const from = getVal('from');
-     const to = getVal('to');
-     if (from || to) {
-         const val = (() => {
-         if (from && to) return `${from} - ${to}`;
-         if (from) return `${from}+`;
-         if (to) return `Up to ${to}`;
-         return "";
-         })();
-         if (val) createTag("Price Range ($)", val, "price", true);
-     }
-
-     // --- Normal text/number inputs (non-range) ---
-     const normalFields = ['name', 'breed', 'state', 'selectedColor', 'selectedGender', 'selectedDiscipline'];
-     normalFields.forEach(name => {
-         const val = getVal(name);
-         if (val && val !== '-') {
-         // Use placeholder or name as label
-         const input = form.querySelector(`[name="${name}"]`);
-         const label = input?.placeholder || name;
-         createTag(label, val, name, false);
-         }
-     });
-
-     // --- Select fields (multi-value possible) ---
-     // Assuming your selects use names like "skill", "rider", etc.
-     const selectFields = ['skill', 'rider'];
-     selectFields.forEach(name => {
-         const values = getAll(name);
-         values.forEach(val => {
-         if (val && val !== 'Select') {
-             const select = form.querySelector(`select[name="${name}"]`);
-             const option = select?.querySelector(`option[value="${val}"]`);
-             const text = option?.textContent || val;
-             createTag(text, text, `${name}_${val}`, false);
-         }
-         });
-     });
-
-     // --- Radio-based filters (e.g., ad types) ---
-     const adTypes = ['listed_horses', 'auction_horses', 'sold_horses', 'lease_horses'];
-     adTypes.forEach(name => {
-         const val = getVal(name);
-         if (val) {
-         createTag(name.replace(/_/g, ' ').toUpperCase(), val, name, true);
-         }
-     });
-     }
-
-     // 🟢 Call it on page load
-     document.addEventListener("DOMContentLoaded", () => {
-     if (form) restoreTagsFromFormData();
-     });
-
-</script> --}}
     <script>
         const tagsContainer = document.querySelector(".shortcuts_tags_flex");
         const form = document.getElementById("mainForm");
         const notification = document.getElementById("tagNotification");
 
-        // 🟢 Show notification for 3 seconds
         function showNotification(message) {
+            if (!notification) return;
             notification.textContent = message;
             notification.classList.add("active");
             setTimeout(() => notification.classList.remove("active"), 3000);
         }
 
-        // 🟢 Create or update tag
+        // 🟢 Create summary tags at the top
         function createTag(label, value, key, showLabel = false) {
-            if (!value || value.trim() === "" || value === "-") return;
+            if (!value || value.toString().trim() === "" || value === "-") return;
+            if (!tagsContainer) return;
 
-            // Avoid duplicates (same key)
-            if ([...tagsContainer.children].some(tag => tag.dataset.key === key)) {
-                const existing = tagsContainer.querySelector(`[data-key='${key}']`);
-                existing.querySelector("p").innerText = showLabel ? `${label}: ${value}` : value;
-                showNotification(`Updated ${label} to ${value}`);
+            // Update if existing
+            const existing = tagsContainer.querySelector(`[data-key="${CSS.escape(key)}"]`);
+            if (existing) {
+                existing.querySelector("p").innerHTML = showLabel ? `<strong>${label}:</strong> ${value}` : value;
                 return;
             }
 
             const tag = document.createElement("div");
             tag.classList.add("shortcuts_tags_item");
             tag.dataset.key = key;
-
             tag.innerHTML = `
-       <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
-       <a href="#!" class="remove-tag">
-         <i class="fa fa-times-circle" aria-hidden="true"></i>
-       </a>
-     `;
-
+                <p>${showLabel ? `<strong>${label}:</strong> ${value}` : value}</p>
+                <a href="#!" class="remove-tag"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+            `;
             tagsContainer.appendChild(tag);
-            showNotification(`Your selection (${showLabel ? `${label}: ${value}` : value}) has been added to the top.`);
 
-            // Remove tag logic
+            // Remove logic
             tag.querySelector(".remove-tag").addEventListener("click", () => {
+                const baseKey = key.split('_')[0];
+                const valToRemove = key.split('_').slice(1).join('_');
                 tag.remove();
 
-                const baseKey = key.split('_')[0];
-
-                if (key === "distance") {
-                    form.querySelectorAll(".distance-input").forEach(i => (i.value = ""));
-                } else if (key === "height") {
-                    form.querySelectorAll("input[name^='height_']").forEach(i => (i.value = ""));
-                } else if (key === "age") {
-                    form.querySelectorAll("input[name^='age_']").forEach(i => (i.value = ""));
-                } else if (key === "price") {
+                if (key === "price") {
                     form.querySelectorAll("input[name='from'], input[name='to']").forEach(i => (i.value = ""));
-                } else if (baseKey === "breed" || baseKey === "skill" || baseKey === "rider") {
-                    const value = key.split('_').slice(1).join('_');
-                    const selector = baseKey === "breed" ? 'select[name="breed[]"]' : `select[name="${baseKey}"]`;
-                    const select = form.querySelector(selector);
+                } else if (["breed", "selectedColor", "selectedGender", "skill", "rider"].includes(baseKey)) {
+                    const select = form.querySelector(`select[name="${baseKey}[]"]`);
                     if (select) {
-                        const option = select.querySelector(`option[value="${value}"]`);
-                        if (option) option.selected = false;
+                        const option = Array.from(select.options).find(o => o.value === valToRemove);
+                        if (option) {
+                            option.selected = false;
+                            select.dispatchEvent(new Event('change'));
+                        }
                     }
                 } else {
                     const input = form.querySelector(`[name="${key}"]`);
                     if (input) input.value = "";
                 }
-
-                const displayLabel = label || (baseKey.charAt(0).toUpperCase() + baseKey.slice(1));
-                showNotification(`${displayLabel} removed`);
+                showNotification(`${label} removed`);
             });
         }
 
-        // 🟡 Combine min-max values
-        function getRangeValue(inputs) {
-            const min = inputs[0]?.value.trim() || "";
-            const max = inputs[1]?.value.trim() || "";
-            if (min && max) return `${min} - ${max}`;
-            if (min) return `${min}+`;
-            if (max) return `Up to ${max}`;
-            return "";
-        }
+        // 🟢 Master listeners for range and text inputs
+        if (form) {
+            form.querySelectorAll("input[name='from'], input[name='to']").forEach(i => 
+                i.addEventListener("blur", () => {
+                    const val = (min, max) => (min && max) ? `$${min} - $${max}` : (min ? `$${min}+` : (max ? `Up to $${max}` : ""));
+                    const text = val(form.querySelector("[name='from']").value, form.querySelector("[name='to']").value);
+                    if (text) createTag("PRICE", text, "price", true);
+                })
+            );
 
-        // 🟢 Distance Range
-        const distanceInputs = form.querySelectorAll(".distance-input");
-        distanceInputs.forEach(input =>
-            input.addEventListener("blur", () => {
-                const val = getRangeValue([...distanceInputs]);
-                if (val) createTag("Distance Range", val, "distance", true);
-            })
-        );
-
-        // 🟢 Height Range
-        const heightInputs = form.querySelectorAll("input[name^='height_']");
-        heightInputs.forEach(input =>
-            input.addEventListener("blur", () => {
-                const val = getRangeValue([...heightInputs]);
-                if (val) createTag("Height Range", val, "height", true);
-            })
-        );
-
-        // 🟢 Age Range
-        const ageInputs = form.querySelectorAll("input[name^='age_']");
-        ageInputs.forEach(input =>
-            input.addEventListener("blur", () => {
-                const val = getRangeValue([...ageInputs]);
-                if (val) createTag("Age Range (Years)", val, "age", true);
-            })
-        );
-
-        // 🟢 Price Range
-        const priceInputs = form.querySelectorAll("input[name='from'], input[name='to']");
-        priceInputs.forEach(input =>
-            input.addEventListener("blur", () => {
-                const val = getRangeValue([...priceInputs]);
-                if (val) createTag("Price Range ($)", val, "price", true);
-            })
-        );
-
-        // 🟢 Normal inputs (non-range)
-        const normalInputs = form.querySelectorAll("input[type='text'], input[type='number']");
-        normalInputs.forEach(input => {
-            if (
-                input.classList.contains("distance-input") ||
-                input.name?.startsWith("height_") ||
-                input.name?.startsWith("age_") ||
-                input.name === "from" ||
-                input.name === "to"
-            ) return;
-
-            input.addEventListener("blur", () => {
-                if (input.value.trim()) {
-                    const label = input.placeholder || input.name;
-                    createTag(label, input.value.trim(), input.name, false);
-                }
-            });
-        });
-
-        // 🟢 Select fields — create tag on change
-        form.querySelectorAll("select").forEach(select => {
-            select.addEventListener("change", () => {
-                const selectedOptions = Array.from(select.selectedOptions);
-                selectedOptions.forEach(option => {
-                    if (option.value && option.textContent.trim() !== "Select") {
-                        const value = option.value;
-                        const text = option.textContent.trim();
-                        const key = `${select.name.replace('[]', '')}_${value}`;
-                        createTag(text, text, key, false);
-                    }
+            ['location', 'name'].forEach(name => {
+                const input = form.querySelector(`[name="${name}"]`);
+                if (input) input.addEventListener("blur", () => {
+                    if (input.value.trim()) createTag(name.toUpperCase(), input.value.trim(), name, false);
                 });
             });
-        });
 
-        // 🟢 Restore tags from form data on page load
+            // Sync sidebar and top tags on select change
+            form.querySelectorAll("select").forEach(select => {
+                select.addEventListener("change", () => {
+                    const baseKey = select.name.replace('[]', '');
+                    const label = baseKey.replace('selected', '').toUpperCase();
+                    
+                    // 1. Sidebar Sync
+                    const mapping = { breed: 'breed-tags', selectedColor: 'color-tags', selectedGender: 'gender-tags', rider: 'rider-tags', skill: 'skill-tags' };
+                    const containerId = mapping[baseKey];
+                    if (containerId && typeof syncSidebarTags === 'function') {
+                        syncSidebarTags(select, containerId);
+                    }
+
+                    // 2. Top Tags Sync
+                    Array.from(select.options).forEach(opt => {
+                        const tagKey = `${baseKey}_${opt.value}`;
+                        if (opt.selected && opt.value !== "" && !opt.disabled) {
+                            let text = opt.text;
+                            if (select.name === 'skill[]' && text.includes(' - ')) text = text.split(' - ')[0];
+                            createTag(label, text, tagKey, false);
+                        } else if (!opt.selected && opt.value !== "") {
+                            const existing = tagsContainer.querySelector(`[data-key="${tagKey}"]`);
+                            if (existing) existing.remove();
+                        }
+                    });
+                });
+            });
+        }
+
+        // 🟢 RESTORE tags on page load (Master Restoration)
         function restoreTagsFromFormData() {
             if (!form) return;
-
             const formData = new FormData(form);
 
-            const getVal = (name) => formData.get(name)?.trim() || null;
-            const getAll = (name) => formData.getAll(name).filter(v => v.trim() !== "");
+            const getVal = (name) => formData.get(name)?.trim() || "";
 
-            // Distance
-            const dMin = getVal('distance_min');
-            const dMax = getVal('distance_max');
-            if (dMin || dMax) {
-                let val = "";
-                if (dMin && dMax) val = `${dMin} - ${dMax}`;
-                else if (dMin) val = `${dMin}+`;
-                else if (dMax) val = `Up to ${dMax}`;
-                if (val) createTag("Distance Range", val, "distance", true);
-            }
-
-            // Height
-            const hMin = getVal('height_min');
-            const hMax = getVal('height_max');
-            if (hMin || hMax) {
-                let val = "";
-                if (hMin && hMax) val = `${hMin} - ${hMax}`;
-                else if (hMin) val = `${hMin}+`;
-                else if (hMax) val = `Up to ${hMax}`;
-                if (val) createTag("Height Range", val, "height", true);
-            }
-
-            // Age
-            const aMin = getVal('age_min');
-            const aMax = getVal('age_max');
-            if (aMin || aMax) {
-                let val = "";
-                if (aMin && aMax) val = `${aMin} - ${aMax}`;
-                else if (aMin) val = `${aMin}+`;
-                else if (aMax) val = `Up to ${aMax}`;
-                if (val) createTag("Age Range (Years)", val, "age", true);
-            }
-
-            // Price
-            const from = getVal('from');
-            const to = getVal('to');
-            if (from || to) {
-                let val = "";
-                if (from && to) val = `${from} - ${to}`;
-                else if (from) val = `${from}+`;
-                else if (to) val = `Up to ${to}`;
-                if (val) createTag("Price Range ($)", val, "price", true);
-            }
-
-            // Single text/number inputs
-            const singleFields = ['name', 'state', 'selectedColor', 'selectedGender', 'selectedDiscipline'];
-            singleFields.forEach(name => {
+            // 1. Basic Text Fields (Name, Location)
+            ['name', 'location'].forEach(name => {
                 const val = getVal(name);
-                if (val && val !== '-') {
-                    const input = form.querySelector(`[name="${name}"]`);
-                    const label = input?.placeholder || name;
-                    createTag(label, val, name, false);
+                if (val && val !== "-") createTag(name.toUpperCase(), val, name, false);
+            });
+
+            // 2. Ranges (Price, Height, Age, Distance)
+            // Price
+            const f = getVal('from'), t = getVal('to');
+            if (f || t) {
+                let pVal = (f && t) ? `$${f} - $${t}` : (f ? `$${f}+` : `Up to $${t}`);
+                createTag("PRICE", pVal, "price", true);
+            }
+            // Height
+            const hMin = getVal('height_min'), hMax = getVal('height_max');
+            if (hMin || hMax) {
+                let hVal = (hMin && hMax) ? `${hMin} - ${hMax} HH` : (hMin ? `${hMin}+ HH` : `Up to ${hMax} HH`);
+                createTag("HEIGHT", hVal, "height", true);
+            }
+            // Age
+            const aMin = getVal('age_min'), aMax = getVal('age_max');
+            if (aMin || aMax) {
+                const unit = getVal('age_unit') || "Years";
+                let aVal = (aMin && aMax) ? `${aMin} - ${aMax} ${unit}` : (aMin ? `${aMin}+ ${unit}` : `Up to ${aMax} ${unit}`);
+                createTag("AGE", aVal, "age", true);
+            }
+            // Distance
+            const dMin = getVal('distance_min'), dMax = getVal('distance_max');
+            if (dMin || dMax) {
+                const unit = getVal('hr_miles') || "Miles";
+                let dVal = (dMin && dMax) ? `${dMin} - ${dMax} ${unit}` : (dMin ? `${dMin}+ ${unit}` : `Up to ${dMax} ${unit}`);
+                createTag("DISTANCE", dVal, "distance", true);
+            }
+
+            // 3. Status Radios (For Sale, Auction, etc.)
+            const statusFields = ['listed_horses', 'auction_horses', 'sold_horses', 'lease_horses', 'at_stud'];
+            statusFields.forEach(field => {
+                const val = formData.get(field);
+                if (val && !val.startsWith('not-') && val !== "") {
+                    createTag("STATUS", val, field, false);
                 }
             });
 
-            // Multi-select: skill, rider, breed
-            const multiFields = ['skill', 'rider', 'breed'];
+            // 4. Multi-selects (Breed, Color, Gender, Skill, Rider)
+            const multiFields = ['breed[]', 'selectedColor[]', 'selectedGender[]', 'skill[]', 'rider[]'];
             multiFields.forEach(fieldName => {
-                const values = getAll(fieldName);
+                const values = formData.getAll(fieldName).filter(v => v.trim() !== "");
+                const baseName = fieldName.replace('[]', '');
                 values.forEach(val => {
-                    if (val && val !== 'Select') {
-                        const selector = fieldName === 'breed' ? 'select[name="breed[]"]' : `select[name="${fieldName}"]`;
-                        const select = form.querySelector(selector);
-                        const option = select?.querySelector(`option[value="${val}"]`);
-                        const text = option?.textContent?.trim() || val;
-                        createTag(text, text, `${fieldName}_${val}`, false);
+                    const select = form.querySelector(`select[name="${fieldName}"]`);
+                    const option = Array.from(select?.options || []).find(o => o.value === val);
+                    if (option) {
+                        let text = option.textContent.trim();
+                        if (fieldName === 'skill[]' && text.includes(' - ')) text = text.split(' - ')[0];
+                        
+                        const mapping = { breed: 'breed-tags', selectedColor: 'color-tags', selectedGender: 'gender-tags', rider: 'rider-tags', skill: 'skill-tags' };
+                        const containerId = mapping[baseName];
+                        if (containerId && typeof syncSidebarTags === 'function') {
+                            syncSidebarTags(select, containerId);
+                        }
+
+                        createTag(baseName.replace('selected','').toUpperCase(), text, `${baseName}_${val}`, false);
                     }
                 });
             });
+        }
 
-            // Radio-based filters (listed_horses, etc.)
-            const radioFields = ['listed_horses', 'auction_horses', 'sold_horses', 'lease_horses'];
-            radioFields.forEach(name => {
-                const val = getVal(name);
-                if (val) {
-                    createTag(name.replace(/_/g, ' ').toUpperCase(), val, name, true);
+        // Additional Listeners for Immediate Tagging
+        if (form) {
+            // General function for Range updating
+            const updateRangeTag = (type) => {
+                const min = form.querySelector(`[name="${type}_min"]`)?.value || "";
+                const max = form.querySelector(`[name="${type}_max"]`)?.value || "";
+                if (min || max) {
+                    let unit = "";
+                    if (type === 'height') unit = "HH";
+                    else if (type === 'age') unit = form.querySelector('[name="age_unit"]:checked')?.value || "Years";
+                    else if (type === 'distance') unit = form.querySelector('[name="hr_miles"]:checked')?.value || "Miles";
+                    
+                    const text = (min && max) ? `${min} - ${max} ${unit}` : (min ? `${min}+ ${unit}` : `Up to ${max} ${unit}`);
+                    createTag(type.toUpperCase(), text, type, true);
+                } else {
+                    const tag = tagsContainer.querySelector(`[data-key="${type}"]`);
+                    if (tag) tag.remove();
                 }
+            };
+
+            ['height', 'age', 'distance'].forEach(type => {
+                form.querySelectorAll(`input[name^="${type}_"]`).forEach(i => i.addEventListener("blur", () => updateRangeTag(type)));
+            });
+
+            // Radios (Include/Exclude/Only)
+            ['listed_horses', 'auction_horses', 'sold_horses', 'lease_horses', 'at_stud'].forEach(name => {
+                form.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.addEventListener("change", () => {
+                        if (radio.checked && !radio.value.startsWith('not-') && radio.value !== "") {
+                            createTag("STATUS", radio.value, name, false);
+                        } else {
+                            const tag = tagsContainer.querySelector(`[data-key="${name}"]`);
+                            if (tag) tag.remove();
+                        }
+                    });
+                });
             });
         }
 
-        // 🟢 Run on page load
+        window.clearLocation = function() {
+            const locInput = document.querySelector('input[name="location"]');
+            if (locInput) {
+                locInput.value = "";
+                const tag = tagsContainer.querySelector('[data-key="location"]');
+                if (tag) tag.remove();
+            }
+        };
+
         document.addEventListener("DOMContentLoaded", () => {
-            restoreTagsFromFormData();
+            setTimeout(restoreTagsFromFormData, 400);
         });
     </script>
 
     <script>
+        function saveSearch(btn) {
+            const form = document.getElementById("mainForm");
+            if (!form) return;
+            const formData = new FormData(form);
+            formData.append('type', 'horse');
+
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> SAVING...';
+
+            fetch("{{ route('save.search') }}", {
+                method: "POST",
+                headers: { "X-CSRF-TOKEN": "{{ csrf_token() }}", "Accept": "application/json" },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                showNotification(data.message || (data.success ? 'Search saved!' : 'Error occurred.'));
+            })
+            .catch(error => showNotification("An error occurred. Please try again."))
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            });
+        }
+        
         function sortProducts(value) {
-            const url = new URL(window.location.href); // current page URL
-            if (value) {
-                url.searchParams.set('sort', value); // update ya add sort param
-            } else {
-                url.searchParams.delete('sort'); // agar default selected hai to remove
+            const url = new URL(window.location.href);
+            if (value) url.searchParams.set('sort', value);
+            else url.searchParams.delete('sort');
+            window.location.href = url.toString();
+        }
+
+        document.querySelectorAll('.thousand-separator').forEach(input => {
+            input.addEventListener('input', function(e) {
+                const rawValue = e.target.value.replace(/,/g, '').replace(/[^\d]/g, '');
+                if (!rawValue) { e.target.value = ''; return; }
+                const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                e.target.value = formattedValue;
+                e.target.setSelectionRange(formattedValue.length, formattedValue.length);
+            });
+        });
+    </script>
+
+    <script>
+        function saveSearch(btn) {
+            const form = document.getElementById("mainForm");
+            if (!form) {
+                console.error("Search form not found!");
+                return;
             }
-            window.location.href = url.toString(); // reload with updated params
+
+            const formData = new FormData(form);
+            formData.append('type', 'horse'); // Ensure type is included
+
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> SAVING...';
+
+            fetch("{{ route('save.search') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification(data.message || 'Search saved successfully!');
+                } else {
+                    showNotification(data.message || "Something went wrong.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                showNotification("An error occurred. Please try again.");
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            });
+        }
+        
+        function sortProducts(value) {
+            const url = new URL(window.location.href);
+            if (value) {
+                url.searchParams.set('sort', value);
+            } else {
+                url.searchParams.delete('sort');
+            }
+            window.location.href = url.toString();
         }
     </script>
     <script>
@@ -2823,3 +2582,5 @@
         });
     </script>
 @endsection
+
+

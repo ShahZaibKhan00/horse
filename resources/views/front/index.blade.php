@@ -4,19 +4,25 @@
             position: relative;
         }
 
-        .countdown {
+      .countdown {
             display: flex;
             gap: 0px;
             align-items: center;
             justify-content: center;
             position: absolute;
             z-index: 999;
-            bottom: 47px;
-            right: 4px;
-            background: #1d2139db;
+            bottom: 0;
+            right: -100%;
+            background: #1d2139;
             padding: 5px 10px 25px 10px;
-            border: 1px solid #ffffff54;
+            border: 1px solid #7f83ac;
             width: 295px;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        .gen_card_flex .horse_list_card:hover .countdown {
+            opacity: 1;
+            right: 0;
         }
 
         .countdown p {
@@ -28,6 +34,33 @@
             width: 100%;
             text-align: center;
             margin: 0;
+            font-weight: bold;
+            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .circle-text {
+            text-align: center;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+       .circle-text span {
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .circle-text small {
+            font-size: 14px;
+            display: block;
             font-weight: bold;
             background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
             background-clip: text;
@@ -61,33 +94,7 @@
             transition: stroke-dashoffset 0.35s;
         }
 
-        .circle-text {
-            text-align: center;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .circle-text span {
-            font-size: 14px;
-            font-weight: bold;
-            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .circle-text small {
-            font-size: 14px;
-            /* Reduced from 9px */
-            display: block;
-            font-weight: bold;
-            background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        
 
         .info_list li {
             border: 1px solid #1d2139;
@@ -456,17 +463,16 @@
                 font-size: 29px;
             }
 
-            .countdown {
-                bottom: 28px;
-                right: 4px;
-                width: 240px;
-            }
-
-            .circle-text span,
-            .circle-text small {
-                font-size: 11.5px;
-            }
-
+         .countdown {
+                width: 242px;
+        }
+        .circle-text span, .circle-text small {
+            font-size: 12px;
+        }
+        .countdown p {
+        font-size: 13px;
+        bottom: 3px;
+    }
             .circle-container {
                 padding: 0px 7px;
             }
@@ -489,7 +495,7 @@
         }
 
         .gen_card_flex .horse_list_card {
-            width: 436px;
+            width: 420px;
             margin-bottom: 25px;
         }
 
@@ -513,7 +519,7 @@
         .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
         .horse_list_card_new .horse_list_card_btn_flex_new .fvrt_btn {
             width: 100%;
-            font-size: 20px;
+            font-size: 18px;
             height: 35px;
         }
 
@@ -592,26 +598,29 @@
         }
 
         .horse_list_card.horse_list_card_new .blue_stripe h3 {
-            font-size: 35px;
+            font-size: 25px;
             text-transform: uppercase;
+        }
+        .horse_list_card .img_box {
+            height: 260px;
         }
 
         .breed_text {
             background: #1d2139;
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            /*position: absolute;*/
+            /*bottom: 0;*/
+            /*left: 0;*/
             width: 100%;
-            height: 45px;
-            z-index: 999;
+            z-index: 9;
             text-align: center;
-            font-size: 25px;
+            font-size: 22px;
             font-weight: 500;
             margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             text-transform: uppercase;
+            padding: 7px 0;
         }
 
         .real_estate_card_new.horse_list_card_new .blue_stripe.blue_tripe_new {
@@ -626,21 +635,32 @@
         }
 
         .real_estate_card_new.horse_list_card_new .custome_listing_col .info_list li {
-            font-size: 16px;
+            font-size: 14px;
             margin: 5px 0px;
-            padding: 4px 13px;
+            padding: 4px 20px;
             width: 100%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             text-align: center;
+            display: flex;
+            align-items: center;
+           
+        }
+       .amenities_flex {
+            white-space: nowrap;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            justify-content: flex-start;
+            margin: 0;
+            display: flex;
         }
 
         .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
         .horse_list_card_new .horse_list_card_btn_flex_new .fvrt_btn {
             text-transform: uppercase;
         }
-
 
         button.fvrt_btn.add_to_fvrt {
             background: #c09957;
@@ -681,7 +701,7 @@
             }
 
             .horse_list_card_new .custome_listing_col .info_list li {
-                font-size: 14px;
+                font-size: 17px;
             }
 
             .horse_list_card.horse_list_card_new .img_box {
@@ -700,8 +720,7 @@
             }
 
             .breed_text {
-                font-size: 17px;
-                height: 25px;
+                font-size: 16px;
             }
 
             .real_estate_card_new.horse_list_card_new .custome_listing_col .info_list li {
@@ -722,6 +741,27 @@
                 margin: 0 auto;
             }
         }
+
+         @media (max-width: 1399px) {
+                .gen_card_flex {
+                    max-width: 100%;
+                    gap: 15px;
+                }
+                .gen_card_flex .horse_list_card {
+                    width: 280px;
+                }
+                 .horse_list_card_new .custome_listing_col .info_list li {
+                font-size: 13px;
+            }
+            .horse_list_card_new .top_list {
+                padding: 20px 0px 5px 0;
+            }
+            .horse_list_card_new .icon_heart {
+                font-size: 21px;
+                top: -8px;
+                right: 6px;
+            }
+         }
     </style>
     <section class="hero_banner">
         <div class="hero_slider position-relative">
@@ -803,16 +843,16 @@
                     </div>
                 </div>
                 <!-- <div class="col-4">
-                                            <div class="select_group">
-                                                <div class="price_filter">
-                                                    <h3>Distance:</h3>
-                                                    <div class="price_filter_flex">
-                                                        <input type="number" name="" placeholder="Min" />
-                                                        <input type="number" name="" placeholder="Max" />
+                                                <div class="select_group">
+                                                    <div class="price_filter">
+                                                        <h3>Distance:</h3>
+                                                        <div class="price_filter_flex">
+                                                            <input type="number" name="" placeholder="Min" />
+                                                            <input type="number" name="" placeholder="Max" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div> -->
+                                            </div> -->
                 <div class="col-6">
                     <div class="select_group">
                         <div class="price_filter">
@@ -1085,17 +1125,17 @@
                     </div>
                 </div>
                 <!--<div class="col-12">
-                                            <div class="select_group">
-                                                <input type="text" placeholder="I'm Looking for...." />
-                                                <div class="select_group absolute_group">
-                                                    <select class="minimal">
-                                                        <option value="" disabled selected>Search All in Horses for Sale</option>
-                                                        <option value="">Horses 01</option>
-                                                        <option value="">Horses 02</option>
-                                                    </select>
+                                                <div class="select_group">
+                                                    <input type="text" placeholder="I'm Looking for...." />
+                                                    <div class="select_group absolute_group">
+                                                        <select class="minimal">
+                                                            <option value="" disabled selected>Search All in Horses for Sale</option>
+                                                            <option value="">Horses 01</option>
+                                                            <option value="">Horses 02</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div> -->
+                                            </div> -->
 
                 <div class="col-12 mt-1">
                     <div class="btn_group">
@@ -1115,7 +1155,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                            <a href="#!" class="service_card_new service_card_new_lg">
+                            <a href="{{ route('horse_listing_filter') }}" class="service_card_new service_card_new_lg">
                                 <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="img" class="img-fluid" />
                                 <p>FIND YOUR DREAM HORSE</p>
                             </a>
@@ -1125,26 +1165,26 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="row gy-4">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <a href="#!" class="service_card_new">
+                            <a href="{{ url('dashboard') }}" class="service_card_new">
                                 <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/2.jpg" alt="img" class="img-fluid" />
                                 <p>Sell a horse</p>
                             </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <a href="#!" class="service_card_new">
+                            <a href="{{ url('membership') }}" class="service_card_new">
                                 <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/3.jpg" alt="img" class="img-fluid" />
                                 <p>Advertise here</p>
                             </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <a href="#!" class="service_card_new">
+                            <a href="{{ url('services') }}" class="service_card_new">
                                 <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/4.jpg" alt="img" class="img-fluid" />
                                 <p>Services</p>
                             </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <a href="#!" class="service_card_new">
-                                <img src="https://horse-dev.testlinkdev.com/Gallery_imgs/1758669774_21.jpg" alt="img" class="img-fluid" />
+                            <a href="{{ url('realestate_listing_filter') }}" class="service_card_new">
+                                <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/4.jpg" alt="img" class="img-fluid" />
                                 <p>Real estate</p>
                             </a>
                         </div>
@@ -1191,28 +1231,36 @@
                                 <div class="blue_stripe blue_stripe_new">
                                     <h2>{{ $product->pro_name }}</h2>
                                     <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                        <input type="checkbox" class="heartCheckbox" hidden {{ $product->horsrFavs->isNotEmpty() ? 'checked' : '' }} />
+                                        <i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? ' filled' : '-o' }} icon_heart" aria-hidden="true"></i>
                                     </label>
                                 </div>
                                 <div class="img_box">
                                     <div class="swiper horse_list_card_slider h-100 w-100">
                                         <div class="swiper-wrapper">
-                                            @php $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; @endphp @forelse ($productImages as $item)
-                                                <div class="swiper-slide">
-                                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
-                                                </div>
-                                            @empty
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                </div>
-                                            @endforelse
+                                            
+                                                @php 
+                                                    $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; 
+                                                @endphp
+
+                                                @if(!empty($product->pro_Fimg))
+                                                    <div class="swiper-slide">
+                                                        <img src="{{ asset('Featured_image/' . $product->pro_Fimg) }}" alt="Featured Image" class="img-fluid w-100 img_radius_one" />
+                                                    </div>
+                                                @endif
+
+                                                @forelse ($productImages as $item)
+                                                    <div class="swiper-slide">
+                                                        <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="Product Image" class="img-fluid w-100 img_radius_one" />
+                                                    </div>
+                                                @empty
+                                                    {{-- Agar featured image bhi na ho aur gallery bhi khali ho tab placeholder dikhayein --}}
+                                                    @if(empty($data->pro_Fimg))
+                                                        <div class="swiper-slide">
+                                                            <img src="{{ asset('assets/images/placeholder.png') }}" alt="Placeholder" class="img-fluid w-100 img_radius_one" />
+                                                        </div>
+                                                    @endif
+                                                @endforelse
                                         </div>
                                         <div class="swiper-pagination"></div>
                                     </div>
@@ -1220,311 +1268,7 @@
                                         <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
                                         <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                                     </div>
-                                    <h2 class="breed_text">{{ $product->pro_breed }}</h2>
-                                    @if ($product->pro_ad_type === 'At Auction')
-                                        <div class="countdown" data-duration="259200000">
-                                            <div class="circle-container" data-type="days">
-                                                <div class="circle-text">
-                                                    <span class="value">3</span>
-                                                    <small>Days</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container" data-type="hours">
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Hrs</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container" data-type="minutes">
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Mins</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container border-0" data-type="seconds">
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Secs</small>
-                                                </div>
-                                            </div>
-                                            <p>TILL END OF AUCTION</p>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="text_box">
-                                    <div class="custome_listing_row">
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>
-                                                    @if ($product->pro_age_year > 0)
-                                                        {{ $product->pro_age_year }} Years
-                                                    @endif
-                                                    @if ($product->pro_age_month > 0)
-                                                        {{ $product->pro_age_month }} MO
-                                                    @endif
-                                                    Old
-                                                </li>
-                                                <li>{{ $product->pro_height }} HH</li>
-                                                <li>{{ $product->pro_gender }}</li>
-                                            </ul>
-                                        </div>
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>{{ $product->pro_color ?? ' ' }}</li>
-                                                <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
-                                                <li>Gaited: {{ $product->gaited }}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="custome_listing_col w-100">
-                                        <ul class="info_list">
-                                            @php
-                                                $state = $product->per_state ?? 'alabama (AL)';
-                                                preg_match('/\((.*?)\)/', $state, $matches);
-                                                $stateCode = $matches[1] ?? '';
-                                            @endphp
-
-                                            <li class="m-0 mb-2">
-                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
-                                                {{ $stateCode }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="blue_wrapper">
-                                        <div class="blue_stripe">
-                                            <h3>
-                                                @if ($product->pro_ad_type == 'At Auction')
-                                                    Starting Bid:
-                                                @else
-                                                    Price:
-                                                @endif: ${{ $product->pro_reg_price }}
-                                            </h3>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with seller</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Share</a>
-                                            <form action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" class="horse_card_btn" method="POST">
-                                                @csrf
-                                                <button class="fvrt_btn" type="submit" title="Add to favorite">
-                                                    Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                        @endforelse
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pills-feature-2" role="tabpanel" aria-labelledby="pills-feature-2-tab">
-                    <div class="gen_card_flex">
-                        @forelse ($pro_data_sale as $product)
-                            <div class="horse_list_card horse_list_card_new">
-                                <div class="blue_stripe">
-                                    <p class="fs_tag">{{ $product->pro_ad_type }}</p>
-                                    <ul class="top_list">
-                                    </ul>
-                                </div>
-                                <div class="blue_stripe blue_stripe_new">
-                                    <h2>{{ $product->pro_name }}</h2>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="img_box">
-                                    <div class="swiper horse_list_card_slider h-100 w-100">
-                                        <div class="swiper-wrapper">
-                                            @php $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; @endphp @forelse ($productImages as $item)
-                                                <div class="swiper-slide">
-                                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
-                                                </div>
-                                            @empty
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                </div>
-                                            @endforelse
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <div class="arrow_flex">
-                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                    </div>
-                                    <h2 class="breed_text">{{ $product->pro_breed }}</h2>
-                                    @if ($product->pro_ad_type === 'At Auction')
-                                        <div class="countdown" data-duration="259200000">
-                                            <div class="circle-container" data-type="days">
-                                                <div class="circle-text">
-                                                    <span class="value">3</span>
-                                                    <small>Days</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container" data-type="hours">
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Hrs</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container" data-type="minutes">
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Mins</small>
-                                                </div>
-                                            </div>
-                                            <div class="circle-container border-0" data-type="seconds">
-                                                <div class="circle-text">
-                                                    <span class="value">0</span>
-                                                    <small>Secs</small>
-                                                </div>
-                                            </div>
-                                            <p>TILL END OF AUCTION</p>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="text_box">
-                                    <div class="custome_listing_row">
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <!-- <li>{{ $product->pro_breed }}</li> -->
-                                                <li>
-                                                    {{ $product->pro_age_year }} Years
-                                                    @if ($product->pro_age_month > 0)
-                                                        {{ $product->pro_age_month }} MO
-                                                    @endif
-                                                    Old
-                                                </li>
-                                                <li>{{ $product->pro_height }} HH</li>
-                                                <li>{{ $product->pro_gender }}</li>
-                                            </ul>
-                                        </div>
-                                        <div class="custome_listing_col">
-                                            <ul class="info_list">
-                                                <li>{{ $product->pro_color ?? ' ' }}</li>
-                                                <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
-                                                <li>Gaited: {{ $product->gaited }}</li>
-                                                <!-- <li><strong>Ad Type:</strong> {{ $product->pro_ad_type }}</li> -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="custome_listing_col w-100">
-                                        {{-- <ul class="info_list">
-                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li>
-                                        </ul> --}}
-                                        <ul class="info_list">
-                                            {{-- @php
-                                                $state = $product->per_state ?? 'alabama (AL)';
-                                                preg_match('/\((.*?)\)/', $state, $matches);
-                                                // echo $matches[1]; // AL
-                                            @endphp
-                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }}, @php
-                                                echo $matches[1];
-                                            @endphp</li> --}}
-                                            @php
-                                                $state = $product->per_state ?? 'alabama (AL)';
-                                                preg_match('/\((.*?)\)/', $state, $matches);
-                                                $stateCode = $matches[1] ?? '';
-                                            @endphp
-
-                                            <li class="m-0 mb-2">
-                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
-                                                {{ $stateCode }}
-                                            </li>
-                                            {{-- <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li> --}}
-                                        </ul>
-                                    </div>
-                                    <div class="blue_wrapper">
-                                        <div class="blue_stripe">
-                                            <h3>
-                                                @if ($product->pro_ad_type == 'At Auction')
-                                                    Starting Bid:
-                                                @else
-                                                    Price:
-                                                @endif: ${{ $product->pro_reg_price }}
-                                            </h3>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with seller</a>
-                                        </div>
-                                        <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="#!" class="horse_card_btn">Share</a>
-                                            <form action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" class="horse_card_btn" method="POST">
-                                                @csrf
-                                                <button class="fvrt_btn" type="submit" title="Add to favorite">
-                                                    Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                        @endforelse
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="pills-feature-3" role="tabpanel" aria-labelledby="pills-feature-3-tab">
-                    <div class="gen_card_flex">
-                        @forelse ($pro_data_auction as $product)
-                            <div class="horse_list_card horse_list_card_new">
-                                <div class="blue_stripe">
-                                    <p class="fs_tag">{{ $product->pro_ad_type }}</p>
-                                    <ul class="top_list">
-                                        {{-- <li>Trail</li>
-                                        <li>Dressage</li>
-                                        <li>Beginner Safe</li> --}}
-                                    </ul>
-                                </div>
-                                <div class="blue_stripe blue_stripe_new">
-                                    <h2>{{ $product->pro_name }}</h2>
-                                    <label class="heart_checkbox_wrapper d-block">
-                                        <input type="checkbox" class="heartCheckbox" hidden />
-                                        <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                                <div class="img_box">
-                                    <div class="swiper horse_list_card_slider h-100 w-100">
-                                        <div class="swiper-wrapper">
-                                            @php $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; @endphp @forelse ($productImages as $item)
-                                                <div class="swiper-slide">
-                                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
-                                                </div>
-                                            @empty
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
-                                                </div>
-                                            @endforelse
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <div class="arrow_flex">
-                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                    </div>
-                                    <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                    
                                     @if ($product->pro_ad_type == 'At Auction')
                                         <div class="countdown" data-enddate="{{ \Carbon\Carbon::parse($product->auc_end_date)->endOfDay()->format('Y-m-d\TH:i:s') }}">
                                             <div class="circle-container" data-type="days">
@@ -1555,13 +1299,319 @@
                                         </div>
                                     @endif
                                 </div>
+                                <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                <div class="text_box">
+                                    <div class="custome_listing_row">
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list">
+                                                <li>
+                                                    @if ($product->pro_age_year > 0)
+                                                        {{ $product->pro_age_year }} {{ $product->pro_age_year == 1 ? 'Yr' : 'Yrs' }}
+                                                    @endif
+                                                    @if ($product->pro_age_month > 0)
+                                                        {{ $product->pro_age_month }} {{ $product->pro_age_month == 1 ? 'Mo' : 'Mos' }}
+                                                    @endif
+                                                    Old
+                                                </li>
+                                                <li>{{ $product->pro_height }} HH</li>
+                                                <li>{{ $product->pro_gender }}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list">
+                                                <li>{{ $product->pro_color ?? ' ' }}</li>
+                                                <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
+                                                <li>Gaited: {{ $product->gaited }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="custome_listing_col w-100">
+                                        <ul class="info_list">
+                                            @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                                $stateCode = $matches[1] ?? '';
+                                            @endphp
+
+                                            <li class="m-0 mb-2">
+                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
+                                                {{ $stateCode }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="blue_wrapper">
+                                        <div class="blue_stripe">
+                                            <h3>
+                                                @if ($product->pro_ad_type == 'At Auction')
+                                                    Starting Bid: ${{ $product->bid_amount ?? '0' }}
+                                                @else
+                                                    Price: ${{ $product->pro_reg_price ?? '0' }}
+                                                @endif 
+                                            </h3>
+                                        </div>
+                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                            <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn view-detail-btn w-100">View Details</a>
+                                        </div>
+                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                            <a href="{{ route('start.conversation', ['receiver_id' => $product->user_id, 'product_id' => $product->id, 'product_type' => 'horse']) }}" class="horse_card_btn">Chat with seller</a>
+                                        </div>
+                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                            <a href="#!" class="horse_card_btn">Share</a>
+                                            <form class="horse_card_btn favorite-form" action="{{ route('horse.favorite', Crypt::encrypt($product->id)) }}" method="POST">
+                                                @csrf
+                                                <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                    {{ $product->horsrFavs->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                        @endforelse
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-feature-2" role="tabpanel" aria-labelledby="pills-feature-2-tab">
+                    <div class="gen_card_flex">
+                        @forelse ($pro_data_sale as $product)
+                            <div class="horse_list_card horse_list_card_new">
+                                <div class="blue_stripe">
+                                    <p class="fs_tag">{{ $product->pro_ad_type }}</p>
+                                    <ul class="top_list">
+                                    </ul>
+                                </div>
+                                <div class="blue_stripe blue_stripe_new">
+                                    <h2>{{ $product->pro_name }}</h2>
+                                    <label class="heart_checkbox_wrapper d-block">
+                                        <input type="checkbox" class="heartCheckbox" hidden {{ $product->horsrFavs->isNotEmpty() ? 'checked' : '' }} />
+                                        <i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? ' filled' : '-o' }} icon_heart" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+                                <div class="img_box">
+                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                        <div class="swiper-wrapper">
+                                            @php $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; @endphp @forelse ($productImages as $item)
+                                                <div class="swiper-slide">
+                                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
+                                                </div>
+                                            @empty
+                                                <div class="swiper-slide">
+                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                        <div class="swiper-pagination"></div>
+                                    </div>
+                                    <div class="arrow_flex">
+                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                    </div>
+                                    <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                    @if ($product->pro_ad_type === 'At Auction')
+                                        <div class="countdown" data-enddate="{{ \Carbon\Carbon::parse($product->auc_end_date)->endOfDay()->format('Y-m-d\TH:i:s') }}">
+                                                <div class="circle-container" data-type="days">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Days</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container" data-type="hours">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Hrs</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container" data-type="minutes">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Mins</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container border-0" data-type="seconds">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Secs</small>
+                                                    </div>
+                                                </div>
+                                                <p>TILL END OF AUCTION</p>
+                                            </div>
+                                    @endif
+                                </div>
                                 <div class="text_box">
                                     <div class="custome_listing_row">
                                         <div class="custome_listing_col">
                                             <ul class="info_list">
                                                 <!-- <li>{{ $product->pro_breed }}</li> -->
                                                 <li>
-                                                    {{ $product->pro_age_year }} Years
+                                                    @if ($product->pro_age_year > 0)
+                                                                {{ $product->pro_age_year }} {{ $product->pro_age_year == 1 ? 'Yr' : 'Yrs' }}
+                                                                @endif @if ($product->pro_age_month > 0)
+                                                                    {{ $product->pro_age_month }} Mo
+                                                                @endif
+                                                                Old
+                                                </li>
+                                                <li>{{ $product->pro_height }} HH</li>
+                                                <li>{{ $product->pro_gender }}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list">
+                                                <li>{{ $product->pro_color ?? ' ' }}</li>
+                                                <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
+                                                <li>Gaited: {{ $product->gaited }}</li>
+                                                <!-- <li><strong>Ad Type:</strong> {{ $product->pro_ad_type }}</li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="custome_listing_col w-100">
+                                        {{-- <ul class="info_list">
+                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li>
+                                        </ul> --}}
+                                        <ul class="info_list">
+                                            {{-- @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                                // echo $matches[1]; // AL
+                                            @endphp
+                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}, @php
+                                                echo $matches[1];
+                                            @endphp</li> --}}
+                                            @php
+                                                $state = $product->per_state ?? 'alabama (AL)';
+                                                preg_match('/\((.*?)\)/', $state, $matches);
+                                                $stateCode = $matches[1] ?? '';
+                                            @endphp
+
+                                            <li class="m-0 mb-2">
+                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
+                                                {{ $stateCode }}
+                                            </li>
+                                            {{-- <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}</li> --}}
+                                        </ul>
+                                    </div>
+                                    <div class="blue_wrapper">
+                                        <div class="blue_stripe">
+                                            <h3>
+                                                @if ($product->pro_ad_type == 'At Auction')
+                                                    Starting Bid:
+                                                @else
+                                                    Price:
+                                                @endif: ${{ $product->pro_reg_price }}
+                                            </h3>
+                                        </div>
+                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                            <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn view-detail-btn w-100">View Details</a>
+                                        </div>
+                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                            <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                            <a href="{{ route('start.conversation', ['receiver_id' => $product->user_id, 'product_id' => $product->id, 'product_type' => 'horse']) }}" class="horse_card_btn">Chat with seller</a>
+                                        </div>
+                                        <div class="horse_list_card_btn_flex_new bottom_row">
+                                            <a href="#!" class="horse_card_btn">Share</a>
+                                            <form class="horse_card_btn favorite-form" action="{{ route('horse.favorite', Crypt::encrypt($product->id)) }}" method="POST">
+                                                    @csrf
+                                                    <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                        {{ $product->horsrFavs->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                                    </button>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                        @endforelse
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-feature-3" role="tabpanel" aria-labelledby="pills-feature-3-tab">
+                    <div class="gen_card_flex">
+                        @forelse ($pro_data_auction as $product)
+                            <div class="horse_list_card horse_list_card_new">
+                                <div class="blue_stripe">
+                                    <p class="fs_tag">{{ $product->pro_ad_type }}</p>
+                                    <ul class="top_list">
+                                        {{-- <li>Trail</li>
+                                        <li>Dressage</li>
+                                        <li>Beginner Safe</li> --}}
+                                    </ul>
+                                </div>
+                                <div class="blue_stripe blue_stripe_new">
+                                    <h2>{{ $product->pro_name }}</h2>
+                                    <label class="heart_checkbox_wrapper d-block">
+                                        <input type="checkbox" class="heartCheckbox" hidden {{ $product->horsrFavs->isNotEmpty() ? 'checked' : '' }} />
+                                        <i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? ' filled' : '-o' }} icon_heart" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+                                <div class="img_box">
+                                    <div class="swiper horse_list_card_slider h-100 w-100">
+                                        <div class="swiper-wrapper">
+                                            @php $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : []; @endphp @forelse ($productImages as $item)
+                                                <div class="swiper-slide">
+                                                    <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="" />
+                                                </div>
+                                            @empty
+                                                <div class="swiper-slide">
+                                                    <img src="{{ asset('assets/images/placeholder.png') }}" alt="" />
+                                                </div>
+                                                {{-- <div class="swiper-slide">
+                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/courses/sm1.jpg" alt="" />
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img src="https://html.kodesolution.com/2016/horeseman-html/demo/images/blog/1.jpg" alt="" />
+                                                </div> --}}
+                                            @endforelse
+                                        </div>
+                                        <div class="swiper-pagination"></div>
+                                    </div>
+                                    <div class="arrow_flex">
+                                        <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                        <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                    </div>
+                                    <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                    @if ($product->pro_ad_type === 'At Auction')
+                                        <div class="countdown" data-enddate="{{ \Carbon\Carbon::parse($product->auc_end_date)->endOfDay()->format('Y-m-d\TH:i:s') }}">
+                                                <div class="circle-container" data-type="days">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Days</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container" data-type="hours">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Hrs</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container" data-type="minutes">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Mins</small>
+                                                    </div>
+                                                </div>
+                                                <div class="circle-container border-0" data-type="seconds">
+                                                    <div class="circle-text">
+                                                        <span class="value">0</span>
+                                                        <small>Secs</small>
+                                                    </div>
+                                                </div>
+                                                <p>TILL END OF AUCTION</p>
+                                            </div>
+                                    @endif
+                                </div>
+                                <div class="text_box">
+                                    <div class="custome_listing_row">
+                                        <div class="custome_listing_col">
+                                            <ul class="info_list">
+                                                <!-- <li>{{ $product->pro_breed }}</li> -->
+                                                <li>
+                                                    {{ $product->pro_age_year }} {{ $product->pro_age_year == 1 ? 'Yr' : 'Yrs' }}
                                                     @if ($product->pro_age_month > 0)
                                                         {{ $product->pro_age_month }} MO
                                                     @endif
@@ -1586,7 +1636,7 @@
                                                 $state = $product->per_state ?? 'alabama (AL)';
                                                 preg_match('/\((.*?)\)/', $state, $matches);
                                             @endphp
-                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }}, @php
+                                            <li class="m-0 mb-2">{{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }}, @php
                                                 echo $matches[1];
                                             @endphp</li> --}}
                                             @php
@@ -1596,7 +1646,7 @@
                                             @endphp
 
                                             <li class="m-0 mb-2">
-                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_address)) }},
+                                                {{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
                                                 {{ $stateCode }}
                                             </li>
                                         </ul>
@@ -1615,20 +1665,20 @@
                                             </h3>
                                         </div>
                                         <div class="horse_list_card_btn_flex_new bottom_row">
-                                            <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
+                                            <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn view-detail-btn w-100">View Details</a>
                                         </div>
                                         <div class="horse_list_card_btn_flex_new bottom_row">
                                             <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                            <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                            <a href="{{ route('start.conversation', ['receiver_id' => $product->user_id, 'product_id' => $product->id, 'product_type' => 'horse']) }}" class="horse_card_btn">Chat with seller</a>
                                         </div>
                                         <div class="horse_list_card_btn_flex_new bottom_row">
                                             <a href="#!" class="horse_card_btn">Share</a>
-                                            <form action="{{ route('horse.favorite', Crypt::encrypt($product['id'])) }}" class="horse_card_btn" method="POST">
-                                                @csrf
-                                                <button class="fvrt_btn" type="submit" title="Add to favorite">
-                                                    Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                                </button>
-                                            </form>
+                                            <form class="horse_card_btn favorite-form" action="{{ route('horse.favorite', Crypt::encrypt($product->id)) }}" method="POST">
+                                                    @csrf
+                                                    <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                        {{ $product->horsrFavs->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                                    </button>
+                                                </form>
                                         </div>
                                     </div>
                                 </div>
@@ -1667,6 +1717,46 @@
         </div>
     </section>
 
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+
+                                    const countdowns = document.querySelectorAll(".countdown");
+
+                                    countdowns.forEach(function(countdown) {
+
+                                        const endDateStr = countdown.getAttribute("data-enddate");
+                                        const endDate = new Date(endDateStr).getTime();
+
+                                        if (isNaN(endDate)) {
+                                            console.error("Invalid date format:", endDateStr);
+                                            return;
+                                        }
+
+                                        function updateCountdown() {
+                                            const now = new Date().getTime();
+                                            let distance = endDate - now;
+
+                                            if (distance <= 0) {
+                                                distance = 0;
+                                            }
+
+                                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                            countdown.querySelector('[data-type="days"] .value').textContent = days;
+                                            countdown.querySelector('[data-type="hours"] .value').textContent = hours;
+                                            countdown.querySelector('[data-type="minutes"] .value').textContent = minutes;
+                                            countdown.querySelector('[data-type="seconds"] .value').textContent = seconds;
+                                        }
+
+                                        updateCountdown();
+                                        setInterval(updateCountdown, 1000);
+                                    });
+
+                                });
+                            </script>
     <section class="best_selling best_selling_two equestrian_service_sec pb-0">
         <div class="container-fluid">
             <div class="heading65px monte_carlo fw_400 mb-5">
@@ -1686,15 +1776,17 @@
                                         <a href="javascript:;" class="product_clm_icon"><i class="fa fa-skype"></i></a>
                                     </div>
                                 </div>
-                                <h5 class="heading22px primeColor">{{ $service->business_name }}</h5>
+                                <h5 class="heading22px primeColor">{{ $service->full_name }}</h5>
                                 <p>{{ $service->number }}</p>
                                 <a href="{{ $service->website_url }}" target="_blank" class="webLink">{{ $service->website_url }}</a>
                                 <div class="btn_set mt-3">
-                                    <a href="{{ url('service_details/' . Crypt::encrypt($service->id)) }}" class="horse_card_btn">View Detail</a>
-                                    <label class="fvrt_btn">
-                                        <input type="checkbox" hidden />
-                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                    </label>
+                                    <a href="{{ url('service_details/' . Crypt::encrypt($service->id)) }}" class="horse_card_btn view-detail-btn">View Detail</a>
+                                    <form class="horse_card_btn favorite-form" action="{{ route('service.favorite', Crypt::encrypt($service->id)) }}" method="POST">
+                                        @csrf
+                                        <button class="fvrt_btn" type="button" title="Add to favorite">
+                                            {{ $service->serviceFavs->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $service->serviceFavs->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $service->serviceFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -1706,7 +1798,46 @@
             <a href="{{ route('services') }}" class="search_all_btn"><span>Explore More</span></a>
         </div>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
+            const countdowns = document.querySelectorAll(".countdown");
+
+            countdowns.forEach(function(countdown) {
+
+                const endDateStr = countdown.getAttribute("data-enddate");
+                const endDate = new Date(endDateStr).getTime();
+
+                if (isNaN(endDate)) {
+                    console.error("Invalid date format:", endDateStr);
+                    return;
+                }
+
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    let distance = endDate - now;
+
+                    if (distance <= 0) {
+                        distance = 0;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdown.querySelector('[data-type="days"] .value').textContent = days;
+                    countdown.querySelector('[data-type="hours"] .value').textContent = hours;
+                    countdown.querySelector('[data-type="minutes"] .value').textContent = minutes;
+                    countdown.querySelector('[data-type="seconds"] .value').textContent = seconds;
+                }
+
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            });
+
+        });
+    </script>
     <section class="best_selling best_selling_two best_selling_three">
         <div class="container-fluid">
             <div class="heading65px monte_carlo fw_400 mb-5">
@@ -1732,8 +1863,8 @@
 
                             <h2>{{ $state['real_title'] }}, {{ $displayLocation }}</h2>
                             <label class="heart_checkbox_wrapper d-block">
-                                <input type="checkbox" class="heartCheckbox" hidden />
-                                <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                <input type="checkbox" class="heartCheckbox" hidden {{ $state->favorites->isNotEmpty() ? 'checked' : '' }} />
+                                <i class="fa fa-heart{{ $state->favorites->isNotEmpty() ? '' : '-o' }} icon_heart" aria-hidden="true" style="{{ $state->favorites->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
                             </label>
                         </div>
                         <div class="img_box">
@@ -1787,8 +1918,7 @@
                                             Bathrooms
                                         </li>
                                         <li class="mb-1">
-                                            <span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> {{ $state['num_spaces'] }} {{ $state['real_garage'] }}
-                                            Garage
+                                            <span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> <p class="amenities_flex">{{ $state['num_spaces'] }} Car Garage </p>
                                         </li>
                                     </ul>
                                 </div>
@@ -1797,19 +1927,20 @@
                                 <div class="blue_stripe mb-2">
                                     <h3>Price: {{ $state['real_price'] }}</h3>
                                 </div>
+                                <!--<div class="horse_list_card_btn_flex_new bottom_row">-->
+                                <!--    <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn view-detail-btn w-100">View All Details</a>-->
+                                <!--</div>-->
                                 <div class="horse_list_card_btn_flex_new bottom_row">
-                                    <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn w-100">View All Details</a>
-                                </div>
-                                <div class="horse_list_card_btn_flex_new bottom_row">
-                                    <a href="#!" class="horse_card_btn">Seller Profile</a>
-                                    <a href="#!" class="horse_card_btn">Chat with Seller</a>
+                                    <!--<a href="#!" class="horse_card_btn">Seller Profile</a>-->
+                                    <a href="{{ route('realstate.detail', Crypt::encrypt($state->id)) }}" class="horse_card_btn view-detail-btn">View All Details</a>
+                                    <a href="{{ route('start.conversation', ['receiver_id' => $state->User_id, 'product_id' => $state->id, 'product_type' => 'real_estate']) }}" class="horse_card_btn">Chat with Seller</a>
                                 </div>
                                 <div class="horse_list_card_btn_flex_new bottom_row">
                                     <a href="#!" class="horse_card_btn">Share</a>
-                                    <form action="{{ route('farm.favorite', Crypt::encrypt($state['id'])) }}" class="horse_card_btn" method="POST">
+                                    <form action="{{ route('farm.favorite', Crypt::encrypt($state->id)) }}" class="horse_card_btn favorite-form" method="POST">
                                         @csrf
-                                        <button class="fvrt_btn" type="submit" title="Add favorite">
-                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                        <button class="fvrt_btn" type="button" title="Add favorite">
+                                            {{ $state->favorites->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $state->favorites->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $state->favorites->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
                                         </button>
                                     </form>
                                 </div>
@@ -1819,7 +1950,7 @@
                 @empty
                 @endforelse
             </div>
-            <a href="{{ route('realestate') }}" class="search_all_btn"><span>Explore More</span></a>
+            <a href="{{ url('realestate_listing_filter') }}" class="search_all_btn"><span>Explore More</span></a>
         </div>
     </section>
 
@@ -2135,7 +2266,7 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         function initializeCountdown(container, durationMs) {
             const countdownEnd = Date.now() + durationMs;
 
@@ -2175,7 +2306,8 @@
             const durationMs = parseInt(countdown.getAttribute("data-duration"), 10);
             initializeCountdown(countdown, durationMs);
         });
-    </script>
+    </script> --}}
+
     <script>
         // Show popup after 5 seconds
         setTimeout(() => {

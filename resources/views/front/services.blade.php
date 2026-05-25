@@ -1,4 +1,4 @@
-@extends('layouts.app') @section('content')
+x   @extends('layouts.app') @section('content')
     <style>
         .top_head {
             text-align: center;
@@ -34,6 +34,7 @@
 
         .filter_row {
             display: flex;
+            justify-content: space-between;
         }
 
         .filter_side_bar {
@@ -545,20 +546,22 @@
 
         .gen_card_flex {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap; /* Isse 4 ke baad agla card niche chala jayega */
             width: 100%;
-            justify-content: flex-start;
+            justify-content: flex-start; 
             max-width: 100%;
             margin: 0 auto;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 15px; /* Cards ke darmiyan gap */
         }
 
         .gen_card_flex .product_clm {
-            width: 24%;
+            /* Formula: (100% - total gaps) / 4 */
+            /* 3 gaps hain 15px ke, isliye (15px * 3) = 45px minus hoga */
+            width: calc((100% - 45px) / 4); 
+            
             margin-bottom: 25px;
+            box-sizing: border-box; /* Padding/border ko width ke andar rakhne ke liye */
         }
-
         @media only screen and (max-width: 1799px) {
             .filter_sec {
                 padding: 10px 0px;
@@ -620,7 +623,7 @@
 
             .fvrt_btn,
             .horse_card_btn {
-                width: 50%;
+                width: 100%;
                 font-size: 14px;
                 justify-content: center;
             }
@@ -631,9 +634,9 @@
         }
 
         @media only screen and (max-width: 1600px) {
-            .product_clm {
-                width: 250px !important;
-            }
+            /*.product_clm {*/
+            /*    width: 250px !important;*/
+            /*}*/
         }
 
         @media only screen and (max-width: 1400px) {
@@ -642,9 +645,9 @@
                 font-weight: 500;
             }
 
-            .product_clm {
-                width: 230px !important;
-            }
+            /*.product_clm {*/
+            /*    width: 230px !important;*/
+            /*}*/
 
             .product_clm .pro_img {
                 height: 170px;
@@ -687,13 +690,13 @@
                             <div class="form-section">
                                 <div class="section-title text-uppercase">Distance Range</div>
                                 <div class="distance-controls">
-                                    <input type="text" class="distance-input form-control thousand-separator" placeholder="MIN" />
-                                    <input type="text" class="distance-input form-control thousand-separator" placeholder="MAX" />
+                                    <input type="text" class="distance-input form-control thousand-separator" name="distance_min" value="{{ request('distance_min') }}" placeholder="MIN" />
+                                    <input type="text" class="distance-input form-control thousand-separator" name="distance_max" value="{{ request('distance_max') }}" placeholder="MAX" />
                                 </div>
                                 <div class="unit-label mt-3">
                                     <div class="checkbox-item justify-content-start gap-3">
-                                        <label><input type="radio" class="form-check-input" name="hr_miles" /> Hours</label>
-                                        <label><input type="radio" class="form-check-input" name="hr_miles" /> Miles</label>
+                                        <label><input type="radio" class="form-check-input" name="hr_miles" value="hours" {{ request('hr_miles') == 'hours' ? 'checked' : '' }} /> Hours</label>
+                                        <label><input type="radio" class="form-check-input" name="hr_miles" value="miles" {{ request('hr_miles') == 'miles' ? 'checked' : '' }} /> Miles</label>
                                     </div>
                                 </div>
                             </div>
@@ -714,38 +717,47 @@
                                     <option value="cardiac_telemetry" {{ request('health') == 'cardiac_telemetry' ? 'selected' : '' }}>Cardiac telemetry</option>
                                     <option value="chiropractic_care" {{ request('health') == 'chiropractic_care' ? 'selected' : '' }}>Chiropractic care</option>
                                     <option value="clinical_trials" {{ request('health') == 'clinical_trials' ? 'selected' : '' }}>Clinical trials / research participation</option>
+                                    <option value="coggins_health_certificates" {{ request('health') == 'coggins_health_certificates' ? 'selected' : '' }}>Coggins & health certificates</option>
                                     <option value="dentistry" {{ request('health') == 'dentistry' ? 'selected' : '' }}>Dentistry</option>
                                     <option value="dermatology" {{ request('health') == 'dermatology' ? 'selected' : '' }}>Dermatology</option>
                                     <option value="deworming_programs" {{ request('health') == 'deworming_programs' ? 'selected' : '' }}>Deworming programs</option>
                                     <option value="diagnostic_imaging" {{ request('health') == 'diagnostic_imaging' ? 'selected' : '' }}>Diagnostic imaging</option>
                                     <option value="dynamic_endoscopy" {{ request('health') == 'dynamic_endoscopy' ? 'selected' : '' }}>Dynamic endoscopy</option>
+                                    <option value="emergency_on_call_vet" {{ request('health') == 'emergency_on_call_vet' ? 'selected' : '' }}>Emergency on-call vet services</option>
                                     <option value="emergency_vet_care" {{ request('health') == 'emergency_vet_care' ? 'selected' : '' }}>Emergency vet care</option>
                                     <option value="endoscopy_gastroscopy" {{ request('health') == 'endoscopy_gastroscopy' ? 'selected' : '' }}>Endoscopy & gastroscopy</option>
                                     <option value="equine_hospice" {{ request('health') == 'equine_hospice' ? 'selected' : '' }}>Equine hospice / end-of-life care</option>
+                                    <option value="export_health_documentation" {{ request('health') == 'export_health_documentation' ? 'selected' : '' }}>Export health documentation</option>
                                     <option value="shock_wave_therapy" {{ request('health') == 'shock_wave_therapy' ? 'selected' : '' }}>Extra-corporeal shock wave therapy</option>
                                     <option value="fracture_repair" {{ request('health') == 'fracture_repair' ? 'selected' : '' }}>Fracture repair surgery</option>
                                     <option value="gait_analysis" {{ request('health') == 'gait_analysis' ? 'selected' : '' }}>Gait analysis and biomechanics</option>
                                     <option value="general_veterinary" {{ request('health') == 'general_veterinary' ? 'selected' : '' }}>General veterinary care</option>
                                     <option value="genetic_testing" {{ request('health') == 'genetic_testing' ? 'selected' : '' }}>Genetic testing & disease screening</option>
                                     <option value="hyperbaric_oxygen" {{ request('health') == 'hyperbaric_oxygen' ? 'selected' : '' }}>Hyperbaric oxygen therapy</option>
-                                    <option value="iv_fluid_therapy" {{ request('health') == 'iv_fluid_therapy' ? 'selected' : '' }}>IV fluid therapy for hydration/illness</option>
                                     <option value="interspinous_desmotomy" {{ request('health') == 'interspinous_desmotomy' ? 'selected' : '' }}>Inter-spinous ligament desmotomy</option>
                                     <option value="internal_medicine" {{ request('health') == 'internal_medicine' ? 'selected' : '' }}>Internal medicine specialty consults</option>
+                                    <option value="iv_fluid_therapy" {{ request('health') == 'iv_fluid_therapy' ? 'selected' : '' }}>IV fluid therapy for hydration/illness</option>
                                     <option value="joint_fusion" {{ request('health') == 'joint_fusion' ? 'selected' : '' }}>Joint fusion</option>
                                     <option value="joint_lavage" {{ request('health') == 'joint_lavage' ? 'selected' : '' }}>Joint lavage</option>
                                     <option value="lameness_evaluation" {{ request('health') == 'lameness_evaluation' ? 'selected' : '' }}>Lameness evaluation and treatment</option>
                                     <option value="lung_function_testing" {{ request('health') == 'lung_function_testing' ? 'selected' : '' }}>Lung function testing</option>
                                     <option value="mesotherapy" {{ request('health') == 'mesotherapy' ? 'selected' : '' }}>Mesotherapy</option>
+                                    <option value="mobile_veterinary_services" {{ request('health') == 'mobile_veterinary_services' ? 'selected' : '' }}>Mobile veterinary services</option>
                                     <option value="neurectomy" {{ request('health') == 'neurectomy' ? 'selected' : '' }}>Neurectomy</option>
                                     <option value="neurological_evaluation" {{ request('health') == 'neurological_evaluation' ? 'selected' : '' }}>Neurological evaluation</option>
                                     <option value="nuclear_medicine" {{ request('health') == 'nuclear_medicine' ? 'selected' : '' }}>Nuclear medicine</option>
                                     <option value="oncology" {{ request('health') == 'oncology' ? 'selected' : '' }}>Oncology</option>
-                                    <option value="prp_irap_stem_cell" {{ request('health') == 'prp_irap_stem_cell' ? 'selected' : '' }}>PRP / IRAP / stem cell therapies</option>
                                     <option value="podiatry" {{ request('health') == 'podiatry' ? 'selected' : '' }}>Podiatry (advanced hoof care)</option>
                                     <option value="post_surgical_rehab" {{ request('health') == 'post_surgical_rehab' ? 'selected' : '' }}>Post-surgical rehab programs</option>
+                                    <option value="pre_purchase_exams" {{ request('health') == 'pre_purchase_exams' ? 'selected' : '' }}>Pre-purchase exams (PPEs)</option>
+                                    <option value="prp_irap_stem_cell" {{ request('health') == 'prp_irap_stem_cell' ? 'selected' : '' }}>PRP / IRAP / stem cell therapies</option>
                                     <option value="radiology_mri" {{ request('health') == 'radiology_mri' ? 'selected' : '' }}>Radiology/CT/MRI/High-field MRI</option>
+                                    <option value="regenerative_medicine" {{ request('health') == 'regenerative_medicine' ? 'selected' : '' }}>Regenerative medicine</option>
+                                    <option value="rehabilitation_therapy" {{ request('health') == 'rehabilitation_therapy' ? 'selected' : '' }}>Rehabilitation therapy</option>
                                     <option value="reproductive_services" {{ request('health') == 'reproductive_services' ? 'selected' : '' }}>Reproductive services</option>
+                                    <option value="reproductive_ultrasounds" {{ request('health') == 'reproductive_ultrasounds' ? 'selected' : '' }}>Reproductive ultrasounds</option>
                                     <option value="respiratory_evaluations" {{ request('health') == 'respiratory_evaluations' ? 'selected' : '' }}>Respiratory evaluations and sinus surgery</option>
+                                    <option value="sports_medicine" {{ request('health') == 'sports_medicine' ? 'selected' : '' }}>Sports medicine</option>
                                     <option value="telemetric_diagnostics" {{ request('health') == 'telemetric_diagnostics' ? 'selected' : '' }}>Telemetric diagnostics</option>
                                     <option value="vaccination_programs" {{ request('health') == 'vaccination_programs' ? 'selected' : '' }}>Vaccination programs</option>
                                 </select>
@@ -808,8 +820,14 @@
                                     <option value="braiding" {{ request('grooming') == 'braiding' ? 'selected' : '' }}>Braiding</option>
                                     <option value="grooming_services" {{ request('grooming') == 'grooming_services' ? 'selected' : '' }}>Grooming services</option>
                                     <option value="mane_tail_care" {{ request('grooming') == 'mane_tail_care' ? 'selected' : '' }}>Mane & tail care</option>
+                                    <option value="pulling_manes" {{ request('grooming') == 'pulling_manes' ? 'selected' : '' }}>Pulling manes</option>
+                                    <option value="quarter_mark_clipping" {{ request('grooming') == 'quarter_mark_clipping' ? 'selected' : '' }}>Quarter mark clipping</option>
+                                    <option value="sales_prep_grooming" {{ request('grooming') == 'sales_prep_grooming' ? 'selected' : '' }}>Sales prep grooming</option>
+                                    <option value="sheath_cleaning" {{ request('grooming') == 'sheath_cleaning' ? 'selected' : '' }}>Sheath cleaning</option>
+                                    <option value="show_grooming" {{ request('grooming') == 'show_grooming' ? 'selected' : '' }}>Show grooming</option>
                                     <option value="show_prep" {{ request('grooming') == 'show_prep' ? 'selected' : '' }}>Show prep</option>
                                     <option value="tack_cleaning" {{ request('grooming') == 'tack_cleaning' ? 'selected' : '' }}>Tack cleaning</option>
+                                    <option value="turnout_preparation" {{ request('grooming') == 'turnout_preparation' ? 'selected' : '' }}>Turnout preparation</option>
                                 </select>
                             </div>
                             <div class="form-section">
@@ -830,26 +848,38 @@
                                 <select class="form-control" name="performance" id="">
                                     <option disabled selected>Select a service</option>
                                     <option value="behavior_correction" {{ request('performance') == 'behavior_correction' ? 'selected' : '' }}>Behavior correction</option>
+                                    <option value="catch_riding" {{ request('performance') == 'catch_riding' ? 'selected' : '' }}>Catch riding</option>
                                     <option value="colt_starting" {{ request('performance') == 'colt_starting' ? 'selected' : '' }}>Colt starting / breaking</option>
+                                    <option value="conditioning_rides" {{ request('performance') == 'conditioning_rides' ? 'selected' : '' }}>Conditioning rides</option>
+                                    <option value="confidence_building_horses" {{ request('performance') == 'confidence_building_horses' ? 'selected' : '' }}>Confidence building for horses</option>
+                                    <option value="confidence_coaching_riders" {{ request('performance') == 'confidence_coaching_riders' ? 'selected' : '' }}>Confidence coaching for riders</option>
                                     <option value="desensitization_training" {{ request('performance') == 'desensitization_training' ? 'selected' : '' }}>Desensitization training</option>
                                     <option value="eventing_preparation" {{ request('performance') == 'eventing_preparation' ? 'selected' : '' }}>Eventing preparation</option>
+                                    <option value="exercise_riding" {{ request('performance') == 'exercise_riding' ? 'selected' : '' }}>Exercise riding</option>
+                                    <option value="finishing_programs" {{ request('performance') == 'finishing_programs' ? 'selected' : '' }}>Finishing programs</option>
                                     <option value="foal_training" {{ request('performance') == 'foal_training' ? 'selected' : '' }}>Foal training</option>
                                     <option value="groundwork_horsemanship" {{ request('performance') == 'groundwork_horsemanship' ? 'selected' : '' }}>Groundwork and horsemanship</option>
                                     <option value="horse_conditioning" {{ request('performance') == 'horse_conditioning' ? 'selected' : '' }}>Horse conditioning & fitness</option>
-                                    <option value="horse_training" {{ request('performance') == 'horse_training' ? 'selected' : '' }}>Horse training</option>
+                                    <option value="horse_evaluation_services" {{ request('performance') == 'horse_evaluation_services' ? 'selected' : '' }}>Horse evaluation services</option>
                                     <option value="horse_sales" {{ request('performance') == 'horse_sales' ? 'selected' : '' }}>Horse Sales</option>
+                                    <option value="horse_training" {{ request('performance') == 'horse_training' ? 'selected' : '' }}>Horse training</option>
                                     <option value="jockey_services" {{ request('performance') == 'jockey_services' ? 'selected' : '' }}>Jockey services</option>
                                     <option value="jumping_training" {{ request('performance') == 'jumping_training' ? 'selected' : '' }}>Jumping training</option>
                                     <option value="liberty_training" {{ request('performance') == 'liberty_training' ? 'selected' : '' }}>Liberty training</option>
                                     <option value="mounted_archery" {{ request('performance') == 'mounted_archery' ? 'selected' : '' }}>Mounted archery or games training</option>
+                                    <option value="ponying_services" {{ request('performance') == 'ponying_services' ? 'selected' : '' }}>Ponying services</option>
                                     <option value="problem_horse_retraining" {{ request('performance') == 'problem_horse_retraining' ? 'selected' : '' }}>Problem horse retraining</option>
+                                    <option value="problem_loading_trailer" {{ request('performance') == 'problem_loading_trailer' ? 'selected' : '' }}>Problem loading / trailer training</option>
                                     <option value="racehorse_conditioning" {{ request('performance') == 'racehorse_conditioning' ? 'selected' : '' }}>Racehorse conditioning & prep</option>
                                     <option value="rider_coaching" {{ request('performance') == 'rider_coaching' ? 'selected' : '' }}>Rider coaching</option>
                                     <option value="riding_lessons" {{ request('performance') == 'riding_lessons' ? 'selected' : '' }}>Riding lessons</option>
+                                    <option value="sale_prep_training" {{ request('performance') == 'sale_prep_training' ? 'selected' : '' }}>Sale prep training</option>
                                     <option value="show_coaching" {{ request('performance') == 'show_coaching' ? 'selected' : '' }}>Show coaching</option>
-                                    <option value="therapeutic_riding_instruction" {{ request('performance') == 'therapeutic_riding_instruction' ? 'selected' : '' }}>Therapeutic riding instruction
-                                    </option>
+                                    <option value="therapeutic_riding_instruction" {{ request('performance') == 'therapeutic_riding_instruction' ? 'selected' : '' }}>Therapeutic riding instruction</option>
+                                    <option value="trail_obstacle_training" {{ request('performance') == 'trail_obstacle_training' ? 'selected' : '' }}>Trail obstacle training</option>
+                                    <option value="tune_ups_refresher" {{ request('performance') == 'tune_ups_refresher' ? 'selected' : '' }}>Tune-ups / refresher training</option>
                                     <option value="virtual_training" {{ request('performance') == 'virtual_training' ? 'selected' : '' }}>Virtual training/coaching</option>
+                                    <option value="young_horse_development" {{ request('performance') == 'young_horse_development' ? 'selected' : '' }}>Young horse development</option>
                                 </select>
                             </div>
                             <div class="form-section">
@@ -857,25 +887,42 @@
                                 <select class="form-control" name="property" id="">
                                     <option disabled selected>Select a service</option>
                                     <option value="arena_construction" {{ request('property') == 'arena_construction' ? 'selected' : '' }}>Arena construction & maintenance</option>
+                                    <option value="arena_dragging" {{ request('property') == 'arena_dragging' ? 'selected' : '' }}>Arena dragging</option>
                                     <option value="arena_footing" {{ request('property') == 'arena_footing' ? 'selected' : '' }}>Arena footing consulting</option>
+                                    <option value="arena_lighting_installation" {{ request('property') == 'arena_lighting_installation' ? 'selected' : '' }}>Arena lighting installation</option>
                                     <option value="barn_cleaning" {{ request('property') == 'barn_cleaning' ? 'selected' : '' }}>Barn cleaning & mucking</option>
+                                    <option value="bush_hogging_field_mowing" {{ request('property') == 'bush_hogging_field_mowing' ? 'selected' : '' }}>Bush hogging / field mowing</option>
+                                    <option value="dust_control_systems" {{ request('property') == 'dust_control_systems' ? 'selected' : '' }}>Dust control systems</option>
+                                    <option value="excavation_grading" {{ request('property') == 'excavation_grading' ? 'selected' : '' }}>Excavation / grading</option>
                                     <option value="fence_installation" {{ request('property') == 'fence_installation' ? 'selected' : '' }}>Fence installation & repair</option>
+                                    <option value="footing_watering_systems" {{ request('property') == 'footing_watering_systems' ? 'selected' : '' }}>Footing watering systems</option>
+                                    <option value="horse_fencing_consultation" {{ request('property') == 'horse_fencing_consultation' ? 'selected' : '' }}>Horse fencing consultation</option>
+                                    <option value="manure_removal" {{ request('property') == 'manure_removal' ? 'selected' : '' }}>Manure removal</option>
+                                    <option value="paddock_design" {{ request('property') == 'paddock_design' ? 'selected' : '' }}>Paddock design</option>
                                     <option value="pasture_management" {{ request('property') == 'pasture_management' ? 'selected' : '' }}>Pasture management</option>
                                     <option value="portable_stall_setup" {{ request('property') == 'portable_stall_setup' ? 'selected' : '' }}>Portable stall setup for events</option>
                                     <option value="stall_rental" {{ request('property') == 'stall_rental' ? 'selected' : '' }}>Stall rental</option>
+                                    <option value="tractor_services" {{ request('property') == 'tractor_services' ? 'selected' : '' }}>Tractor services</option>
                                 </select>
                             </div>
                             <div class="form-section">
                                 <div class="section-title">Boarding & Stabling</div>
                                 <select class="form-control" name="boarding" id="">
                                     <option disabled selected>Select a service</option>
+                                    <option value="broodmare_boarding" {{ request('boarding') == 'broodmare_boarding' ? 'selected' : '' }}>Broodmare boarding</option>
                                     <option value="coop_boarding" {{ request('boarding') == 'coop_boarding' ? 'selected' : '' }}>Co-op boarding</option>
+                                    <option value="foaling_stalls" {{ request('boarding') == 'foaling_stalls' ? 'selected' : '' }}>Foaling stalls</option>
                                     <option value="full_care_boarding" {{ request('boarding') == 'full_care_boarding' ? 'selected' : '' }}>Full-care boarding</option>
                                     <option value="layup_rehab_boarding" {{ request('boarding') == 'layup_rehab_boarding' ? 'selected' : '' }}>Layup and rehab boarding</option>
+                                    <option value="medical_layup" {{ request('boarding') == 'medical_layup' ? 'selected' : '' }}>Medical layup</option>
                                     <option value="pasture_boarding" {{ request('boarding') == 'pasture_boarding' ? 'selected' : '' }}>Pasture boarding</option>
+                                    <option value="quarantine_boarding" {{ request('boarding') == 'quarantine_boarding' ? 'selected' : '' }}>Quarantine boarding</option>
                                     <option value="retirement_boarding" {{ request('boarding') == 'retirement_boarding' ? 'selected' : '' }}>Retirement boarding</option>
+                                    <option value="sales_consignment_boarding" {{ request('boarding') == 'sales_consignment_boarding' ? 'selected' : '' }}>Sales consignment boarding</option>
                                     <option value="self_care_boarding" {{ request('boarding') == 'self_care_boarding' ? 'selected' : '' }}>Self-care boarding</option>
+                                    <option value="stallion_boarding" {{ request('boarding') == 'stallion_boarding' ? 'selected' : '' }}>Stallion boarding</option>
                                     <option value="temporary_event_stabling" {{ request('boarding') == 'temporary_event_stabling' ? 'selected' : '' }}>Temporary event stabling</option>
+                                    <option value="training_board" {{ request('boarding') == 'training_board' ? 'selected' : '' }}>Training board</option>
                                 </select>
                             </div>
                             <div class="form-section">
@@ -883,12 +930,18 @@
                                 <select class="form-control" name="farrier" id="">
                                     <option disabled selected>Select a service</option>
                                     <option value="applied_equine_podiatry" {{ request('farrier') == 'applied_equine_podiatry' ? 'selected' : '' }}>Applied equine podiatry</option>
+                                    <option value="barefoot_trimming" {{ request('farrier') == 'barefoot_trimming' ? 'selected' : '' }}>Barefoot trimming</option>
                                     <option value="corrective_therapeutic_shoeing" {{ request('farrier') == 'corrective_therapeutic_shoeing' ? 'selected' : '' }}>Corrective/therapeutic shoeing</option>
+                                    <option value="corrective_trimming" {{ request('farrier') == 'corrective_trimming' ? 'selected' : '' }}>Corrective trimming</option>
+                                    <option value="draft_horse_shoeing" {{ request('farrier') == 'draft_horse_shoeing' ? 'selected' : '' }}>Draft horse shoeing</option>
+                                    <option value="gaited_horse_shoeing" {{ request('farrier') == 'gaited_horse_shoeing' ? 'selected' : '' }}>Gaited horse shoeing</option>
                                     <option value="glue_on_shoes" {{ request('farrier') == 'glue_on_shoes' ? 'selected' : '' }}>Glue-on shoe application</option>
+                                    <option value="hoof_boot_fitting" {{ request('farrier') == 'hoof_boot_fitting' ? 'selected' : '' }}>Hoof boot fitting</option>
                                     <option value="hoof_casting" {{ request('farrier') == 'hoof_casting' ? 'selected' : '' }}>Hoof casting for injuries</option>
                                     <option value="hoof_reconstruction" {{ request('farrier') == 'hoof_reconstruction' ? 'selected' : '' }}>Hoof reconstruction/resin fill</option>
                                     <option value="hoof_resections" {{ request('farrier') == 'hoof_resections' ? 'selected' : '' }}>Hoof resections</option>
                                     <option value="integrated_podiatry" {{ request('farrier') == 'integrated_podiatry' ? 'selected' : '' }}>Integrated podiatry</option>
+                                    <option value="laminitis_founder_care" {{ request('farrier') == 'laminitis_founder_care' ? 'selected' : '' }}>Laminitis/founder care</option>
                                     <option value="natural_hoof_care" {{ request('farrier') == 'natural_hoof_care' ? 'selected' : '' }}>Natural hoof care</option>
                                     <option value="performance_shoeing" {{ request('farrier') == 'performance_shoeing' ? 'selected' : '' }}>Performance shoeing</option>
                                 </select>
@@ -951,6 +1004,46 @@
                                     <option value="stallion_promotion" {{ request('promotion') == 'stallion_promotion' ? 'selected' : '' }}>Stallion promotion and stud marketing</option>
                                 </select>
                             </div>
+                            
+                            
+                            
+                            
+                            <!--NEW ADDED-->
+                            <!--<div class="form-section">-->
+                            <!--    <div class="section-title">TACK, EQUIPMENT & SADDLE SERVICES</div>-->
+                            <!--    <select class="form-control" name="tack_trailer" id="">-->
+                            <!--        <option disabled selected>Select a service</option>-->
+                            <!--        <option value="bit_fitting">Bit fitting</option>-->
+                            <!--        <option value="bridle_fitting">Bridle fitting</option>-->
+                            <!--        <option value="custom_saddles">Custom saddles</option>-->
+                            <!--        <option value="horse_trailer_rentals">Horse trailer rentals</option>-->
+                            <!--        <option value="saddle_cleaning_conditioning">Saddle cleaning/conditioning</option>-->
+                            <!--        <option value="saddle_fitting">Saddle fitting</option>-->
+                            <!--        <option value="saddle_flocking">Saddle flocking</option>-->
+                            <!--        <option value="tack_consignment">Tack consignment</option>-->
+                            <!--        <option value="tack_repair">Tack repair</option>-->
+                            <!--        <option value="trailer_inspections">Trailer inspections</option>-->
+                            <!--        <option value="trailer_repair">Trailer repair</option>-->
+                            <!--        <option value="trailer_sales">Trailer sales</option>-->
+                            <!--    </select>-->
+                            <!--</div>-->
+                            
+                            <!--<div class="form-section">-->
+                            <!--    <div class="section-title">REAL ESTATE & FARM SERVICES</div>-->
+                            <!--    <select class="form-control" name="farm_real_estate" id="">-->
+                            <!--        <option disabled selected>Select a service</option>-->
+                            <!--        <option value="equine_real_estate_agent">Equine real estate agent</option>-->
+                            <!--        <option value="facility_leasing">Facility leasing</option>-->
+                            <!--        <option value="farm_appraisals">Farm appraisals</option>-->
+                            <!--        <option value="farm_management_consulting">Farm management consulting</option>-->
+                            <!--        <option value="investment_consulting">Investment consulting</option>-->
+                            <!--        <option value="property_staging_horse_farms">Property staging for horse farms</option>-->
+                            <!--    </select>-->
+                            <!--</div>-->
+                            
+                            <!--NEW ADDED-->
+                            
+                            
                             <div class="action-buttons border_btm">
                                 <button type="submit" class="choose-btn">
                                     <span class="btn-icon">🔍</span>
@@ -959,7 +1052,7 @@
                             </div>
                             <!-- Action Buttons -->
                             <div class="action-buttons">
-                                <button type="submit" class="choose-btn">
+                                <button type="button" class="choose-btn" onclick="saveSearch(this)">
                                     <span class="btn-icon">💾</span>
                                     SAVE THIS SEARCH
                                 </button>
@@ -989,14 +1082,16 @@
                                     </div>
                                     <h5 class="heading22px primeColor text-decoration-underline">{{ $service->full_name }}</h5>
                                     <p>{{ $service->number }}</p>
-                                    <a href="{{ $service->website_url }}" target="_blank"
+                                    <a href="{{ Str::startsWith($service->website_url, 'http') ? $service->website_url : 'https://' . $service->website_url }}" target="_blank"
                                         class="webLink">{{ \Illuminate\Support\Str::words(str_replace(['https://', 'http://'], '', $service->website_url), 20) }}</a>
                                     <div class="btn_set mt-3">
-                                        <a href="{{ url('service_details/' . Crypt::encrypt($service->id)) }}" class="horse_card_btn">View Detail</a>
-                                        <label class="fvrt_btn">
-                                            <input type="checkbox" hidden />
-                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                        </label>
+                                        <a href="{{ url('service_details/' . Crypt::encrypt($service->id)) }}" class="horse_card_btn view-detail-btn">View Detail</a>
+                                        <form class="horse_card_btn favorite-form" action="{{ route('service.favorite', Crypt::encrypt($service->id)) }}" method="POST">
+                                            @csrf
+                                            <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                {{ (auth()->check() && $service->serviceFavs->isNotEmpty()) ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ (auth()->check() && $service->serviceFavs->isNotEmpty()) ? '' : '-o' }}" aria-hidden="true" style="{{ (auth()->check() && $service->serviceFavs->isNotEmpty()) ? 'color: #e74c3c;' : '' }}"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             @empty
@@ -1071,8 +1166,48 @@
             button.parentElement.remove();
         }
 
-        function saveSearch() {
-            alert("Search criteria saved!");
+        function saveSearch(btn) {
+            const form = document.getElementById("mainForm");
+            if (!form) {
+                console.error("Search form not found!");
+                return;
+            }
+
+            const formData = new FormData(form);
+            formData.append('type', 'service'); // Ensure type is included
+
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> SAVING...';
+
+            fetch("{{ route('save.search') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (typeof showNotification === 'function') {
+                        showNotification(data.message || 'Search saved successfully!');
+                    } else {
+                        alert(data.message || 'Search saved successfully!');
+                    }
+                } else {
+                    alert(data.message || "Something went wrong.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            });
         }
 
         function resetSearch() {
@@ -1345,21 +1480,27 @@
             const notif = document.createElement("div");
             notif.id = "tagNotification";
             notif.style.cssText = `
-       position: fixed; top: 20px; right: 20px; background: #28a745; color: white;
-       padding: 10px 16px; border-radius: 4px; z-index: 9999; opacity: 0;
-       transition: opacity 0.3s; font-size: 14px;
-     `;
+                position: fixed; top: 25px; right: 25px; 
+                background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
+                color: #1d2139; padding: 12px 24px; border-radius: 8px; z-index: 99999; 
+                opacity: 0; transform: translateY(-10px); transition: all 0.4s ease;
+                font-size: 16px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            `;
             document.body.appendChild(notif);
             window.showNotification = (msg) => {
                 notif.textContent = msg;
                 notif.style.opacity = "1";
-                setTimeout(() => notif.style.opacity = "0", 3000);
+                notif.style.transform = "translateY(0)";
+                setTimeout(() => {
+                    notif.style.opacity = "0";
+                    notif.style.transform = "translateY(-10px)";
+                }, 4000);
             };
         } else {
             window.showNotification = (msg) => {
                 notification.textContent = msg;
                 notification.classList.add("active");
-                setTimeout(() => notification.classList.remove("active"), 3000);
+                setTimeout(() => notification.classList.remove("active"), 4000);
             };
         }
 
@@ -1387,18 +1528,25 @@
             value = value.trim();
             if (!value || value === "Select a service") return;
 
-            // Avoid duplicates
-            if ([...tagsContainer.children].some(tag => tag.dataset.key === key)) return;
+            // Check if tag already exists for this key
+            const existingTag = [...tagsContainer.children].find(tag => tag.dataset.key === key);
+            
+            if (existingTag) {
+                // Update existing tag content
+                existingTag.querySelector('p').innerHTML = `<strong>${label}:</strong> ${value}`;
+                showNotification(`Updated: ${label}: ${value}`);
+                return;
+            }
 
             const tag = document.createElement("div");
             tag.classList.add("shortcuts_tags_item");
             tag.dataset.key = key;
             tag.innerHTML = `
-       <p><strong>${label}:</strong> ${value}</p>
-       <a href="#!" class="remove-tag">
-         <i class="fa fa-times-circle" aria-hidden="true"></i>
-       </a>
-     `;
+        <p><strong>${label}:</strong> ${value}</p>
+        <a href="#!" class="remove-tag">
+          <i class="fa fa-times-circle" aria-hidden="true"></i>
+        </a>
+      `;
             tagsContainer.appendChild(tag);
 
             // 🔥 Universal remove handler (works even for restored tags)

@@ -1,14 +1,31 @@
 @extends('layouts.user_app')
-
+<style>
+    .product_clm .heading22px {
+        white-space: unset;
+        width: auto;
+        overflow: visible;
+        text-overflow: unset;
+        text-transform: uppercase;
+        height: 50px;
+        overflow: hidden;
+        text-decoration: underline;
+    }
+    @media only screen and (max-width: 1500px) {
+        .product_clm .heading22px {
+            height: 46px;
+        }
+    }
+</style>
 @section('content')
     <div class="user_main_content">
         <div class="dark_bar">
             <h2>Service Listings</h2>
-            <a href="#!" class="points_btn">
+            <a href="#!" class="points_btn" data-bs-toggle="modal" data-bs-target="#pointsModal">
                 <img src="assets/images/points_icon.png" alt="" class="img-fluid mb-2">
-                Show Points
+                E-Wallet
             </a>
         </div>
+                <x-credit-modal />
         <div class="inner_content_wrapper">
             <div class="user_search_bar">
                 <div class="user_search_box">
@@ -37,15 +54,16 @@
                                 <div class="product_clm">
                                     <div class="product_clm_img_box">
                                         <img src="{{ asset('service-profile/' . $data->ser_profile) }}" class="pro_img border-0 mb-0" width="" height="" alt="">
-                                        <p>{{ $data->full_name }}</p>
+                                 
                                     </div>
-                                    <h5 class="heading22px">{{ $data->business_name }}</h5>
+                                    <h5 class="heading22px">{{ $data->full_name }}</h5>
                                     <p>{{ $data->number }}</p>
-                                    <a href="#!" target="_blank" class="webLink">{{ $data->website_url }}</a>
+                                    <a href="{{ Str::startsWith($data->website_url, 'http') ? $data->website_url : 'https://' . $data->website_url }}" target="_blank" class="webLink">{{ \Illuminate\Support\Str::words(str_replace(['https://', 'http://'], '', $data->website_url), 20) }}</a>
                                     <div class="btn_set mt-4">
                                         <a href="{{ url('service_details/' . Crypt::encrypt($data->id)) }}" class="horse_card_btn">View Detail</a>
                                         <a href="{{ url('edit_service') }}/{{ $data->id }}" class="fvrt_btn">Edit <span class="edit-symbol"><img src="assets/images/edit.png" alt=""></span></a>
-                                        <a href="#!" class="dlt_btn"><img src="assets/images/dlt.png" alt=""></a>
+                                        <a href="#!" class="dlt_btn" data-id="{{ $ad->id ?? $data->id ?? $listing->id }}" 
+   data-toggle="modal"><img src="assets/images/dlt.png" alt=""></a>
                                     </div>
                                     <div class="views_bar mt-3">
                                         <h6>Views: 250</h6>
@@ -54,6 +72,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="custome_popup" id="deleteModal">
+        <div class="modal_content">
+            <div class="horse-form text-center">
+                <div class="horse-container">
+                    <h1 class="title">ARE YOU SURE YOU WANT TO <br> DELETE YOUR AD?</h1>
+
+                    <p class="description-text"> We're sad to see you go! Deleting your ad will end your subscription
+                        and delete your ad—no further monthly charges will apply.
+                        The ad won’t be saved, and re-listing means starting fresh.
+                        Thank you for choosing Horse Auction Network!</p>
+
+                    <div class="button-container">
+                        <button class="btn-cancel btn-cancel-delete">Cancel</button>
+                        <form id="deleteAdForm" action="{{ route('ads.destroy', $ad->id ?? $data->id) }}" 
+                            method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            
+                            <button type="submit" class="btn-submit">
+                                Yes! Delete my Ad
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                         @endforeach
                         {{-- <div class="col-md-3">
                             <div class="product_clm">

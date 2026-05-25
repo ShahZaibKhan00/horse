@@ -1,4 +1,8 @@
-@extends('layouts.admin_app') @section('content')
+@php
+$layout = Auth::user()->usertype == 1 ? 'layouts.admin_app' : 'layouts.user_app';
+@endphp
+@extends($layout)
+@section('content')
 <style>
     .avatar-upload {
         position: relative;
@@ -54,7 +58,7 @@
         background-repeat: no-repeat;
         background-position: center;
     }
-    .edit_gen_btn {
+   .edit_gen_btn {
         width: 200px;
         height: 40px;
         margin-bottom: 0;
@@ -70,6 +74,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: #212529;
+    }
+     .edit_gen_btn:hover{
+         color: #212529;
     }
     .card-body a.btn:hover {
         color: #fff !important;
@@ -85,10 +93,16 @@
         justify-content: center;
         gap: 20px;
         height: 55px;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #000;
     }
     .form-check.check_one {
-        width: 240px;
-        margin-left: auto;
+        /*width: 240px;*/
+        /*margin-left: auto;*/
+    }
+    .box_frame a {
+        color: #b09341;
     }
 
 
@@ -244,6 +258,7 @@
                 font-size: 20px;
                 font-weight: 800;
                 width: 100%;
+                max-width: 300px;
                 height: 50px;
                 margin-bottom: 0;
                 border-radius: 6px;
@@ -251,8 +266,20 @@
                 background: #b09240;
                 background: linear-gradient(90deg, rgba(176, 146, 64, 1) 0%, rgba(250, 248, 244, 1) 113%);
             }
+         
 </style>
-<div class="content">
+
+<div class="content user_main_content profile_content">
+    @if ($errors->any())
+        <div class="alert alert-danger border-0 shadow-sm" style="background: #ffebee; color: #c62828; border-radius: 10px; padding: 18px;">
+            <strong>⚠️ Validation Errors:</strong>
+            <ul class="mb-0 mt-2" style="padding-left: 22px;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @foreach ($profile as $profile)
     <div class="row align-items-center mb-4">
         <div class="col-lg-4 col-md-4 col-sm-12 col-12">
@@ -271,7 +298,7 @@
                 <!-- <button class="edit_gen_btn">Edit Profile</button> -->
                 <div class="avatar-upload">
                     <div class="avatar-edit">
-                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <input type="file" id="imageUpload" name="image" accept=".png, .jpg, .jpeg" />
                         <label for="imageUpload">
                             Upload Photo or Logo
                         </label>
@@ -346,14 +373,15 @@
                                     <h5 class="text-800 mb-2">State:</h5>
                                     <input class="box_frame w-100" name="state" value="{{$profile->state}}" placeholder="Enter Your State"/>
                                 </div>
-                                <!-- <div class="col-12 mt-4">
+                                
+                                 <div class="col-12 mt-4">
                                     <div class="form-check check_one">
                                         <label><input class="form-check-input" name="" type="checkbox" value="" /> Show full address on Profile</label>
                                     </div>
                                     <div class="form-check check_one">
                                         <label><input class="form-check-input" name="" type="checkbox" value="" /> Show town and state only</label>
                                     </div> 
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -457,7 +485,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-12">
+                <div class="col-12 col-lg-12 d-flex justify-content-end">
                 <button class="submit_btn">Save</button>
                  </div>
              </form>

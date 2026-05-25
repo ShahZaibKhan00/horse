@@ -11,7 +11,7 @@ class Realstate extends Model
 {
     use HasFactory;
 
-    protected $primartKey = 'id';
+    protected $primaryKey = 'id';
 
     /**
      * Get all of the favorites for the Realstate

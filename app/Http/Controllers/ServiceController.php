@@ -130,11 +130,12 @@ $features = array_values(array_filter($request['features'] ?? []));
 
 
         $data->full_name = $request->full_name;
-        $data->business_name = $request->business_name;
+        $data->business_name = $request->business_name ?? '';
         $data->email = $request->email;
         $data->number = $request->number;
         $data->website_url = $request->website_url;
         $data->Address = $request->Address ?? '';
+        $data->zip_code = $request->zip_code ?? '';
         $data->city = $request->city ?? "";
         $data->state = $request->state ?? '';
         $data->per_bio = $request->per_bio;
@@ -298,11 +299,12 @@ $features = array_values(array_filter($request->features ?? []));
         // dd("a");
 
         $data->full_name = $request->full_name;
-        $data->business_name = $request->business_name;
+        $data->business_name = $request->business_name ?? '';
         $data->email = $request->email;
         $data->number = $request->number;
         $data->website_url = $request->website_url;
         $data->Address = $request->Address ?? '';
+        $data->zip_code = $request->zip_code ?? '';
         $data->city = $request->city ?? "";
         $data->state = $request->state ?? '';
         $data->facebook = $request->facebook;
@@ -317,22 +319,8 @@ $features = array_values(array_filter($request->features ?? []));
         $data->per_bio = $request->per_bio;
         $data->experience = $request->experience;
         $data->Languages = implode(',', $request->Languages ?? []);
-        if ($request->hasFile('certifications')) {
-            $images = $request->file('certifications');
-            $destinationPath = public_path('/certification_images');
-            $imageNames = [];
 
-            foreach ($images as $image) {
-                if ($image) {
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-                    $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
-                }
-            }
-
-            $data->certifications = json_encode($imageNames);
-        }
+        $features = $request->features;
         $data->features = json_encode($features);
         $data->services_offered = implode(',', $request->services_offered);
         $data->service_desc = $request->service_desc;
@@ -356,31 +344,65 @@ $features = array_values(array_filter($request->features ?? []));
 
         //     $data->ser_gallery = json_encode($imageNames);
         // }
-        if ($request->hasFile('ser_gallery')) {
+        // ========== Gallery Images ==========
+        $gallery_images = json_decode($data->ser_gallery, true) ?? [];
 
-            // 🔴 Pehle purani images delete karo (agar mojood hain)
-            if (!empty($data->ser_gallery)) {
-                $oldImages = json_decode($data->ser_gallery, true);
-
-                if (is_array($oldImages)) {
-                    foreach ($oldImages as $oldImage) {
-                        Storage::disk('public')->delete('uploads/services/' . $oldImage);
-                    }
+        // Handle deletions
+        if ($request->has('images_to_delete')) {
+            $indicesToDelete = json_decode($request->images_to_delete, true) ?? [];
+            rsort($indicesToDelete);
+            foreach ($indicesToDelete as $index) {
+                $idx = (int)$index;
+                if (isset($gallery_images[$idx])) {
+                    // Optional: delete from storage
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete('uploads/services/' . $gallery_images[$idx]);
+                    unset($gallery_images[$idx]);
                 }
             }
+            $gallery_images = array_values($gallery_images);
+        }
 
-            // 🟢 Ab new images upload karo (same as create function)
-            $pro_images = [];
-
+        // Handle new uploads
+        if ($request->hasFile('ser_gallery')) {
             foreach ($request->file('ser_gallery') as $image) {
                 $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
                 $image->storeAs('uploads/services', $filename, 'public');
-                $pro_images[] = $filename;
+                $gallery_images[] = $filename;
             }
-
-            // Save new images in database
-            $data->ser_gallery = json_encode($pro_images);
         }
+        $data->ser_gallery = json_encode($gallery_images);
+
+        // ========== Certifications ==========
+        $cert_files = json_decode($data->certifications, true) ?? [];
+
+        // Handle deletions
+        if ($request->has('certifications_to_delete')) {
+            $certIndicesToDelete = json_decode($request->certifications_to_delete, true) ?? [];
+            rsort($certIndicesToDelete);
+            foreach ($certIndicesToDelete as $index) {
+                $idx = (int)$index;
+                if (isset($cert_files[$idx])) {
+                    $oldCertPath = public_path('/certification_images/' . $cert_files[$idx]);
+                    if (file_exists($oldCertPath)) {
+                        unlink($oldCertPath);
+                    }
+                    unset($cert_files[$idx]);
+                }
+            }
+            $cert_files = array_values($cert_files);
+        }
+
+        // Handle new uploads
+        if ($request->hasFile('certifications')) {
+            $destPath = public_path('/certification_images');
+            foreach ($request->file('certifications') as $file) {
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move($destPath, $filename);
+                $cert_files[] = $filename;
+            }
+        }
+        $data->certifications = json_encode($cert_files);
+
         $data->demo_link = implode(',', $request->video_url);
         $data->save();
         $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Updated Successfully!'];

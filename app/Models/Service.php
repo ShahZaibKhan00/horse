@@ -12,4 +12,9 @@ class Service extends Model
     protected $casts = [
         'features' => 'array',
     ];
+
+    public function serviceFavs()
+    {
+        return $this->hasMany(ServiceFavorite::class, 'service_id');
+    }
 }

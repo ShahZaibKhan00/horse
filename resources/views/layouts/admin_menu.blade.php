@@ -150,7 +150,7 @@
                     </li>
                     <li class="nav-item">
                         <div class="nav-item-wrapper">
-                            <a class="nav-link label-1" href="#!" role="button" data-bs-toggle="" aria-expanded="false">
+                            <a class="nav-link label-1" href="{{ url('chat') }}" role="button" data-bs-toggle="" aria-expanded="false">
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-icon">
                                         <img class="" src="{{ getenv('APP_URL') }}/assets/images/admin_tab_icon_5.png" alt="" />

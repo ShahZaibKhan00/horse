@@ -72,9 +72,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $userEmailMessage = "Dear " . $data['name'] . ",\n\nThank you for signing up on our platform. We're excited to have you on board!\n\nRegards,\nBayside Airporter";
+        $userEmailMessage = "Dear " . $data['name'] . ",\n\nThank you for signing up on our platform. We're excited to have you on board!\n\nRegards,\nHorse Network Action";
         
-        $adminEmailMessage = "Hello Admin,\n\nA new user has registered on the platform.\nName: " . $data['name'] . "\nEmail: " . $data['email'] . "\n\nRegards,\nBayside Airporter";
+        $adminEmailMessage = "Hello Admin,\n\nA new user has registered on the platform.\nName: " . $data['name'] . "\nEmail: " . $data['email'] . "\n\nRegards,\nHorse Network Action";
 
         // Send email to the user
         Mail::raw($userEmailMessage, function ($message) use ($data) {
@@ -83,7 +83,7 @@ class RegisterController extends Controller
 
         // Send email to the admin
         Mail::raw($adminEmailMessage, function ($message) {
-            $message->to('amir.zarif@baysideairporter.com')->subject('New User Registration');
+            $message->to('testing@testlinkhost.com')->subject('New User Registration');
         });
 
         return $user;

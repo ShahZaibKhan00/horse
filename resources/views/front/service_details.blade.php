@@ -1,12 +1,12 @@
-@extends('layouts.app') @section('content')
+@extends($isModal ? 'layouts.blank' : 'layouts.app') @section('content')
     <style>
         .container {
             max-width: 1340px;
         }
 
-        .view_detail_page {
-            font-family: "AvenirNextLTPro-Regular";
-        }
+        /*.view_detail_page {*/
+        /*    font-family: "AvenirNextLTPro-Regular";*/
+        /*}*/
 
         ul#pills-tab {
             margin: auto;
@@ -36,7 +36,7 @@
         }
 
         .view_detail_page {
-            padding: 10px 0px 100px 0px;
+            padding: 10px 0px 100px 0px!important;
         }
 
         .horse_name_bar {
@@ -160,11 +160,11 @@
         }
 
         /* .horser_information_box_one  .horser_action_info_btn,
-                                                                                        .horser_information_box_one  .horser_action_info_btn:focus,
-                                                                                        .horser_information_box_one  .fvrt_btn {
-                                                                                            width: 30%;
-                                                                                            font-size: 12px;
-                                                                                        } */
+                                                                                                .horser_information_box_one  .horser_action_info_btn:focus,
+                                                                                                .horser_information_box_one  .fvrt_btn {
+                                                                                                    width: 30%;
+                                                                                                    font-size: 12px;
+                                                                                                } */
         .horser_information_box.horser_information_box_one,
         .img_radius_ext {
             height: 340px;
@@ -214,10 +214,10 @@
 
         .view_detail_page .nav-pills .nav-link {
             background: 0 0;
-            border-radius: 0 !important;
+            border-radius: 5px !important;
             width: 100%;
             height: 45px;
-            border: 4px solid #1d2139;
+            border: 1px solid #d6d8d9;
             font-size: 16px;
             color: #1d2139;
         }
@@ -238,7 +238,7 @@
 
         .image-grid img {
             width: 100%;
-            height: 220px;
+            height: 300px;
             object-fit: cover;
         }
 
@@ -438,18 +438,23 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            justify-content: center;
         }
 
         .social_icons a {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #1d2139;
             border-radius: 100%;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            background: #fff;
+            transition: all 0.25s;
         }
-
+        .social_icons a:hover {
+            transform: scale(1.2);
+        }
         .social_icons a img {
             max-width: 25px;
         }
@@ -557,7 +562,7 @@
             display: block;
         }
 
-        .videoplay_box img {
+        .videoplay_box video {
             height: 500px;
             object-fit: cover;
         }
@@ -753,6 +758,7 @@
 
         .seller_top_bar img {
             max-width: 80px;
+            transform: scaleX(-1);
         }
 
         .seller_top_bar h1 {
@@ -769,7 +775,7 @@
             left: 50%;
         }
 
-        .seller_chat_btn {
+        .seller_chat_btn, .seller_chat_btn:focus {
             font-family: var(--pp_mori_reg);
             width: fit-content;
             height: 50px;
@@ -781,34 +787,83 @@
             color: #fff;
             transition: all 0.25s;
             padding: 0px 20px;
+            margin: 0 auto;
+            margin-top: 20px;
         }
+        
+        
 
         .seller_chat_btn:hover {
             background: var(--white);
-            color: #1C2039;
+            color: #000;
         }
 
         .seller_content_wrapper {
             padding: 20px 140px;
         }
 
+        .seller_profile_img {
+            position: relative;
+        }
+        .seller_profile_img img {
+            border-radius: 5px 0 0 5px;
+            z-index: -1;
+            position: relative;
+        }
+        .icon_heart {
+        font-size: 33px;
+        color: #fff;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        padding: 8px;
+        background: #1c2039;
+        /* border-radius: 8px; */
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* border: 2px solid #ffffff; */
+        position: absolute;
+        top: 6px;
+        right: 6px;
+    }
+
+        .icon_heart.filled {
+            color: #c09957;
+        }
+
         .seller_profile_img img {
             width: 100%;
-            height: 310px;
+            height: 370px;
             object-fit: cover;
             object-position: center;
         }
 
-        .seller_profile_text_box {
+       .seller_profile_text_box {
             width: 100%;
-            height: 310px;
+            height: 370px;
             display: flex;
             justify-content: center;
-            align-items: center;
             flex-direction: column;
-            border: 2px solid #000;
-            padding-left: 90px;
+            /* border: 2px solid #000; */
             position: relative;
+            padding: 20px 10px 20px 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            border-radius: 0px 5px 5px 0;
+            background: #1f2339;
+        }
+        .seller_profile_text_box.text-center::before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: -60px;
+            background: #1f2339;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transform: skew(-10deg, 0deg);
+            border-left: 10px solid #b18d61;
         }
 
         .box_title {
@@ -834,21 +889,32 @@
             writing-mode: sideways-lr;
             text-transform: uppercase;
         }
-
+    
         .seller_profile_text_box h1 {
             font-family: var(--pp_mori_reg);
             font-size: 30px;
-            color: #1C2039;
-            padding: 0px 0px 10px 0px;
-            border-bottom: 1px solid #1c2039;
+            color: #ffffff;
+            border-left: 3px solid #b18d61;
+            max-width: 350px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 0 0 10px;
+            line-height: 1;
+            text-align: center;
+            margin: 0 auto;
             margin-bottom: 12px;
         }
 
         .seller_profile_text_box p {
-            font-family: var(--pp_mori_reg);
-            font-size: 20px;
-            color: #1C2039;
-            margin: 0px 0px 10px 0px
+            /*font-family: var(--pp_mori_reg);*/
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0px 0px 10px 0px;
+            text-align: center;
         }
 
         .seller_tabs {
@@ -860,9 +926,8 @@
             font-family: var(--pp_mori_semi);
             font-size: 16px !important;
             text-transform: uppercase;
-            border-width: 2px !important;
         }
-
+        
         .seller_tabs .nav-link.active span {
             text-transform: uppercase;
             background: var(--Linear, linear-gradient(0deg, #B09240 35.48%, #FAF8F4 68.55%));
@@ -874,6 +939,32 @@
         .seller_tabs .nav-link.active {
             border-color: #1d2139 !important;
             transform: translateX(0px) !important;
+        }
+        .new_heading_bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 0px;
+        }
+        .new_heading_icon_box {
+            max-width: 30px;
+        }
+        .new_heading_bar h2 {
+            color: #1f2339;
+            font-size: 25px;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+        }
+        .new_heading_bar h2::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #b18d61;
         }
 
         .about_text_box {
@@ -896,26 +987,31 @@
         }
 
         .side_box_one {
-            border: 2px solid #000;
+            /* border: 2px solid #000; */
             width: 100%;
             display: flex;
             flex-direction: column;
             padding: 0px 10px 0px 90px;
             position: relative;
             margin-bottom: 8px;
+            height: 375px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            border-radius: 5px;
+            overflow: hidden;
         }
 
         .side_box_one ul li {
             display: flex;
             align-items: center;
-            font-family: var(--pp_mori_reg);
-            font-size: 16px !important;
+            /*font-family: var(--pp_mori_reg);*/
+            font-size: 13px !important;
+            font-weight: 600;
             color: #000;
             margin: 10px 0px;
         }
 
         .side_box_one ul li span {
-            max-width: 35px;
+            max-width: 25px;
         }
 
         .side_box_one ul li a {
@@ -1076,10 +1172,16 @@
             background: #fff;
             color: #1d2139;
         }
+       hr:not([size]) {
+            height: 1px;
+            background: #ffffff;
+            opacity: 0.5;
+        }
 
         @media only screen and (max-width: 1799px) {
             .seller_content_wrapper {
-                padding: 20px 30px;
+                padding: 20px 15px;
+                width: 100%;
             }
 
             .seller_top_bar {
@@ -1095,14 +1197,12 @@
                 padding: 8px 0px;
             }
 
-            .side_box_one ul li {
-                font-size: 15px !important;
-            }
+        
 
             /* .side_box_one {
-                                                    padding: 20px 20px 20.8px 85px;
-                                                    margin-bottom: 23px;
-                                                } */
+                                                            padding: 20px 20px 20.8px 85px;
+                                                            margin-bottom: 23px;
+                                                        } */
             .side_box_one {
                 padding: 0px 10px 0px 70px;
             }
@@ -1131,9 +1231,6 @@
                 width: 60px;
             }
 
-            .seller_profile_text_box {
-                padding-left: 60px;
-            }
 
             .info_action_btns_flex a {
                 width: 85px;
@@ -1142,11 +1239,10 @@
 
             .seller_profile_text_box,
             .seller_profile_img img {
-                height: 360px;
+                height: 380px;
             }
 
             .seller_profile_text_box p {
-                font-size: 18px;
                 margin: 0px 0px 7px 0px;
             }
         }
@@ -1157,7 +1253,9 @@
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
-            border: 2px solid #1c2039;
+            /* border: 2px solid #1c2039; */
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            border-radius: 5px;
         }
 
         .profile_tabs__one .experience-section {
@@ -1181,22 +1279,22 @@
             text-transform: uppercase;
         }
 
-        .profile_tabs__one .experience-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: #444;
-        }
-
         .profile_tabs__one .languages {
             font-size: 14px;
-            color: #666;
+            font-weight: 700;
+            color: #1d2139;
+        }
+        .experience-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1d2139;
         }
 
-        .profile_tabs__one .about-section {
-            max-height: 650px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+        /*.profile_tabs__one .about-section {*/
+        /*    max-height: 650px;*/
+        /*    overflow-y: auto;*/
+        /*    overflow-x: hidden;*/
+        /*}*/
 
         .profile_tabs__one .about-title {
             font-size: 30px;
@@ -1210,12 +1308,16 @@
             line-height: 1.6;
             color: #000;
             font-size: 16px;
-            text-align: justify;
             margin-bottom: 15px;
         }
 
         .profile_tabs__one .about-text ul li {
-            font-weight: 700;
+            font-weight: 600;
+            margin: 3px 0;
+        }
+
+        .s_details {
+            max-width: 600px;
         }
 
         .profile_tabs__one .certifications-section {
@@ -1237,11 +1339,10 @@
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .profile_tabs__one .certificate-item {
-            flex: 1;
-            max-width: 250px;
             transition: transform 0.3s ease;
         }
 
@@ -1304,10 +1405,6 @@
         }
 
         .address_tabs_sec h2 {
-            font-size: 30px;
-            font-weight: 700;
-            color: #1d2139;
-            margin-bottom: 20px;
             text-transform: uppercase;
         }
 
@@ -1317,11 +1414,11 @@
             margin: 0;
         }
 
-        .address_tabs_sec ul li,
-        .address_tabs_sec p {
+        .address_tabs_sec ul li, .address_tabs_sec p {
             margin-bottom: 5px;
             color: #1d2139;
             font-size: 18px;
+            text-transform: capitalize;
         }
 
         .address_tabs_sec .map-section {
@@ -1379,9 +1476,9 @@
 
         @media (max-width: 1799px) {
             /* .side_box_one {
-                                                    min-height: 617px;
-                                                    margin-bottom: 8px;
-                                                } */
+                                                            min-height: 617px;
+                                                            margin-bottom: 8px;
+                                                        } */
         }
 
         @media (max-width: 1399px) {
@@ -1405,51 +1502,72 @@
                 max-width: 100%;
             }
         }
+        .video_click_box {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .mb-2.thumbnail-wrapper {
+            flex: 0 0 calc((100% - 40px) / 5);
+        }
+        .video_click_box iframe {
+            width: 100%;
+            height: 160px;
+            border-radius: 8px;
+        }
+        .videoplay_max_box iframe {
+            border-radius: 15px;
+            border: none;
+            overflow: hidden;
+            display: block;
+        }
+        
+        
+        .seller_tabs {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #fff; /* Background color zaroori hai taake scroll content niche se nazar na aaye */
+        padding: 10px 0;
+        margin-bottom: 20px !important;
+        border-bottom: 1px solid #ddd; /* Optional: Separator line */
+        }
+        .seller_tabs {
+            background: #fff;
+            z-index: 1000;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            /* transition for smooth background/shadow effect */
+            transition: box-shadow 0.3s ease;
+        }
     </style>
 
-    <section class="view_detail_page">
+    <section class="view_detail_page pt-0">
         <div class="container-fluid p-0">
-            <div class="seller_top_bar">
+            <!--<div class="seller_top_bar">
                 <div class="lgo_box">
                     <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
                 </div>
 
-                <h1>{{ $data->business_name }}</h1>
+                <h1 class="d-none">{{ $data->business_name }}</h1>
+                <div class="d-flex gap-3 detail_left">
+                    <a href="{{ route('start.conversation', ['receiver_id' => $data->user_id, 'product_id' => $data->id, 'product_type' => 'service']) }}" class="seller_chat_btn">CHAT WITH SERVICE
+                        PROVIDER</a>
+                    <label class="heart_checkbox_wrapper d-block align-item-center">
+                        <input type="checkbox" class="heartCheckbox" hidden {{ (auth()->check() && $data->serviceFavs->isNotEmpty()) ? 'checked' : '' }} />
+                        <i class="fa fa-heart{{ (auth()->check() && $data->serviceFavs->isNotEmpty()) ? ' filled' : '-o' }} icon_heart" aria-hidden="true"></i>
+                    </label>
+                    <form class="favorite-form" action="{{ route('service.favorite', Crypt::encrypt($data->id)) }}" method="POST" style="display:none;">
+                        @csrf
+                    </form>
 
-                <a href="#!" class="seller_chat_btn">CHAT WITH SERVICE PROVIDER</a>
-            </div>
+                </div>
+            </div> -->
 
-            <div class="seller_content_wrapper">
+            <div class="seller_content_wrapper pt-0">
                 <div class="row">
-                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
-                        <div class="row mb-2">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="seller_profile_img">
-                                    <img src="{{ asset('service-profile/' . $data->ser_profile) }}" alt="img" class="img-fluid" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="seller_profile_text_box text-center">
-                                    <div class="box_title">
-                                        <h2>Contact<h2>
-                                    </div>
-                                    <h1>{{ $data->full_name }}</h1>
-                                    <!-- <p>{{ $data->website_url }}</p> -->
-                                    <p>Cell: {{ $data->number }}</p>
-                                    <p>{{ $data->email }}</p>
-                                    <p>{{ $data->user_address }}</p>
-
-                                    <div class="social_icons mt-4">
-                                        <a href="{{ $data->facebook }}" target="_blank" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->youtube }}" target="_blank" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->tiktok }}" target="_blank" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->insta }}" target="_blank" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
-                                        <a href="{{ $data->zillow }}" target="_blank" title="Website"><img src="/assets/images/website-icon-11.png" alt="img" class="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="col-12 py-2">
                         <div class="nav nav-pills seller_tabs mb-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active" id="v_pills_seller_1-tab" data-bs-toggle="pill" data-bs-target="#v_pills_seller_1" type="button" role="tab"
                                 aria-controls="v_pills_seller_1" aria-selected="true">
@@ -1472,6 +1590,109 @@
                                 <span>VIDEOS</span>
                             </button>
                         </div>
+                    </div>
+                    <div class="col-12 pb-3">
+                        <div class="row mb-2">
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-12 pe-0">
+                                <div class="seller_profile_img">
+                                    <img src="{{ asset('service-profile/' . $data->ser_profile) }}" alt="img" class="img-fluid" />
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-12 ps-0">
+                                <div class="seller_profile_text_box text-center">
+                                    <h1>{{ $data->full_name }}</h1>
+                                    <!-- <p>{{ $data->website_url }}</p> -->
+                                    <p><i class="fa fa-phone me-2" aria-hidden="true" style="color: #b18d61; font-size: 17px;"></i> {{ $data->number }}</p>
+                                    <p><i class="fa fa-envelope me-2" aria-hidden="true"  style="color: #b18d61; font-size: 17px;"></i>{{ $data->service_semail }}</p>
+                                    <p>{{ $data->user_address }}</p>
+                                    <hr>
+                                    <div class="social_icons mt-3">
+                                        <a href="{{ $data->facebook }}" target="_blank" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->youtube }}" target="_blank" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->tiktok }}" target="_blank" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->insta }}" target="_blank" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $data->zillow }}" target="_blank" title="Website"><img src="/assets/images/website-icon-11.png" alt="img" class="img-fluid" /></a>
+                                        
+                                    </div>
+                                    <div class="top_action__flex">
+                                        <a href="{{ route('start.conversation', ['receiver_id' => $data->User_id, 'product_id' => $data->id, 'product_type' => 'services']) }}" target="_blank" class="seller_chat_btn">CHAT WITH SERVICE PROVIDER</a>
+                                    
+                                        <label class="heart_checkbox_wrapper d-block align-item-center">
+                                            <input type="checkbox" class="heartCheckbox" hidden {{ (auth()->check() && $data->serviceFavs->isNotEmpty()) ? 'checked' : '' }} />
+                                            <i class="fa fa-heart{{ (auth()->check() && $data->serviceFavs->isNotEmpty()) ? ' filled' : '-o' }} icon_heart" aria-hidden="true"></i>
+                                        </label>
+                                        <form class="favorite-form" action="{{ route('service.favorite', Crypt::encrypt($data->id)) }}" method="POST" style="display:none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+                        
+
+                        <style>
+                                                    .u_box {
+                                                        background: #f5f5f5;
+                                                        padding: 5px;
+                                                        display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;
+                                                        width: 110px;
+                                                        height: 110px;
+                                                        border: 2px solid #b18d61;
+                                                        border-radius: 5px;
+                                                        flex-shrink: 0;
+                                                    }
+                                                .preview_flex {
+                                                    width: 100%;
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                    gap: 10px;
+                                                    height: 470px;
+                                                }
+                                                .u_box img {
+                                                    width: 100%; /* fixed width */
+                                                    height: 100%; /* fixed height */
+                                                    object-fit: cover; /* maintain aspect ratio, crop if needed */
+                                                }
+                                                .new_flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            gap: 10px;
+            flex-direction: column;
+            width: 150px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+                                                .preview_bax {
+                                                    width: calc(100% - 110px);
+                                                    padding: 10px;
+                                                    background: #1f233b;
+                                                    border-radius: 8px;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                }
+                                                .preview_bax img {
+                                                                width: 100%;
+                                                                height: 100%;
+                                                                object-fit: cover;
+                                                            }
+                                                            
+                                                            a#doc-download-btn-cert {
+background: transparent;
+    color: #1d2139;
+    border: 2px solid #1d2139;
+    border-radius: 0;
+    font-size: 20px;
+}
+                                            </style>
 
                         <div class="tab-content" id="seller_pills-tabContent">
                             <div class="tab-pane fade show active" id="v_pills_seller_1" role="tabpanel" aria-labelledby="v_pills_seller_1-tab">
@@ -1496,27 +1717,91 @@
 
                                     <!-- About Section -->
                                     <div class="about-section">
-                                        <h2 class="about-title">ABOUT:</h2>
+                                        <div class="new_heading_bar">
+                                            <h2>ABOUT:</h2>
+                                        </div>
                                         <div class="about-text">
-                                            {{ $data->per_bio }}
+                                            <?= $data->per_bio ?>
                                         </div>
                                         <!-- Certifications Section -->
                                         <div class="certifications-section">
-                                            <h3 class="certifications-title">CERTIFICATIONS / ACCREDITATIONS :</h3>
-                                            <div class="certificates-grid">
+                                        <div class="new_heading_bar">
+                                            <h2>CERTIFICATIONS / ACCREDITATIONS :</h2>
+                                        </div>
+                                        
+                                        <div class="preview_flex">
+                                            <!-- MAIN PREVIEW AREA -->
+                                            <div class="preview_bax" style="min-height: 300px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ddd; margin-bottom: 15px; position: relative;">
+                                                
+                                                <!-- 1. Image Preview (Default) -->
                                                 @php
                                                     $certifications = json_decode($data->certifications, true);
+                                                    $defaultCert = "";
+                                                    $isDefaultImage = false;
+                                                    
+                                                    if (!empty($certifications) && is_array($certifications)) {
+                                                        $firstCert = $certifications[0];
+                                                        $firstCertExt = strtolower(pathinfo($firstCert, PATHINFO_EXTENSION));
+                                                        
+                                                        if (in_array($firstCertExt, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                                                            $defaultCert = asset('certification_images/' . $firstCert);
+                                                            $isDefaultImage = true;
+                                                        }
+                                                    }
                                                 @endphp
-
+                                    
+                                                <img id="main-preview-cert" src="{{ $defaultCert }}" alt="img" class="img-fluid" style="{{ !$isDefaultImage ? 'display:none;' : '' }}" />
+                                    
+                                                <!-- 2. PDF Iframe Preview (Hidden by default) -->
+                                                <iframe id="pdf-preview-frame-cert" src="" style="display:none; width:100%; height:100%; border:none;"></iframe>
+                                    
+                                                <!-- 3. Document Icon & Download Button Container (Hidden by default) -->
+                                                <div id="doc-preview-container-cert" style="display:none; text-align:center;">
+                                                    <i id="doc-preview-icon-cert" class="fa fa-file-word-o" style="font-size:80px; color:#2b579a; margin-bottom: 20px;"></i>
+                                                    <p id="doc-preview-filename-cert" style="margin-bottom: 15px; font-weight:bold; color:#555; font-size: 16px;"></p>
+                                                    <a id="doc-download-btn-cert" href="#" target="_blank" class="btn btn-primary">
+                                                        <i class="fa fa-download"></i> Download Document
+                                                    </a>
+                                                </div>
+                                    
+                                                <!-- Placeholder Text -->
+                                                @if(empty($defaultCert) && !empty($certifications))
+                                                <p id="placeholder-text-cert" class="text-muted">Select a document from the sidebar to view.</p>
+                                                @endif
+                                            </div>
+                                    
+                                            <!-- SIDEBAR THUMBNAILS -->
+                                            <div class="new_flex" style="display: flex; gap: 10px; flex-wrap: wrap;">
                                                 @if (!empty($certifications) && is_array($certifications))
                                                     @foreach ($certifications as $cert)
-                                                        <a href="{{ asset('certification_images/' . $cert) }}" data-fancybox="certificate" class="certificate-item">
-                                                            <img src="{{ asset('certification_images/' . $cert) }}" alt="img" class="img-fluid">
-                                                        </a>
+                                                        @php
+                                                            $filePath = asset('certification_images/' . $cert);
+                                                            $extension = strtolower(pathinfo($cert, PATHINFO_EXTENSION));
+                                                        @endphp
+                                    
+                                                        @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                                            <!-- Image Thumbnail -->
+                                                            <a href="javascript:void(0)" class="certificate-item u_box cert-preview-trigger" data-type="image" data-src="{{ $filePath }}">
+                                                                <img src="{{ $filePath }}" alt="img" class="img-fluid">
+                                                            </a>
+                                                        
+                                                        @elseif($extension == 'pdf')
+                                                            <!-- PDF Thumbnail -->
+                                                            <a href="javascript:void(0)" class="certificate-item u_box cert-preview-trigger" data-type="pdf" data-src="{{ $filePath }}" data-name="{{ $cert }}">
+                                                                <i class="fa fa-file-pdf-o" style="font-size:65px;color:#e74c3c;"></i>
+                                                            </a>
+                                                        
+                                                        @elseif(in_array($extension, ['doc', 'docx']))
+                                                            <!-- DOC Thumbnail -->
+                                                            <a href="javascript:void(0)" class="certificate-item u_box cert-preview-trigger" data-type="doc" data-src="{{ $filePath }}" data-name="{{ $cert }}">
+                                                                <i class="fa fa-file-word-o" style="font-size:65px;color:#2b579a;"></i>
+                                                            </a>
+                                                        @endif
                                                     @endforeach
                                                 @endif
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
 
                                 </div>
@@ -1527,12 +1812,20 @@
 
                                     <!-- About Section -->
                                     <div class="about-section">
-                                        <h2 class="about-title">SERVICES DETAILS:</h2>
+                                        <!--<h2 class="about-title">SERVICES DETAILS:</h2>-->
+                                        
+                                        <div class="new_heading_bar">
+                                            <h2>SERVICES DETAILS:</h2>
+                                        </div>
                                         <div class="about-text mb-5">
-                                            {{ $data->service_desc }}
+                                            <?= $data->service_desc ?>
                                         </div>
 
-                                        <h2 class="about-title">ADDITIONAL SERVICES OFFERED:</h2>
+                                        <!--<h2 class="about-title">ADDITIONAL SERVICES OFFERED:</h2>-->
+                                        
+                                        <div class="new_heading_bar">
+                                            <h2>ADDITIONAL SERVICES OFFERED:</h2>
+                                        </div>
                                         <div class="about-text">
                                             <div class="row">
                                                 {{-- @php
@@ -1563,6 +1856,7 @@
                                                         return !empty($item) && strlen($item) > 2;
                                                     });
 
+                                                    $filtered = array_values($filtered);
                                                     // Chunk in 2 items per column
                                                     $chunks = array_chunk($filtered, 2);
                                                 @endphp
@@ -1588,12 +1882,32 @@
                                 <div class="address_tabs_sec">
                                     <!-- Text Section -->
                                     <div class="text-section">
-                                        <h2 class="mb-2">BUSINESS LOCATION:</h2>
-                                        <p class="mb-4">
-                                            {{ $data->business_name1 . ', ' . $data->business_location1 }}
+                                        <!--<h2 class="mb-2">BUSINESS PHYSICAL LOCATION:</h2>-->
+                                        <div class="new_heading_bar">
+                                            <h2>BUSINESS PHYSICAL LOCATION:</h2>
+                                        </div>
+                                        <p class="mb-2">
+                                            {{ $data->service_address . ' ' . ($data->service_city ?? '') . ', '}}
                                         </p>
-                                        <h2 class="mb-2">Service Location:</h2>
-                                        <ul class="mb-4">
+                                        {{-- @dd($data->service_state) --}}
+
+                                        @php
+                                            $state = $data->service_state ?? 'alabama (AL)';
+
+                                            preg_match('/(.*?)\s*\((.*?)\)/', $state, $matches);
+
+                                            $stateName = $matches[1] ?? $state;
+                                            $stateCode = $matches[2] ?? '';
+                                        @endphp
+                                        <p class="mb-2">
+                                            {{ ($stateName ?? '') . ' ' . ($data->zip_code ?? '') }}
+                                        </p>
+                                        <!--<h2 class="mb-2">Service Location:</h2>-->
+                                        
+                                         <div class="new_heading_bar">
+                                            <h2>Service LOCATION:</h2>
+                                        </div>
+                                        <ul class="mb-2">
                                             @php
                                                 $aboutPrices = $data->service_location ? explode(',', $data->service_location) : [];
                                             @endphp
@@ -1603,7 +1917,11 @@
                                             {{-- <li>{{ $data->service_address }} , {{ $data->state }}</li> --}}
                                         </ul>
 
-                                        <h2 class="mb-2">Service Area Coverd:</h2>
+                                        <!--<h2 class="mb-2">Service Area Coverd:</h2>-->
+                                        
+                                        <div class="new_heading_bar">
+                                            <h2>Service Area Coverd:</h2>
+                                        </div>
                                         {{-- <div class="d-flex gap-5">
                                             <ul class="mb-4">
                                                 <li>Sussex County</li>
@@ -1639,15 +1957,122 @@
 
                                     </div>
 
-                                    <!-- Map Section -->
                                     <div class="map-section">
-                                        <iframe
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.7681645269856!2d-74.99650742389953!3d40.7306102793286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3e4f2e8c06d8d%3A0xf50cb2c7b77e38f!2sLafayette%2C%20NJ!5e0!3m2!1sen!2sus!4v1691798334993!5m2!1sen!2sus"
-                                            allowfullscreen="" loading="lazy">
-                                        </iframe>
+                                        @php
+                                            $fullAddress = $data->service_address . ' ' . ($data->service_city ?? '') . ' ' . ($stateName ?? '') . ' ' . ($data->zip_code ?? '');
+                                            $encodedAddress = urlencode(trim($fullAddress));
+                                        @endphp
+                                        
+                                        @if(!empty(trim($fullAddress)))
+                                            <div id="map-container">
+                                                <iframe
+                                                    id="business-map"
+                                                    src="https://maps.google.com/maps?q={{ $encodedAddress }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                                    allowfullscreen="" 
+                                                    loading="lazy"
+                                                    style="border:0; width:100%; height:500px;">
+                                                </iframe>
+                                            </div>
+                                            
+                                            <div id="map-error-message" style="display: none; padding: 30px 20px; background: #fafafa; color: #666666; border: 1px dashed #dddddd; border-radius: 8px; text-align: center; font-size: 14px;">
+                                                <div style="font-size: 24px; color: #999999; margin-bottom: 10px;">🗺️</div>
+                                                <h4 style="margin: 0 0 5px 0; color: #333333; font-size: 16px; font-weight: 600;">Map view is temporarily unavailable for this address.</h4>
+                                                <p style="margin: 0;">Please see the address details provided on the left.</p>
+                                            </div>
+                                    
+                                            <script>
+                                                document.addEventListener("DOMContentLoaded", function() {
+                                                    var address = "{{ addslashes(trim($fullAddress)) }}";
+                                                    
+                                                    // Fetch request to check if the address exists globally using OpenStreetMap
+                                                    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            if (data.length === 0) {
+                                                                // Hide the map container and display the professional fallback message
+                                                                document.getElementById('map-container').style.display = 'none';
+                                                                document.getElementById('map-error-message').style.display = 'block';
+                                                            }
+                                                        })
+                                                        .catch(error => {
+                                                            // Keep showing the default map if the API check fails or times out
+                                                            console.log("Location verification skipped or failed, showing default map.");
+                                                        });
+                                                });
+                                            </script>
+                                        @else
+                                            <div style="padding: 20px; text-align: center; color: #666;">
+                                                No location address available.
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
+                            <style>
+                                /* Gallery Overlay */
+                                .fancybox-overlay {
+                                    display: none;
+                                    position: fixed;
+                                    z-index: 9999;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: rgba(0, 0, 0, 0.9);
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                                
+                                /* Container for Image */
+                                .fancy-img-container {
+                                    max-width: 80%;
+                                    max-height: 80%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                                
+                                #fancy-main-img {
+                                    max-width: 100%;
+                                    max-height: 90vh;
+                                    border: 3px solid #fff;
+                                    border-radius: 4px;
+                                    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                                    transition: transform 0.3s ease;
+                                }
+                                
+                                /* Navigation Buttons */
+                                .fancy-nav {
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    color: white;
+                                    font-size: 50px;
+                                    font-weight: bold;
+                                    cursor: pointer;
+                                    padding: 20px;
+                                    text-decoration: none;
+                                    user-select: none;
+                                    transition: 0.3s;
+                                }
+                                
+                                .fancy-nav:hover { color: #ffc107; }
+                                .fancy-prev { left: 20px; }
+                                .fancy-next { right: 20px; }
+                                
+                                /* Close Button */
+                                .fancy-close {
+                                    position: absolute;
+                                    top: 20px;
+                                    right: 40px;
+                                    color: white;
+                                    font-size: 50px;
+                                    cursor: pointer;
+                                    transition: 0.3s;
+                                }
+                                
+                                .fancy-close:hover { color: #f44336; }
+                            </style>
 
                             <div class="tab-pane fade" id="v_pills_seller_4" role="tabpanel" aria-labelledby="v_pills_seller_4-tab" tabindex="0">
                                 <div class="image-grid">
@@ -1657,36 +2082,72 @@
 
                                     @if (!empty($certifications) && is_array($certifications))
                                         @foreach ($certifications as $cert)
-                                            <a href="{{ asset('storage/uploads/services/' . $cert) }}" data-fancybox="group" data-caption="Horse">
-                                                <img src="{{ asset('storage/uploads/services/' . $cert) }}" alt="img" class="" />
+                                            <a href="javascript:void(0)" class="gallery-trigger" data-index="{{ $cert }}">
+                                                <img src="{{ asset('storage/uploads/services/' . $cert) }}" alt="img" class="gallery-item" />
                                             </a>
                                         @endforeach
                                     @endif
                                 </div>
                             </div>
                             @php
-                                $videos = !empty($data->pro_video_url) ? explode(',', $data->pro_video_url) : [];
+                                $videos = !empty($data->demo_link) ? explode(',', $data->demo_link) : [];
                             @endphp
-                            <div class="tab-pane fade" id="v_pills_seller_5" role="tabpanel" aria-labelledby="v_pills_seller_5-tab" tabindex="0">
-                                @if (count($videos) > 0)
-                                    @foreach ($videos as $video)
-                                        <a data-fancybox="gallery" href="{{ asset('service-videos/' . $video) }}" class="videoplay_box d-block mb-3">
-                                            <!-- Custom Thumbnail -->
-                                            <img src="{{ asset('assets/images/H_05.jpg') }}" alt="Video Thumbnail" class="w-100" />
 
-                                            <span class="video-play-button">
-                                                <span></span>
-                                            </span>
-                                        </a>
-                                    @endforeach
-                                @else
-                                    <div class="text-center py-5">
-                                        <h5 class="text-muted">No videos available</h5>
+                            <div class="tab-pane fade" id="v_pills_seller_5" role="tabpanel" aria-labelledby="v_pills_seller_5-tab" tabindex="0">
+                                <div class="new_heading_bar">
+                                    <i class="fa fa-video-camera me-2" aria-hidden="true" style="color: #1f2339; font-size: 22px;"></i>
+                                    <h2>VIDEOS</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12"> 
+                                        <div class="videoplay_max_box mb-0">
+                                            <iframe 
+                                                id="mainPlayer"
+                                                width="100%" 
+                                                height="450" 
+                                                src="https://www.youtube.com/embed/{{ $firstVideoId ?? '' }}"
+                                                frameborder="0" 
+                                                allow="autoplay; encrypted-media" 
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
                                     </div>
-                                @endif
-                                {{-- <a data-fancybox="gallery" href="#!" class="videoplay_box d-block">
-                                    <span class="video-play-button"><span></span></span>
-                                </a> --}}
+                                
+                                    <div class="col-12">
+                                        <div class="thumbnail_flex">
+                                            <div class="video_click_box">
+                                                @if (count($videos) > 0)
+                                                    @foreach ($videos as $video)
+                                                        @php
+                                                            $url = trim($video);
+                                                            $videoId = null;
+                                                            if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $url, $match)) {
+                                                                $videoId = $match[1];
+                                                            }
+                                                        @endphp
+                                    
+                                                        @if ($videoId)
+                                                            <div class="mb-2 thumbnail-wrapper" 
+                                                                 style="cursor: pointer; position: relative;" 
+                                                                 onclick="changeVideo('{{ $videoId }}')">
+                                                                <img src="https://img.youtube.com/vi/{{ $videoId }}/mqdefault.jpg" 
+                                                                     class="img-fluid rounded shadow-sm" 
+                                                                     alt="video thumbnail">
+                                                                     <div class="play_overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+                                                                                    <i class="fa fa-play-circle" style="font-size: 40px; color: white; opacity: 0.8;"></i>
+                                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    <div class="text-center py-5">
+                                                        <h5 class="text-muted">No videos available</h5>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -1701,8 +2162,8 @@
                                     $services = collect(explode(',', $data->services_offered));
                                 @endphp
 
-                                @foreach ($services as $item)
-                                    @if ($loop->iteration > 5)
+                                @foreach ($filtered as $item)
+                                    @if ($loop->iteration > 9)
                                         <li>
                                             <span class="me-3">
                                                 <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
@@ -1711,7 +2172,7 @@
                                         </li>
                                         @break
                                     @endif
-
+{{-- @dd($item) --}}
                                     <li>
                                         <span class="me-3">
                                             <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
@@ -1726,8 +2187,12 @@
                             <div class="box_title">
                                 <h2>Pricing<h2>
                             </div>
-                            <h5>{{ $data->pkg_price }}</h5>
-                            <h6>{{ $data->pkg_price . ' ' . $data->pricing_type }}</h6>
+                            @if ($data->pricing_type == 'Varying Price per Service')
+                                <h6>{{ $data->pricing_type }}</h6>
+                            @else
+                                <h5>{{ $data->pkg_price }}</h5>
+                                <h6>{{ $data->pricing_type }}</h6>
+                            @endif
                             <h4>Payment Accepted</h4>
                             <ul>
                                 @foreach (explode(',', $data->payment_method) as $item)
@@ -1740,6 +2205,18 @@
             </div>
         </div>
     </section>
+    
+    <div id="fancybox-modal" class="fancybox-overlay">
+        <span class="fancy-close">&times;</span>
+        
+        <a class="fancy-nav fancy-prev">&#10094;</a>
+        <div class="fancy-img-container">
+            <img id="fancy-main-img" src="" alt="Gallery Image">
+        </div>
+        <a class="fancy-nav fancy-next">&#10095;</a>
+    
+        <div id="fancy-caption"></div>
+    </div>
 
     <script>
         const FULL_DASH_ARRAY = 2 * Math.PI * 34;
@@ -1800,4 +2277,188 @@
             });
         });
     </script>
+    <script>
+        document.querySelectorAll('.heartCheckbox').forEach((checkbox) => {
+            checkbox.addEventListener('change', function() {
+                this.nextElementSibling.classList.toggle('filled', this.checked);
+            });
+        });
+    </script>
+    
+    
+<script>
+$(document).ready(function() {
+    
+    // Helper function to reset all preview elements for Certifications
+    function resetCertPreviewArea() {
+        $('#main-preview-cert').hide();
+        $('#pdf-preview-frame-cert').hide().attr('src', ''); // Clear src to stop loading
+        $('#doc-preview-container-cert').hide();
+        $('#placeholder-text-cert').hide();
+    }
+
+    // Unified Click Event for Certifications Thumbnails
+    $('.cert-preview-trigger').on('click', function(e) {
+        e.preventDefault();
+        
+        var type = $(this).data('type'); // 'image', 'pdf', or 'doc'
+        var src = $(this).data('src');
+        var name = $(this).data('name');
+
+        resetCertPreviewArea();
+
+        if (type === 'image') {
+            // Show Image
+            $('#main-preview-cert').attr('src', src).show();
+        } 
+        else if (type === 'pdf') {
+            // Show PDF in Iframe
+            $('#pdf-preview-frame-cert').attr('src', src).show();
+        } 
+        else if (type === 'doc' || type === 'docx') {
+            // Show Doc Icon and Download Button
+            $('#doc-preview-filename-cert').text(name);
+            $('#doc-download-btn-cert').attr('href', src);
+            
+            // Set Icon based on extension if needed
+            $('#doc-preview-icon-cert').attr('class', 'fa fa-file-word-o').css('color', '#2b579a');
+            
+            $('#doc-preview-container-cert').show();
+        }
+    });
+});
+</script>
+
+
+<script>
+function changeVideo(videoId) {
+    const mainPlayer = document.getElementById('mainPlayer');
+    // Naya URL set karein autoplay ke sath
+    const newSrc = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+    
+    mainPlayer.src = newSrc;
+    
+    // Smooth scroll back to top if needed
+    window.scrollTo({
+        top: mainPlayer.offsetTop - 100,
+        behavior: 'smooth'
+    });
+}
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Pinning Logic
+    let st = ScrollTrigger.create({
+        trigger: ".seller_tabs", 
+        start: "top top",            
+        pin: true,                   
+        pinSpacing: false,           
+        endTrigger: "section.view_detail_page", 
+        end: "bottom top+=100",      
+        toggleClass: "pills-fixed",
+    });
+
+    const tabButtons = document.querySelectorAll('button[data-bs-toggle="pill"]');
+    
+    tabButtons.forEach(button => {
+        // JAB TAB BADAL JAYE
+        button.addEventListener('shown.bs.tab', function (event) {
+            // GSAP ko batao ke content ki height change ho gayi hai
+            ScrollTrigger.refresh();
+
+            // CONTENT KO TOP PAR LE JANE KE LIYE:
+            // Hum page ko scroll karke wahan le jayenge jahan pinned tabs start hote hain
+            window.scrollTo({
+                top: st.start, // Yeh tabs ka original top position hai
+                behavior: 'smooth' // Smooth scroll ke liye
+            });
+        });
+
+        // Click event se default anchors ko prevent karein
+        button.addEventListener('click', function(e) {
+            // Agar page scroll ho chuka hai, toh browser ka auto-jump rokein
+            if(window.scrollY > st.start) {
+                // Hum scroll manual handle kar rahe hain upar 'shown.bs.tab' mein
+            }
+        });
+    });
+</script>
+<script>
+$(document).ready(function() {
+    var images = [];
+    var currentIndex = 0;
+
+    // 1. Function jo page ki saari relevant images ko collect karega
+    function refreshGalleryArray() {
+        images = [];
+        $('.gallery-trigger img.gallery-item').each(function() {
+            images.push($(this).attr('src'));
+        });
+    }
+
+    // 2. Event Delegation: Page par kahin bhi click ho, agar class match hui toh trigger hoga
+    $(document).on('click', '.gallery-trigger', function(e) {
+        e.preventDefault();
+        
+        // Har baar click hone par array refresh karein taaki nayi images bhi shamil ho sakein
+        refreshGalleryArray();
+        
+        var clickedSrc = $(this).find('img.gallery-item').attr('src');
+        currentIndex = images.indexOf(clickedSrc);
+
+        if (currentIndex !== -1) {
+            openLightbox(currentIndex);
+        }
+    });
+
+    function openLightbox(index) {
+        $('#fancy-main-img').attr('src', images[index]);
+        $('#fancybox-modal').css('display', 'flex');
+        $('body').css('overflow', 'hidden'); 
+    }
+
+    // 3. Next Button Logic
+    $('.fancy-next').on('click', function(e) {
+        e.stopPropagation(); // Modal band hone se rokne ke liye
+        currentIndex = (currentIndex + 1) % images.length;
+        updateImage();
+    });
+
+    // 4. Prev Button Logic
+    $('.fancy-prev').on('click', function(e) {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateImage();
+    });
+
+    function updateImage() {
+        $('#fancy-main-img').fadeOut(200, function() {
+            $(this).attr('src', images[currentIndex]).fadeIn(200);
+        });
+    }
+
+    // 5. Close Modal
+    $('.fancy-close, #fancybox-modal').on('click', function(e) {
+        // Sirf tab band ho jab overlay ya close button par click ho (image par nahi)
+        if (e.target !== this && !$(e.target).hasClass('fancy-close')) return;
+        
+        $('#fancybox-modal').hide();
+        $('body').css('overflow', 'auto');
+    });
+
+    // 6. Keyboard Support
+    $(document).keydown(function(e) {
+        if ($('#fancybox-modal').is(':visible')) {
+            if (e.keyCode == 37) $('.fancy-prev').click(); 
+            if (e.keyCode == 39) $('.fancy-next').click(); 
+            if (e.keyCode == 27) $('#fancybox-modal').click(); 
+        }
+    });
+});
+</script>
 @endsection

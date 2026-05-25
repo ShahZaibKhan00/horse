@@ -9,11 +9,22 @@
         .top__bar h2 {
             font-size: 24px;
         }
-
-        .cell {
-            font-size: 15px;
+        .cell_container {
+            display: flex;
+            gap: 5px;
+            background-color: white;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+       .cell {
+            font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48.9%;
         }
 
         .bid-panel .button {
@@ -31,15 +42,39 @@
             font-weight: 700;
             text-transform: uppercase;
         }
+        .amenities_flex {
+            white-space: nowrap;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            justify-content: flex-start;
+        }
+        @media only screen and (max-width: 1500px) {
+            
+            .cell {
+                font-size: 11px!important;
+            }
+            .user_img_box {
+                height: 180px;
+            }
+            .user_tag {
+                padding: 8px 25px;
+                font-size: 13px;
+            }
+            .bid-amount {
+                font-size: 25px!important;
+            }
+        }
     </style>
     <div class="user_main_content">
         <div class="dark_bar">
             <h2>Real Estate Listings</h2>
-            <a href="#!" class="points_btn">
+            <a href="#!" class="points_btn" data-bs-toggle="modal" data-bs-target="#pointsModal">
                 <img src="assets/images/points_icon.png" alt="" class="img-fluid mb-2">
-                Show Points
+                E-Wallet
             </a>
         </div>
+                <x-credit-modal />
         <div class="inner_content_wrapper">
             <div class="user_search_bar">
                 <div class="user_search_box">
@@ -109,14 +144,16 @@
                                     </div>
                                     <div class="user_card_info_box">
                                         <div class="cell_container">
-                                            <div class="cell"><span class="me-3"><img src="assets/images/estate_icon_1.png" alt=""></span>{{ $state->real_acres }} Acres
+                                            <div class="cell"><span class="me-2"><img src="assets/images/estate_icon_1.png" alt=""></span>{{ $state->real_acres }} Acres
                                             </div>
-                                            <div class="cell"><span class="me-3"><img src="assets/images/estate_icon_2.png" alt=""></span>{{ $state->real_bathroom }} Bathrooms</div>
-                                            <div class="cell"><span class="me-3"><img src="assets/images/estate_icon_3.png" alt=""></span>{{ $state->real_bedroom }} Bedrooms
+                                            <div class="cell"><span class="me-2"><img src="assets/images/estate_icon_2.png" alt=""></span>{{ $state->real_bathroom }} Bathrooms</div>
+                                            <div class="cell"><span class="me-2"><img src="assets/images/estate_icon_3.png" alt=""></span>{{ $state->real_bedroom }} Bedrooms
                                             </div>
-                                            <div class="cell"><span class="me-3"><img src="assets/images/estate_icon_4.png" alt=""></span>
-                                                {{ $state->num_spaces }} Cars{{ $state->garage_type ? ' | ' . explode(',', $state->garage_type)[0] : '' }}
+                                            <div class="cell"><span class="me-2"><img src="assets/images/estate_icon_4.png" alt=""></span>
+                                            
+                                                <p class="amenities_flex">{{ $state->num_spaces }} Cars{{ $state->garage_type ? ' | ' . explode(',', $state->garage_type)[0] : '' }}</p>
                                                 {{-- {{ $state->num_spaces }} {{ implode(' | ', array_slice(explode(',', $state->garage_type), 0, 2)) }} --}}
+                                                
                                             </div>
                                         </div>
                                     </div>

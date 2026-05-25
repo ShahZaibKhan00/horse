@@ -12,6 +12,7 @@
     <title>Horse Action Network</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="{{ getenv('APP_URL') }}/assets/images/favicon.png">
     <link rel="stylesheet" href="{{ getenv('APP_URL') }}/assets/css/bootstrap.min.css" media="all">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="{{ getenv('APP_URL') }}/assets/css/reponsive.css">
     <link rel="stylesheet" type="text/css" href="{{ getenv('APP_URL') }}/assets/fonts/fonts.css">
     <!-- Fancybox CSS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
@@ -100,6 +102,7 @@
         margin-bottom: 10px;
         transform: translateY(0px);
         transition: all 0.25s;
+        text-transform: uppercase;
     }
 
     .inner_small_box.inner_blue_box .heading44px {
@@ -303,11 +306,6 @@
     .tiktok {
         filter: brightness(1) invert(1);
     }
-    real_estate_card_new .blue_stripe h2 {
-    font-size: 18px !important;
-}
-</style>
-<style>
     .toast-success {
         background-color: #28a745 !important;
         color: #ffffff !important;
@@ -320,10 +318,49 @@
     .toast-error {
         background-color: #fe0032 !important;
     }
+    
+    .popup_header {
+        width: 100%;
+        background: #1f2339;
+        padding: 10px 20px;
+    }
+    a.popup_logo {
+        display: block;
+        max-width: 60px;
+    }
+    button.btn-close.bg-light.rounded-circle.p-2 {
+        position: absolute;
+        top: 31px;
+        right: 30px;
+        background: #fff;
+        opacity: 1!important;
+        padding: 6px!important;
+    }
+   /*#detailViewModal .modal-content {*/
+   /*     height: 805px;*/
+   /* }*/
+    @media(max-width:1700px){
+        /*#detailViewModal .modal-content {*/
+        /*    height: 760px;*/
+        /*}*/
+        a.popup_logo {
+            display: block;
+            max-width: 30px;
+            transform: scale(2) scaleX(-1)!important;
+            position: relative;
+            z-index: 111;
+        }
+        button.btn-close.bg-light.rounded-circle.p-2 {
+            padding: 4px!important;
+            font-size: 12px;
+        }
+    
+    }
 </style>
 
+
 <body>
-    {{-- <div id="preloader">
+    {{--  <div id="preloader">
         <div class="loader"><img src="https://i.gifer.com/origin/7d/7de91b68e60e68eadb293da700056870_w200.gif" alt="loader" class="img-fluid"></div>
     </div> --}}
     <header>
@@ -342,8 +379,14 @@
                     </a>
                     <div class="top_bar_flex_left login_btn_flex">
                         <ul>
-                            <li><a href="{{ url('login') }}">Login</a></li>
-                            <li><a href="{{ url('register') }}">Register</a></li>
+                            @auth
+                                <li><a href="{{ url('dashboard') }}">Dashboard</a></li>
+                            @endauth
+                            @guest
+                                <li><a href="{{ url('login') }}">Login</a></li>
+                                <li><a href="{{ url('register') }}">Register</a></li>
+                            @endguest
+
                             <li><button class="heart_header_btn"><i class="fa fa-heart" aria-hidden="true"></i> <span>10</span></button></li>
                         </ul>
                     </div>
@@ -368,7 +411,7 @@
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
-                                                    <h3 class="heading44px">NEWLY LISTED HORSES</h3>
+                                                    <h3 class="heading44px">New Horses to the Market</h3>
                                                     <p>Hot off the pasture —Meet the newest horses on the market</p>
                                                 </a>
                                             </div>
@@ -386,8 +429,8 @@
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
-                                                    <h3 class="heading44px">VIEW SOLD HORSES</h3>
-                                                    <p> Get a feel for market trends. Only sold listings for price insight.!</p>
+                                                    <h3 class="heading44px">SOLD HORSES</h3>
+                                                    <p> Get a feel for market trends. Only sold listings for price insight!</p>
                                                 </a>
                                             </div>
                                             <div class="col-3">
@@ -451,26 +494,17 @@
                                 <li><a href="{{ url('services') }}" class="menu-link nav_itm" data-target=".service_menu_tab">Services</a>
                                     <div class="mega_menu_bar service_menu_tab">
                                         <div class="row p-4">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <a href="{{ url('services') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
                                                     <h3 class="heading44px">SEARCH </br>FOR SERVICE</h3>
-                                                    <p> Find trusted equine help near you</p>
+                                                    <p> Explore our full directory of pros</p>
                                                 </a>
                                             </div>
-                                            <div class="col-4">
-                                                <a href="{{ url('services') }}" class="inner_small_box">
-                                                    <div class="mega_logo_box">
-                                                        <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
-                                                    </div>
-                                                    <h3 class="heading44px">BROWSE </br> ALL SERVICES</h3>
-                                                    <p>Explore our full directory of pros</p>
-                                                </a>
-                                            </div>
-                                            <div class="col-4">
-                                                <a href="{{ url('services') }}" class="inner_small_box">
+                                            <div class="col-6">
+                                                <a href="{{ url('service-listing') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -487,26 +521,17 @@
                                 <li><a href="{{ url('realestate_listing_filter') }}" class="menu-link nav_itm" data-target=".estate_menu_tab">Real Estate</a>
                                     <div class="mega_menu_bar estate_menu_tab">
                                         <div class="row p-4">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <a href="{{ url('realestate_listing_filter') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
                                                     <h3 class="heading44px">SEARCH PROPERTIES</h3>
-                                                    <p>See listings tailored for equestrians</p>
+                                                    <p>BROWS HORSE FARMS, ACREAGE, FACILITIES AND MORE. SEE WHAT’S ON THE MARKET TODAY!</p>
                                                 </a>
                                             </div>
-                                            <div class="col-4">
-                                                <a href="{{ url('realestate_listing_filter') }}" class="inner_small_box">
-                                                    <div class="mega_logo_box">
-                                                        <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
-                                                    </div>
-                                                    <h3 class="heading44px">BROWSE ALL PROPERTIES</h3>
-                                                    <p>Browse barns, farms, and acreage. See what’s on the market today</p>
-                                                </a>
-                                            </div>
-                                            <div class="col-4">
-                                                <a href="{{ url('realestate_listing_filter') }}" class="inner_small_box">
+                                            <div class="col-6">
+                                                <a href="{{ url('realstate-listing') }}" class="inner_small_box">
                                                     <div class="mega_logo_box">
                                                         <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" alt="img" class="img-fluid">
                                                     </div>
@@ -518,7 +543,7 @@
                                     </div>
                                 </li>
                                 <li><a href="{{ url('membership') }}" class="menu-link nav_itm" data-target=".ads_menu_tab">Advertise</a>
-                                    <div class="mega_menu_bar ads_menu_tab">
+                                    <div class="mega_menu_bar ads_menu_tab d-none">
                                         <div class="row p-4">
                                             <div class="col-4">
                                                 <a href="{{ route('membership') }}" class="inner_small_box">
@@ -778,14 +803,14 @@
         </div>
     </div>
 
-    <script src="{{ getenv('APP_URL') }}/assets/js/jquery.js"></script>
+    {{-- <script src="{{ getenv('APP_URL') }}/assets/js/jquery.js"></script> --}}
     <script src="{{ getenv('APP_URL') }}/assets/js/bootstrap.min.js"></script>
     <script src="{{ getenv('APP_URL') }}/assets/js/jquery.fancybox.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
     <script src="{{ getenv('APP_URL') }}/assets/js/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>-->
     <script src="{{ getenv('APP_URL') }}/assets/js/custom.js"></script>
     <!-- Fancybox JS -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
@@ -802,7 +827,7 @@
         @endif
     </script>
 
-    <script>
+   <!-- <script>
         gsap.registerPlugin(ScrollTrigger);
 
         const detailPage = document.querySelector(".view_detail_page");
@@ -869,7 +894,7 @@
         }, {
             passive: false
         });
-    </script>
+    </script> -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var verificationModal = new bootstrap.Modal(document.getElementById('verification_modal'), {
@@ -921,37 +946,120 @@
     </script>
 
     <script>
-        const heartCheckboxes = document.querySelectorAll(".heartCheckbox");
-        const fvrtCheckboxes = document.querySelectorAll(".fvrt_btn input[type='checkbox']");
+        $(document).ready(function() {
+            // Shared function to handle the UI toggle and AJAX
+            function handleFavoriteToggle($card) {
+                var $button = $card.find('.fvrt_btn');
+                var $checkbox = $card.find('.heartCheckbox');
+                var $heartIcon = $card.find('.icon_heart');
+                var $form = $card.find('.favorite-form');
+                
+                if (!$form.length || $button.prop('disabled')) return;
 
-        heartCheckboxes.forEach((heartCheckbox, index) => {
-            const heartIcon = heartCheckbox.nextElementSibling;
-            const fvrtCheckbox = fvrtCheckboxes[index];
-
-            // Heart icon click → sync Favorite button
-            heartCheckbox.addEventListener("change", function() {
-                fvrtCheckbox.checked = this.checked;
-                updateHeartIcon();
-            });
-
-            // Favorite button click → sync Heart icon
-            fvrtCheckbox.addEventListener("change", function() {
-                heartCheckbox.checked = this.checked;
-                updateHeartIcon();
-            });
-
-            function updateHeartIcon() {
-                if (heartCheckbox.checked) {
-                    heartIcon.classList.remove("fa-heart-o");
-                    heartIcon.classList.add("fa-heart", "filled");
+                // 1. Determine current state
+                var isCurrentlyFavorited = $checkbox.prop('checked');
+                
+                // 2. OPTIMISTIC UI UPDATE (Immediate visual change)
+                if (isCurrentlyFavorited) {
+                    // Switch to Unfavorited
+                    $button.html('Favorite <i class="fa fa-heart-o"></i>');
+                    $heartIcon.removeClass('fa-heart filled').addClass('fa-heart-o');
+                    $checkbox.prop('checked', false);
                 } else {
-                    heartIcon.classList.remove("fa-heart", "filled");
-                    heartIcon.classList.add("fa-heart-o");
+                    // Switch to Favorited
+                    $button.html('Favorited <i class="fa fa-heart" style="color: #e74c3c;"></i>');
+                    $heartIcon.removeClass('fa-heart-o').addClass('fa-heart filled');
+                    $checkbox.prop('checked', true);
                 }
+
+                // 3. Send AJAX in background
+                $button.prop('disabled', true);
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: 'POST',
+                    data: { _token: $form.find('input[name="_token"]').val() },
+                    success: function(response) {
+                        if (response.success) {
+                            // Ensure final state matches server response just in case
+                            if (response.status === 'removed') {
+                                $button.html('Favorite <i class="fa fa-heart-o"></i>');
+                                $heartIcon.removeClass('fa-heart filled').addClass('fa-heart-o');
+                                $checkbox.prop('checked', false);
+                            } else {
+                                $button.html('Favorited <i class="fa fa-heart" style="color: #e74c3c;"></i>');
+                                $heartIcon.removeClass('fa-heart-o').addClass('fa-heart filled');
+                                $checkbox.prop('checked', true);
+                            }
+                            toastr.success(response.message);
+                        } else {
+                            toastr.warning(response.message);
+                            // 4. REVERT UI ON FAILURE (without reloading)
+                            if (isCurrentlyFavorited) {
+                                // Revert to Favorited
+                                $button.html('Favorited <i class="fa fa-heart" style="color: #e74c3c;"></i>');
+                                $heartIcon.removeClass('fa-heart-o').addClass('fa-heart filled');
+                                $checkbox.prop('checked', true);
+                            } else {
+                                // Revert to Unfavorited
+                                $button.html('Favorite <i class="fa fa-heart-o"></i>');
+                                $heartIcon.removeClass('fa-heart filled').addClass('fa-heart-o');
+                                $checkbox.prop('checked', false);
+                            }
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 419) {
+                            alert("Session expired. Please Login.");
+                            location.reload();
+                        } else {
+                            var errorMsg = 'Something went wrong.';
+                            if (xhr.status === 401 && xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMsg = xhr.responseJSON.message;
+                            }
+                            toastr.error(errorMsg);
+                            
+                            // Revert UI on error (Heart and Favorite text reset)
+                            if (isCurrentlyFavorited) {
+                                $button.html('Favorited <i class="fa fa-heart" style="color: #e74c3c;"></i>');
+                                $heartIcon.removeClass('fa-heart-o').addClass('fa-heart filled');
+                                $checkbox.prop('checked', true);
+                            } else {
+                                $button.html('Favorite <i class="fa fa-heart-o"></i>');
+                                $heartIcon.removeClass('fa-heart filled').addClass('fa-heart-o');
+                                $checkbox.prop('checked', false);
+                            }
+                        }
+                    },
+                    complete: function() {
+                        $button.prop('disabled', false);
+                    }
+                });
             }
+
+            // Triggered by the Button
+            $(document).on('click', '.favorite-form .fvrt_btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                handleFavoriteToggle($(this).closest('.horse_list_card, .detail_left, .product_clm, .custome_listing_col, .real_estate_card_new'));
+            });
+
+            // Handle Form Submit (just in case)
+            $(document).on('submit', '.favorite-form', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                handleFavoriteToggle($(this).closest('.horse_list_card, .detail_left, .product_clm, .custome_listing_col, .real_estate_card_new'));
+            });
+
+            // Triggered by the Heart Icon on Image
+            $(document).on('change', '.heartCheckbox', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var isChecked = $(this).prop('checked');
+                $(this).prop('checked', !isChecked); 
+                handleFavoriteToggle($(this).closest('.horse_list_card, .detail_left, .product_clm, .custome_listing_col, .real_estate_card_new'));
+            });
         });
     </script>
-
     <script>
         $(window).on('load', function() {
             // basic sanity checks
@@ -989,7 +1097,77 @@
             }, 100);
         });
     </script>
+    <script>
+        window.addEventListener("load", function() {
+            let preloader = document.getElementById("preloader");
 
+            
+            preloader.classList.add("preloader-hide");
+
+            
+            setTimeout(() => {
+                preloader.style.display = "none";
+            }, 800); // Ye transition duration (0.8s) se match karna chahiye
+        });
+    </script>
+    <!-- Detail View Modal -->
+    <div class="modal fade" id="detailViewModal" tabindex="-1" aria-labelledby="detailViewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" style="max-width: 90%;">
+            <div class="modal-content" style="background: #f8f9fa; border-radius: 15px; border: none; overflow: hidden; height: 100%;">
+                <div class="modal-header border-0 pb-0">
+                    <div class="popup_header">
+                        <a href="{{ getenv('APP_URL') }}" class="popup_logo" style="transform: scaleX(-1);">
+                            <img src="{{ getenv('APP_URL') }}/assets/images/heading_logo.png" class="img-fluid" />
+                        </a>
+                    </div>
+                    
+                    <button type="button" class="btn-close bg-light rounded-circle p-2 d-flex align-items-center justify-content-center" data-bs-dismiss="modal" aria-label="Close" style="opacity: 0.8; box-shadow: 0 2px 10px rgba(0,0,0,0.2);"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                <div class="modal-body p-0" style="overflow: hidden;">
+                    <div id="modalContentLoader" class="text-center py-5" style="position: absolute; width: 100%; top: 40%;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading details...</p>
+                    </div>
+                    <iframe id="detailViewIframe" src="" frameborder="0" style="width: 100%; height: 100%; display: none; border-radius: 15px;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Intercept clicks on View Details buttons
+            $(document).on('click', '.view-detail-btn', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                var $modal = $('#detailViewModal');
+                var $iframe = $('#detailViewIframe');
+                var $loader = $('#modalContentLoader');
+
+                // Reset modal content
+                $iframe.hide().attr('src', '');
+                $loader.show();
+                $modal.modal('show');
+
+                // Set iframe src with a parameter to detect modal mode
+                var modalUrl = url + (url.indexOf('?') > -1 ? '&' : '?') + 'is_modal=1';
+                $iframe.attr('src', modalUrl);
+
+                // When iframe loads
+                $iframe.on('load', function() {
+                    $loader.hide();
+                    $(this).fadeIn();
+                });
+            });
+            
+            // Clear iframe when modal closes
+            $('#detailViewModal').on('hidden.bs.modal', function () {
+                $('#detailViewIframe').attr('src', '');
+            });
+        });
+    </script>
 </body>
 
 </html>

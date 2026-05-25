@@ -1,8 +1,35 @@
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-ScrollSmoother.create({
-    smooth: 1,
-    effects: true,
+document.querySelectorAll(".img_box").forEach((box) => {
+    let slider = box.querySelector(".horse_list_card_slider");
+
+    // Initialize Swiper without autoplay initially
+    let swiperInstance = new Swiper(slider, {
+        loop: true,
+        navigation: {
+            nextEl: box.querySelector(".horse_arrow_right"),
+            prevEl: box.querySelector(".horse_arrow_left"),
+        },
+        autoplay: false,
+    });
+
+    // Start autoplay on hover
+    box.addEventListener("mouseenter", () => {
+        swiperInstance.params.autoplay = { delay: 2500 };
+        swiperInstance.autoplay.start();
+    });
+
+    // Stop autoplay when mouse leaves
+    box.addEventListener("mouseleave", () => {
+        swiperInstance.autoplay.stop();
+    });
 });
+
+
+
+// gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+// ScrollSmoother.create({
+//     smooth: 1,
+//     effects: true,
+// });
 
 document.querySelectorAll(".seller_detail_card").forEach((card) => {
     const slider = card.querySelector(".horse_swiper_one");
@@ -20,30 +47,6 @@ document.querySelectorAll(".seller_detail_card").forEach((card) => {
 });
 
 
-document.querySelectorAll(".img_box").forEach((box) => {
-    let slider = box.querySelector(".horse_list_card_slider");
-
-    // Initialize Swiper without autoplay initially
-    let swiperInstance = new Swiper(slider, {
-        loop: true,
-        navigation: {
-            nextEl: box.querySelector(".horse_arrow_right"),
-            prevEl: box.querySelector(".horse_arrow_left"),
-        },
-        autoplay: false,
-    });
-
-    // Start autoplay on hover
-    box.addEventListener("mouseenter", () => {
-        swiperInstance.params.autoplay = { delay: 1500 };
-        swiperInstance.autoplay.start();
-    });
-
-    // Stop autoplay when mouse leaves
-    box.addEventListener("mouseleave", () => {
-        swiperInstance.autoplay.stop();
-    });
-});
 
 let counter = document.querySelector('#counter');
 if (counter) {
@@ -88,15 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
     checkboxTwo.addEventListener("change", toggleSubmitButton);
 });
 
-window.addEventListener("load", function () {
-    setTimeout(function () {
-        let preloader = document.getElementById("preloader");
-        preloader.classList.add("preloader-hide"); // Add fade-out effect
-        setTimeout(() => {
-            preloader.style.display = "none"; // Remove from DOM after fade
-        }, 800); // Matches transition duration
-    }, 1000); // Keep loader visible for 1 second
-});
 
 var hamBurger = document.querySelector('.hamBurger');
 var responsive_menu = document.querySelector('.responsive_menu');

@@ -1,4 +1,4 @@
-@extends('layouts.app') @section('content')
+@extends($isModal ? 'layouts.blank' : 'layouts.app') @section('content')
     <style>
         .view_detail_page {
             font-family: "AvenirNextLTPro-Regular";
@@ -77,7 +77,7 @@
         .img_radius_one {
             border-radius: 0px;
             overflow: hidden;
-            height: 270px;
+            height: 230px;
             object-fit: cover;
         }
 
@@ -190,7 +190,7 @@
             list-style: none;
             border: 1px solid #1d2139;
             padding: 8px;
-            text-align: center;
+            text-align: start;
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -210,15 +210,15 @@
 
         .view_detail_page .nav-pills .nav-link {
             background: 0 0;
-            border-radius: 0px 0 !important;
+            border-radius: 5px !important;
             width: 12%;
             height: 55px;
-            border: 1px solid #1d2139;
+            border: 1px solid #d6d8d9;
             font-size: 12px;
             font-weight: 800;
             color: #1d2139;
             padding: 0px 5px;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px inset;
+            /*box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px inset;*/
         }
 
         .view_detail_page .nav-pills .nav-link.active,
@@ -359,10 +359,10 @@
             max-width: 60px;
         }
 
-        .border_box_one {
-            border: 3px solid #1d2139;
-            padding: 20px;
-        }
+        /*.border_box_one {*/
+        /*    border: 3px solid #1d2139;*/
+        /*    padding: 20px;*/
+        /*}*/
 
         .border_box_one.p-1 {
             border: 0;
@@ -378,19 +378,19 @@
             row-gap: 5px;
         }
 
-        .border_box_one ul li {
-            font-size: 13px;
-            color: #1d2139;
-            list-style: none;
-            display: flex;
-            align-items: center;
+        /*.border_box_one ul li {*/
+        /*    font-size: 13px;*/
+        /*    color: #1d2139;*/
+        /*    list-style: none;*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
             /* margin: 5px; */
-            font-family: "AvenirLTStd-Medium";
-            padding: 20px 50px;
-            width: 307px;
-            box-shadow: rgba(50, 50, 93, 0.1) 0px 20px 40px -12px inset, rgba(0, 0, 0, 0.1) 0px 12px 24px -18px inset;
-            border: 2px solid #1d2139;
-        }
+        /*    font-family: "AvenirLTStd-Medium";*/
+        /*    padding: 20px 50px;*/
+        /*    width: 307px;*/
+        /*    box-shadow: rgba(50, 50, 93, 0.1) 0px 20px 40px -12px inset, rgba(0, 0, 0, 0.1) 0px 12px 24px -18px inset;*/
+        /*    border: 2px solid #1d2139;*/
+        /*}*/
 
         .border_box_one ul li:last-child {
             margin: 0;
@@ -589,11 +589,11 @@
             color: #1d2139;
         }
 
-        .horser_action_info_btn.action_btn,
-        .horse_info_btn.fvrt_btn.action_btn {
+        .horser_action_info_btn.action_btn, .horse_info_btn.fvrt_btn.action_btn {
             width: 28%;
-            font-size: 15.5px;
-            font-family: "AvenirNextLTPro-Bold";
+            font-size: 16px;
+            /* font-family: "AvenirNextLTPro-Bold"; */
+            font-weight: 600;
         }
 
         .countdown {
@@ -771,23 +771,23 @@
 
         .horser_information_box .info_list_one li {
             color: #1d2139;
-            font-size: 14px;
+            font-size: 13.5px;
         }
 
-       .info_list.v1 li {
-        font-size: 13px;
-        color: #000000;
-        margin: 3px 0px;
-        font-weight: 500;
-        padding: 7px;
-        margin-bottom: 8px;
-        display: flex;
-    }
+        .info_list.v1 li {
+            font-size: 13px;
+            color: #000000;
+            margin: 3px 0px;
+            font-weight: 500;
+            padding: 7px;
+            margin-bottom: 8px;
+            display: flex;
+        }
 
         .horser_information_box .info_list_one li span {
             margin-left: 6px;
             font-style: normal;
-            text-transform: capitalize;
+            text-transform: uppercase;
             font-weight: 600;
         }
 
@@ -859,7 +859,7 @@
 
         .top_blue_strip {
             background: #1d2139;
-            padding: 15px 5px 10px 5px;
+            padding: 35px 5px 10px 5px;
             position: relative;
         }
 
@@ -901,10 +901,10 @@
             border-radius: 12px;
         }
 
-        .product_clm .heading22px {
-            font-size: 15px;
+       .product_clm .heading22px {
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 5px;
+            font-family: 'Inter', sans-serif;
         }
 
         .seller_desc {
@@ -925,16 +925,16 @@
         }
 
         /* .content_scroll {
-                                height: 100%;
-                                overflow-y: auto;
-                                overflow-x: hidden;
-                                padding: 0px 10px 0px 10px;
-                            } */
-        .content_scroll {
-            height: 100%;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
+                                            height: 100%;
+                                            overflow-y: auto;
+                                            overflow-x: hidden;
+                                            padding: 0px 10px 0px 10px;
+                                        } */
+        /*.content_scroll {*/
+        /*    height: 100%;*/
+        /*    overflow-y: auto;*/
+        /*    padding-right: 10px;*/
+        /*}*/
 
         .content_scroll::-webkit-scrollbar {
             width: 6px;
@@ -961,8 +961,8 @@
             background: #bf9855;
             background: linear-gradient(90deg, rgba(191, 152, 85, 1) 0%, rgba(250, 233, 207, 1) 73%);
             position: absolute;
-            top: 55px;
-            left: 0;
+            top: -10px;
+            left: -10px;
             width: fit-content;
             text-transform: uppercase;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -973,12 +973,12 @@
         }
 
         .detail_right {
-            max-height: 818px;
-            overflow-y: auto;
+            /*max-height: 818px;*/
+            /*overflow-y: auto;*/
             overflow-x: hidden;
             padding-top: 10px;
             background: #fff;
-            z-index: 2;
+            /*z-index: 2;*/
             position: relative;
         }
 
@@ -1048,20 +1048,21 @@
             width: 300px;
         }
 
-        .mem_blue_stripe {
-            background: #1d2139;
-            padding: 40px 24px;
+         .mem_blue_stripe {
+            /* background: #1d2139; */
+            padding: 10px 10px 20px 10px;
             text-align: center;
-            border-bottom: 5px solid #ab8d35;
-            border-top: 5px solid #ab8d35;
-            margin-top: 100px;
+            border-bottom: 3px solid #ab8d35;
+            /*max-width: 95%;*/
+            /*margin: 0 auto;*/
         }
 
         .mem_blue_stripe h2 {
-            font-family: "AvenirNextLTPro-Bold";
-            font-size: 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 30px;
             margin: 0;
             margin-bottom: 0px;
+            color: #1d2139;
         }
 
         .real_icon_box img {
@@ -1074,7 +1075,7 @@
             margin: 0 auto;
             border-collapse: collapse;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
-            border: 2px solid #b18d61;
+            border: 1px solid #d6d8d9;
             table-layout: fixed;
         }
 
@@ -1083,9 +1084,9 @@
             color: #1d2139;
         }
 
-        .barn-table tr:nth-child(even) {
-            background-color: #1d2139;
-            color: #fff;
+       .barn-table tr:nth-child(even) {
+            background-color: #1d213903;
+            color: #1f2339;
         }
 
         .barn-table td {
@@ -1093,16 +1094,18 @@
             font-size: 14px;
             font-weight: 800;
             vertical-align: top;
-            border: 1px solid #b18d61;
+            border: 1px solid #d6d8d9;
             word-wrap: break-word;
         }
-
+        table tbody tr {
+            border-bottom: 1px solid #d6d8d9;
+        }
         .card_about_heading {
             font-size: 18px;
             margin-bottom: 00px;
         }
 
-       .about_sm_desc {
+        .about_sm_desc {
             font-size: 12px;
             overflow-y: auto;
             max-height: 130px;
@@ -1123,8 +1126,151 @@
         }
 
         .horser_ad_inner_container {
-            max-width: 1320px;
-            margin: 0 auto;
+            /*max-width: 1320px;*/
+            /*margin: 0 auto;*/
+        }
+
+        .fvrt_btn {
+            font-size: 16px;
+            font-weight: 600;
+            
+            border: 0;
+        }
+
+        .fvrt_btn:hover {
+            color: #fff!important;
+        }
+
+        .amenities_flex {
+            white-space: nowrap;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            justify-content: flex-start;
+            margin: 0;
+            display: flex;
+        }
+
+        #horseTabsContent {
+            padding: 0 20px;
+        }
+        
+        .new_heading_bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 10px;
+        }
+        .new_heading_icon_box {
+            max-width: 30px;
+        }
+        .new_heading_bar h2 {
+            color: #1f2339;
+            font-size: 25px;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+        }
+        .new_heading_bar h2::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 90px;
+            height: 3px;
+            background: #b18d61;
+        }
+        
+        .border_box_one {
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        
+        
+        .u_box {
+    background: #f5f5f5;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 110px;
+    border: 2px solid #b18d61;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+        .preview_flex {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            height: 470px;
+        }
+        .u_box img {
+            width: 100%; /* fixed width */
+            height: 100%; /* fixed height */
+            object-fit: cover; /* maintain aspect ratio, crop if needed */
+        }
+        .preview_bax {
+            width: calc(100% - 110px);
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+        .preview_bax img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .new_flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            gap: 10px;
+            flex-direction: column;
+            width: 150px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        
+        .fixed_bar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #fff; /* Background color zaroori hai taake scroll content niche se nazar na aaye */
+        padding: 10px 0;
+        margin-bottom: 20px !important;
+        border-bottom: 1px solid #ddd; /* Optional: Separator line */
+        }
+        .fixed_bar {
+            background: #fff;
+            z-index: 1000;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            /* transition for smooth background/shadow effect */
+            transition: box-shadow 0.3s ease;
+        }
+        
+        
+        .video_click_box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .thumbnail_wrapper {
+            flex: 0 0 calc((100% - 40px) / 5);
         }
 
         @media only screen and (max-width: 1799px) {
@@ -1139,7 +1285,7 @@
             .horser_information_box ul li {
                 margin-bottom: 8px;
                 font-size: 15px;
-                padding: 5px;
+                padding: 5px 20px;
             }
 
             .horser_information_box .info_list_one li span {
@@ -1175,12 +1321,12 @@
             .view_detail_page .nav-pills .nav-link {
                 height: 45px;
                 font-size: 12px;
-                padding: 0px 12.5px;
+                padding: 0px 10px;
                 margin: 0;
             }
 
             .image-grid img {
-                height: 200px;
+                height: 250px;
             }
 
             .videoplay_box img {
@@ -1211,9 +1357,7 @@
                 font-size: 35px;
             }
 
-            .detail_right {
-                max-height: 735px;
-            }
+
 
             .heading65px.monte_carlo.fw_400.mb-4.odd_heading h1 {
                 font-size: 26px;
@@ -1230,8 +1374,12 @@
 
             .product_clm .fvrt_btn {
                 width: 115px;
-                height: 36px;
+                height: 40px;
                 font-size: 13px;
+                border: 1px solid #1d2139;
+            }
+            .product_clm .fvrt_btn:hover {
+                color: #1d2139;
             }
 
             .horse_card_btn {
@@ -1291,9 +1439,6 @@
                 padding-top: 10px !important;
             }
 
-            .mem_blue_stripe {
-                padding: 25px 24px;
-            }
 
             .video-play-button {
                 width: 24px;
@@ -1320,54 +1465,138 @@
             }
         }
     </style>
+    
+     <style>
+                                    .border_box_one.p-.border_box_one_neww {
+                                        padding: 20px;
+                                    }
+                                    .border_box_one_neww h2 {
+                                         font-family: 'Inter', sans-serif;
+                                        color: #1f2339; 
+                                        display: inline-block;
+                                        padding-bottom: 5px;
+                                        margin-bottom: 15px;
+                                        font-size: 1.2rem;
+                                        text-transform: uppercase;
+                                        position: relative;
+                                    }
+                                    .border_box_one_neww h2::before {
+                                        content: '';
+                                        position: absolute;
+                                        bottom: -1px;
+                                        left: 0;
+                                        width: 54px;
+                                        height: 3px;
+                                        background: #d59241;
+                                    }
+                                    .border_box_one_neww table {
+                                        width: 100%;
+                                        border-collapse: collapse;
+                                        margin-bottom: 30px;
+                                    }
+                                    .border_box_one_neww td {
+                                        border: 1px solid #eeeeee;
+                                        padding: 12px;
+                                        font-size: 0.9rem;
+                                    }
+                                    .border_box_one_neww .label {
+                                        background-color: #ffffff;
+                                        font-weight: 600;
+                                        width: 20%;
+                                        color: #1f2339;
+                                        font-size: 14px;
+                                        font-weight: 700;
+                                        font-family: 'Inter', sans-serif;
+                                    }
+                                    .border_box_one_neww .value {
+                                       color: #1f2339;
+                                        font-family: 'Inter', sans-serif;
+                                    }
+                                    .border_box_one_neww .multi-col {
+                                        background-color: #fff;
+                                    }
+                                    a#doc-download-btn {
+                                    background: transparent!important;
+                                            color: #1d2139!important;
+                                            border: 2px solid #1d2139!important;
+                                            border-radius: 0!important;
+                                            font-size: 18px!important;
+                                    }
+                                </style>
 
-    <div class="mem_blue_stripe mb-4">
-        <h2 class="text_border">{{ $data->real_farm_name ?? 'kjashdkjaskdas' }}</h2>
-    </div>
+    
     <section class="view_detail_page">
         <div class="container">
             <div class="horser_ad_inner_container">
                 <div class="row">
+                    
                     <div class="col-12">
-                        <div class="nav flex-row nav-pills mb-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active" id="v-pills-detail_1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_1" type="button" role="tab"
-                                aria-controls="v-pills-detail_1" aria-selected="true">
-                                ALL PHOTOS
-                            </button>
-                            <button class="nav-link" id="v-pills-detail_2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_2" type="button" role="tab" aria-controls="v-pills-detail_2"
-                                aria-selected="false">
-                                VIDEOS
-                            </button>
-                            <button class="nav-link" id="v-pills-detail_3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_3" type="button" role="tab" aria-controls="v-pills-detail_3"
-                                aria-selected="false">
-                                DESCRIPTION
-                            </button>
-                            <button class="nav-link" id="v-pills-detail_4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_4" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                aria-selected="false">
-                                FACILITY AMENITIES
-                            </button>
-                            <button class="nav-link" id="v-pills-detail_5-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_5" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                aria-selected="false">
-                                PROPERTY AMENITIES
-                            </button>
-                            <button class="nav-link" id="v-pills-detail_6-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_6" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                aria-selected="false">
-                                DOCUMENTS
-                            </button>
-                            <button class="nav-link" id="v-pills-detail_7-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_7" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                aria-selected="false">
-                                LOCATION
-                            </button>
-                            <button class="nav-link" id="v-pills-detail_8-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_8" type="button" role="tab" aria-controls="v-pills-detail_4"
-                                aria-selected="false">
-                                AGENT | SELLER INFO
-                            </button>
+                        <div class="fixed_bar">
+                            @php
+                                    // Original value
+                                    $location = $data['real_location'];
+
+                                    // Step 1: Agar value me bracket me abbreviation ha, to usko extract kro
+                                    if (preg_match('/\(([^)]+)\)/', $location, $match)) {
+                                        $displayLocation = trim($match[1]); // sirf bracket ke andar wali value
+                                    } else {
+                                        $displayLocation = ''; // agar nahi ha to empty
+                                    }
+                                @endphp
+                            <div class="mem_blue_stripe mb-4">
+                                <h2 class="">{{ $data->real_farm_name ?? $data['real_title'] }}, {{ $displayLocation }} </h2>
+                            </div>
+                            <div class="nav flex-row nav-pills mb-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <button class="nav-link active" id="v-pills-detail_1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_1" type="button" role="tab"
+                                    aria-controls="v-pills-detail_1" aria-selected="true">
+                                    ALL PHOTOS
+                                </button>
+                                <button class="nav-link" id="v-pills-detail_2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_2" type="button" role="tab" aria-controls="v-pills-detail_2"
+                                    aria-selected="false">
+                                    VIDEOS
+                                </button>
+                                <button class="nav-link" id="v-pills-detail_3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_3" type="button" role="tab" aria-controls="v-pills-detail_3"
+                                    aria-selected="false">
+                                    DESCRIPTION
+                                </button>
+                                <button class="nav-link" id="v-pills-detail_4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_4" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                    aria-selected="false">
+                                    FACILITY AMENITIES
+                                </button>
+                                <button class="nav-link" id="v-pills-detail_5-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_5" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                    aria-selected="false">
+                                    PROPERTY AMENITIES
+                                </button>
+                                <button class="nav-link" id="v-pills-detail_6-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_6" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                    aria-selected="false">
+                                    DOCUMENTS
+                                </button>
+                                <button class="nav-link" id="v-pills-detail_7-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_7" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                    aria-selected="false">
+                                    LOCATION
+                                </button>
+                                <button class="nav-link" id="v-pills-detail_8-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detail_8" type="button" role="tab" aria-controls="v-pills-detail_4"
+                                    aria-selected="false">
+                                    AGENT | SELLER INFO
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                         <div class="detail_left">
                             <h3 class="sale_tag">{{ $data->ad_type }}</h3>
                             <div class="top_blue_strip">
+                                {{-- @php
+                                    // Original value
+                                    $location = $data['real_location'];
+
+                                    // Step 1: Agar value me bracket me abbreviation ha, to usko extract kro
+                                    if (preg_match('/\(([^)]+)\)/', $location, $match)) {
+                                        $displayLocation = trim($match[1]); // sirf bracket ke andar wali value
+                                    } else {
+                                        $displayLocation = ''; // agar nahi ha to empty
+                                    }
+                                @endphp --}}
                                 @php
                                     // Original value
                                     $location = $data['real_location'];
@@ -1379,17 +1608,22 @@
                                         $displayLocation = ''; // agar nahi ha to empty
                                     }
                                 @endphp
-                                <h3 class="heading44px fw_700 text_border">{{ $data->real_location }} </h3>
+                                <h3 class="heading44px fw_700 text_border">{{ $data['real_title'] }}, {{ $displayLocation }} </h3>
                                 {{-- ?? 'Undefined' }} , {{ $displayLocation }}</h3> --}}
                                 <label class="heart_checkbox_wrapper d-block">
-                                    <input type="checkbox" class="heartCheckbox" hidden />
-                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                    <input type="checkbox" class="heartCheckbox" hidden {{ $data->favorites->isNotEmpty() ? 'checked' : '' }} />
+                                    <i class="fa fa-heart{{ $data->favorites->isNotEmpty() ? ' filled' : '-o' }} icon_heart" aria-hidden="true"></i>
                                 </label>
                             </div>
                             <div class="relative_img_box">
                                 <div class="swiper horse_swiper_one">
                                     <div class="swiper-wrapper">
-                                        <div class="swiper-slide"><img src="/assets/images/farm_3.jpg" alt="img" class="img-fluid w-100 img_radius_one" /></div>
+                                        @if(!empty($data->featured_image))
+                                            <div class="swiper-slide"><img src="{{ asset('Featured_imgs/' . $data->featured_image) }}" alt="img" class="img-fluid w-100 img_radius_one" /></div>
+                                        @else
+                                            <div class="swiper-slide"><img src="/assets/images/farm_3.jpg" alt="img" class="img-fluid w-100 img_radius_one" /></div>
+                                        @endif
+
                                     </div>
                                     <div class="swiper-pagination"></div>
                                 </div>
@@ -1409,10 +1643,14 @@
                                             @php
                                                 $garageTypes = explode(',', $data->garage_type ?? '');
                                             @endphp
-                                            <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> <span>
+                                             <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> <span>
+                                                    {{ $data->num_spaces }} Car Garage
+                                                </span></li> 
+                                                
+                                                {{-- <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> <span>
                                                     {{ $data->num_spaces }}
                                                     {{ collect($garageTypes)->map(fn($item) => ucwords(strtolower($item)))->implode(', ') }}
-                                                </span></li>
+                                                </span></li> --}}
                                         </ul>
                                     </div>
                                     <div class="custome_listing_col">
@@ -1420,14 +1658,47 @@
                                             <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_5.png" alt="img" class="img-fluid" /></span> <span>{{ $data->num_barn ?? 0 }}
                                                     Barn</span></li>
                                             <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_6.png" alt="img" class="img-fluid" /></span>
-                                                <span>{{ $data->num_stalls ?? 0 }} Stalls </span></li>
+                                                <span>{{ $data->num_stalls ?? 0 }} Stalls </span>
+                                            </li>
                                             <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_7.png" alt="img" class="img-fluid" /></span> <span>Indoor :
                                                     {{ $data->in_ride_ring ?? '' }} </span></li>
                                             <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_8.png" alt="img" class="img-fluid" /></span> <span>Pastures:
-                                                    {{ $data->num_fenced_grass ?? '' }}</span></li>
+                                                    {{ $data->num_fenced_grass ?? '' }}</span></li> 
                                         </ul>
                                     </div>
+                                    
                                 </div>
+                                <style>
+                                    .long_point ul li {
+                                        text-transform: uppercase;
+                                        color: white;
+                                        margin-bottom: 6px;
+                                        font-size: 15px;
+                                        list-style: none;
+                                        border: 1px solid #1d2139;
+                                        padding: 8px;
+                                        text-align: start;
+                                        display: flex;
+                                        justify-content: flex-start;
+                                        align-items: center;
+                                        color: #1d2139;
+                                        font-size: 14px;
+                                    }
+                                    .videoplay_max_box iframe {
+                                        border-radius: 5px;
+                                    }
+                                </style>
+                                   <!-- <div class="custome_listing_col w-100 long_point">
+                                        <ul class="info_list_one">
+                                            <li class=""><span class="real_icon_box"><img src="/assets/images/realestate_icon_8.png" alt="img" class="img-fluid" /></span> <span>Pastures:
+                                                    {{ $data->num_fenced_grass ?? '' }}</span></li>
+                                            <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img" class="img-fluid" /></span> <span>
+                                                    {{ $data->num_spaces }}
+                                                    {{ collect($garageTypes)->map(fn($item) => ucwords(strtolower($item)))->implode(', ') }}
+                                                </span></li>
+                                                
+                                            </ul>
+                                    </div> -->
                             </div>
 
                             <div class="horser_information_box type_one">
@@ -1439,14 +1710,82 @@
                                 </div>
                                 <div class="horser_information_btn_flex mt-2">
                                     <a href="#!" class="horser_action_info_btn action_btn w-50">SHARE</a>
-                                    <label class="horse_info_btn fvrt_btn action_btn w-50">
-                                        <input type="checkbox" hidden />
-                                        Favorite <i class="fa fa-heart" aria-hidden="true"></i>
-                                    </label>
+                                    <form action="{{ route('farm.favorite', Crypt::encrypt($data['id'])) }}" class="horser_action_info_btn horse_card_btn favorite-form w-50" method="POST">
+                                        @csrf
+                                        <button class="fvrt_btn text-light" type="button" title="Add to favorite">
+                                            {{ $data->favorites->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i class="fa fa-heart{{ $data->favorites->isNotEmpty() ? '' : '-o' }}" aria-hidden="true" style="{{ $data->favorites->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                        <div class="mt-4"><img src="/assets/images/ad-img.jpg" alt="img" class="img-fluid" /></div>
                     </div>
+                    <style>
+                                /* Gallery Overlay */
+                                .fancybox-overlay {
+                                    display: none;
+                                    position: fixed;
+                                    z-index: 9999;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: rgba(0, 0, 0, 0.9);
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                                
+                                /* Container for Image */
+                                .fancy-img-container {
+                                    max-width: 80%;
+                                    max-height: 80%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                                
+                                #fancy-main-img {
+                                    max-width: 100%;
+                                    max-height: 90vh;
+                                    border: 3px solid #fff;
+                                    border-radius: 4px;
+                                    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                                    transition: transform 0.3s ease;
+                                }
+                                
+                                /* Navigation Buttons */
+                                .fancy-nav {
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    color: white;
+                                    font-size: 50px;
+                                    font-weight: bold;
+                                    cursor: pointer;
+                                    padding: 20px;
+                                    text-decoration: none;
+                                    user-select: none;
+                                    transition: 0.3s;
+                                }
+                                
+                                .fancy-nav:hover { color: #ffc107; }
+                                .fancy-prev { left: 20px; }
+                                .fancy-next { right: 20px; }
+                                
+                                /* Close Button */
+                                .fancy-close {
+                                    position: absolute;
+                                    top: 20px;
+                                    right: 40px;
+                                    color: white;
+                                    font-size: 50px;
+                                    cursor: pointer;
+                                    transition: 0.3s;
+                                }
+                                
+                                .fancy-close:hover { color: #f44336; }
+                            </style>
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                         <div class="content_scroll detail_right ">
                             <div class="tab-content" id="v-pills-tabContent">
@@ -1455,268 +1794,570 @@
                                         @php
                                             $images = json_decode($data->gallery_imgs, true);
                                         @endphp
-                                        @if (!empty($images) && isset($images[0]))
-                                            <a href="{{ asset('Gallery_imgs/' . $images[0]) }}" data-fancybox="group" data-caption="Horse">
+                                        @if (!empty($images))
+                                            @foreach ($images as $image)
+                                                
+                                                <a href="javascript:void(0)" class="gallery-trigger" data-index="{{ $image }}">
+                                                    <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img"  class="gallery-item"/>
+                                                </a>
+                                            @endforeach
+                                        @endif
+                                        {{-- @if (!empty($images) && isset($images[0]))
+                                            <a href="{{ asset('Gallery_imgs/' . $images[0]) }}">
                                                 <img src="{{ asset('Gallery_imgs/' . $images[0]) }}" alt="img" class="" />
                                             </a>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                     <p class="heading18px text-center mt-4"><strong>CLICK PICTURE TO ENLARGE</strong></p>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-detail_2" role="tabpanel" aria-labelledby="v-pills-detail_2-tab">
-                                    <div class="row">
-                                        @php
-                                            $videoUrls = !empty($data->video_url) ? explode(',', $data->video_url) : [];
-                                            $uploadedVideos = !empty($data->pro_video_url) ? explode(',', $data->pro_video_url) : [];
-                                        @endphp
-                                        @foreach ($videoUrls as $url)
-                                            @php
-                                                preg_match('/v=([^&]+)/', $url, $matches);
-                                                $youtubeId = $matches[1] ?? null;
-                                                $thumbnail = $youtubeId ? "https://img.youtube.com/vi/$youtubeId/hqdefault.jpg" : asset('assets/images/H_05.jpg');
-                                            @endphp
-                                            <div class="col-12 mb-4">
-                                                <div data-src="{{ $url }}" data-fancybox="group" data-caption="Horse 6" class="videoplay_box">
-                                                    <img src="{{ $thumbnail }}" alt="img" class="w-100" />
-                                                    <a id="play-video" class="video-play-button" href="{{ $url }}" data-toggle="modal" data-target="#savoybeachhotel">
-                                                        <span></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        @foreach ($uploadedVideos as $video)
-                                            <div class="col-12 mb-4">
-                                                <div data-src="{{ asset('service-videos/' . $video) }}" data-fancybox="group" data-caption="Horse 6" class="videoplay_box">
-                                                    <img src="{{ asset('assets/images/H_05.jpg') }}" alt="img" class="w-100" />
-                                                    <a id="play-video" class="video-play-button" href="{{ asset('service-videos/' . $video) }}" data-toggle="modal" data-target="#savoybeachhotel">
-                                                        <span></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        @if (empty($videoUrls) && empty($uploadedVideos))
-                                            <div class="text-center py-5">
-                                                <h5 class="text-muted">No videos available</h5>
-                                            </div>
-                                        @endif
+                                    <div class="new_heading_bar">
+                                        <i class="fa fa-video-camera me-2" aria-hidden="true" style="color: #1f2339; font-size: 22px;"></i>
+                                        <h2>VIDEOS</h2>
                                     </div>
+                                    <div class="row">
+                                            @php
+                                                if (!function_exists('getYoutubeId')) {
+                                                    function getYoutubeId($url) {
+                                                        $url = trim($url);
+                                                        if (preg_match('/v=([a-zA-Z0-9_-]+)/', $url, $matches)) return $matches[1];
+                                                        if (preg_match('/youtu\.be\/([a-zA-Z0-9_-]+)/', $url, $matches)) return $matches[1];
+                                                        if (preg_match('/embed\/([a-zA-Z0-9_-]+)/', $url, $matches)) return $matches[1];
+                                                        return null;
+                                                    }
+                                                }
+                                        
+                                                
+                                                $videoUrls = !empty($data->video_url) ? explode(',', $data->video_url) : [];
+                                                $firstVideoId = count($videoUrls) > 0 ? getYoutubeId($videoUrls[0]) : '';
+                                            @endphp
+                                        
+                                            <div class="col-12 mb-4">
+                                                <div class="videoplay_max_box mb-0">
+                                                    <iframe 
+                                                        id="mainPlayer"
+                                                        width="100%" 
+                                                        height="450" 
+                                                        src="{{ $firstVideoId ? 'https://www.youtube.com/embed/' . $firstVideoId : '' }}"
+                                                        frameborder="0" 
+                                                        allow="autoplay; encrypted-media" 
+                                                        allowfullscreen>
+                                                    </iframe>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-12 mt-4">
+                                                <p class="heading18px mb-3"><strong>MORE VIDEOS</strong></p>
+                                                <div class="video_click_box">
+                                                    @if (!empty($videoUrls))
+                                                        @foreach ($videoUrls as $url)
+                                                            @php $videoId = getYoutubeId($url); @endphp
+                                        
+                                                            @if($videoId)
+                                                   
+                                                                    <div class="thumbnail_wrapper" 
+                                                                         style="cursor: pointer; position: relative; overflow: hidden; border-radius: 8px;" 
+                                                                         onclick="changeVideo('{{ $videoId }}')">
+                                                                        
+                                                                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; z-index: 2;">
+                                                                            <i class="fa fa-play-circle" style="color: #fff; font-size: 40px; opacity: 0.8;"></i>
+                                                                        </div>
+                                        
+                                                                        <img src="https://img.youtube.com/vi/{{ $videoId }}/mqdefault.jpg" 
+                                                                             alt="Video Thumbnail" 
+                                                                             class="img-fluid w-100 shadow-sm">
+                                                                    </div>
+                                                    
+                                                            @endif
+                                                        @endforeach
+                                                    @else
+                                                        <div class="text-center py-5 w-100">
+                                                            <h5 class="text-muted">No videos available</h5>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-detail_3" role="tabpanel" aria-labelledby="v-pills-detail_3-tab">
                                     <div class="mb-4 border_box_one">
-                                        <h3 class="heading44px fw_700 about_horse_heading">About Farm:</h3>
+                                        <!--<h3 class="heading44px fw_700 about_horse_heading">About:</h3>-->
+                                        <div class="new_heading_bar">
+                                            
+                                            <h2>About:</h2>
+                                        </div>
                                         <p>
                                             {!! $data->property_overview !!}
-
-                                            {{-- <strong>🏡 Welcome to LAFAYETTE, Farm</strong><br />
-                                            A peaceful 40-acre retreat just outside the city, where nature meets care and compassion.
-
-                                            <br /><br />
-                                            <strong>🌳 Breathtaking Surroundings</strong><br />
-                                            Rolling green pastures, shady oak trees, and a peaceful creek winding through the land create a truly serene environment for both horses and visitors.
-
-                                            <br /><br />
-                                            <strong>🏠 Exceptional Facilities</strong><br />
-                                            The farm includes spacious stables, a modern veterinary barn, and large turnout fields where horses roam freely every day.
-
-                                            <br /><br />
-                                            <strong>🐴 A Place to Connect</strong><br />
-                                            Visitors are invited to enjoy guided tours, take riding lessons, or simply spend time with our gentle and friendly horses.
-
-                                            <br /><br />
-                                            <strong>💚 Our Philosophy</strong><br />
-                                            Willow Creek is dedicated to maintaining the highest standards of horse care, nutrition, and training. It’s a true sanctuary where horses like Max not only
-                                            live, but thrive.
-
-                                            <br /><br />
-                                            Experience the calm, the connection, and the care—only at LAFAYETTE, Farm. --}}
                                         </p>
                                     </div>
 
                                     <div class="mb-4">
-                                        <div class="heading65px monte_carlo fw_400 mb-4">
-                                            <h1>ADDITIONAL INFORMATION</h1>
-                                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
-                                        </div>
-
+                                        <!--<div class="heading65px monte_carlo fw_400 mb-4">-->
+                                        <!--    <h1>ADDITIONAL INFORMATION</h1>-->
+                                        <!--    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />-->
+                                        <!--</div>-->
+                                        
+                                        
                                         <div class="mb-4 border_box_one">
+                                            <div class="new_heading_bar">
+                                            
+                                                <h2>ADDITIONAL INFORMATION</h2>
+                                            </div>
                                             <p>
                                                 {!! $data->ad_write_up !!}
-                                                {{-- <strong>🌿 Escape to LAFAYETTE, Farm</strong><br />
-                                                Just beyond the city's edge lies <strong>a breathtaking 40-acre sanctuary</strong> known as LAFAYETTE, Farm. Here, time slows down as you're greeted by the
-                                                rustle of shady oak trees, the soft murmur of a creek weaving through the fields, and the calming presence of majestic horses grazing under open skies.
-
-                                                <br /><br />
-                                                <strong>🏡 A Home Crafted for Horses</strong><br />
-                                                Every inch of the farm is designed with love and care—from the airy, sunlit stables to the modern veterinary barn equipped for top-notch wellness. Daily
-                                                turnout fields allow our horses to stretch, run, and live with freedom, dignity, and joy.
-
-                                                <br /><br />
-                                                <strong>🐎 An Invitation to Connect</strong><br />
-                                                Whether you're joining a guided tour, taking a peaceful riding lesson, or simply watching these gentle giants in their element, every visit to Willow Creek
-                                                is an opportunity to connect—with animals, nature, and a slower pace of life.
-
-                                                <br /><br />
-                                                <strong>💚 Where Care Comes First</strong><br />
-                                                At the heart of it all is our commitment to excellence in horse care. With premium nutrition, expert training, and daily affection, horses like Max don't
-                                                just live here—they thrive. Willow Creek is more than a farm; it's a refuge where horses heal, grow, and enjoy the lives they deserve.
-
-                                                <br /><br />
-                                                Come experience the quiet magic of Willow Creek, where every sunrise brings new moments of peace, purpose, and connection.
-                                            </p> --}}
+                                            </p>
 
                                         </div>
                                     </div>
                                 </div>
+                                
+                               
                                 <div class="tab-pane fade" id="v-pills-detail_4" role="tabpanel" aria-labelledby="v-pills-detail_4-tab">
                                     <div class="mb-4">
-                                        <div class="heading65px monte_carlo fw_400 mb-4">
-                                            <h1>FACILITY AMENITIES</h1>
-                                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                        <!--<div class="heading65px monte_carlo fw_400 mb-4">-->
+                                        <!--    <h1>FACILITY AMENITIES</h1>-->
+                                        <!--    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />-->
+                                        <!--</div>-->
+                                        
+                                        <div class="new_heading_bar">
+                                            
+                                            <h2>FACILITY AMENITIES</h2>
                                         </div>
+                                        <p>All information is deemed reliable but not guaranteed. Buyer to verify all information.</p>
 
-                                        <div class="border_box_one p-3">
-                                            <table class="barn-table">
+                                        <div class="border_box_one  border_box_one_neww">
+                                            <h2>Barn</h2>
+                                            <table>
+                                                <tr>
+                                                    <td class="label">Barn Type:</td>
+                                                    <td class="value" colspan="5">{{ $data->property_type }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Barns:</td>
+                                                    <td class="value" colspan="5">{{ $data->num_barn }}</td>
+                                                </tr>
+                                                @php
+                                                    $fencingTypes = explode(',', $data->barn_flooring);
+                                                @endphp
+                                                <tr>
+                                                    <td class="label">Barn Flooring:</td>
+                                                    @for ($i = 0; $i <= 1; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="value" colspan="{{ $i == 1 ? 3 : 2 }}">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td class="value" colspan="{{ $i == 1 ? 3 : 2 }}"></td>
+                                                        @endif
+                                                    @endfor
+                                                    
+                                                    <!--<td class="value" colspan="2">Rubber</td>-->
+                                                    <!--<td class="value" colspan="3">Concrete</td>-->
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Air Conditioned Barn:</td>
+                                                    <td class="value" colspan="5">{{ $data->air_condition_barn }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Heated Barn:</td>
+                                                    <td class="value" colspan="5">{{ $data->heated_barn ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Wash Stall:</td>
+                                                    <td class="value">{{ $data->wash_stall }}</td>
+                                                    <td class="label">Cold Water:</td>
+                                                    <td class="value">{{ $data->cold_water }}</td>
+                                                    <td class="label">Hot Water:</td>
+                                                    <td class="value">{{ $data->hot_water }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Tack Room:</td>
+                                                    <td class="value">{{ $data->tack_room ?? 'No' }}</td>
+                                                    <td class="label">Heated:</td>
+                                                    <td class="value" colspan="3">{{ $data->heated_not }}</td>
+                                                </tr>
+                                                @php
+                                                    $features = explode(',', $data->property_features ?? '');
+                                                @endphp
+                                                <tr>
+                                                    <td class="label">Hay Storage:</td>
+                                                    {{-- @php
+                                                        $fencingTypes = explode(',', $data->hay_storage);
+                                                    @endphp
+                                                    @for ($i = 0; $i <= 2; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="value" colspan="{{ $i >= 2 ? 2 : 1 }}">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td class="value" colspan="{{ $i >= 2 ? 2 : 1 }}"></td>
+                                                        @endif
+                                                    @endfor --}}
+                                                    @php
+                                                        $fencingTypes = explode(',', $data->hay_storage ?? '');
+                                                        $fencingTypes = array_filter(array_map('trim', $fencingTypes));
+                                                        $fencingTypes = array_pad(array_values($fencingTypes), 5, ''); // Force exactly 4 items
+                                                    @endphp
+
+                                                    @foreach ($fencingTypes as $type)
+                                                        <td class="value text-center">{{ !empty($type) ? ucfirst($type) : '' }}</td>
+                                                    @endforeach
+
+                                                    <!--<td class="value" colspan="1">Hay Loft</td>-->
+                                                    <!--<td class="value" colspan="2">Hay Room</td>-->
+                                                    <!--<td class="value" colspan="2">Additional Hay Barn</td>-->
+                                                </tr>
+                                            </table>
+                                        
+                                            <h2>Stalls</h2>
+                                            <table>
+                                                @php
+                                                    $fencingTypes = explode(',', $data->stall_types);
+                                                @endphp
+                                                <tr>
+                                                    <td class="label">Number of Stalls:</td>
+                                                    <td class="value">{{ $data->num_stalls }}</td>
+                                                    <td class="label">Sizes:</td>
+                                                    @for ($i = 0; $i <= 1; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="value">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td<td class="value"></td>
+                                                        @endif
+                                                    @endfor
+                                                    <!--<td class="value">Mini</td>-->
+                                                    <!--<td class="value">Standard</td>-->
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Rubber Mats in Stalls:</td>
+                                                    <td class="value" colspan="4">{{ $data->rubber_matts ?? '' }}</td>
+                                                </tr>
+                                            </table>
+                                        
+                                            <h2>Turnout & Pastures</h2>
+                                            <table>
+                                                <tr>
+                                                    <td class="label">Dry Lots:</td>
+                                                    <td class="value">{{ $data->dry_lots ?? '' }}</td>
+                                                    <td class="label">Quantity:</td>
+                                                    <td class="value">{{ $data->num_lots ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Grass Pastures:</td>
+                                                    <td class="value">{{ $data->fenced_grass ?? '' }}</td>
+                                                    <td class="label">Quantity:</td>
+                                                    <td class="value">{{ $data->num_fenced_grass ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Fencing Type:</td>@php
+                                                        $fencingTypes = explode(',', $data->fencing);
+                                                    @endphp
+                                                    @for ($i = 0; $i <= 2; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="value">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td class="value"></td>
+                                                        @endif
+                                                    @endfor
+
+                                                    <!--<td class="value">Electric</td>-->
+                                                    <!--<td class="value">Wood</td>-->
+                                                    <!--<td class="value">Metal</td>-->
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Run in Sheds:</td>
+                                                    <td class="value" colspan="3">{{ $data->run_shed ?? '' }}</td>
+                                                </tr>
+                                            </table>
+                                            @php
+                                                    $features = explode(',', $data->property_features ?? '');
+                                                @endphp
+                                            
+                                            <h2>Riding Arenas</h2>
+                                            <table>
+                                                <tr>
+                                                    <td class="label">Outdoor Riding Ring:</td>
+                                                    <td class="value">{{ $data->out_ride_ring ?? '' }}</td>@php
+                                                        $dimensions = explode(',', $data->out_dimensions);
+                                                    @endphp
+                                                    <td class="label">Size:</td>
+                                                    <td class="value">{{ !empty($dimensions[0]) ? $dimensions[0] : '' }} &times; {{ !empty($dimensions[1]) ? $dimensions[1] : '' }}</td>
+                                                    <td class="label">Watering System:</td>
+                                                    <td class="value">{{ $data->out_water_system }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Indoor Riding Ring:</td>
+                                                    <td class="value">{{ $data->in_ride_ring }}</td>@php
+                                                        $dimensions = explode(',', $data->in_dimensions);
+                                                    @endphp
+                                                    <td class="label">Size:</td>
+                                                    <td class="value">{{ !empty($dimensions[0]) ? $dimensions[0] : '' }} &times; {{ !empty($dimensions[1]) ? $dimensions[1] : '' }}</td>
+                                                    <td class="label">Watering System:</td>
+                                                    <td class="value">{{ $data->in_water_system }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Round Pen:</td>
+                                                    <td class="value" colspan="5">{{ $data->round_pen }}</td>
+                                                </tr>
+                                            </table>
+                                            
+                                            
+  
+                                            <!--OLD TABLE <table class="barn-table">
                                                 <tr>
                                                     <td>BARN TYPE :</td>
-                                                    <td colspan="1">Center Aisle Barn</td>
-                                                </tr>
-                                                <tr>
-                                                    <td># OF BARNS:</td>
-                                                    <td>1</td>
+                                                    <td colspan="1">{{ $data->property_type }}</td>
+                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td># OF STALLS:</td>
-                                                    <td>20</td>
+                                                    <td>BARNS:</td>
+                                                    <td>{{ $data->num_barn }}</td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td></td>
+
+                                                </tr>
+                                                @php
+                                                    $fencingTypes = explode(',', $data->stall_types);
+                                                @endphp
+                                                <tr>
+                                                    <td>STALLS:</td>
+                                                    <td>{{ $data->num_stalls }}</td>
+                                                    @for ($i = 0; $i <= 2; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="text-capitalize">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td class="text-capitalize"></td>
+                                                        @endif
+                                                    @endfor
                                                 </tr>
                                                 <tr>
                                                     <td>RUBBER MATS IN STALLS:</td>
-                                                    <td>{{ $data->rubber_matts ?? '' }}</td>
+                                                    <td class="text-capitalize">{{ $data->rubber_matts ?? '' }}</td>
                                                     <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>BARN FLOORING:</td>
-                                                    <td>{{ $data->barn_flooring ?? '' }}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>TACK ROOM:</td>
-                                                    <td>{{ $data->tack_room ?? '' }}</td>
-                                                    <td>Heated: {{ $data->heated_not }}</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>WASH STALL:</td>
-                                                    <td>{{ $data->wash_stall }}</td>
-                                                    <td>Cold Water: {{ $data->cold_water }}</td>
-                                                    <td>Hot Water: {{ $data->hot_water }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>AIR CONDITIONED BARN:</td>
-                                                    <td>{{ $data->air_condition_barn }}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>HEATED BARN:</td>
-                                                    <td>{{ $data->heated_barn ?? '' }}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td># OF RUN-IN SHEDS:</td>
-                                                    <td>3</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td># OF DRY LOTS:</td>
-                                                    <td>{{ $data->dry_lots ?? '' }}</td>
-                                                    <td>{{ $data->num_lots ?? '' }}</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td># OF GRASS PASTURES:</td>
-                                                    <td>{{ $data->fenced_grass ?? '' }}</td>
-                                                    <td>{{ $data->num_fenced_grass ?? '' }}</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>FENCING TYPE:</td>
-                                                    @php
-                                                        $fencingTypes = explode(',', $data->fencing);
-                                                    @endphp
-                                                    @foreach ($fencingTypes as $type)
-                                                        <td>{{ ucfirst($type) }}</td>
-                                                    @endforeach
-                                                </tr>
-                                                <tr>
-                                                    <td>OUTDOOR RIDING RING:</td>
-                                                    <td>{{ $data->out_ride_ring ?? '' }}</td>
-                                                    @php
-                                                        $dimensions = explode(',', $data->out_dimensions);
-                                                    @endphp
-                                                    <td>
-                                                        {{ $dimensions[0] ?? '' }} × {{ $dimensions[1] ?? '' }}
-                                                    </td>
-                                                    <td>Watering System: {{ $data->out_water_system }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>INDOOR RIDING RING:</td>
-                                                    <td>{{ $data->in_ride_ring }}</td>
-                                                    @php
-                                                        $dimensions = explode(',', $data->in_dimensions);
-                                                    @endphp
-                                                    <td>{{ $dimensions[0] ?? '' }} × {{ $dimensions[1] ?? '' }}</td>
-                                                    <td>Watering System: {{ $data->in_water_system }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>ROUND PEN:</td>
-                                                    <td>{{ $data->round_pen }}</td>
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
                                                 @php
-                                                    $features = explode(',', $property->other_features ?? '');
+                                                    $fencingTypes = explode(',', $data->barn_flooring);
                                                 @endphp
                                                 <tr>
-                                                    <td>TRAILS ON PROPERTY:</td>
-                                                    <td>{{ in_array('trails', $features) ? 'Yes' : 'No' }}</td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>BARN FLOORING:</td>
+                                                    @for ($i = 0; $i <= 3; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="text-capitalize">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td class="text-capitalize"></td>
+                                                        @endif
+                                                    @endfor
+                                                    {{-- <td class="text-capitalize">{{ $data->barn_flooring ?? '' }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td> --}}
                                                 </tr>
-
                                                 <tr>
-                                                    <td>TRAIL ACCESS:</td>
-                                                    <td>{{ in_array('trail_access', $features) ? 'Yes' : 'No' }}</td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>Red-in Shed:</td>
+                                                    <td class="text-capitalize">{{ $data->run_shed ?? '' }}</td>
+                                                    <td class="text-capitalize">{{ $data->num_sheds ?? '' }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
                                                 </tr>
-
                                                 <tr>
-                                                    <td>HAY FIELDS:</td>
-                                                    <td>{{ in_array('hay_fields', $features) ? 'Yes' : 'No' }}</td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td class="text-capitalize">TACK ROOM:</td>
+                                                    <td class="text-capitalize">{{ $data->tack_room ?? '' }}</td>
+                                                    <td class="text-capitalize">Heated: {{ $data->heated_not }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
                                                 </tr>
-                                            </table>
+                                                <tr>
+                                                    <td>WASH STALL:</td>
+                                                    <td class="text-capitalize">{{ $data->wash_stall }}</td>
+                                                    <td class="text-capitalize">Cold Water: {{ $data->cold_water }}</td>
+                                                    <td class="text-capitalize">Hot Water: {{ $data->hot_water }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>AIR CONDITIONED BARN:</td>
+                                                    <td class="text-capitalize">{{ $data->air_condition_barn }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>HEATED BARN:</td>
+                                                    <td class="text-capitalize">{{ $data->heated_barn ?? '' }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-capitalize">DRY LOTS:</td>
+                                                    <td class="text-capitalize">{{ $data->dry_lots ?? '' }}</td>
+                                                    <td class="text-capitalize">{{ $data->num_lots ?? '' }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-capitalize">GRASS PASTURES:</td>
+                                                    <td class="text-capitalize">{{ $data->fenced_grass ?? '' }}</td>
+                                                    <td class="text-capitalize">{{ $data->num_fenced_grass ?? '' }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-capitalize">FENCING TYPE:</td>
+                                                    @php
+                                                        $fencingTypes = explode(',', $data->fencing);
+                                                    @endphp
+                                                    @for ($i = 0; $i <= 3; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="text-capitalize">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td class="text-capitalize"></td>
+                                                        @endif
+                                                    @endfor
+                                                    {{-- @foreach ($fencingTypes as $type)
+                                                        <td class="text-capitalize">{{ ucfirst($type) }}</td>
+                                                    @endforeach --}}
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-capitalize">OUTDOOR RIDING RING:</td>
+                                                    <td class="text-capitalize">{{ $data->out_ride_ring ?? '' }}</td>
+                                                    @php
+                                                        $dimensions = explode(',', $data->out_dimensions);
+                                                    @endphp
+                                                    <td class="text-capitalize">
+                                                        {{ !empty($dimensions[0]) ? $dimensions[0] : '' }}
+                                                        {{ !empty($dimensions[0]) && !empty($dimensions[1]) ? ' × ' : '' }}
+                                                        {{ !empty($dimensions[1]) ? $dimensions[1] : '' }}
+                                                    </td>
+                                                    {{-- <td class="text-capitalize">
+                                                        {{ $dimensions[0] ?? '' }} × {{ $dimensions[1] ?? '' }}
+                                                    </td> --}}
+                                                    <td class="text-capitalize">Watering System: {{ $data->out_water_system }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-capitalize">INDOOR RIDING RING:</td>
+                                                    <td class="text-capitalize">{{ $data->in_ride_ring }}</td>
+                                                    @php
+                                                        $dimensions = explode(',', $data->in_dimensions);
+                                                    @endphp
+                                                    <td class="text-capitalize">
+                                                        {{ !empty($dimensions[0]) ? $dimensions[0] : '' }}
+                                                        {{ !empty($dimensions[0]) && !empty($dimensions[1]) ? ' × ' : '' }}
+                                                        {{ !empty($dimensions[1]) ? $dimensions[1] : '' }}
+                                                    </td>
+                                                    {{-- <td class="text-capitalize">{{ $dimensions[0] ?? '' }} × {{ $dimensions[1] ?? '' }}</td> --}}
+                                                    <td class="text-capitalize">Watering System: {{ $data->in_water_system }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-capitalize">ROUND PEN:</td>
+                                                    <td class="text-capitalize">{{ $data->round_pen }}</td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                    <td class="text-capitalize"></td>
+                                                </tr>
+                                                @php
+                                                    $features = explode(',', $data->property_features ?? '');
+                                                @endphp
+                                                <tr>
+                                                    <td class="text-capitalize">Hay Storage:</td>
+                                                    @php
+                                                        $fencingTypes = explode(',', $data->hay_storage);
+                                                    @endphp
+                                                    @for ($i = 0; $i <= 3; $i++)
+                                                        @if (!empty($fencingTypes[$i]))
+                                                            <td class="text-capitalize">{{ ucfirst($fencingTypes[$i]) }}</td>
+                                                        @else
+                                                            <td class="text-capitalize"></td>
+                                                        @endif
+                                                    @endfor
+                                                </tr>
+                                            </table> -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-detail_5" role="tabpanel" aria-labelledby="v-pills-detail_5-tab">
                                     <div class="mb-4">
-                                        <div class="heading65px monte_carlo fw_400 mb-4">
-                                            <h1>PROPERTY AMENITIES </h1>
-                                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                        <!--<div class="heading65px monte_carlo fw_400 mb-4">-->
+                                        <!--    <h1>PROPERTY AMENITIES </h1>-->
+                                        <!--    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />-->
+                                        <!--</div>-->
+                                        
+                                        <div class="new_heading_bar">
+                                            
+                                            <h2>PROPERTY AMENITIES</h2>
                                         </div>
+                                        <p>All information is deemed reliable but not guaranteed. Buyer to verify all information.</p>
 
-                                        <div class="border_box_one p-3">
-                                            <table class="barn-table">
+                                        <div class="border_box_one border_box_one_neww">
+                                            <h2>Home & Living</h2>
+                                            <table>
+                                                <tr>
+                                                    <td class="label">House Type:</td>
+                                                    <td class="value" colspan="3">{{ $data->property_type }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Acreage:</td>
+                                                    <td class="value" colspan="3">{{ $data->real_acres ?? '' }} Acres</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label"># of Bedrooms:</td>
+                                                    <td class="value" colspan="3">{{ $data->real_bedroom ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label"># of Bathrooms:</td>
+                                                    <td class="value" colspan="3">{{ $data->real_bathroom ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Garage:</td>
+                                                    <td class="value">{{ $data->num_spaces }}</td>@php
+                                                        $garageTypes = explode(',', $data->garage_type ?? '');
+                                                    @endphp
+                                                    <td class="label">Details:</td>
+                                                    <td class="value">{{ collect($garageTypes)->map(fn($item) => ucwords(strtolower($item)))->implode(', ') }}
+</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Pool:</td>
+                                                    <td class="value" colspan="3">{{ in_array('pool', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Hot Tub:</td>
+                                                    <td class="value" colspan="3">{{ in_array('hot_tub', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Pond:</td>
+                                                    <td class="value" colspan="3">{{ in_array('pond', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">River:</td>
+                                                    <td class="value" colspan="3">{{ in_array('river', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Trails on Property:</td>
+                                                    <td class="value" colspan="3">{{ in_array('trails', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Trail Access:</td>
+                                                    <td class="value" colspan="3">{{ in_array('trail_access', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Hay Fields:</td>
+                                                    <td class="value" colspan="3">{{ in_array('hay_fields', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label">Extra Housing:</td>
+                                                    <td class="value" colspan="3">{{ in_array('extra_housing', $features) ? 'Yes' : 'No' }}</td>
+                                                </tr>
+                                            </table>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            <!--OLD TABLE <table class="barn-table">
                                                 <tr>
                                                     <td class="label">HOUSE TYPE :</td>
                                                     <td>{{ $data->property_type }}</td>
@@ -1755,80 +2396,211 @@
                                                     <td></td>
                                                 </tr> --}}
                                                 <tr>
+                                                    <td class="label">POOL:</td>
+                                                    <td>{{ in_array('pool', $features) ? 'Yes' : 'No' }}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
                                                     <td class="label">HOT TUB:</td>
                                                     <td>{{ in_array('hot_tub', $features) ? 'Yes' : 'No' }}</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="label">POOL:</td>
-                                                    <td>{{ in_array('pool', $features) ? 'Yes' : 'No' }}</td>
+                                                    <td class="label text-uppercase">pond:</td>
+                                                    <td>{{ in_array('pond', $features) ? 'Yes' : 'No' }}</td>
                                                     <td></td>
                                                 </tr>
-                                            </table>
+                                                <tr>
+                                                    <td class="label text-uppercase">river:</td>
+                                                    <td>{{ in_array('river', $features) ? 'Yes' : 'No' }}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label text-uppercase">TRAILS ON PROPERTY:</td>
+                                                    <td>{{ in_array('trails', $features) ? 'Yes' : 'No' }}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label text-uppercase">Trail Access:</td>
+                                                    <td>{{ in_array('trail_access', $features) ? 'Yes' : 'No' }}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label text-uppercase">Hay Fields:</td>
+                                                    <td>{{ in_array('hay_fields', $features) ? 'Yes' : 'No' }}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label text-uppercase">Extra Housing:</td>
+                                                    <td>{{ in_array('extra_housing', $features) ? 'Yes' : 'No' }}</td>
+                                                    <td></td>
+                                                </tr>
+                                            </table> -->
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-detail_6" role="tabpanel" aria-labelledby="v-pills-detail_6-tab">
-
                                     <div class="mb-4">
-                                        <div class="heading65px monte_carlo fw_400 mb-4">
-                                            <h1>DOCUMENTS</h1>
-                                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                        <div class="new_heading_bar">
+                                            <h2>DOCUMENTS</h2>
                                         </div>
-
                                         <div class="border_box_one">
-
-                                            <div class="row mb-4 gy-4">
-                                                @php
-                                                    $files = json_decode($data->property_document, true);
-                                                @endphp
-                                                @if (!empty($files))
-                                                    @foreach ($files as $file)
-                                                        @php
-                                                            $extension = pathinfo($file, PATHINFO_EXTENSION);
-                                                        @endphp
-                                                        @if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                                                <a href="{{ asset('Property_documents/' . $file) }}" data-fancybox="certificate">
-                                                                    <img src="{{ asset('Property_documents/' . $file) }}" alt="img" class="img-fluid" />
+                                            <div class="row mb-4 gy-4"></div>
+                                            
+                                            <div class="preview_flex">
+                                                <!-- MAIN PREVIEW AREA -->
+                                                <div class="preview_bax" style="min-height: 300px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px solid #ddd; margin-bottom: 15px; position: relative;">
+                                                    
+                                                    <!-- 1. Image Preview (Default) -->
+                                                    @php
+                                                        $files = json_decode($data->property_document, true);
+                                                        $defaultProp = "";
+                                                        $isDefaultImage = false;
+                                                        if (!empty($files) && is_array($files)) {
+                                                            $firstFile = $files[0];
+                                                            $firstExt = strtolower(pathinfo($firstFile, PATHINFO_EXTENSION));
+                                                            if (in_array($firstExt, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                                                                $defaultProp = asset('Property_documents/' . $firstFile);
+                                                                $isDefaultImage = true;
+                                                            }
+                                                        }
+                                                    @endphp
+                                                    
+                                                    <img id="main-preview-prop" src="{{ $defaultProp }}" alt="img" class="img-fluid" style="{{ !$isDefaultImage ? 'display:none;' : '' }}" />
+                                
+                                                    <!-- 2. PDF Iframe Preview (Hidden by default) -->
+                                                    <iframe id="pdf-preview-frame" src="" style="display:none; width:100%; height:100%; border:none;"></iframe>
+                                
+                                                    <!-- 3. Document Icon & Download Button Container (Hidden by default) -->
+                                                    <div id="doc-preview-container" style="display:none; text-align:center;">
+                                                        <i id="doc-preview-icon" class="fa fa-file-word-o" style="font-size:80px; color:#2b579a; margin-bottom: 20px;"></i>
+                                                        <p id="doc-preview-filename" style="margin-bottom: 15px; font-weight:bold; color:#555; font-size: 16px;"></p>
+                                                        <a id="doc-download-btn" href="#" target="_blank" class="btn btn-primary">
+                                                         Download File
+                                                        </a>
+                                                    </div>
+                                
+                                                    <!-- Placeholder Text if nothing selected initially and no default image -->
+                                                    @if(empty($defaultProp) && !empty($files))
+                                                    <p id="placeholder-text-prop" class="text-muted">Select a document from the sidebar to view.</p>
+                                                    @endif
+                                                </div>
+                                
+                                                <!-- SIDEBAR THUMBNAILS -->
+                                                <div class="new_flex">
+                                                    @if (!empty($files))
+                                                        @foreach ($files as $file)
+                                                            @php
+                                                                $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                                                                $filePath = asset('Property_documents/' . $file);
+                                                            @endphp
+                                
+                                                            @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                                                <!-- Image Thumbnail -->
+                                                                <a href="javascript:void(0)" class="u_box prop-preview-trigger" data-type="image" data-src="{{ $filePath }}">
+                                                                    <img src="{{ $filePath }}" alt="img" class="img-fluid" />
                                                                 </a>
-                                                            </div>
-                                                        @elseif(strtolower($extension) == 'pdf')
-                                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                                                <a href="{{ asset('Property_documents/' . $file) }}" target="_blank" data-fancybox="certificate">
-                                                                    View PDF
+                                                            
+                                                            @elseif($extension == 'pdf')
+                                                                <!-- PDF Thumbnail -->
+                                                                <a href="javascript:void(0)" class="u_box prop-preview-trigger" data-type="pdf" data-src="{{ $filePath }}" data-name="{{ $file }}">
+                                                                    <i class="fa fa-file-pdf-o" style="font-size:65px;color:#e74c3c;"></i>
                                                                 </a>
-                                                            </div>
-                                                        @endif
-                                                    @endforeach
-                                                @else
-                                                    <p>No Files Or Documents Found.</p>
-                                                @endif
+                                                            
+                                                            @elseif(in_array($extension, ['doc', 'docx']))
+                                                                <!-- DOC Thumbnail -->
+                                                                <a href="javascript:void(0)" class="u_box prop-preview-trigger" data-type="doc" data-src="{{ $filePath }}" data-name="{{ $file }}">
+                                                                    <i class="fa fa-file-word-o" style="font-size:65px;color:#2b579a;"></i>
+                                                                </a>
+                                                            @endif
+                                                        @endforeach
+                                                    @else
+                                                        <p>No Files Or Documents Found.</p>
+                                                    @endif
+                                                </div>
                                             </div>
-                                            <p class="heading18px text-center m-0"><strong>CLICK TO ENLARGE DOCUMENTS</strong></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-detail_7" role="tabpanel" aria-labelledby="v-pills-detail_7-tab">
                                     <div class="mb-4">
-                                        <div class="heading65px monte_carlo fw_400 mb-4">
-                                            <h1>LOCATION</h1>
-                                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                        <!--<div class="heading65px monte_carlo fw_400 mb-4">-->
+                                        <!--    <h1>LOCATION</h1>-->
+                                        <!--    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />-->
+                                        <!--</div>-->
+                                        
+                                        <div class="new_heading_bar">
+                                            
+                                            <h2>LOCATION</h2>
                                         </div>
 
-                                        <div class="border_box_one">
-                                            <iframe
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.953385382017!2d-74.04668928459306!3d40.68924997933561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4c2927b2e6fe40f4!2sStatue%20of%20Liberty!5e0!3m2!1sen!2sus!4v1716905061377!5m2!1sen!2sus"
-                                                style="border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                                            </iframe>
+                                        <div class="border_box_one border-0 p-0 shadow-none">
+                                            @php
+                                                // Fetching the exact real_location string passed from the backend context
+                                                $backendStateLocation = trim($data['real_location'] ?? 'alabama (AL)');
+                                                
+                                                // Appending region context to ensure strict map pinning boundaries
+                                                $cleanMapRegionQuery = $backendStateLocation . ' USA';
+                                                $encodedMapRegionQuery = urlencode($cleanMapRegionQuery);
+                                            @endphp
+                                    
+                                            @if(!empty($backendStateLocation))
+                                                <div id="dynamic-map-container" class="border_box_one border-0 p-0" style="border-radius: 10px; overflow: hidden;">
+                                                    <iframe
+                                                        id="business-dynamic-map"
+                                                        src="https://maps.google.com/maps?q={{ $encodedMapRegionQuery }}&t=&z=6&ie=UTF8&iwloc=&output=embed"
+                                                        style="border: 0; width: 100%; height: 450px;" 
+                                                        allowfullscreen="" 
+                                                        loading="lazy" 
+                                                        referrerpolicy="no-referrer-when-downgrade">
+                                                    </iframe>
+                                                </div>
+                                    
+                                                <div id="dynamic-map-error" style="display: none; padding: 30px 20px; background: #fafafa; color: #666666; border: 1px dashed #dddddd; border-radius: 8px; text-align: center; font-size: 14px;">
+                                                    <div style="font-size: 24px; color: #999999; margin-bottom: 10px;">🗺️</div>
+                                                    <h4 style="margin: 0 0 5px 0; color: #333333; font-size: 16px; font-weight: 600;">Map Preview Unavailable</h4>
+                                                    <p style="margin: 0;">Please refer to the physical address details listed on this page.</p>
+                                                </div>
+                                    
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function() {
+                                                        var locationQueryString = "{{ addslashes($cleanMapRegionQuery) }}";
+                                                        
+                                                        // Triggering verification fetch sequence against OpenStreetMap index records
+                                                        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationQueryString)}`)
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                if (data.length === 0) {
+                                                                    // Manage visible display classes if structural layout fails
+                                                                    document.getElementById('dynamic-map-container').style.display = 'none';
+                                                                    document.getElementById('dynamic-map-error').style.display = 'block';
+                                                                }
+                                                            })
+                                                            .catch(error => {
+                                                                // Failsafe configuration layer fallback continuity rules
+                                                                console.log("Map layout check skipped, displaying fallback element parameters.");
+                                                            });
+                                                    });
+                                                </script>
+                                            @else
+                                                <div style="padding: 20px; text-align: center; color: #9ca3af;">
+                                                    Location details are currently unavailable.
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
 
                                     <div class="mb-4">
-                                        <div class="heading65px monte_carlo fw_400 mb-4 odd_heading">
-                                            <h1>SERVICE PROVIDERS AROUND THIS AREA</h1>
-                                            <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
+                                        <!--<div class="heading65px monte_carlo fw_400 mb-4 odd_heading">-->
+                                        <!--    <h1>SERVICE PROVIDERS AROUND THIS AREA</h1>-->
+                                        <!--    <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />-->
+                                        <!--</div>-->
+                                        
+                                        
+                                         <div class="new_heading_bar">
+                                            
+                                            <h2>SERVICE PROVIDERS AROUND THIS AREA</h2>
                                         </div>
 
                                         <div class="row gy-4">
@@ -1907,10 +2679,15 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade seller_tab" id="v-pills-detail_8" role="tabpanel" aria-labelledby="v-pills-detail_8-tab">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h3 class="heading44px fw_700 m-0">ABOUT THE AGENT | SELLER:</h3>
-                                        <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a>
-                                    </div>
+                                    <!--<div class="d-flex justify-content-between align-items-center mb-4">-->
+                                    <!--    <h3 class="heading44px fw_700 m-0">ABOUT THE AGENT | SELLER:</h3>-->
+                                    <!--    <a href="#!" class="horse_info_btn">CHAT WIH SELLER</a>-->
+                                    <!--</div>-->
+                                    
+                                     <div class="new_heading_bar">
+                                            
+                                            <h2>ABOUT THE AGENT | SELLER:</h2>
+                                        </div>
 
                                     <div class="row mb-4">
                                         <div class="col-lg-4 col-md-4 col-sm-12 col-12">
@@ -1920,12 +2697,12 @@
 
                                             @if (!empty($data->per_pic))
                                                 @php
-                                                    $photos = is_array($data->per_pic) ? $data->per_pic : explode(',', $data->per_pic);
+                                                    $photos = json_decode($data->per_pic, true);
                                                 @endphp
 
                                                 @foreach ($photos as $photo)
                                                     <div class="seller_img">
-                                                        <img src="{{ !empty($photo) ? asset('user-photos/' . $photo) : $defaultImage }}" alt="img" class="img-fluid"
+                                                        <img src="{{ asset('Personal_pictures/' . $photo) }}" alt="img" class="img-fluid"
                                                             onerror="this.onerror=null;this.src='{{ $defaultImage }}';" />
                                                     </div>
                                                 @endforeach
@@ -2003,144 +2780,163 @@
                                                         }
                                                     @endphp
                                                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>{{ $state['real_title'] }}, {{ $displayLocation }}</h2>
-                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                        <!-- <div class="horse_list_card">
+                                                                    <div class="blue_stripe">
+                                                                        <h2>{{ $state['real_title'] }}, {{ $displayLocation }}</h2>
+                                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                    </div>
+                                                                    @php
+                                                                        $images = !empty($state->gallery_imgs) ? json_decode($state->gallery_imgs, true) : [];
+                                                                    @endphp
+                                                                    <div class="img_box">
+                                                                        <div class="swiper">
+                                                                            <div class="swiper-wrapper">
+                                                                                @foreach ($images as $image)
+    <div class="swiper-slide">
+                                                                                        <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img">
+                                                                                    </div>
+    @endforeach
+                                                                            </div>
+                                                                            <div class="swiper-pagination"></div>
+                                                                        </div>
+                                                                        <div class="arrow_flex">
+                                                                            <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                            <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="blue_stripe">
+                                                                        <h3>Price: {{ $state['real_price'] }}</h3>
+                                                                    </div>
+                                                                    <div class="text_box">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-12">
+                                                                                        <ul class="info_list v1">
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_1.png" alt="img"
+                                                                                                        class="img-fluid"></span> {{ $state['real_acres'] }} Acres</li>
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_2.png" alt="img"
+                                                                                                        class="img-fluid"></span> {{ $state['real_bedroom'] }} Bedrooms </li>
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_3.png" alt="img"
+                                                                                                        class="img-fluid"></span> {{ $state['real_bathroom'] }} Baths</li>
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img"
+                                                                                                        class="img-fluid"></span>{{ $state['num_spaces'] }}
+                                                                                                {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-12">
+                                                                                        <h5 class="heading44px card_about_heading">About</h5>
+                                                                                        <p class="about_sm_desc">{!! $state->property_overview !!}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="horse_list_card_btn_flex v1">
+                                                                            <a href="javascript:;" class="horse_card_btn">Pictures</a>
+                                                                            <a href="javascript:;" class="horse_card_btn">Videos</a>
+                                                                            <a href="javascript:;" class="horse_card_btn">View Details</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+
+                                                        <div class="detail_left">
+                                                            <h3 class="sale_tag">{{ $state->ad_type }}</h3>
+                                                            <div class="top_blue_strip">
+                                                                @php
+                                                                    // Original value
+                                                                    $location = $state['real_location'];
+
+                                                                    // Step 1: Agar value me bracket me abbreviation ha, to usko extract kro
+                                                                    if (preg_match('/\(([^)]+)\)/', $location, $match)) {
+                                                                        $displayLocation = trim($match[1]); // sirf bracket ke andar wali value
+                                                                    } else {
+                                                                        $displayLocation = ''; // agar nahi ha to empty
+                                                                    }
+                                                                @endphp
+                                                                <h3 class="heading44px fw_700 text_border">{{ $state['real_title'] }}, {{ $displayLocation }}</h3>
+                                                                {{-- ?? 'Undefined' }} , {{ $displayLocation }}</h3> --}}
+                                                                <label class="heart_checkbox_wrapper d-block">
+                                                                    <input type="checkbox" class="heartCheckbox" hidden />
+                                                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                                                </label>
                                                             </div>
                                                             @php
                                                                 $images = !empty($state->gallery_imgs) ? json_decode($state->gallery_imgs, true) : [];
                                                             @endphp
-                                                            <div class="img_box">
+                                                            <div class="relative_img_box img_box">
                                                                 <div class="swiper horse_list_card_slider h-100 w-100">
                                                                     <div class="swiper-wrapper">
                                                                         @foreach ($images as $image)
                                                                             <div class="swiper-slide">
-                                                                                <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img">
+                                                                                <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img" class="img-fluid w-100 img_radius_one">
                                                                             </div>
                                                                         @endforeach
                                                                     </div>
                                                                     <div class="swiper-pagination"></div>
                                                                 </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: {{ $state['real_price'] }}</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list v1">
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_1.png" alt="img"
-                                                                                                class="img-fluid"></span> {{ $state['real_acres'] }} Acres</li>
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_2.png" alt="img"
-                                                                                                class="img-fluid"></span> {{ $state['real_bedroom'] }} Bedrooms </li>
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_3.png" alt="img"
-                                                                                                class="img-fluid"></span> {{ $state['real_bathroom'] }} Baths</li>
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img"
-                                                                                                class="img-fluid"></span>{{ $state['num_spaces'] }}
-                                                                                        {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <h5 class="heading44px card_about_heading">About</h5>
-                                                                                <p class="about_sm_desc">{!! $state->property_overview !!}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="horse_list_card_btn_flex v1">
-                                                                    <a href="javascript:;" class="horse_card_btn">Pictures</a>
-                                                                    <a href="javascript:;" class="horse_card_btn">Videos</a>
-                                                                    <a href="javascript:;" class="horse_card_btn">View Details</a>
+                                                            </div>
+                                                            <div class="horser_information_box mb-0">
+                                                                <div class="custome_listing_row">
+                                                                    <div class="custome_listing_col">
+                                                                        <ul class="info_list_one">
+                                                                            <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_1.png" alt="img" class="img-fluid" /></span>
+                                                                                <span>{{ $state['real_acres'] }} Acres</span>
+                                                                            </li>
+                                                                            <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_2.png" alt="img" class="img-fluid" /></span>
+                                                                                <span>{{ $state['real_bedroom'] }} Bedrooms </span>
+                                                                            </li>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="custome_listing_col">
+                                                                        <ul class="info_list_one">
+                                                                            <li><span class="real_icon_box"><img src="/assets/images/realestate_icon_3.png" alt="img" class="img-fluid" /></span>
+                                                                                <span>{{ $state['real_bathroom'] }} Baths </span>
+                                                                            </li>
+                                                                            @php
+                                                                                $garageTypes = explode(',', $data->garage_type ?? '');
+                                                                            @endphp
+                                                                            <li class="mb-0"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img"
+                                                                                        class="img-fluid" /></span> <span class="ms-2 amenities_flex">
+                                                                                    {{ $state['num_spaces'] }}
+                                                                                    {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
+                                                                                </span></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="horser_information_box type_one">
+                                                                <h3 class="heading30px price_Text">PRICE : {{ $state['real_price'] }}</h3>
+
+                                                                <div class="horser_information_btn_flex">
+                                                                    <a href="#!" class="horser_action_info_btn action_btn w-50">SELLER’S PROFILE</a>
+                                                                    <a href="#!" class="horser_action_info_btn action_btn w-50">CHAT WITH SELLER</a>
+                                                                </div>
+                                                                <div class="horser_information_btn_flex mt-2">
+                                                                    <a href="#!" class="horser_action_info_btn action_btn w-50">SHARE</a>
+                                                                    <form action="{{ route('farm.favorite', Crypt::encrypt($data['id'])) }}"
+                                                                        class="horser_action_info_btn horse_card_btn favorite-form w-50" method="POST">
+                                                                        <button class="fvrt_btn text-light" type="submit" title="Add to favorite">
+                                                                            {{-- <label class="horse_info_btn fvrt_btn action_btn"> --}}
+                                                                            Favorite <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            {{-- </label> --}}
+                                                                            {{-- </label>Favorite <i class="fa fa-heart" aria-hidden="true"></i> --}}
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 @endforeach
 
-                                                {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                    <div class="horse_list_card">
-                                                        <div class="blue_stripe">
-                                                            <h2>LAFAYETTE, NJ</h2>
-                                                            <i class="fa fa-heart" aria-hidden="true"></i>
-                                                        </div>
-                                                        <div class="img_box">
-                                                            <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                <div class="swiper-wrapper">
-                                                                    <div class="swiper-slide">
-                                                                        <img src="/assets/images/farm_3.jpg" alt="" />
-                                                                    </div>
-                                                                    <div class="swiper-slide">
-                                                                        <img src="/assets/images/farm_2.jpg" alt="" />
-                                                                    </div>
-                                                                    <div class="swiper-slide">
-                                                                        <img src="/assets/images/farm_4.jpg" alt="" />
-                                                                    </div>
-                                                                    <div class="swiper-slide">
-                                                                        <img src="/assets/images/farm_1.jpg" alt="" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="swiper-pagination"></div>
-                                                            </div>
-                                                            <div class="arrow_flex">
-                                                                <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="blue_stripe">
-                                                            <h3>Price: $10,000.00</h3>
-                                                        </div>
-                                                        <div class="text_box">
-                                                            <div class="row">
-                                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <ul class="info_list v1">
-                                                                                <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_1.png" alt="img"
-                                                                                            class="img-fluid"></span> 50.4 Acres</li>
-                                                                                <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_2.png" alt="img"
-                                                                                            class="img-fluid"></span> 2 Bedrooms </li>
-                                                                                <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_3.png" alt="img"
-                                                                                            class="img-fluid"></span> 2 Full 1 Half Baths</li>
-                                                                                <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img"
-                                                                                            class="img-fluid"></span> 2 Car | Oversized</li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <h5 class="heading44px card_about_heading">About</h5>
-                                                                            <p class="about_sm_desc">Horse Farm, a serene 40-acre property just outside the city. Surrounded by rolling green pastures,
-                                                                                shady oak trees, and a peaceful creek running through the center, the farm is a haven for retired and working horses alike.
-                                                                                The facility features spacious stables, a modern veterinary barn, and daily turnout fields where horses can roam freely.
-                                                                                Guests often visit for guided tours, riding lessons, or to simply enjoy the company of these gentle giants.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="horse_list_card_btn_flex v1">
-                                                                <a href="#!" class="horse_card_btn">Pictures</a>
-                                                                <a href="#!" class="horse_card_btn">Videos</a>
-                                                                <a href="#!" class="horse_card_btn">View Details</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                             <a href="#!" class="search_all_btn mt-4"><span>SHOW MORE</span></a>
                                         </div>
@@ -2159,89 +2955,279 @@
                                                         }
                                                     @endphp
                                                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                        <div class="horse_list_card">
-                                                            <div class="blue_stripe">
-                                                                <h2>{{ $state['real_title'] }}, {{ $displayLocation }}</h2>
-                                                            </div>
-                                                            @php
-                                                                $images = !empty($state->gallery_imgs) ? json_decode($state->gallery_imgs, true) : [];
-                                                            @endphp
-                                                            <div class="img_box">
-                                                                <div class="swiper horse_list_card_slider h-100 w-100">
-                                                                    <div class="swiper-wrapper">
-                                                                        @foreach ($images as $image)
-                                                                            <div class="swiper-slide">
-                                                                                <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img">
-                                                                            </div>
-                                                                        @endforeach
+                                                        <!-- <div class="horse_list_card">
+                                                                    <div class="blue_stripe">
+                                                                        <h2>{{ $state['real_title'] }}, {{ $displayLocation }}</h2>
                                                                     </div>
-                                                                    <div class="swiper-pagination"></div>
-                                                                </div>
-                                                                <div class="arrow_flex">
-                                                                    <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                                                                    <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                                                </div>
-                                                                <div class="sold_abs_box">
-                                                                    <h1>Sold</h1>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blue_stripe">
-                                                                <h3>Price: {{ $state['real_price'] }}</h3>
-                                                            </div>
-                                                            <div class="text_box">
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <ul class="info_list v1">
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_1.png" alt="img"
-                                                                                                class="img-fluid"></span> {{ $state['real_acres'] }} Acres</li>
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_2.png" alt="img"
-                                                                                                class="img-fluid"></span> {{ $state['real_bedroom'] }} Bedrooms </li>
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_3.png" alt="img"
-                                                                                                class="img-fluid"></span> {{ $state['real_bathroom'] }} Baths</li>
-                                                                                    <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img"
-                                                                                                class="img-fluid"></span>{{ $state['num_spaces'] }}
-                                                                                        {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
-                                                                                    </li>
-                                                                                </ul>
+                                                                    @php
+                                                                        $images = !empty($state->gallery_imgs) ? json_decode($state->gallery_imgs, true) : [];
+                                                                    @endphp
+                                                                    <div class="img_box">
+                                                                        <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                            <div class="swiper-wrapper">
+                                                                                @foreach ($images as $image)
+    <div class="swiper-slide">
+                                                                                        <img src="{{ asset('Gallery_imgs/' . $image) }}" alt="img">
+                                                                                    </div>
+    @endforeach
                                                                             </div>
+                                                                            <div class="swiper-pagination"></div>
+                                                                        </div>
+                                                                        <div class="arrow_flex">
+                                                                            <button class="horse_arrow_left"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                                            <button class="horse_arrow_right"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                                        </div>
+                                                                        <div class="sold_abs_box">
+                                                                            <h1>Sold</h1>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                    <div class="blue_stripe">
+                                                                        <h3>Price: {{ $state['real_price'] }}</h3>
+                                                                    </div>
+                                                                    <div class="text_box">
                                                                         <div class="row">
-                                                                            <div class="col-12">
-                                                                                <h5 class="heading44px card_about_heading">About</h5>
-                                                                                <p class="about_sm_desc">{!! $state->property_overview !!}</p>
+                                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-12">
+                                                                                        <ul class="info_list v1">
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_1.png" alt="img"
+                                                                                                        class="img-fluid"></span> {{ $state['real_acres'] }} Acres</li>
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_2.png" alt="img"
+                                                                                                        class="img-fluid"></span> {{ $state['real_bedroom'] }} Bedrooms </li>
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_3.png" alt="img"
+                                                                                                        class="img-fluid"></span> {{ $state['real_bathroom'] }} Baths</li>
+                                                                                            <li class="mb-1"><span class="real_icon_box"><img src="/assets/images/realestate_icon_4.png" alt="img"
+                                                                                                        class="img-fluid"></span>{{ $state['num_spaces'] }}
+                                                                                                {{ implode(' | ', array_slice(explode(',', $state['garage_type']), 0, 2)) }}
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-12">
+                                                                                        <h5 class="heading44px card_about_heading">About</h5>
+                                                                                        <p class="about_sm_desc">{!! $state->property_overview !!}</p>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="horse_list_card_btn_flex v1">
-                                                                    <a href="javascript:;" class="horse_card_btn">Pictures</a>
-                                                                    <a href="javascript:;" class="horse_card_btn">Videos</a>
-                                                                    <a href="javascript:;" class="horse_card_btn">View Details</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                        <div class="horse_list_card_btn_flex v1">
+                                                                            <a href="javascript:;" class="horse_card_btn">Pictures</a>
+                                                                            <a href="javascript:;" class="horse_card_btn">Videos</a>
+                                                                            <a href="javascript:;" class="horse_card_btn">View Details</a>
+                                                                        </div>
+                                                                    </div> -->
                                                     </div>
-                                                @endforeach
                                             </div>
-                                            {{-- <a href="#!" class="search_all_btn mt-4"><span>SHOW MORE</span></a> --}}
+                                            @endforeach
                                         </div>
+                                        {{-- <a href="#!" class="search_all_btn mt-4"><span>SHOW MORE</span></a> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="google_ad_box mt-3">
-                            <img src="/assets/images/horser_ad.png" alt="img" class="img-fluid" />
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+        </div>
     </section>
+    
+    <div id="fancybox-modal" class="fancybox-overlay">
+        <span class="fancy-close">&times;</span>
+        
+        <a class="fancy-nav fancy-prev">&#10094;</a>
+        <div class="fancy-img-container">
+            <img id="fancy-main-img" src="" alt="Gallery Image">
+        </div>
+        <a class="fancy-nav fancy-next">&#10095;</a>
+    
+        <div id="fancy-caption"></div>
+    </div>
+    
+    
+    <script>
+function changeVideo(videoId) {
+    const mainPlayer = document.getElementById('mainPlayer');
+    if(mainPlayer) {
+        // Naya source set karein aur autoplay enable karein
+        mainPlayer.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+        
+        // Scroll karke main player par le jayein
+        window.scrollTo({
+            top: document.querySelector('.videoplay_max_box').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
+}
+</script>
+    
+<script>
+$(document).ready(function() {
+    
+    // Helper function to reset all preview elements
+    function resetPreviewArea() {
+        $('#main-preview-prop').hide();
+        $('#pdf-preview-frame').hide().attr('src', ''); // Clear src to stop loading
+        $('#doc-preview-container').hide();
+        $('#placeholder-text-prop').hide();
+    }
+
+    // Click Event for Thumbnails
+    $('.prop-preview-trigger').on('click', function(e) {
+        e.preventDefault();
+        
+        var type = $(this).data('type'); // 'image', 'pdf', or 'doc'
+        var src = $(this).data('src');
+        var name = $(this).data('name');
+
+        resetPreviewArea();
+
+        if (type === 'image') {
+            // Show Image
+            $('#main-preview-prop').attr('src', src).show();
+        } 
+        else if (type === 'pdf') {
+            // Show PDF in Iframe
+            // Note: Using standard embed. Some browsers might force download depending on headers, 
+            // but usually iframe works for inline viewing.
+            $('#pdf-preview-frame').attr('src', src).show();
+        } 
+        else if (type === 'doc' || type === 'docx') {
+            // Show Doc Icon and Download Button
+            $('#doc-preview-filename').text(name);
+            $('#doc-download-btn').attr('href', src);
+            
+            // Set Icon based on extension if needed, currently defaulting to Word icon
+            if(type === 'docx') {
+                 $('#doc-preview-icon').attr('class', 'fa fa-file-word-o').css('color', '#2b579a');
+            } else {
+                 $('#doc-preview-icon').attr('class', 'fa fa-file-word-o').css('color', '#2b579a');
+            }
+            
+            $('#doc-preview-container').show();
+        }
+    });
+});
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Pinning Logic
+    let st = ScrollTrigger.create({
+        trigger: ".fixed_bar", 
+        start: "top top",            
+        pin: true,                   
+        pinSpacing: false,           
+        endTrigger: "section.view_detail_page", 
+        end: "bottom top+=100",      
+        toggleClass: "pills-fixed",
+    });
+
+    const tabButtons = document.querySelectorAll('button[data-bs-toggle="pill"]');
+    
+    tabButtons.forEach(button => {
+        // JAB TAB BADAL JAYE
+        button.addEventListener('shown.bs.tab', function (event) {
+            // GSAP ko batao ke content ki height change ho gayi hai
+            ScrollTrigger.refresh();
+
+            // CONTENT KO TOP PAR LE JANE KE LIYE:
+            // Hum page ko scroll karke wahan le jayenge jahan pinned tabs start hote hain
+            window.scrollTo({
+                top: st.start, // Yeh tabs ka original top position hai
+                behavior: 'smooth' // Smooth scroll ke liye
+            });
+        });
+
+        // Click event se default anchors ko prevent karein
+        button.addEventListener('click', function(e) {
+            // Agar page scroll ho chuka hai, toh browser ka auto-jump rokein
+            if(window.scrollY > st.start) {
+                // Hum scroll manual handle kar rahe hain upar 'shown.bs.tab' mein
+            }
+        });
+    });
+</script>
+
+<script>
+$(document).ready(function() {
+    var images = [];
+    var currentIndex = 0;
+
+    // 1. Function jo page ki saari relevant images ko collect karega
+    function refreshGalleryArray() {
+        images = [];
+        $('.gallery-trigger img.gallery-item').each(function() {
+            images.push($(this).attr('src'));
+        });
+    }
+
+    // 2. Event Delegation: Page par kahin bhi click ho, agar class match hui toh trigger hoga
+    $(document).on('click', '.gallery-trigger', function(e) {
+        e.preventDefault();
+        
+        // Har baar click hone par array refresh karein taaki nayi images bhi shamil ho sakein
+        refreshGalleryArray();
+        
+        var clickedSrc = $(this).find('img.gallery-item').attr('src');
+        currentIndex = images.indexOf(clickedSrc);
+
+        if (currentIndex !== -1) {
+            openLightbox(currentIndex);
+        }
+    });
+
+    function openLightbox(index) {
+        $('#fancy-main-img').attr('src', images[index]);
+        $('#fancybox-modal').css('display', 'flex');
+        $('body').css('overflow', 'hidden'); 
+    }
+
+    // 3. Next Button Logic
+    $('.fancy-next').on('click', function(e) {
+        e.stopPropagation(); // Modal band hone se rokne ke liye
+        currentIndex = (currentIndex + 1) % images.length;
+        updateImage();
+    });
+
+    // 4. Prev Button Logic
+    $('.fancy-prev').on('click', function(e) {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateImage();
+    });
+
+    function updateImage() {
+        $('#fancy-main-img').fadeOut(200, function() {
+            $(this).attr('src', images[currentIndex]).fadeIn(200);
+        });
+    }
+
+    // 5. Close Modal
+    $('.fancy-close, #fancybox-modal').on('click', function(e) {
+        // Sirf tab band ho jab overlay ya close button par click ho (image par nahi)
+        if (e.target !== this && !$(e.target).hasClass('fancy-close')) return;
+        
+        $('#fancybox-modal').hide();
+        $('body').css('overflow', 'auto');
+    });
+
+    // 6. Keyboard Support
+    $(document).keydown(function(e) {
+        if ($('#fancybox-modal').is(':visible')) {
+            if (e.keyCode == 37) $('.fancy-prev').click(); 
+            if (e.keyCode == 39) $('.fancy-next').click(); 
+            if (e.keyCode == 27) $('#fancybox-modal').click(); 
+        }
+    });
+});
+</script>
 @endsection

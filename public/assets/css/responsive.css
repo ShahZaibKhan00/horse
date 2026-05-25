@@ -84,11 +84,21 @@
 
     .cell {
         font-size: 12px;
-        font-weight: 700;
     }
+    
 
     .bid-amount {
-        font-size: 17px;
+        font-size: 22px!important;
+    }
+    .bid-panel .button {
+        font-size: 10px!important;
+    }
+
+    .circle-text small {
+        font-size: 10px!important;
+    }
+    .countdown {
+        width: 240px!important;
     }
 
     .user_img_box {
@@ -130,10 +140,11 @@
     }
 
     .cell {
-        font-size: 12px;
+        font-size: 12px!important;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 2px 6px !important;
     }
 
     .cell .me-3 {

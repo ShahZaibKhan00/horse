@@ -85,7 +85,22 @@ class RealstateController extends Controller
             'last_name.required' => 'The Real State Price field is required.',
         ]);
         $data = new Realstate;
+        if ($request->hasFile('pro_video_url')) {
 
+            $videos = $request->file('pro_video_url');
+            $videoNames = [];
+
+            foreach ($videos as $video) {
+                $extension = $video->getClientOriginalExtension();
+                $videoName = time().'_'.rand(100, 999).'.'.$extension;
+
+                $video->move(public_path('service-videos'), $videoName);
+
+                $videoNames[] = $videoName;
+            }
+
+            $data->pro_video_url = implode(',', $videoNames);
+        }
         $data->ad_type = $request->ad_type;
         $data->bid_amount = $request->bid_amount;
         $data->reserve_amount = $request->reserve_amount;
@@ -102,6 +117,7 @@ class RealstateController extends Controller
         $data->real_farm_name = $request->real_farm_name;
         $data->real_garage = $request->real_garage;
         $data->num_spaces = $request->num_spaces;
+        $data->have_stall = $request->have_stall;
         $data->garage_type = isset($request->garage_type) && is_array($request->garage_type)
     ? implode(',', $request->garage_type)
     : null;
@@ -109,14 +125,23 @@ class RealstateController extends Controller
         $data->num_stalls = $request->num_stalls;
         $data->num_barn = $request->num_barn;
         $data->num_sheds = $request->num_sheds;
-        $data->barn_flooring = $request->barn_flooring;
+        $data->run_shed = $request->run_shed;
+        // $data->barn_flooring = $request->barn_flooring;
+        $data->barn_flooring =  isset($request->barn_flooring) && is_array($request->barn_flooring)
+                    ? implode(',', $request->barn_flooring) : null;
         $data->rubber_matts = $request->rubber_matts;
         $data->tack_room = $request->tack_room;
         $data->heated_not = $request->heated_not;
         $data->wash_stall = $request->wash_stall;
         $data->hot_water = $request->hot_water;
         $data->cold_water = $request->cold_water;
-        $data->hay_storage = implode(',' , $request->hay_storage);
+        $data->have_barn = $request->have_barn;
+        $data->stall_types = isset($request->stall_types) && is_array($request->stall_types)
+    ? implode(',', $request->stall_types) : null;
+        
+        $data->hay_storage = isset($request->hay_storage) && is_array($request->hay_storage)
+    ? implode(',', $request->hay_storage)
+    : null;
         $data->heated_barn = $request->heated_barn;
         $data->air_condition_barn = $request->air_condition_barn;
         $data->dry_lots = $request->dry_lots;
@@ -134,6 +159,21 @@ class RealstateController extends Controller
         $data->property_overview = $request->property_overview;
         $data->ad_write_up = $request->ad_write_up;
         $data->property_features = implode(',' , $request->property_features);
+
+        if ($request->hasFile('featured_image')) {
+
+            $image = $request->file('featured_image');
+            $destinationPath = public_path('Featured_imgs');
+
+            $extension = $image->getClientOriginalExtension();
+            $imageName = time() . '_' . rand(100, 999) . '.' . $extension;
+
+            $image->move($destinationPath, $imageName);
+
+            // SAVE IN DATABASE COLUMN
+            $data->featured_image = $imageName;
+        }
+
         if ($request->hasFile('property_document')) {
             $images = $request->file('property_document');
             $destinationPath = public_path('/Property_documents');
@@ -231,8 +271,8 @@ class RealstateController extends Controller
         Session()->flash('alert-success', $messages);
         $usertype = Auth::user()->usertype;
 
-        $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
-        Session()->flash('alert-success', $messages);
+        // $messages = ['title' => 'Data Saved!!', 'detail' => 'Data Saved Successfully!'];
+        // Session()->flash('alert-success', $messages);
         if($usertype == '1')
             return redirect('/manage_realstate');
         else
@@ -317,17 +357,22 @@ class RealstateController extends Controller
         $data->num_spaces = $request->num_spaces;
         $data->garage_type = isset($request->garage_type) && is_array($request->garage_type) ? implode(',', $request->garage_type) : null;
         $data->barn_type = $request->barn_type;
+        $data->have_stall = $request->have_stall;
+        $data->have_barn = $request->have_barn;
+
         $data->num_stalls = $request->num_stalls;
         $data->num_barn = $request->num_barn;
         $data->num_sheds = $request->num_sheds;
-        $data->barn_flooring = $request->barn_flooring;
+        $data->run_shed = $request->run_shed;
         $data->rubber_matts = $request->rubber_matts;
         $data->tack_room = $request->tack_room;
         $data->heated_not = $request->heated_not;
         $data->wash_stall = $request->wash_stall;
         $data->hot_water = $request->hot_water;
         $data->cold_water = $request->cold_water;
-        $data->hay_storage = implode(',' , $request->hay_storage);
+        $data->barn_flooring =  isset($request->barn_flooring) && is_array($request->barn_flooring) ? implode(',', $request->barn_flooring) : null;
+        $data->stall_types = isset($request->stall_types) && is_array($request->stall_types) ? implode(',', $request->stall_types) : null;
+        $data->hay_storage = isset($request->hay_storage) && is_array($request->hay_storage) ? implode(',', $request->hay_storage) : null;
         $data->heated_barn = $request->heated_barn;
         $data->air_condition_barn = $request->air_condition_barn;
         $data->dry_lots = $request->dry_lots;
@@ -345,38 +390,138 @@ class RealstateController extends Controller
         $data->property_overview = $request->property_overview;
         $data->ad_write_up = $request->ad_write_up;
         $data->property_features = implode(',' , $request->property_features);
+        $docFiles = json_decode($data->property_document, true) ?? [];
+
+        /* --- DELETE selected documents --- */
+        if ($request->filled('doc_files_to_delete')) {
+            $indicesToDelete = json_decode($request->doc_files_to_delete, true) ?? [];
+            rsort($indicesToDelete);
+            foreach ($indicesToDelete as $index) {
+                $idx = (int) $index;
+                if (isset($docFiles[$idx])) {
+                    $oldPath = public_path('Property_documents/' . $docFiles[$idx]);
+                    if (file_exists($oldPath)) unlink($oldPath);
+                    unset($docFiles[$idx]);
+                }
+            }
+            $docFiles = array_values($docFiles);
+        }
+
+        /* --- APPEND new documents --- */
         if ($request->hasFile('property_document')) {
-            $images = $request->file('property_document');
-            $destinationPath = public_path('/Property_documents');
-            $imageNames = [];
+            $destinationPath = public_path('Property_documents');
+            foreach ($request->file('property_document') as $file) {
+                if ($file) {
+                    $imageName = time() . '_' . rand(10, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move($destinationPath, $imageName);
+                    $docFiles[] = $imageName;
+                }
+            }
+        }
 
-            foreach ($images as $image) {
-                if ($image) {
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-                    $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
+        $data->property_document = json_encode($docFiles);
+
+        if ($request->hasFile('featured_image')) {
+
+            $image = $request->file('featured_image');
+            $destinationPath = public_path('Featured_imgs');
+
+            $imageName = time() . '_' . rand(100, 999) . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imageName);
+
+            // OLD IMAGE DELETE (if exists)
+            if (!empty($data->featured_image)) {
+                $oldImage = public_path('Featured_imgs/' . $data->featured_image);
+
+                if (file_exists($oldImage)) {
+                    unlink($oldImage);
                 }
             }
 
-            $data->property_document = json_encode($imageNames);
+            // SAVE NEW IMAGE
+            $data->featured_image = $imageName;
         }
+
+        // $gallery_images = json_decode($data->gallery_imgs, true) ?? [];
+
+
+        // if ($request->has('images_to_delete')) {
+        //     $indicesToDelete = json_decode($request->images_to_delete, true) ?? [];
+        //     rsort($indicesToDelete);
+        //     foreach ($indicesToDelete as $index) {
+        //         $idx = (int)$index;
+        //         if (isset($gallery_images[$idx])) {
+        //             // Optional: delete from storage
+        //             \Illuminate\Support\Facades\Storage::disk('public')->delete('/Gallery_imgs' . $gallery_images[$idx]);
+        //             unset($gallery_images[$idx]);
+        //         }
+        //     }
+        //     $gallery_images = array_values($gallery_images);
+        // }
+
+        // if ($request->hasFile('gallery_imgs')) {
+        //     $images = $request->file('gallery_imgs');
+        //     $destinationPath = public_path('/Gallery_imgs');
+        //     $imageNames = [];
+
+        //     foreach ($images as $image) {
+        //         if ($image) {
+        //             $extension = $image->getClientOriginalExtension();
+        //             $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+        //             $image->move($destinationPath, $imageName);
+        //             $imageNames[] = $imageName;
+        //         }
+        //     }
+
+        //     $data->gallery_imgs = json_encode($imageNames);
+        // }
+
+        $gallery_images = json_decode($data->gallery_imgs, true) ?? [];
+
+        /* ---------------- DELETE IMAGES ---------------- */
+        if ($request->filled('images_to_delete')) {
+            $indicesToDelete = json_decode($request->images_to_delete, true) ?? [];
+
+            rsort($indicesToDelete); // safe delete
+
+            foreach ($indicesToDelete as $index) {
+                $idx = (int) $index;
+
+                if (isset($gallery_images[$idx])) {
+
+                    // correct path fix
+                    \Illuminate\Support\Facades\Storage::disk('public')
+                        ->delete('Gallery_imgs/' . $gallery_images[$idx]);
+
+                    unset($gallery_images[$idx]);
+                }
+            }
+
+            // reindex array
+            $gallery_images = array_values($gallery_images);
+        }
+
+        /* ---------------- ADD NEW IMAGES ---------------- */
         if ($request->hasFile('gallery_imgs')) {
+
             $images = $request->file('gallery_imgs');
-            $destinationPath = public_path('/Gallery_imgs');
-            $imageNames = [];
+            $destinationPath = public_path('Gallery_imgs');
 
             foreach ($images as $image) {
                 if ($image) {
                     $extension = $image->getClientOriginalExtension();
                     $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+
                     $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
+
+                    $gallery_images[] = $imageName; // append NOT overwrite
                 }
             }
-
-            $data->gallery_imgs = json_encode($imageNames);
         }
+
+        /* ---------------- SAVE FINAL ---------------- */
+        $data->gallery_imgs = json_encode($gallery_images);
+
         if ($request->hasFile('gallery_vids')) {
             $images = $request->file('gallery_vids');
             $destinationPath = public_path('/Gallery_vids');
@@ -400,22 +545,59 @@ class RealstateController extends Controller
         $data->email = $request->email;
         $data->number = $request->number;
         $data->website_link = $request->website_link;
-        if ($request->hasFile('per_pic')) {
-            $images = $request->file('per_pic');
-            $destinationPath = public_path('/Personal_pictures');
-            $imageNames = [];
+        // if ($request->hasFile('per_pic')) {
+        //     $images = $request->file('per_pic');
+        //     $destinationPath = public_path('/Personal_pictures');
+        //     $imageNames = [];
 
-            foreach ($images as $image) {
-                if ($image) {
-                    $extension = $image->getClientOriginalExtension();
-                    $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
-                    $image->move($destinationPath, $imageName);
-                    $imageNames[] = $imageName;
+        //     foreach ($images as $image) {
+        //         if ($image) {
+        //             $extension = $image->getClientOriginalExtension();
+        //             $imageName = time() . '_' . rand(10, 100) . '.' . $extension;
+        //             $image->move($destinationPath, $imageName);
+        //             $imageNames[] = $imageName;
+        //         }
+        //     }
+
+        //     $data->per_pic = json_encode($imageNames);
+        // }
+        if ($request->hasFile('per_pic')) {
+
+    $destinationPath = public_path('Personal_pictures');
+
+    // 🔴 Step 1: Purani images delete karo (agar exist karti hain)
+    if (!empty($data->per_pic)) {
+        $oldImages = json_decode($data->per_pic, true);
+
+        if (is_array($oldImages)) {
+            foreach ($oldImages as $oldImage) {
+                $oldImagePath = $destinationPath . '/' . $oldImage;
+
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
                 }
             }
-
-            $data->per_pic = json_encode($imageNames);
         }
+    }
+
+    // 🟢 Step 2: New images upload karo
+    $images = $request->file('per_pic');
+    $imageNames = [];
+
+    foreach ($images as $image) {
+        if ($image->isValid()) {
+
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+            $image->move($destinationPath, $imageName);
+
+            $imageNames[] = $imageName;
+        }
+    }
+
+    // 🟢 Step 3: DB column ko completely replace karo
+    $data->per_pic = json_encode($imageNames);
+}
         $data->facebook = $request->facebook;
         $data->insta = $request->insta;
         $data->tiktok = $request->tiktok;

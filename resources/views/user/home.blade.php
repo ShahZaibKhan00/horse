@@ -1,13 +1,27 @@
 @extends('layouts.user_app')
 @section('content')
-
+<style>
+    .count_boxs p {
+        color: #172c4a;
+    }
+    .count_boxs span {
+        font-family: "Inter", sans-serif;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: #172C4A;
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        text-decoration: underline;
+    }
+</style>
 
     <div class="user_main_content">
         <div class="dark_bar">
-            <h2>Horse Listings</h2>
+            <h2>Dashboard</h2>
             <a href="#!" class="points_btn" data-bs-toggle="modal" data-bs-target="#pointsModal">
                 <img src="{{ asset('assets/images/points_icon.png') }}" alt="" class="img-fluid mb-2">
-                Show Points
+                E-Wallet
             </a>
 
             
@@ -34,9 +48,10 @@
                 <h2>Your Saves</h2>
             </div>
             <div class="dashboard-container mb-5">
-                <div class="row gy-4">
+               <div class="row gy-4">
+
                     <div class="col-md-4">
-                        <div class="count_boxs">
+                        <a href="{{ url('saved-searches') }}" class="count_boxs">
                             <p class="mb-3">Horse Your Watching</p>
                             <div class="icon_box_flex">
                                 <div class="icon_box">
@@ -44,23 +59,25 @@
                                 </div>
                                 <p>12</p>
                             </div>
-                            <a href="#!">View Favorite Properties</a>
-                        </div>
+                            <span>View Favorite Properties</span>
+                        </a>
                     </div>
+                
                     <div class="col-md-4">
-                        <div class="count_boxs">
-                            <p class="mb-3">Horse Your Watching</p>
+                        <a href="{{ url('saved-searches') }}" class="count_boxs">
+                            <p class="mb-3">Services Your Watching</p>
                             <div class="icon_box_flex">
                                 <div class="icon_box">
                                     <img src="{{ asset('assets/images/count_icon_2.png') }}" alt="" class="img-fluid">
                                 </div>
                                 <p>5</p>
                             </div>
-                            <a href="#!">View Favorite Properties</a>
-                        </div>
+                            <span>View Favorite Properties</span>
+                        </a>
                     </div>
+                
                     <div class="col-md-4">
-                        <div class="count_boxs">
+                        <a href="{{ url('saved-searches') }}" class="count_boxs">
                             <p class="mb-3">Properties on your Radar</p>
                             <div class="icon_box_flex">
                                 <div class="icon_box">
@@ -68,11 +85,12 @@
                                 </div>
                                 <p>3</p>
                             </div>
-                            <a href="#!">View Favorite Properties</a>
-                        </div>
+                            <span>View Favorite Properties</span>
+                        </a>
                     </div>
+                
                     <div class="col-md-4">
-                        <div class="count_boxs">
+                        <a href="{{ url('saved-searches') }}" class="count_boxs">
                             <p class="mb-3">Horse Searches</p>
                             <div class="icon_box_flex">
                                 <div class="icon_box">
@@ -80,11 +98,12 @@
                                 </div>
                                 <p>3</p>
                             </div>
-                            <a href="#!">View Favorite Properties</a>
-                        </div>
+                            <span>View Favorite Properties</span>
+                        </a>
                     </div>
+                
                     <div class="col-md-4">
-                        <div class="count_boxs">
+                        <a href="{{ url('saved-searches') }}" class="count_boxs">
                             <p class="mb-3">Service Searches</p>
                             <div class="icon_box_flex">
                                 <div class="icon_box">
@@ -92,11 +111,12 @@
                                 </div>
                                 <p>5</p>
                             </div>
-                            <a href="#!">View Favorite Properties</a>
-                        </div>
+                            <span>View Favorite Properties</span>
+                        </a>
                     </div>
+                
                     <div class="col-md-4">
-                        <div class="count_boxs">
+                        <a href="{{ url('saved-searches') }}" class="count_boxs">
                             <p class="mb-3">Properties Searches</p>
                             <div class="icon_box_flex">
                                 <div class="icon_box">
@@ -104,9 +124,10 @@
                                 </div>
                                 <p>3</p>
                             </div>
-                            <a href="#!">View Favorite Properties</a>
-                        </div>
+                            <span>View Favorite Properties</span>
+                        </a>
                     </div>
+                
                 </div>
             </div>
 

@@ -160,11 +160,11 @@
         }
 
         /* .horser_information_box_one  .horser_action_info_btn,
-        .horser_information_box_one  .horser_action_info_btn:focus,
-        .horser_information_box_one  .fvrt_btn {
-            width: 30%;
-            font-size: 12px;
-        } */
+                           .horser_information_box_one  .horser_action_info_btn:focus,
+                           .horser_information_box_one  .fvrt_btn {
+                           width: 30%;
+                           font-size: 12px;
+                           } */
         .horser_information_box.horser_information_box_one,
         .img_radius_ext {
             height: 340px;
@@ -441,8 +441,8 @@
         }
 
         .social_icons a {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -451,7 +451,7 @@
         }
 
         .social_icons a img {
-            max-width: 30px;
+            max-width: 20px;
         }
 
         .social_icons a:active {
@@ -466,18 +466,6 @@
             background: #1d2139;
             color: #fff;
             border-color: #b18d61;
-        }
-
-        .view_detail_page .horse_list_card .img_box {
-            height: 210px;
-        }
-
-        .view_detail_page .horse_list_card .horse_card_btn {
-            font-size: 11px;
-        }
-
-        .view_detail_page .horse_list_card .fvrt_btn {
-            font-size: 11px;
         }
 
         .horser_information_btn_flex {
@@ -800,10 +788,10 @@
             height: 445px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             flex-direction: column;
             border: 2px solid #000;
-            padding-left: 90px;
+            padding-left: 130px;
             position: relative;
         }
 
@@ -873,7 +861,7 @@
         }
 
         .about_text_box {
-            padding: 57px 30px;
+            padding: 30px 20px;
             border: 2px solid #000;
         }
 
@@ -887,7 +875,6 @@
         .about_text_box p {
             font-family: var(--pp_mori_reg);
             font-size: 16px !important;
-            text-transform: uppercase;
             color: #1C2039;
         }
 
@@ -899,8 +886,11 @@
             padding: 35px 20px 35px 105px;
             position: relative;
             margin-bottom: 30px;
+            height: 280px;
         }
-
+        .side_box_one.v1 {
+            height: 430px;
+        }
         .side_box_one ul li {
             display: flex;
             align-items: center;
@@ -919,7 +909,7 @@
         }
 
         .side_box_one .box_title h2 {
-            font-size: 23px;
+            font-size: 20px;
         }
 
         .seller_detail_card .card_title {
@@ -1130,52 +1120,275 @@
                 font-size: 18px;
                 margin: 0px 0px 7px 0px;
             }
+            .side_box_one {
+                height: 260px;
+            }
+        }
+
+        .horse_list_card {
+            width: 100%;
+            display: flex;
+            gap: 0px;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .blue_stripe {
+            position: relative;
+        }
+
+        .horse_list_card_new .blue_stripe {
+            padding: 0 5px 0px 5px;
+        }
+
+        .horse_list_card_new .blue_stripe.blue_stripe_new {
+            padding: 0 5px;
+        }
+
+        .blue_stripe h2 {
+            text-transform: uppercase;
+            font-family: "AvenirNextLTPro-Bold";
+        }
+
+        .icon_heart {
+            position: absolute;
+            font-size: 24px;
+            top: -21px;
+            right: 6px;
+            transform: translateY(-50%);
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .fs_tag {
+            font-size: 18px;
+            padding: 3px 32px;
+            top: -8px;
+            font-weight: 600;
+            left: -5px;
+        }
+
+        .horse_list_card_new .top_list {
+            padding: 20px 0px;
+        }
+
+        .horse_list_card .img_box {
+            height: 260px;
+        }
+
+        .breed_text {
+            background: #1d2139;
+            width: 100%;
+            z-index: 9;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            padding: 7px 0;
+        }
+
+        .horse_list_card .text_box {
+            width: 100%;
+        }
+
+        .horse_list_card_new .custome_listing_row {
+            display: flex;
+            width: 100%;
+            gap: 5px;
+        }
+
+        .horse_list_card.horse_list_card_new .blue_stripe h3 {
+            font-size: 25px;
+            text-transform: uppercase;
+            font-family: "AvenirNextLTPro-Bold";
+        }
+
+        .horse_list_card_new .custome_listing_col {
+            width: 50%;
+        }
+
+        .horse_list_card_new .info_list {
+            list-style: none;
+            margin: 0px 0px;
+        }
+
+        .info_list li {
+            border: 1px solid #1d2139;
+            padding: 5px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .horse_list_card_new .custome_listing_col .info_list li {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 5px 0px;
+            padding: 0px 10px;
+            text-transform: uppercase;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .horse_list_card_new .blue_wrapper {
+            padding: 5px;
+        }
+
+        .horse_list_card_new .blue_stripe {
+            padding: 0 5px 0px 5px;
+        }
+
+        .horse_list_card_new .horse_list_card_btn_flex_new.bottom_row {
+            margin-bottom: 5px;
+        }
+
+        .horse_list_card_new .horse_list_card_btn_flex_new.top_row,
+        .horse_list_card_new .horse_list_card_btn_flex_new.bottom_row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
+        .horse_list_card_new .horse_list_card_btn_flex_new .fvrt_btn {
+            width: 100%;
+            font-size: 18px;
+            height: 35px;
+        }
+
+        .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
+        .horse_list_card_new .horse_list_card_btn_flex_new .fvrt_btn {
+            text-transform: uppercase;
+        }
+
+        .horse_list_card_new .horse_list_card_btn_flex_new.bottom_row .horse_card_btn,
+        .horse_list_card_new .horse_list_card_btn_flex_new.bottom_row .fvrt_btn {
+            width: 100%;
+        }
+
+        img.sold_badge {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            max-width: 260px;
+            object-fit: contain !important;
+        }
+
+        @media (max-width: 1799px) {
+            .gen_card_flex {
+                max-width: 1200px;
+                gap: 20px;
+            }
+
+            .gen_card_flex .horse_list_card {
+                width: 285px;
+            }
+
+            .fs_tag {
+                font-size: 15px;
+                padding: 1px 17px;
+            }
+
+            #pills-feature-3 .fs_tag {
+                padding: 1px 7px;
+            }
+
+            .horse_list_card_new .top_list li {
+                font-size: 11px;
+                padding: 0px 3px;
+            }
+
+            .horse_list_card_new .blue_stripe h2 {
+                font-size: 20px;
+                margin-top: 3px;
+            }
+
+            .horse_list_card_new .custome_listing_col .info_list li {
+                font-size: 17px;
+            }
+
+            .horse_list_card.horse_list_card_new .img_box {
+                width: 100%;
+                height: 200px;
+            }
+
+            .horse_list_card.horse_list_card_new .blue_stripe h3 {
+                font-size: 20px;
+                margin-bottom: 5px;
+            }
+
+            .horse_list_card_new .horse_list_card_btn_flex_new .horse_card_btn,
+            .horse_list_card_new .horse_list_card_btn_flex_new .fvrt_btn {
+                font-size: 13px;
+            }
+
+            .breed_text {
+                font-size: 16px;
+            }
+
+            .real_estate_card_new.horse_list_card_new .custome_listing_col .info_list li {
+                font-size: 10px;
+            }
+
+            section.best_selling.best_selling_two.best_selling_three .horse_list_card .img_box {
+                height: 180px;
+            }
+
+            .product_clm .pro_img {
+                height: 200px;
+            }
+
+            .custom_wrapper {
+                max-width: 1200px;
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 1399px) {
+            .gen_card_flex {
+                max-width: 100%;
+                gap: 15px;
+            }
+
+            .gen_card_flex .horse_list_card {
+                width: 280px;
+            }
+
+            .horse_list_card_new .custome_listing_col .info_list li {
+                font-size: 13px;
+            }
+
+            .horse_list_card_new .top_list {
+                padding: 20px 0px 5px 0;
+            }
+
+            .horse_list_card_new .icon_heart {
+                font-size: 21px;
+                top: -8px;
+                right: 6px;
+            }
         }
     </style>
-
     <section class="view_detail_page">
         <div class="container-fluid p-0">
             <div class="seller_top_bar">
                 <div class="lgo_box">
                     <img src="/assets/images/heading_logo.png" alt="img" class="img-fluid" />
                 </div>
-
-                <h1>Caitlin haggerity</h1>
-
+                <h1>{{ $user->name }}</h1>
                 <a href="#!" class="seller_chat_btn">CHAT WITH SELLER</a>
             </div>
-
             <div class="seller_content_wrapper">
                 <div class="row">
-                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
-                        <div class="row mb-4">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="seller_profile_img">
-                                    <img src="/assets/images/seller_profile_img.png" alt="img" class="img-fluid" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="seller_profile_text_box">
-                                    <div class="box_title">
-                                        <h2>Contact<h2>
-                                    </div>
-                                    <h1>Caitlin Haggerity</h1>
-                                    <p>www.graceridgefarm.com</p>
-                                    <p>Cell: 908-892-7515</p>
-                                    <p>graceridgefarmllc@gmail.com</p>
-                                    <p>Location: Lafayette, NJ</p>
-
-                                    <div class="social_icons mt-4">
-                                        <a href="#!" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
-                                        <a href="#!" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
-                                        <a href="#!" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
-                                        <a href="#!" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
-                                        <a href="#!" title="Website"><img src="/assets/images/website-icon-11.png" alt="img" class="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="col-12">
                         <div class="nav nav-pills seller_tabs mb-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active" id="v_pills_seller_1-tab" data-bs-toggle="pill" data-bs-target="#v_pills_seller_1" type="button" role="tab"
                                 aria-controls="v_pills_seller_1" aria-selected="true">
@@ -1183,467 +1396,952 @@
                             </button>
                             <button class="nav-link" id="v_pills_seller_2-tab" data-bs-toggle="pill" data-bs-target="#v_pills_seller_2" type="button" role="tab" aria-controls="v_pills_seller_2"
                                 aria-selected="false">
-                                <span>Horse for sale (5)</span>
+                                <span>Horse for sale</span>
                             </button>
                             <button class="nav-link" id="v_pills_seller_3-tab" data-bs-toggle="pill" data-bs-target="#v_pills_seller_3" type="button" role="tab" aria-controls="v_pills_seller_3"
                                 aria-selected="false">
-                                <span>Horse Sold (25)</span>
+                                <span>Horse Sold</span>
                             </button>
                         </div>
-
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+                        <div class="row mb-4">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="seller_profile_img">
+                                    <img src="{{ getenv('APP_URL') }}/Profile_image/{{ $user->Profile_img != '' ? $user->Profile_img : 'profile.jpg' }}" alt="img" class="img-fluid" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="seller_profile_text_box">
+                                    <div class="box_title">
+                                        <h2>
+                                            Contact
+                                            <h2>
+                                    </div>
+                                    <h1>{{ $user->name }}</h1>
+                                    <p><i class="fa fa-envelope me-3" aria-hidden="true"></i>{{ $user->email ?? '-' }}</p>
+                                    <p><i class="fa fa-bandcamp me-3" aria-hidden="true"></i>{{ $user->website_link ?? '-' }}</p>
+                                    <p><i class="fa fa-phone-square me-3" aria-hidden="true"></i>Cell: {{ $user->Number ?? '-' }}</p>
+                                    <p><i class="fa fa-map-marker me-3" aria-hidden="true"></i>Location: {{ $user->Address ?? '-' }} {{-- Lafayette, NJ --}}</p>
+                                    <hr>
+                                    <div class="social_icons mt-4">
+                                        <a href="{{ $user->facebook_link ?? '-' }}" title="Facebook"><img src="/assets/images/facebook.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $user->youtube_link ?? '-' }}" title="Youtube"><img src="/assets/images/youtube.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $user->tiktok_link ?? '-' }}" title="TikTok"><img src="/assets/images/tik-tok.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $user->insta_link ?? '-' }}" title="Instagram"><img src="/assets/images/instagram.png" alt="img" class="img-fluid" /></a>
+                                        <a href="{{ $user->business_link ?? '-' }}" title="Website"><img src="/assets/images/website-icon-11.png" alt="img" class="img-fluid" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="tab-content" id="seller_pills-tabContent">
                             <div class="tab-pane fade show active" id="v_pills_seller_1" role="tabpanel" aria-labelledby="v_pills_seller_1-tab">
                                 <div class="about_text_box">
                                     <h3>About:</h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.Lorem Ipsum is
-                                        simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                        took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.</p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged.</p>
+                                    <p>{{ $user->about ?? '-' }}</p>
+                                    {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                           has
+                           been the industry's standard dummy text ever since the 1500s, when an
+                           unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                           survived not only five centuries, but also the leap into electronic
+                           typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+                           release of Letraset sheets containing Lorem Ipsum passages.Lorem Ipsum is
+                           simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                           industry's standard dummy text ever since the 1500s, when an unknown printer
+                           took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                           five centuries, but also the leap into electronic typesetting,
+                           remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                           sheets containing Lorem Ipsum passages.
+                        </p>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                           been the industry's standard dummy text ever since the 1500s, when an
+                           unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                           survived not only five centuries, but also the leap into electronic
+                           typesetting, remaining essentially unchanged.
+                        </p> --}}
                                 </div>
                             </div>
-
                             <div class="tab-pane fade" id="v_pills_seller_2" role="tabpanel" aria-labelledby="v_pills_seller_2-tab">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="seller_detail_card">
-                                            <div class="card_title">
-                                                <h3>King of Kings</h3>
-                                            </div>
-                                            <div class="relative_img_box">
-                                                <div class="swiper horse_swiper_one">
-                                                    <div class="swiper-wrapper">
-                                                        <div class="swiper-slide"><img src="/assets/images/H_01.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_02.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_03.jpg" alt="img" class="img-fluid w-100" /></div>
+                                    @if ($products->count() > 0)
+                                        @foreach ($products as $product)
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                                <div class="horse_list_card horse_list_card_new">
+                                                    <div class="blue_stripe">
+                                                        <p class="fs_tag">{{ $product->pro_ad_type }}</p>
+                                                        <ul class="top_list">
+                                                        </ul>
+                                                    </div>
+                                                    <div class="blue_stripe blue_stripe_new">
+                                                        <h2>{{ $product->pro_name }}</h2>
+                                                        <label class="heart_checkbox_wrapper d-block">
+                                                            <input type="checkbox" class="heartCheckbox" hidden {{ $product->horsrFavs->isNotEmpty() ? 'checked' : '' }} />
+                                                            <i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }} icon_heart" aria-hidden="true"
+                                                                style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="img_box">
+                                                        <div class="swiper horse_list_card_slider h-100 w-100 swiper-initialized swiper-horizontal swiper-backface-hidden">
+                                                            <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                <div class="swiper-wrapper">
+                                                                    @php
+                                                                        $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : [];
+                                                                    @endphp
+
+                                                                    @if (!empty($product->pro_Fimg))
+                                                                        <div class="swiper-slide">
+                                                                            <img src="{{ asset('Featured_image/' . $product->pro_Fimg) }}" alt="Featured Image"
+                                                                                class="img-fluid w-100 img_radius_one" />
+                                                                        </div>
+                                                                    @endif
+
+                                                                    @forelse ($productImages as $item)
+                                                                        <div class="swiper-slide">
+                                                                            <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="Product Image" class="img-fluid w-100 img_radius_one" />
+                                                                        </div>
+                                                                    @empty
+                                                                        {{-- Agar featured image bhi na ho aur gallery bhi khali ho tab placeholder
+                                                dikhayein --}}
+                                                                        @if (empty($data->pro_Fimg))
+                                                                            <div class="swiper-slide">
+                                                                                <img src="{{ asset('assets/images/placeholder.png') }}" alt="Placeholder" class="img-fluid w-100 img_radius_one" />
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforelse
+                                                                </div>
+                                                                <div class="swiper-pagination"></div>
+                                                            </div>
+                                                            <div class="swiper-pagination"></div>
+                                                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                                        </div>
+                                                        <div class="arrow_flex">
+                                                            <button class="horse_arrow_left" tabindex="0" aria-label="Previous slide" aria-controls="swiper-wrapper-6cf9713f68ad1553"><i
+                                                                    class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                            <button class="horse_arrow_right" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-6cf9713f68ad1553"><i
+                                                                    class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                                    <div class="text_box">
+                                                        <div class="custome_listing_row">
+                                                            <div class="custome_listing_col">
+                                                                <ul class="info_list">
+                                                                    <li>
+                                                                        @if ($product->pro_age_year > 0)
+                                                                            {{ $product->pro_age_year }} {{ $product->pro_age_year == 1 ? 'Yr' : 'Yrs' }}
+                                                                        @endif
+                                                                        @if ($product->pro_age_month > 0)
+                                                                            {{ $product->pro_age_month }}
+                                                                            {{ $product->pro_age_month == 1 ? 'Mo' : 'Mos' }}
+                                                                        @endif
+                                                                        Old
+                                                                    </li>
+                                                                    <li>{{ $product->pro_height }} HH</li>
+                                                                    <li>{{ $product->pro_gender }}</li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="custome_listing_col">
+                                                                <ul class="info_list">
+                                                                    <li>{{ $product->pro_color ?? ' ' }}</li>
+                                                                    <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
+                                                                    <li>Gaited: {{ $product->gaited }}</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="custome_listing_col w-100">
+                                                            <ul class="info_list">
+                                                                @php
+                                                                    $state = $product->per_state ?? 'alabama (AL)';
+                                                                    preg_match('/\((.*?)\)/', $state, $matches);
+                                                                    $stateCode = $matches[1] ?? '';
+                                                                @endphp
+
+                                                                <li class="m-0 mb-2">
+                                                                    {{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
+                                                                    {{ $stateCode }}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="blue_wrapper">
+                                                            <div class="blue_stripe">
+                                                                <h3>
+                                                                    @if ($product->pro_ad_type == 'At Auction')
+                                                                        Starting Bid: ${{ $product->bid_amount ?? '0' }}
+                                                                    @else
+                                                                        Price: ${{ $product->pro_reg_price ?? '0' }}
+                                                                    @endif
+                                                                </h3>
+                                                            </div>
+                                                            <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
+                                                            </div>
+                                                            <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                <a href="{{ url('seller_profile_one/' . $product->id) }}" class="horse_card_btn">Seller Profile</a>
+                                                                <a href="{{ route('start.conversation', ['receiver_id' => $product->user_id, 'product_id' => $product->id, 'product_type' => 'horse']) }}"
+                                                                    class="horse_card_btn">Chat with seller</a>
+                                                            </div>
+                                                            <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                <a href="#!" class="horse_card_btn">Share</a>
+                                                                <form class="horse_card_btn favorite-form" action="{{ route('horse.favorite', Crypt::encrypt($product->id)) }}" method="POST">
+                                                                    @csrf
+                                                                    <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                                        {{ $product->horsrFavs->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i
+                                                                            class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }}" aria-hidden="true"
+                                                                            style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <h3 class="heading44px fw_700">Auction</h3>
-                                                <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                                <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
                                             </div>
-                                            <div class="middle_info_box">
-                                                <ul class="info_list_one">
-                                                    <li>BREED: <span>Lerino Dun</span></li>
-                                                    <li>AGE: <span>10 Months</span></li>
-                                                    <li>HEIGHT: <span>10.2 HH</span></li>
-                                                    <li>SEX: <span>10.2 HH</span></li>
-                                                </ul>
-                                                <ul class="info_list_one">
-                                                    <li>COLOR: <span>Silver Dapple</span></li>
-                                                    <li>REGISTERED: <span>Yes</span></li>
-                                                    <li>GAITED: <span>No</span></li>
-                                                    <li>LOCATION: <span> Lafayette, NJ</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="bottom_info_box">
-                                                <h4 class="info_price">Price : $30,500.00</h4>
-                                                <div class="countdown">
-                                                    <div class="circle-container" data-type="days">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="days">0</span>
-                                                            <small>Days</small>
-                                                        </div>
-                                                    </div>
+                                        @endforeach
+                                    @else
+                                        <p>
+                                            No Product Listed For Sale
 
-                                                    <div class="circle-container" data-type="hours">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="hours">0</span>
-                                                            <small>Hours</small>
-                                                        </div>
-                                                    </div>
+                                        </p>
+                                    @endif
 
-                                                    <div class="circle-container" data-type="minutes">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="minutes">0</span>
-                                                            <small>Minutes</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="circle-container" data-type="seconds">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="seconds">0</span>
-                                                            <small>Seconds</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <ul class="info_action_btns_flex">
-                                                    <li><a href="#!">Pictures</a></li>
-                                                    <li><a href="#!">Videos</a></li>
-                                                    <li><a href="#!">View Details</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    {{-- <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                           <div class="horse_list_card horse_list_card_new">
+                              <div class="blue_stripe">
+                                 <p class="fs_tag">For Sale</p>
+                                 <ul class="top_list">
+                                 </ul>
+                              </div>
+                              <div class="blue_stripe blue_stripe_new">
+                                 <h2>Riding the Silver Lining</h2>
+                                 <label class="heart_checkbox_wrapper d-block">
+                                    <input type="checkbox" class="heartCheckbox" hidden="">
+                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                 </label>
+                              </div>
+                              <div class="img_box">
+                                 <div
+                                    class="swiper horse_list_card_slider h-100 w-100 swiper-initialized swiper-horizontal swiper-backface-hidden">
+                                    <div class="swiper-wrapper" id="swiper-wrapper-6cf9713f68ad1553" aria-live="polite">
+                                       <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 2"
+                                          data-swiper-slide-index="0" style="width: 420px;">
+                                          <img
+                                             src="https://horse.testlinkhost.com/Featured_image/Featured_1776836581_QY0LQ1IuLX.png"
+                                             alt="Featured Image" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                       <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 2"
+                                          data-swiper-slide-index="1" style="width: 420px;">
+                                          <img src="https://horse.testlinkhost.com/assets/images/placeholder.png"
+                                             alt="Placeholder" class="img-fluid w-100 img_radius_one">
+                                       </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="seller_detail_card">
-                                            <div class="card_title">
-                                                <h3>King of Kings</h3>
-                                            </div>
-                                            <div class="relative_img_box">
-                                                <div class="swiper horse_swiper_one">
-                                                    <div class="swiper-wrapper">
-                                                        <div class="swiper-slide"><img src="/assets/images/H_02.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_01.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_03.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                    </div>
-                                                </div>
-                                                <h3 class="heading44px fw_700">Auction</h3>
-                                                <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                                <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
-                                            </div>
-                                            <div class="middle_info_box">
-                                                <ul class="info_list_one">
-                                                    <li>BREED: <span>Lerino Dun</span></li>
-                                                    <li>AGE: <span>10 Months</span></li>
-                                                    <li>HEIGHT: <span>10.2 HH</span></li>
-                                                    <li>SEX: <span>10.2 HH</span></li>
-                                                </ul>
-                                                <ul class="info_list_one">
-                                                    <li>COLOR: <span>Silver Dapple</span></li>
-                                                    <li>REGISTERED: <span>Yes</span></li>
-                                                    <li>GAITED: <span>No</span></li>
-                                                    <li>LOCATION: <span> Lafayette, NJ</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="bottom_info_box">
-                                                <h4 class="info_price">Price : $30,500.00</h4>
-                                                <div class="countdown">
-                                                    <div class="circle-container" data-type="days">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="days">0</span>
-                                                            <small>Days</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="circle-container" data-type="hours">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="hours">0</span>
-                                                            <small>Hours</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="circle-container" data-type="minutes">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="minutes">0</span>
-                                                            <small>Minutes</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="circle-container" data-type="seconds">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="seconds">0</span>
-                                                            <small>Seconds</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <ul class="info_action_btns_flex">
-                                                    <li><a href="#!">Pictures</a></li>
-                                                    <li><a href="#!">Videos</a></li>
-                                                    <li><a href="#!">View Details</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="swiper-pagination"></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                 </div>
+                                 <div class="arrow_flex">
+                                    <button class="horse_arrow_left" tabindex="0" aria-label="Previous slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-left"
+                                          aria-hidden="true"></i></button>
+                                    <button class="horse_arrow_right" tabindex="0" aria-label="Next slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-right"
+                                          aria-hidden="true"></i></button>
+                                 </div>
+                              </div>
+                              <h2 class="breed_text">Alter Real</h2>
+                              <div class="text_box">
+                                 <div class="custome_listing_row">
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>
+                                             12 Yrs
+                                             Old
+                                          </li>
+                                          <li>16.0 HH</li>
+                                          <li>Stallion</li>
+                                       </ul>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="seller_detail_card">
-                                            <div class="card_title">
-                                                <h3>King of Kings</h3>
-                                            </div>
-                                            <div class="relative_img_box">
-                                                <div class="swiper horse_swiper_one">
-                                                    <div class="swiper-wrapper">
-                                                        <div class="swiper-slide"><img src="/assets/images/H_03.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_02.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_03.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                    </div>
-                                                </div>
-                                                <h3 class="heading44px fw_700">Auction</h3>
-                                                <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                                <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
-                                            </div>
-                                            <div class="middle_info_box">
-                                                <ul class="info_list_one">
-                                                    <li>BREED: <span>Lerino Dun</span></li>
-                                                    <li>AGE: <span>10 Months</span></li>
-                                                    <li>HEIGHT: <span>10.2 HH</span></li>
-                                                    <li>SEX: <span>10.2 HH</span></li>
-                                                </ul>
-                                                <ul class="info_list_one">
-                                                    <li>COLOR: <span>Silver Dapple</span></li>
-                                                    <li>REGISTERED: <span>Yes</span></li>
-                                                    <li>GAITED: <span>No</span></li>
-                                                    <li>LOCATION: <span> Lafayette, NJ</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="bottom_info_box">
-                                                <h4 class="info_price">Price : $30,500.00</h4>
-                                                <div class="countdown">
-                                                    <div class="circle-container" data-type="days">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="days">0</span>
-                                                            <small>Days</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="circle-container" data-type="hours">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="hours">0</span>
-                                                            <small>Hours</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="circle-container" data-type="minutes">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="minutes">0</span>
-                                                            <small>Minutes</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="circle-container" data-type="seconds">
-                                                        <svg class="progress-ring" width="68" height="68">
-                                                            <circle class="bg" r="30" cx="34" cy="34" />
-                                                            <circle class="progress" r="30" cx="34" cy="34" />
-                                                        </svg>
-                                                        <div class="circle-text">
-                                                            <span id="seconds">0</span>
-                                                            <small>Seconds</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <ul class="info_action_btns_flex">
-                                                    <li><a href="#!">Pictures</a></li>
-                                                    <li><a href="#!">Videos</a></li>
-                                                    <li><a href="#!">View Details</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>Black Bay</li>
+                                          <li>Registered: No</li>
+                                          <li>Gaited: </li>
+                                       </ul>
                                     </div>
+                                 </div>
+                                 <div class="custome_listing_col w-100">
+                                    <ul class="info_list">
+                                       <li class="m-0 mb-2">
+                                          Lafayette,
+                                          NJ
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="blue_wrapper">
+                                    <div class="blue_stripe">
+                                       <h3>
+                                          Price: $15,000
+                                       </h3>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="https://horse.testlinkhost.com/products_detail/PROSKUdfcb6b9529abc89c26d3cd00ffa3dd60"
+                                          class="horse_card_btn w-100">View Details</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                       <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Share</a>
+                                       <form class="horse_card_btn favorite-form" action="" method="POST">
+                                          <input type="hidden" name="_token" value="" autocomplete="off">
+                                          <button class="fvrt_btn" type="button" title="Add to favorite">
+                                             Favorite <i class="fa fa-heart-o" aria-hidden="true" style=""></i>
+                                          </button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                           <div class="horse_list_card horse_list_card_new">
+                              <div class="blue_stripe">
+                                 <p class="fs_tag">For Sale</p>
+                                 <ul class="top_list">
+                                 </ul>
+                              </div>
+                              <div class="blue_stripe blue_stripe_new">
+                                 <h2>Riding the Silver Lining</h2>
+                                 <label class="heart_checkbox_wrapper d-block">
+                                    <input type="checkbox" class="heartCheckbox" hidden="">
+                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                 </label>
+                              </div>
+                              <div class="img_box">
+                                 <div
+                                    class="swiper horse_list_card_slider h-100 w-100 swiper-initialized swiper-horizontal swiper-backface-hidden">
+                                    <div class="swiper-wrapper" id="swiper-wrapper-6cf9713f68ad1553" aria-live="polite">
+                                       <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 2"
+                                          data-swiper-slide-index="0" style="width: 420px;">
+                                          <img
+                                             src="https://horse.testlinkhost.com/Featured_image/Featured_1776836581_QY0LQ1IuLX.png"
+                                             alt="Featured Image" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                       <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 2"
+                                          data-swiper-slide-index="1" style="width: 420px;">
+                                          <img src="https://horse.testlinkhost.com/assets/images/placeholder.png"
+                                             alt="Placeholder" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                 </div>
+                                 <div class="arrow_flex">
+                                    <button class="horse_arrow_left" tabindex="0" aria-label="Previous slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-left"
+                                          aria-hidden="true"></i></button>
+                                    <button class="horse_arrow_right" tabindex="0" aria-label="Next slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-right"
+                                          aria-hidden="true"></i></button>
+                                 </div>
+                              </div>
+                              <h2 class="breed_text">Alter Real</h2>
+                              <div class="text_box">
+                                 <div class="custome_listing_row">
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>
+                                             12 Yrs
+                                             Old
+                                          </li>
+                                          <li>16.0 HH</li>
+                                          <li>Stallion</li>
+                                       </ul>
+                                    </div>
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>Black Bay</li>
+                                          <li>Registered: No</li>
+                                          <li>Gaited: </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="custome_listing_col w-100">
+                                    <ul class="info_list">
+                                       <li class="m-0 mb-2">
+                                          Lafayette,
+                                          NJ
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="blue_wrapper">
+                                    <div class="blue_stripe">
+                                       <h3>
+                                          Price: $15,000
+                                       </h3>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="https://horse.testlinkhost.com/products_detail/PROSKUdfcb6b9529abc89c26d3cd00ffa3dd60"
+                                          class="horse_card_btn w-100">View Details</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                       <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Share</a>
+                                       <form class="horse_card_btn favorite-form" action="" method="POST">
+                                          <input type="hidden" name="_token" value="" autocomplete="off">
+                                          <button class="fvrt_btn" type="button" title="Add to favorite">
+                                             Favorite <i class="fa fa-heart-o" aria-hidden="true" style=""></i>
+                                          </button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div> --}}
                                 </div>
                             </div>
-
                             <div class="tab-pane fade" id="v_pills_seller_3" role="tabpanel" aria-labelledby="v_pills_seller_3-tab">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="seller_detail_card">
-                                            <div class="card_title">
-                                                <h3>King of Kings</h3>
-                                            </div>
-                                            <div class="relative_img_box">
-                                                <div class="swiper horse_swiper_one">
-                                                    <div class="swiper-wrapper">
-                                                        <div class="swiper-slide"><img src="/assets/images/H_03.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_02.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_01.jpg" alt="img" class="img-fluid w-100" /></div>
+                                    @if (!empty($product_solds) && $product_solds->count() > 0)
+                                        @foreach ($product_solds as $product)
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                                <div class="horse_list_card horse_list_card_new">
+                                                    <div class="blue_stripe">
+                                                        <p class="fs_tag">{{ $product->pro_ad_type }}</p>
+                                                        <ul class="top_list">
+                                                        </ul>
+                                                    </div>
+                                                    <div class="blue_stripe blue_stripe_new">
+                                                        <h2>{{ $product->pro_name }}</h2>
+                                                        <label class="heart_checkbox_wrapper d-block">
+                                                            <input type="checkbox" class="heartCheckbox" hidden {{ $product->horsrFavs->isNotEmpty() ? 'checked' : '' }} />
+                                                            <i class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }} icon_heart" aria-hidden="true"
+                                                                style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="img_box">
+                                                        @if ($product->horse_status)
+                                                            <img src="{{ asset('assets/images/SOLD.png') }}" class="sold_badge" alt="" srcset="">
+                                                        @endif
+                                                        <div class="swiper horse_list_card_slider h-100 w-100 swiper-initialized swiper-horizontal swiper-backface-hidden">
+                                                            <div class="swiper horse_list_card_slider h-100 w-100">
+                                                                <div class="swiper-wrapper">
+                                                                    @php
+                                                                        $productImages = !empty($product->pro_imgs) ? json_decode($product->pro_imgs) : [];
+                                                                    @endphp
+
+                                                                    @if (!empty($product->pro_Fimg))
+                                                                        <div class="swiper-slide">
+                                                                            <img src="{{ asset('Featured_image/' . $product->pro_Fimg) }}" alt="Featured Image"
+                                                                                class="img-fluid w-100 img_radius_one" />
+                                                                        </div>
+                                                                    @endif
+
+                                                                    @forelse ($productImages as $item)
+                                                                        <div class="swiper-slide">
+                                                                            <img src="{{ asset('storage/uploads/products/' . $item) }}" alt="Product Image" class="img-fluid w-100 img_radius_one" />
+                                                                        </div>
+                                                                    @empty
+                                                                        {{-- Agar featured image bhi na ho aur gallery bhi khali ho tab placeholder
+                                                dikhayein --}}
+                                                                        @if (empty($data->pro_Fimg))
+                                                                            <div class="swiper-slide">
+                                                                                <img src="{{ asset('assets/images/placeholder.png') }}" alt="Placeholder" class="img-fluid w-100 img_radius_one" />
+                                                                            </div>
+                                                                        @endif
+                                                                    @endforelse
+                                                                </div>
+                                                                <div class="swiper-pagination"></div>
+                                                            </div>
+                                                            <div class="swiper-pagination"></div>
+                                                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                                        </div>
+                                                        <div class="arrow_flex">
+                                                            <button class="horse_arrow_left" tabindex="0" aria-label="Previous slide" aria-controls="swiper-wrapper-6cf9713f68ad1553"><i
+                                                                    class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                                            <button class="horse_arrow_right" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-6cf9713f68ad1553"><i
+                                                                    class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <h2 class="breed_text">{{ $product->pro_breed }}</h2>
+                                                    <div class="text_box">
+                                                        <div class="custome_listing_row">
+                                                            <div class="custome_listing_col">
+                                                                <ul class="info_list">
+                                                                    <li>
+                                                                        @if ($product->pro_age_year > 0)
+                                                                            {{ $product->pro_age_year }} {{ $product->pro_age_year == 1 ? 'Yr' : 'Yrs' }}
+                                                                        @endif
+                                                                        @if ($product->pro_age_month > 0)
+                                                                            {{ $product->pro_age_month }}
+                                                                            {{ $product->pro_age_month == 1 ? 'Mo' : 'Mos' }}
+                                                                        @endif
+                                                                        Old
+                                                                    </li>
+                                                                    <li>{{ $product->pro_height }} HH</li>
+                                                                    <li>{{ $product->pro_gender }}</li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="custome_listing_col">
+                                                                <ul class="info_list">
+                                                                    <li>{{ $product->pro_color ?? ' ' }}</li>
+                                                                    <li>Registered: {{ Str::ucfirst($product->registerd_horse ?? ' ') }}</li>
+                                                                    <li>Gaited: {{ $product->gaited }}</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="custome_listing_col w-100">
+                                                            <ul class="info_list">
+                                                                @php
+                                                                    $state = $product->per_state ?? 'alabama (AL)';
+                                                                    preg_match('/\((.*?)\)/', $state, $matches);
+                                                                    $stateCode = $matches[1] ?? '';
+                                                                @endphp
+
+                                                                <li class="m-0 mb-2">
+                                                                    {{ Str::ucfirst(str_replace('_', ' ', $product->pro_city)) }},
+                                                                    {{ $stateCode }}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="blue_wrapper">
+                                                            <div class="blue_stripe">
+                                                                <h3>
+                                                                    @if ($product->pro_ad_type == 'At Auction')
+                                                                        Starting Bid: ${{ $product->bid_amount ?? '0' }}
+                                                                    @else
+                                                                        Price: ${{ $product->pro_reg_price ?? '0' }}
+                                                                    @endif
+                                                                </h3>
+                                                            </div>
+                                                            <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                <a href="{{ route('products_detail', $product->pro_sku) }}" class="horse_card_btn w-100">View Details</a>
+                                                            </div>
+                                                            <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                <a href="{{ url('seller_profile_one/' . $product->id) }}" class="horse_card_btn">Seller Profile</a>
+                                                                <a href="{{ route('start.conversation', ['receiver_id' => $product->user_id, 'product_id' => $product->id, 'product_type' => 'horse']) }}"
+                                                                    class="horse_card_btn">Chat with seller</a>
+                                                            </div>
+                                                            <div class="horse_list_card_btn_flex_new bottom_row">
+                                                                <a href="#!" class="horse_card_btn">Share</a>
+                                                                <form class="horse_card_btn favorite-form" action="{{ route('horse.favorite', Crypt::encrypt($product->id)) }}" method="POST">
+                                                                    @csrf
+                                                                    <button class="fvrt_btn" type="button" title="Add to favorite">
+                                                                        {{ $product->horsrFavs->isNotEmpty() ? 'Favorited ' : 'Favorite ' }}<i
+                                                                            class="fa fa-heart{{ $product->horsrFavs->isNotEmpty() ? '' : '-o' }}" aria-hidden="true"
+                                                                            style="{{ $product->horsrFavs->isNotEmpty() ? 'color: #e74c3c;' : '' }}"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                                <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
-                                                <div class="sold_abs_box">
-                                                    <h1>Sold</h1>
-                                                </div>
                                             </div>
-                                            <div class="middle_info_box">
-                                                <ul class="info_list_one">
-                                                    <li>BREED: <span>Lerino Dun</span></li>
-                                                    <li>AGE: <span>10 Months</span></li>
-                                                    <li>HEIGHT: <span>10.2 HH</span></li>
-                                                    <li>SEX: <span>10.2 HH</span></li>
-                                                </ul>
-                                                <ul class="info_list_one">
-                                                    <li>COLOR: <span>Silver Dapple</span></li>
-                                                    <li>REGISTERED: <span>Yes</span></li>
-                                                    <li>GAITED: <span>No</span></li>
-                                                    <li>LOCATION: <span> Lafayette, NJ</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="bottom_info_box pt-4 pb-4">
-                                                <h4 class="info_price">Price : $30,500.00</h4>
-                                                <ul class="info_action_btns_flex">
-                                                    <li><a href="#!">Pictures</a></li>
-                                                    <li><a href="#!">Videos</a></li>
-                                                    <li><a href="#!">View Details</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        @endforeach
+                                    @else
+                                        <p>
+
+                                            No Product Sold
+                                        </p>
+                                    @endif
+                                    {{-- <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                           <div class="horse_list_card horse_list_card_new">
+                              <div class="blue_stripe">
+                                 <p class="fs_tag">For Sale</p>
+                                 <ul class="top_list">
+                                 </ul>
+                              </div>
+                              <div class="blue_stripe blue_stripe_new">
+                                 <h2>Riding the Silver Lining</h2>
+                                 <label class="heart_checkbox_wrapper d-block">
+                                    <input type="checkbox" class="heartCheckbox" hidden="">
+                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                 </label>
+                              </div>
+                              <div class="img_box">
+                                 <div
+                                    class="swiper horse_list_card_slider h-100 w-100 swiper-initialized swiper-horizontal swiper-backface-hidden">
+                                    <div class="swiper-wrapper" id="swiper-wrapper-6cf9713f68ad1553" aria-live="polite">
+                                       <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 2"
+                                          data-swiper-slide-index="0" style="width: 420px;">
+                                          <img
+                                             src="https://horse.testlinkhost.com/Featured_image/Featured_1776836581_QY0LQ1IuLX.png"
+                                             alt="Featured Image" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                       <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 2"
+                                          data-swiper-slide-index="1" style="width: 420px;">
+                                          <img src="https://horse.testlinkhost.com/assets/images/placeholder.png"
+                                             alt="Placeholder" class="img-fluid w-100 img_radius_one">
+                                       </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="seller_detail_card">
-                                            <div class="card_title">
-                                                <h3>King of Kings</h3>
-                                            </div>
-                                            <div class="relative_img_box">
-                                                <div class="swiper horse_swiper_one">
-                                                    <div class="swiper-wrapper">
-                                                        <div class="swiper-slide"><img src="/assets/images/H_02.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_01.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_03.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                    </div>
-                                                </div>
-                                                <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                                <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
-                                                <div class="sold_abs_box">
-                                                    <h1>Sold</h1>
-                                                </div>
-                                            </div>
-                                            <div class="middle_info_box">
-                                                <ul class="info_list_one">
-                                                    <li>BREED: <span>Lerino Dun</span></li>
-                                                    <li>AGE: <span>10 Months</span></li>
-                                                    <li>HEIGHT: <span>10.2 HH</span></li>
-                                                    <li>SEX: <span>10.2 HH</span></li>
-                                                </ul>
-                                                <ul class="info_list_one">
-                                                    <li>COLOR: <span>Silver Dapple</span></li>
-                                                    <li>REGISTERED: <span>Yes</span></li>
-                                                    <li>GAITED: <span>No</span></li>
-                                                    <li>LOCATION: <span> Lafayette, NJ</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="bottom_info_box pt-4 pb-4">
-                                                <h4 class="info_price">Price : $30,500.00</h4>
-                                                <ul class="info_action_btns_flex">
-                                                    <li><a href="#!">Pictures</a></li>
-                                                    <li><a href="#!">Videos</a></li>
-                                                    <li><a href="#!">View Details</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="swiper-pagination"></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                 </div>
+                                 <div class="arrow_flex">
+                                    <button class="horse_arrow_left" tabindex="0" aria-label="Previous slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-left"
+                                          aria-hidden="true"></i></button>
+                                    <button class="horse_arrow_right" tabindex="0" aria-label="Next slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-right"
+                                          aria-hidden="true"></i></button>
+                                 </div>
+                                 <img src="https://horse.testlinkhost.com/assets/images/SOLD.png" class="sold_badge"
+                                    alt="" srcset="">
+                              </div>
+                              <h2 class="breed_text">Alter Real</h2>
+                              <div class="text_box">
+                                 <div class="custome_listing_row">
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>
+                                             12 Yrs
+                                             Old
+                                          </li>
+                                          <li>16.0 HH</li>
+                                          <li>Stallion</li>
+                                       </ul>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                        <div class="seller_detail_card">
-                                            <div class="card_title">
-                                                <h3>King of Kings</h3>
-                                            </div>
-                                            <div class="relative_img_box">
-                                                <div class="swiper horse_swiper_one">
-                                                    <div class="swiper-wrapper">
-                                                        <div class="swiper-slide"><img src="/assets/images/H_01.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_02.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                        <div class="swiper-slide"><img src="/assets/images/H_03.jpg" alt="img" class="img-fluid w-100" /></div>
-                                                    </div>
-                                                </div>
-                                                <button class="horse_arrow right"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                                <button class="horse_arrow left"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
-                                                <div class="sold_abs_box">
-                                                    <h1>Sold</h1>
-                                                </div>
-                                            </div>
-                                            <div class="middle_info_box">
-                                                <ul class="info_list_one">
-                                                    <li>BREED: <span>Lerino Dun</span></li>
-                                                    <li>AGE: <span>10 Months</span></li>
-                                                    <li>HEIGHT: <span>10.2 HH</span></li>
-                                                    <li>SEX: <span>10.2 HH</span></li>
-                                                </ul>
-                                                <ul class="info_list_one">
-                                                    <li>COLOR: <span>Silver Dapple</span></li>
-                                                    <li>REGISTERED: <span>Yes</span></li>
-                                                    <li>GAITED: <span>No</span></li>
-                                                    <li>LOCATION: <span> Lafayette, NJ</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="bottom_info_box pt-4 pb-4">
-                                                <h4 class="info_price">Price : $30,500.00</h4>
-                                                <ul class="info_action_btns_flex">
-                                                    <li><a href="#!">Pictures</a></li>
-                                                    <li><a href="#!">Videos</a></li>
-                                                    <li><a href="#!">View Details</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>Black Bay</li>
+                                          <li>Registered: No</li>
+                                          <li>Gaited: </li>
+                                       </ul>
                                     </div>
+                                 </div>
+                                 <div class="custome_listing_col w-100">
+                                    <ul class="info_list">
+                                       <li class="m-0 mb-2">
+                                          Lafayette,
+                                          NJ
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="blue_wrapper">
+                                    <div class="blue_stripe">
+                                       <h3>
+                                          Price: $15,000
+                                       </h3>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="https://horse.testlinkhost.com/products_detail/PROSKUdfcb6b9529abc89c26d3cd00ffa3dd60"
+                                          class="horse_card_btn w-100">View Details</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                       <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Share</a>
+                                       <form class="horse_card_btn favorite-form" action="" method="POST">
+                                          <input type="hidden" name="_token" value="" autocomplete="off">
+                                          <button class="fvrt_btn" type="button" title="Add to favorite">
+                                             Favorite <i class="fa fa-heart-o" aria-hidden="true" style=""></i>
+                                          </button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                           <div class="horse_list_card horse_list_card_new">
+                              <div class="blue_stripe">
+                                 <p class="fs_tag">For Sale</p>
+                                 <ul class="top_list">
+                                 </ul>
+                              </div>
+                              <div class="blue_stripe blue_stripe_new">
+                                 <h2>Riding the Silver Lining</h2>
+                                 <label class="heart_checkbox_wrapper d-block">
+                                    <input type="checkbox" class="heartCheckbox" hidden="">
+                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                 </label>
+                              </div>
+                              <div class="img_box">
+                                 <div
+                                    class="swiper horse_list_card_slider h-100 w-100 swiper-initialized swiper-horizontal swiper-backface-hidden">
+                                    <div class="swiper-wrapper" id="swiper-wrapper-6cf9713f68ad1553" aria-live="polite">
+                                       <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 2"
+                                          data-swiper-slide-index="0" style="width: 420px;">
+                                          <img
+                                             src="https://horse.testlinkhost.com/Featured_image/Featured_1776836581_QY0LQ1IuLX.png"
+                                             alt="Featured Image" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                       <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 2"
+                                          data-swiper-slide-index="1" style="width: 420px;">
+                                          <img src="https://horse.testlinkhost.com/assets/images/placeholder.png"
+                                             alt="Placeholder" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                 </div>
+                                 <div class="arrow_flex">
+                                    <button class="horse_arrow_left" tabindex="0" aria-label="Previous slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-left"
+                                          aria-hidden="true"></i></button>
+                                    <button class="horse_arrow_right" tabindex="0" aria-label="Next slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-right"
+                                          aria-hidden="true"></i></button>
+                                 </div>
+                                 <img src="https://horse.testlinkhost.com/assets/images/SOLD.png" class="sold_badge"
+                                    alt="" srcset="">
+                              </div>
+                              <h2 class="breed_text">Alter Real</h2>
+                              <div class="text_box">
+                                 <div class="custome_listing_row">
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>
+                                             12 Yrs
+                                             Old
+                                          </li>
+                                          <li>16.0 HH</li>
+                                          <li>Stallion</li>
+                                       </ul>
+                                    </div>
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>Black Bay</li>
+                                          <li>Registered: No</li>
+                                          <li>Gaited: </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="custome_listing_col w-100">
+                                    <ul class="info_list">
+                                       <li class="m-0 mb-2">
+                                          Lafayette,
+                                          NJ
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="blue_wrapper">
+                                    <div class="blue_stripe">
+                                       <h3>
+                                          Price: $15,000
+                                       </h3>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="https://horse.testlinkhost.com/products_detail/PROSKUdfcb6b9529abc89c26d3cd00ffa3dd60"
+                                          class="horse_card_btn w-100">View Details</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                       <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Share</a>
+                                       <form class="horse_card_btn favorite-form" action="" method="POST">
+                                          <input type="hidden" name="_token" value="" autocomplete="off">
+                                          <button class="fvrt_btn" type="button" title="Add to favorite">
+                                             Favorite <i class="fa fa-heart-o" aria-hidden="true" style=""></i>
+                                          </button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                           <div class="horse_list_card horse_list_card_new">
+                              <div class="blue_stripe">
+                                 <p class="fs_tag">For Sale</p>
+                                 <ul class="top_list">
+                                 </ul>
+                              </div>
+                              <div class="blue_stripe blue_stripe_new">
+                                 <h2>Riding the Silver Lining</h2>
+                                 <label class="heart_checkbox_wrapper d-block">
+                                    <input type="checkbox" class="heartCheckbox" hidden="">
+                                    <i class="fa fa-heart-o icon_heart" aria-hidden="true"></i>
+                                 </label>
+                              </div>
+                              <div class="img_box">
+                                 <div
+                                    class="swiper horse_list_card_slider h-100 w-100 swiper-initialized swiper-horizontal swiper-backface-hidden">
+                                    <div class="swiper-wrapper" id="swiper-wrapper-6cf9713f68ad1553" aria-live="polite">
+                                       <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 2"
+                                          data-swiper-slide-index="0" style="width: 420px;">
+                                          <img
+                                             src="https://horse.testlinkhost.com/Featured_image/Featured_1776836581_QY0LQ1IuLX.png"
+                                             alt="Featured Image" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                       <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 2"
+                                          data-swiper-slide-index="1" style="width: 420px;">
+                                          <img src="https://horse.testlinkhost.com/assets/images/placeholder.png"
+                                             alt="Placeholder" class="img-fluid w-100 img_radius_one">
+                                       </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                 </div>
+                                 <div class="arrow_flex">
+                                    <button class="horse_arrow_left" tabindex="0" aria-label="Previous slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-left"
+                                          aria-hidden="true"></i></button>
+                                    <button class="horse_arrow_right" tabindex="0" aria-label="Next slide"
+                                       aria-controls="swiper-wrapper-6cf9713f68ad1553"><i class="fa fa-chevron-right"
+                                          aria-hidden="true"></i></button>
+                                 </div>
+                                 <img src="https://horse.testlinkhost.com/assets/images/SOLD.png" class="sold_badge"
+                                    alt="" srcset="">
+                              </div>
+                              <h2 class="breed_text">Alter Real</h2>
+                              <div class="text_box">
+                                 <div class="custome_listing_row">
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>
+                                             12 Yrs
+                                             Old
+                                          </li>
+                                          <li>16.0 HH</li>
+                                          <li>Stallion</li>
+                                       </ul>
+                                    </div>
+                                    <div class="custome_listing_col">
+                                       <ul class="info_list">
+                                          <li>Black Bay</li>
+                                          <li>Registered: No</li>
+                                          <li>Gaited: </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="custome_listing_col w-100">
+                                    <ul class="info_list">
+                                       <li class="m-0 mb-2">
+                                          Lafayette,
+                                          NJ
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="blue_wrapper">
+                                    <div class="blue_stripe">
+                                       <h3>
+                                          Price: $15,000
+                                       </h3>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="https://horse.testlinkhost.com/products_detail/PROSKUdfcb6b9529abc89c26d3cd00ffa3dd60"
+                                          class="horse_card_btn w-100">View Details</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Seller Profile</a>
+                                       <a href="#!" class="horse_card_btn">Chat with seller</a>
+                                    </div>
+                                    <div class="horse_list_card_btn_flex_new bottom_row">
+                                       <a href="#!" class="horse_card_btn">Share</a>
+                                       <form class="horse_card_btn favorite-form" action="" method="POST">
+                                          <input type="hidden" name="_token" value="" autocomplete="off">
+                                          <button class="fvrt_btn" type="button" title="Add to favorite">
+                                             Favorite <i class="fa fa-heart-o" aria-hidden="true" style=""></i>
+                                          </button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div> --}}
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                         <div class="side_box_one">
                             <div class="box_title">
-                                <h2>Services offered<h2>
+                                <h2>
+                                    Services offered
+                                    <h2>
                             </div>
                             <ul>
-                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Training</li>
+                                @if (!empty($user->services))
+                                    @php
+                                        $services = json_decode($user->services, true);
+                                        $services = array_slice($services ?? [], 0, 4);
+                                    @endphp
+
+                                    @foreach ($services as $index => $item)
+                                        <li>
+                                            <span class="me-3">
+                                                <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
+                                            </span>
+
+                                            {{ $item }}
+                                        </li>
+                                    @endforeach
+                                @endif
+                                {{-- <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Training</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Lessons</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Boarding</li>
-                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Sales</li>
+                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Sales</li> --}}
                             </ul>
                         </div>
                         <div class="side_box_one">
                             <div class="box_title">
-                                <h2>Specialized breeds<h2>
+                                <h2>
+                                    Specialized breeds
+                                    <h2>
                             </div>
                             <ul>
-                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Quarter Horses</li>
+
+                              @if (!empty($user->breed))
+                                 @php
+                                       $services = json_decode($user->breed, true);
+                                       $services = array_slice($services ?? [], 0, 4);
+                                 @endphp
+
+                                 @foreach ($services as $index => $item)
+                                    <li>
+                                       <span class="me-3">
+                                          <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
+                                       </span>
+
+                                       {{ $item }}
+                                    </li>
+                                 @endforeach
+                              @endif
+
+                                {{-- <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Quarter Horses</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Friesian Crosses</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Draft Crosses</li>
-                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Gypsy Crosses</li>
+                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Gypsy Crosses</li> --}}
                             </ul>
                         </div>
-                        <div class="side_box_one">
+                        <div class="side_box_one v1">
                             <div class="box_title">
-                                <h2>SPECIALIZED SKILLS | DISCIPLINE<h2>
+                                <h2>
+                                    SPECIALIZED SKILLS | DISCIPLINE
+                                    <h2>
                             </div>
                             <ul>
-                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Trail riding</li>
+                              @if (!empty($user->skill))
+                                 @php
+                                       $services = json_decode($user->skill, true);
+                                       $services = array_slice($services ?? [], 0, 7);
+                                 @endphp
+
+                                 @foreach ($services as $index => $item)
+                                    <li>
+                                       <span class="me-3">
+                                          <img src="/assets/images/h_icon.png" alt="img" class="img-fluid">
+                                       </span>
+
+                                       {{ $item }}
+                                    </li>
+                                 @endforeach
+                              @endif
+                              
+                                {{-- <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Trail riding</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Dressage</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Western</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Lessons</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Trick</li>
                                 <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Riding</li>
-                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Jumping</li>
+                                <li><span class="me-3"><img src="/assets/images/h_icon.png" alt="img" class="img-fluid"></span>Jumping</li> --}}
                             </ul>
                         </div>
                     </div>
@@ -1651,7 +2349,6 @@
             </div>
         </div>
     </section>
-
     <script>
         const FULL_DASH_ARRAY = 2 * Math.PI * 34;
 

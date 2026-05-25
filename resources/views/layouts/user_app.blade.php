@@ -244,34 +244,43 @@ button.btn.btn-primary.mt-3 {
     </div>
 
 
-    <div class="custome_popup" id="deleteModal">
-        <div class="modal_content">
-            <div class="horse-form text-center">
-                <div class="horse-container">
-                    <h1 class="title">ARE YOU SURE YOU WANT TO <br> DELETE YOUR AD?</h1>
-
-                    <p class="description-text"> We're sad to see you go! Deleting your ad will end your subscription
-                        and delete your ad—no further monthly charges will apply.
-                        The ad won’t be saved, and re-listing means starting fresh.
-                        Thank you for choosing Horse Auction Network!</p>
-
-                    <div class="button-container">
-                        <button class="btn-cancel btn-cancel-delete">Cancel</button>
-                        <button class="btn-submit">Yes! Delete my Ad</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
     <script src="{{ getenv('APP_URL') }}/assets/js/bootstrap.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/assets/js/swiper-bundle.min.js"></script>
-    <script src="{{ getenv('APP_URL') }}/assets/js/custom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ getenv('APP_URL') }}/assets/js/custom.js"></script>
+
+
+   <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize all sliders
+            document.querySelectorAll('.user_gen_card_one').forEach((card) => {
+                const sliderEl = card.querySelector('.user_card_slider');
+                const nextBtn = card.querySelector('.user_arrow_right');
+                const prevBtn = card.querySelector('.user_arrow_left');
+
+                if (sliderEl) {
+                    new Swiper(sliderEl, {
+                        loop: true,
+                        grabCursor: true,
+                        navigation: {
+                            nextEl: nextBtn,
+                            prevEl: prevBtn,
+                        },
+                        // Ye zaroori hai agar cards hidden ya tabs mein hon
+                        observer: true,
+                        observeParents: true,
+                        // Multiple sliders ko handle karne ke liye
+                        watchSlidesProgress: true,
+                    });
+                }
+            });
+        });
+    </script>
 
     @if (Session::has('alert-success'))
         <script>
@@ -299,7 +308,26 @@ button.btn.btn-primary.mt-3 {
         $("#imageUpload").change(function() {
             readURL(this);
         });
+document.addEventListener('DOMContentLoaded', function() {
 
+    const deleteModal = document.getElementById('deleteAdModal');
+    const deleteForm = document.getElementById('deleteAdForm');
+
+    // Har delete button par click
+    document.querySelectorAll('.dlt_btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const adId = this.getAttribute('data-id');
+            
+            // Form ka action URL dynamic banao
+            deleteForm.action = `{{ route('ads.destroy', '') }}/${adId}`;
+            
+            // Modal show karo (Bootstrap)
+            $('#deleteAdModal').modal('show');
+        });
+    });
+});
         $(document).ready(function() {
             $('#imageUpload').change(function() {
                 var formData = new FormData();
@@ -345,21 +373,7 @@ button.btn.btn-primary.mt-3 {
         });
     </script>
 
-    <script>
-        document.querySelectorAll('.user_gen_card_one').forEach((card) => {
-            const slider = card.querySelector('.user_card_slider');
-            const nextBtn = card.querySelector('.user_arrow_right');
-            const prevBtn = card.querySelector('.user_arrow_left');
-
-            new Swiper(slider, {
-                loop: true,
-                navigation: {
-                    nextEl: nextBtn,
-                    prevEl: prevBtn,
-                },
-            });
-        });
-    </script>
+    
 
     <script>
         const horseSoldRadio = document.getElementById('horseSold');
